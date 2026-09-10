@@ -40,17 +40,32 @@ jobs:
             rm -f /tmp/stats_2026.csv
           fi
 
-      - name: Build compact Prop Edge stats
+      - name: Build Prop Edge v4 data
         run: |
           python - <<'PY'
           import csv
           import os
+          from collections import defaultdict
 
-          wanted = [
+          # ---------------------------------
+          # SOURCE FILES
+          # ---------------------------------
+
+          source_files = [
+              "data/stats_player_week_2025.csv",
+              "data/stats_player_week_2026.csv",
+          ]
+
+          # ---------------------------------
+          # PLAYER MODEL FILE
+          # ---------------------------------
+
+          player_columns = [
               "player_id",
               "player_name",
               "player_display_name",
               "position",
+              "position_group",
               "season",
               "week",
               "season_type",
@@ -70,34 +85,334 @@ jobs:
               "receiving_tds",
           ]
 
-          source_files = [
-              "data/stats_player_week_2025.csv",
-              "data/stats_player_week_2026.csv",
+          player_output = "data/prop_edge_stats.csv"
+
+          # ---------------------------------
+          # MATCHUP MODEL FILE
+          # ---------------------------------
+
+          matchup_columns = [
+              "season",
+              "week",
+              "defense",
+              "offense",
+              "position_group",
+              "pass_attempts_allowed",
+              "completions_allowed",
+              "passing_yards_allowed",
+              "passing_tds_allowed",
+              "interceptions_forced",
+              "rush_attempts_allowed",
+              "rushing_yards_allowed",
+              "rushing_tds_allowed",
+              "targets_allowed",
+              "receptions_allowed",
+              "receiving_yards_allowed",
+              "receiving_tds_allowed",
           ]
 
-          output = "data/prop_edge_stats.csv"
+          matchup_output = "data/prop_edge_matchups.csv"
 
-          rows_written = 0
+          # ---------------------------------
+          # HELPERS
+          # ---------------------------------
 
-          with open(output, "w", newline="", encoding="utf-8") as out:
-              writer = csv.DictWriter(out, fieldnames=wanted)
+          def number(value):
+              try:
+                  if value is None or value == "":
+                      return 0.0
+                  return float(value)
+              except:
+                  return 0.0
+
+          def clean_position_group(row):
+              group = (row.get("position_group") or "").strip().upper()
+
+              if group:
+                  return group
+
+              position = (row.get("position") or "").strip().upper()
+
+              if position in ("QB",):
+                  return "QB"
+
+              if position in ("RB", "FB"):
+                  return "RB"
+
+              if position in ("WR",):
+                  return "WR"
+
+              if position in ("TE",):
+                  return "TE"
+
+              return "OTHER"
+
+          # ---------------------------------
+          # READ DATA
+          # ---------------------------------
+
+          all_rows = []
+
+          for source in source_files:
+
+              if not os.path.exists(source):
+                  continue
+
+              with open(
+                  source,
+                  newline="",
+                  encoding="utf-8-sig"
+              ) as f:
+
+                  reader = csv.DictReader(f)
+
+                  for row in reader:
+
+                      season_type = (
+                          row.get("season_type") or ""
+                      ).strip().upper()
+
+                      # Regular season only.
+                      if season_type and season_type != "REG":
+                          continue
+
+                      all_rows.append(row)
+
+          print(f"Loaded {len(all_rows)} regular-season player rows")
+
+          # ---------------------------------
+          # WRITE COMPACT PLAYER FILE
+          # ---------------------------------
+
+          player_rows_written = 0
+
+          with open(
+              player_output,
+              "w",
+              newline="",
+              encoding="utf-8"
+          ) as out:
+
+              writer = csv.DictWriter(
+                  out,
+                  fieldnames=player_columns
+              )
+
               writer.writeheader()
 
-              for source in source_files:
-                  if not os.path.exists(source):
-                      continue
+              for row in all_rows:
 
-                  with open(source, newline="", encoding="utf-8-sig") as f:
-                      reader = csv.DictReader(f)
+                  writer.writerow({
+                      col: row.get(col, "")
+                      for col in player_columns
+                  })
 
-                      for row in reader:
-                          writer.writerow({
-                              col: row.get(col, "")
-                              for col in wanted
-                          })
-                          rows_written += 1
+                  player_rows_written += 1
 
-          print(f"Wrote {rows_written} rows to {output}")
+          print(
+              f"Wrote {player_rows_written} rows "
+              f"to {player_output}"
+          )
+
+          # ---------------------------------
+          # BUILD DEFENSE / MATCHUP DATA
+          # ---------------------------------
+
+          #
+          # Each row in the nflverse player file tells us:
+          #
+          # team          = offense
+          # opponent_team = defense
+          #
+          # That lets Prop Edge calculate what each defense
+          # actually allowed to each position group.
+          #
+          # We create:
+          #
+          # QB
+          # RB
+          # WR
+          # TE
+          # OTHER
+          # ALL
+          #
+          # for every defense / week.
+          #
+
+          matchup = defaultdict(lambda: {
+              "pass_attempts_allowed": 0.0,
+              "completions_allowed": 0.0,
+              "passing_yards_allowed": 0.0,
+              "passing_tds_allowed": 0.0,
+              "interceptions_forced": 0.0,
+              "rush_attempts_allowed": 0.0,
+              "rushing_yards_allowed": 0.0,
+              "rushing_tds_allowed": 0.0,
+              "targets_allowed": 0.0,
+              "receptions_allowed": 0.0,
+              "receiving_yards_allowed": 0.0,
+              "receiving_tds_allowed": 0.0,
+          })
+
+          metric_map = {
+              "attempts": "pass_attempts_allowed",
+              "completions": "completions_allowed",
+              "passing_yards": "passing_yards_allowed",
+              "passing_tds": "passing_tds_allowed",
+              "interceptions": "interceptions_forced",
+              "carries": "rush_attempts_allowed",
+              "rushing_yards": "rushing_yards_allowed",
+              "rushing_tds": "rushing_tds_allowed",
+              "targets": "targets_allowed",
+              "receptions": "receptions_allowed",
+              "receiving_yards": "receiving_yards_allowed",
+              "receiving_tds": "receiving_tds_allowed",
+          }
+
+          for row in all_rows:
+
+              season = str(row.get("season") or "").strip()
+              week = str(row.get("week") or "").strip()
+
+              offense = (
+                  row.get("team") or ""
+              ).strip().upper()
+
+              defense = (
+                  row.get("opponent_team") or ""
+              ).strip().upper()
+
+              if not season or not week:
+                  continue
+
+              if not offense or not defense:
+                  continue
+
+              position_group = clean_position_group(row)
+
+              keys = [
+                  (
+                      season,
+                      week,
+                      defense,
+                      offense,
+                      position_group
+                  ),
+                  (
+                      season,
+                      week,
+                      defense,
+                      offense,
+                      "ALL"
+                  ),
+              ]
+
+              for key in keys:
+
+                  bucket = matchup[key]
+
+                  for source_col, output_col in metric_map.items():
+
+                      bucket[output_col] += number(
+                          row.get(source_col)
+                      )
+
+          # ---------------------------------
+          # WRITE MATCHUP FILE
+          # ---------------------------------
+
+          matchup_rows = []
+
+          for key, totals in matchup.items():
+
+              (
+                  season,
+                  week,
+                  defense,
+                  offense,
+                  position_group
+              ) = key
+
+              row = {
+                  "season": season,
+                  "week": week,
+                  "defense": defense,
+                  "offense": offense,
+                  "position_group": position_group,
+              }
+
+              for metric in matchup_columns[5:]:
+
+                  value = totals[metric]
+
+                  # Cleaner CSV output.
+                  if abs(value - round(value)) < 0.000001:
+                      value = int(round(value))
+                  else:
+                      value = round(value, 3)
+
+                  row[metric] = value
+
+              matchup_rows.append(row)
+
+          matchup_rows.sort(
+              key=lambda r: (
+                  int(r["season"]),
+                  int(r["week"]),
+                  r["defense"],
+                  r["position_group"]
+              )
+          )
+
+          with open(
+              matchup_output,
+              "w",
+              newline="",
+              encoding="utf-8"
+          ) as out:
+
+              writer = csv.DictWriter(
+                  out,
+                  fieldnames=matchup_columns
+              )
+
+              writer.writeheader()
+
+              writer.writerows(matchup_rows)
+
+          print(
+              f"Wrote {len(matchup_rows)} matchup rows "
+              f"to {matchup_output}"
+          )
+
+          # ---------------------------------
+          # QUICK VALIDATION
+          # ---------------------------------
+
+          defenses = {
+              row["defense"]
+              for row in matchup_rows
+              if row["defense"]
+          }
+
+          seasons = {
+              row["season"]
+              for row in matchup_rows
+              if row["season"]
+          }
+
+          print(
+              "Matchup database contains "
+              f"{len(defenses)} defenses "
+              f"across seasons: "
+              f"{', '.join(sorted(seasons))}"
+          )
+
+          if not matchup_rows:
+              raise RuntimeError(
+                  "No matchup rows were generated."
+              )
+
           PY
 
       - name: Commit updated stats
@@ -110,6 +425,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No stats changes."
           else
-            git commit -m "Update NFL player stats"
+            git commit -m "Update Prop Edge NFL data"
             git push
           fi
