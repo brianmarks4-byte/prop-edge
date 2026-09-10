@@ -184,6 +184,22 @@ select:focus,input:focus{
   padding:14px;
 }
 
+.bestCard{
+  background:#0e1d17;
+  border:1px solid #24563e;
+}
+
+.bestBadge{
+  display:inline-block;
+  background:#173b2c;
+  color:var(--green);
+  padding:5px 8px;
+  border-radius:999px;
+  font-size:10px;
+  font-weight:900;
+  margin-bottom:8px;
+}
+
 .propTop{
   display:flex;
   justify-content:space-between;
@@ -283,6 +299,50 @@ select:focus,input:focus{
   font-size:15px;
 }
 
+.matchupPanel{
+  border-top:1px solid #263140;
+  background:#0d1219;
+  padding:11px;
+}
+
+.matchupTitle{
+  font-size:11px;
+  font-weight:900;
+  color:#9fa9b9;
+  text-transform:uppercase;
+}
+
+.matchupGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:8px;
+}
+
+.matchupBox{
+  background:#111923;
+  border:1px solid #242f3d;
+  border-radius:10px;
+  padding:9px;
+}
+
+.matchupLabel{
+  font-size:9px;
+  text-transform:uppercase;
+  color:#778193;
+  font-weight:900;
+}
+
+.matchupValue{
+  margin-top:3px;
+  font-size:14px;
+  font-weight:900;
+}
+
+.favorable{color:var(--green)}
+.neutral{color:var(--yellow)}
+.tough{color:var(--red)}
+
 .pickLean{
   padding:11px;
   border-top:1px solid #202a36;
@@ -345,22 +405,6 @@ select:focus,input:focus{
 }
 
 .error{color:#ff9aaa}
-
-.bestCard{
-  background:#0e1d17;
-  border:1px solid #24563e;
-}
-
-.bestBadge{
-  display:inline-block;
-  background:#173b2c;
-  color:var(--green);
-  padding:5px 8px;
-  border-radius:999px;
-  font-size:10px;
-  font-weight:900;
-  margin-bottom:8px;
-}
 
 .modelStatus{
   margin-top:7px;
@@ -451,12 +495,31 @@ select:focus,input:focus{
   border-bottom:1px solid #202936;
 }
 
-.parlayLeg:last-child{
-  border-bottom:0;
+.legDetails{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6px;
+  margin-top:8px;
 }
 
-.legSide{
+.legDetail{
+  background:#101720;
+  border:1px solid #202b38;
+  padding:7px 8px;
+  border-radius:8px;
+}
+
+.legDetailLabel{
+  color:#778193;
+  font-size:8px;
   font-weight:900;
+  text-transform:uppercase;
+}
+
+.legDetailValue{
+  font-size:12px;
+  font-weight:900;
+  margin-top:2px;
 }
 
 .corrLow{color:var(--green)}
@@ -474,9 +537,7 @@ select:focus,input:focus{
   font-weight:900;
 }
 
-.hidden{
-  display:none;
-}
+.hidden{display:none}
 
 .disclaimer{
   margin-top:18px;
@@ -494,12 +555,13 @@ select:focus,input:focus{
 <header>
   <div class="brand">Prop <span>Edge</span></div>
   <div class="subtitle">
-    NFL PrizePicks board + automatic statistical prop ratings
+    NFL PrizePicks board + player form + opponent matchup analysis
   </div>
 </header>
 
 <section class="card">
   <div class="row">
+
     <div>
       <div class="title">
         <span class="live"></span>Live Data
@@ -510,22 +572,25 @@ select:focus,input:focus{
       </div>
 
       <div id="modelStatus" class="modelStatus">
-        Loading Prop Edge model...
+        Loading Prop Edge Model v4...
       </div>
     </div>
 
     <button class="refresh" id="refreshBtn">
       Refresh
     </button>
+
   </div>
 </section>
 
 <section class="card">
+
   <div class="title" style="margin-bottom:12px">
     Filters
   </div>
 
   <div class="filters">
+
     <div>
       <label>Game</label>
       <select id="gameFilter">
@@ -585,7 +650,7 @@ select:focus,input:focus{
         <option value="5">5+ Games</option>
         <option value="6">6+ Games</option>
         <option value="8">8+ Games</option>
-        <option value="10">10 Games</option>
+        <option value="10">10+ Games</option>
       </select>
     </div>
 
@@ -594,14 +659,18 @@ select:focus,input:focus{
       <select id="sortFilter">
         <option value="board" selected>PrizePicks Board</option>
         <option value="rating">Best Model Picks</option>
+        <option value="strength">Highest Leg Strength</option>
+        <option value="matchup">Best Matchup</option>
         <option value="edge">Strongest Statistical Edge</option>
         <option value="lean">Highest Model Lean</option>
         <option value="hit">Highest Historical Hit Rate</option>
       </select>
     </div>
+
   </div>
 
   <div class="filterButtons" style="margin-top:10px">
+
     <button id="allBtn" class="filterBtn active">
       All Props
     </button>
@@ -609,19 +678,23 @@ select:focus,input:focus{
     <button id="bestBtn" class="filterBtn">
       Best Bets Only
     </button>
+
   </div>
+
 </section>
 
 <section class="card">
+
   <div class="title">
     Parlay Builder
   </div>
 
   <div class="small" style="margin-top:4px">
-    Builds combinations from Prop Edge v3 Best Bets.
+    Builds combinations using player strength, matchup strength and correlation.
   </div>
 
   <div class="parlayControls">
+
     <div>
       <label>Parlay Scope</label>
       <select id="parlayScope">
@@ -651,6 +724,7 @@ select:focus,input:focus{
     <button id="generateParlays" class="primaryBtn">
       Generate Top Parlays
     </button>
+
   </div>
 
   <div id="parlayResults">
@@ -658,6 +732,7 @@ select:focus,input:focus{
       Choose your settings and tap Generate Top Parlays.
     </div>
   </div>
+
 </section>
 
 <div class="boardHead">
@@ -672,7 +747,9 @@ select:focus,input:focus{
 </section>
 
 <section class="card">
+
   <div class="row">
+
     <div>
       <div class="title">
         My Lineup
@@ -686,16 +763,17 @@ select:focus,input:focus{
     <button id="clearPicks" class="refresh">
       Clear
     </button>
+
   </div>
 
   <div id="pickList"></div>
+
 </section>
 
 <div class="disclaimer">
-  Prop Edge Model v3 is a statistical screening model.
-  Model Score and Model Lean are estimates, not guaranteed hit rates.
-  Parlay grades are comparative rankings and do not represent guaranteed win probability.
-  Early-season projections are intentionally conservative.
+  Prop Edge Model v4 is a statistical screening model.
+  Matchup adjustments are intentionally limited and use historical opponent production allowed.
+  Model Score, Model Lean, Matchup Score, Leg Strength and Parlay Grade are not guaranteed win probabilities.
 </div>
 
 </main>
@@ -708,8 +786,12 @@ const PP_URL =
 const NFL_STATS =
 "./data/prop_edge_stats.csv";
 
+const MATCHUP_STATS =
+"./data/prop_edge_matchups.csv";
+
 let allProps=[];
 let statsRows=[];
+let matchupRows=[];
 let models=new Map();
 let selected={};
 let bestOnly=false;
@@ -718,48 +800,40 @@ let generatedParlays=[];
 const $=id=>document.getElementById(id);
 
 function text(v){
-  return v===undefined || v===null
-    ? ""
-    : String(v);
+  return v===undefined || v===null ? "" : String(v);
 }
 
 function num(v){
   const x=Number(v);
-  return Number.isFinite(x)
-    ? x
-    : 0;
+  return Number.isFinite(x) ? x : 0;
 }
 
 function clamp(x,min,max){
-  return Math.max(
-    min,
-    Math.min(max,x)
-  );
+  return Math.max(min,Math.min(max,x));
 }
 
 function mean(arr){
   if(!arr.length) return 0;
+  return arr.reduce((a,b)=>a+b,0)/arr.length;
+}
 
-  return arr.reduce(
-    (a,b)=>a+b,
-    0
-  )/arr.length;
+function weightedMean(items){
+  let total=0;
+  let weights=0;
+
+  items.forEach(x=>{
+    total+=x.value*x.weight;
+    weights+=x.weight;
+  });
+
+  return weights ? total/weights : 0;
 }
 
 function median(arr){
-  if(!arr.length){
-    return 0;
-  }
+  if(!arr.length) return 0;
 
-  const s=
-    [...arr].sort(
-      (a,b)=>a-b
-    );
-
-  const mid=
-    Math.floor(
-      s.length/2
-    );
+  const s=[...arr].sort((a,b)=>a-b);
+  const mid=Math.floor(s.length/2);
 
   return s.length%2
     ? s[mid]
@@ -767,20 +841,15 @@ function median(arr){
 }
 
 function sd(arr){
-  if(arr.length<2){
-    return 0;
-  }
+  if(arr.length<2) return 0;
 
   const m=mean(arr);
 
   return Math.sqrt(
     arr.reduce(
-      (sum,x)=>
-        sum+
-        Math.pow(x-m,2),
+      (sum,x)=>sum+Math.pow(x-m,2),
       0
-    )/
-    (arr.length-1)
+    )/(arr.length-1)
   );
 }
 
@@ -788,41 +857,22 @@ function normName(name){
   return text(name)
     .toLowerCase()
     .normalize("NFD")
-    .replace(
-      /[\u0300-\u036f]/g,
-      ""
-    )
-    .replace(
-      /[^a-z0-9]/g,
-      ""
-    );
+    .replace(/[\u0300-\u036f]/g,"")
+    .replace(/[^a-z0-9]/g,"");
 }
 
 function gameKey(p){
-  if(p.gameId){
-    return text(p.gameId);
-  }
+  if(p.gameId) return text(p.gameId);
 
   return [
     text(p.teamCode||p.Team),
     text(p.opponentCode||p.Opponent)
-  ]
-  .sort()
-  .join("-");
+  ].sort().join("-");
 }
 
 function matchup(p){
-  const a=
-    text(
-      p.teamCode||
-      p.Team
-    );
-
-  const b=
-    text(
-      p.opponentCode||
-      p.Opponent
-    );
+  const a=text(p.teamCode||p.Team);
+  const b=text(p.opponentCode||p.Opponent);
 
   return a && b
     ? `${a} vs ${b}`
@@ -839,9 +889,7 @@ function pKey(p){
 }
 
 function erf(x){
-  const sign=
-    x<0 ? -1 : 1;
-
+  const sign=x<0 ? -1 : 1;
   x=Math.abs(x);
 
   const a1=.254829592;
@@ -851,8 +899,7 @@ function erf(x){
   const a5=1.061405429;
   const p=.3275911;
 
-  const t=
-    1/(1+p*x);
+  const t=1/(1+p*x);
 
   const y=
     1-
@@ -863,69 +910,44 @@ function erf(x){
 }
 
 function normalCDF(x){
-  return .5*
-    (
-      1+
-      erf(
-        x/Math.sqrt(2)
-      )
-    );
+  return .5*(1+erf(x/Math.sqrt(2)));
 }
 
 function parseCSV(data){
-  const rows=[];
 
+  const rows=[];
   let row=[];
   let field="";
   let quoted=false;
 
-  for(
-    let i=0;
-    i<data.length;
-    i++
-  ){
+  for(let i=0;i<data.length;i++){
+
     const c=data[i];
 
     if(c==='"'){
-      if(
-        quoted &&
-        data[i+1]==='"'
-      ){
+
+      if(quoted && data[i+1]==='"'){
         field+='"';
         i++;
       }else{
         quoted=!quoted;
       }
 
-    }else if(
-      c==="," &&
-      !quoted
-    ){
+    }else if(c==="," && !quoted){
+
       row.push(field);
       field="";
 
-    }else if(
-      (
-        c==="\n" ||
-        c==="\r"
-      ) &&
-      !quoted
-    ){
-      if(
-        c==="\r" &&
-        data[i+1]==="\n"
-      ){
+    }else if((c==="\n" || c==="\r") && !quoted){
+
+      if(c==="\r" && data[i+1]==="\n"){
         i++;
       }
 
       row.push(field);
       field="";
 
-      if(
-        row.some(
-          v=>v!==""
-        )
-      ){
+      if(row.some(v=>v!=="")){
         rows.push(row);
       }
 
@@ -941,301 +963,729 @@ function parseCSV(data){
     rows.push(row);
   }
 
-  if(rows.length<2){
-    return [];
-  }
+  if(rows.length<2) return [];
 
-  const headers=
-    rows[0];
+  const headers=rows[0];
 
-  return rows
-    .slice(1)
-    .map(values=>{
-      const obj={};
+  return rows.slice(1).map(values=>{
 
-      headers.forEach(
-        (h,i)=>{
-          obj[h]=
-            values[i] ?? "";
-        }
-      );
+    const obj={};
 
-      return obj;
+    headers.forEach((h,i)=>{
+      obj[h]=values[i] ?? "";
     });
+
+    return obj;
+  });
 }
 
+/* -----------------------------
+   STAT MAPPING
+----------------------------- */
+
 function statValue(row,stat){
-  const s=
-    text(stat)
-      .toLowerCase()
-      .trim();
 
-  if(
-    s==="pass yards" ||
-    s==="passing yards"
-  ){
-    return num(
-      row.passing_yards
-    );
-  }
+  const s=text(stat).toLowerCase().trim();
 
-  if(
-    s==="pass attempts" ||
-    s==="passing attempts"
-  ){
-    return num(
-      row.attempts
-    );
-  }
+  if(s==="pass yards" || s==="passing yards")
+    return num(row.passing_yards);
+
+  if(s==="pass attempts" || s==="passing attempts")
+    return num(row.attempts);
 
   if(
     s==="completions" ||
     s==="pass completions" ||
     s==="passing completions"
-  ){
-    return num(
-      row.completions
-    );
-  }
+  )
+    return num(row.completions);
 
   if(
     s==="pass tds" ||
     s==="passing tds" ||
     s==="passing touchdowns"
-  ){
-    return num(
-      row.passing_tds
-    );
-  }
+  )
+    return num(row.passing_tds);
 
   if(
     s==="interceptions" ||
     s==="pass interceptions" ||
     s==="passing interceptions"
-  ){
-    return num(
-      row.interceptions
-    );
-  }
+  )
+    return num(row.interceptions);
 
-  if(
-    s==="rush yards" ||
-    s==="rushing yards"
-  ){
-    return num(
-      row.rushing_yards
-    );
-  }
+  if(s==="rush yards" || s==="rushing yards")
+    return num(row.rushing_yards);
 
-  if(
-    s==="rush attempts" ||
-    s==="rushing attempts"
-  ){
-    return num(
-      row.carries
-    );
-  }
+  if(s==="rush attempts" || s==="rushing attempts")
+    return num(row.carries);
 
-  if(
-    s==="receiving yards" ||
-    s==="rec yards"
-  ){
-    return num(
-      row.receiving_yards
-    );
-  }
+  if(s==="receiving yards" || s==="rec yards")
+    return num(row.receiving_yards);
 
-  if(s==="receptions"){
-    return num(
-      row.receptions
-    );
-  }
+  if(s==="receptions")
+    return num(row.receptions);
 
-  if(s==="targets"){
-    return num(
-      row.targets
-    );
-  }
+  if(s==="targets")
+    return num(row.targets);
 
   if(
     s==="rush+rec yards" ||
     s==="rush + rec yards" ||
     s==="rushing + receiving yards"
-  ){
-    return (
-      num(row.rushing_yards)+
-      num(row.receiving_yards)
-    );
-  }
+  )
+    return num(row.rushing_yards)+num(row.receiving_yards);
 
   if(
     s==="rush+rec tds" ||
     s==="rush + rec tds" ||
     s==="rushing + receiving tds"
-  ){
+  )
+    return num(row.rushing_tds)+num(row.receiving_tds);
+
+  return null;
+}
+
+function matchupMetric(row,stat){
+
+  const s=text(stat).toLowerCase().trim();
+
+  if(s==="pass yards" || s==="passing yards")
+    return num(row.passing_yards_allowed);
+
+  if(s==="pass attempts" || s==="passing attempts")
+    return num(row.pass_attempts_allowed);
+
+  if(
+    s==="completions" ||
+    s==="pass completions" ||
+    s==="passing completions"
+  )
+    return num(row.completions_allowed);
+
+  if(
+    s==="pass tds" ||
+    s==="passing tds" ||
+    s==="passing touchdowns"
+  )
+    return num(row.passing_tds_allowed);
+
+  if(
+    s==="interceptions" ||
+    s==="pass interceptions" ||
+    s==="passing interceptions"
+  )
+    return num(row.interceptions_forced);
+
+  if(s==="rush yards" || s==="rushing yards")
+    return num(row.rushing_yards_allowed);
+
+  if(s==="rush attempts" || s==="rushing attempts")
+    return num(row.rush_attempts_allowed);
+
+  if(s==="receiving yards" || s==="rec yards")
+    return num(row.receiving_yards_allowed);
+
+  if(s==="receptions")
+    return num(row.receptions_allowed);
+
+  if(s==="targets")
+    return num(row.targets_allowed);
+
+  if(
+    s==="rush+rec yards" ||
+    s==="rush + rec yards" ||
+    s==="rushing + receiving yards"
+  )
     return (
-      num(row.rushing_tds)+
-      num(row.receiving_tds)
+      num(row.rushing_yards_allowed)+
+      num(row.receiving_yards_allowed)
     );
+
+  if(
+    s==="rush+rec tds" ||
+    s==="rush + rec tds" ||
+    s==="rushing + receiving tds"
+  )
+    return (
+      num(row.rushing_tds_allowed)+
+      num(row.receiving_tds_allowed)
+    );
+
+  return null;
+}
+
+function roleValue(row,stat){
+
+  const s=text(stat).toLowerCase().trim();
+
+  if(
+    s.includes("pass") ||
+    s.includes("completion") ||
+    s.includes("interception")
+  ){
+    return num(row.attempts);
+  }
+
+  if(
+    s==="receiving yards" ||
+    s==="rec yards" ||
+    s==="receptions" ||
+    s==="targets"
+  ){
+    return num(row.targets);
+  }
+
+  if(
+    s==="rush yards" ||
+    s==="rushing yards" ||
+    s==="rush attempts" ||
+    s==="rushing attempts"
+  ){
+    return num(row.carries);
+  }
+
+  if(
+    s.includes("rush+rec") ||
+    s.includes("rush + rec") ||
+    s.includes("rushing + receiving")
+  ){
+    return num(row.carries)+num(row.targets);
   }
 
   return null;
 }
 
 function statSettings(stat){
-  const s=
-    text(stat)
-      .toLowerCase()
-      .trim();
 
-  if(
-    s==="pass yards" ||
-    s==="passing yards"
-  ){
-    return {
-      minGap:15,
-      minZ:.40,
-      penalty:1
-    };
-  }
+  const s=text(stat).toLowerCase().trim();
 
-  if(
-    s==="receiving yards" ||
-    s==="rec yards"
-  ){
-    return {
-      minGap:7,
-      minZ:.42,
-      penalty:1
-    };
-  }
+  if(s==="pass yards" || s==="passing yards")
+    return {minGap:15,minZ:.40,penalty:1};
 
-  if(
-    s==="rush yards" ||
-    s==="rushing yards"
-  ){
-    return {
-      minGap:6,
-      minZ:.42,
-      penalty:1
-    };
-  }
+  if(s==="receiving yards" || s==="rec yards")
+    return {minGap:7,minZ:.42,penalty:1};
+
+  if(s==="rush yards" || s==="rushing yards")
+    return {minGap:6,minZ:.42,penalty:1};
 
   if(
     s==="rush+rec yards" ||
     s==="rush + rec yards" ||
     s==="rushing + receiving yards"
-  ){
-    return {
-      minGap:8,
-      minZ:.42,
-      penalty:1
-    };
-  }
+  )
+    return {minGap:8,minZ:.42,penalty:1};
 
   if(
     s==="pass attempts" ||
     s==="passing attempts" ||
     s==="rush attempts" ||
     s==="rushing attempts"
-  ){
-    return {
-      minGap:2,
-      minZ:.40,
-      penalty:1
-    };
-  }
+  )
+    return {minGap:2,minZ:.40,penalty:1};
 
   if(
     s==="completions" ||
     s==="pass completions" ||
     s==="passing completions"
-  ){
-    return {
-      minGap:1.5,
-      minZ:.40,
-      penalty:1
-    };
-  }
+  )
+    return {minGap:1.5,minZ:.40,penalty:1};
 
-  if(s==="receptions"){
-    return {
-      minGap:1,
-      minZ:.42,
-      penalty:1
-    };
-  }
+  if(s==="receptions")
+    return {minGap:1,minZ:.42,penalty:1};
 
-  if(s==="targets"){
-    return {
-      minGap:1.2,
-      minZ:.42,
-      penalty:1
-    };
-  }
+  if(s==="targets")
+    return {minGap:1.2,minZ:.42,penalty:1};
 
   if(
     s.includes("td") ||
     s.includes("touchdown") ||
     s.includes("interception")
-  ){
-    return {
-      minGap:.45,
-      minZ:.55,
-      penalty:.78
-    };
-  }
+  )
+    return {minGap:.45,minZ:.55,penalty:.78};
 
-  return {
-    minGap:1,
-    minZ:.45,
-    penalty:.90
-  };
+  return {minGap:1,minZ:.45,penalty:.90};
 }
 
 function winsorize(arr){
-  if(arr.length<5){
-    return [...arr];
-  }
 
-  const sorted=
-    [...arr].sort(
-      (a,b)=>a-b
-    );
+  if(arr.length<5) return [...arr];
+
+  const sorted=[...arr].sort((a,b)=>a-b);
 
   const low=
     sorted[
-      Math.floor(
-        (sorted.length-1)*.10
-      )
+      Math.floor((sorted.length-1)*.10)
     ];
 
   const high=
     sorted[
-      Math.ceil(
-        (sorted.length-1)*.90
-      )
+      Math.ceil((sorted.length-1)*.90)
     ];
 
   return arr.map(
-    x=>clamp(
-      x,
-      low,
-      high
-    )
+    x=>clamp(x,low,high)
   );
 }
 
-function buildModel(prop){
-  const playerName=
-    normName(
-      prop.player
+/* -----------------------------
+   PLAYER POSITION
+----------------------------- */
+
+function cleanPositionGroup(row){
+
+  const pg=text(row.position_group).toUpperCase().trim();
+  const p=text(row.position).toUpperCase().trim();
+
+  if(pg==="QB" || p==="QB") return "QB";
+
+  if(
+    pg==="RB" ||
+    p==="RB" ||
+    p==="FB"
+  ) return "RB";
+
+  if(pg==="WR" || p==="WR") return "WR";
+
+  if(pg==="TE" || p==="TE") return "TE";
+
+  return pg || "OTHER";
+}
+
+/* -----------------------------
+   MATCHUP MODEL
+----------------------------- */
+
+function seasonDefenseAverage(
+  defense,
+  positionGroup,
+  stat,
+  season
+){
+
+  const rows=
+    matchupRows.filter(r=>
+      text(r.defense).toUpperCase()===defense &&
+      text(r.position_group).toUpperCase()===positionGroup &&
+      num(r.season)===season &&
+      matchupMetric(r,stat)!==null
     );
 
-  const line=
-    Number(
-      prop.line
+  if(!rows.length) return null;
+
+  const sorted=
+    [...rows].sort(
+      (a,b)=>num(b.week)-num(a.week)
     );
+
+  const weighted=
+    sorted.map((r,i)=>({
+      value:matchupMetric(r,stat),
+      weight:Math.pow(.93,i)
+    }));
+
+  return {
+    value:weightedMean(weighted),
+    games:rows.length
+  };
+}
+
+function seasonLeagueAverage(
+  positionGroup,
+  stat,
+  season
+){
+
+  const rows=
+    matchupRows.filter(r=>
+      text(r.position_group).toUpperCase()===positionGroup &&
+      num(r.season)===season &&
+      matchupMetric(r,stat)!==null
+    );
+
+  if(!rows.length) return null;
+
+  return mean(
+    rows.map(r=>matchupMetric(r,stat))
+  );
+}
+
+function blendedDefenseValue(
+  defense,
+  positionGroup,
+  stat
+){
+
+  const current=
+    seasonDefenseAverage(
+      defense,
+      positionGroup,
+      stat,
+      2026
+    );
+
+  const prior=
+    seasonDefenseAverage(
+      defense,
+      positionGroup,
+      stat,
+      2025
+    );
+
+  const leagueCurrent=
+    seasonLeagueAverage(
+      positionGroup,
+      stat,
+      2026
+    );
+
+  const leaguePrior=
+    seasonLeagueAverage(
+      positionGroup,
+      stat,
+      2025
+    );
+
+  if(!current && !prior) return null;
+
+  if(!current){
+
+    return {
+      defense:prior.value,
+      league:leaguePrior,
+      currentGames:0,
+      priorGames:prior.games
+    };
+  }
+
+  if(!prior){
+
+    return {
+      defense:current.value,
+      league:leagueCurrent,
+      currentGames:current.games,
+      priorGames:0
+    };
+  }
+
+  const currentWeight=
+    clamp(
+      current.games/6,
+      .20,
+      .75
+    );
+
+  const priorWeight=
+    1-currentWeight;
+
+  return {
+    defense:
+      current.value*currentWeight+
+      prior.value*priorWeight,
+
+    league:
+      (
+        (leagueCurrent ?? leaguePrior)*currentWeight+
+        (leaguePrior ?? leagueCurrent)*priorWeight
+      ),
+
+    currentGames:current.games,
+    priorGames:prior.games
+  };
+}
+
+function defenseRank(
+  targetDefense,
+  positionGroup,
+  stat
+){
+
+  const defenses=[
+    ...new Set(
+      matchupRows
+        .map(r=>text(r.defense).toUpperCase())
+        .filter(Boolean)
+    )
+  ];
+
+  const scores=[];
+
+  defenses.forEach(defense=>{
+
+    const x=
+      blendedDefenseValue(
+        defense,
+        positionGroup,
+        stat
+      );
+
+    if(
+      x &&
+      Number.isFinite(x.defense)
+    ){
+      scores.push({
+        defense,
+        value:x.defense
+      });
+    }
+  });
+
+  scores.sort(
+    (a,b)=>b.value-a.value
+  );
+
+  const index=
+    scores.findIndex(
+      x=>x.defense===targetDefense
+    );
+
+  if(index<0) return null;
+
+  return {
+    easiestRank:index+1,
+    total:scores.length
+  };
+}
+
+function buildMatchupContext(
+  prop,
+  positionGroup
+){
+
+  const defense=
+    text(
+      prop.opponentCode||
+      prop.Opponent
+    )
+    .toUpperCase()
+    .trim();
+
+  if(
+    !defense ||
+    !matchupRows.length
+  ){
+    return neutralMatchup(defense);
+  }
+
+  const blend=
+    blendedDefenseValue(
+      defense,
+      positionGroup,
+      prop.stat
+    );
+
+  if(
+    !blend ||
+    !blend.league ||
+    blend.league<=0
+  ){
+    return neutralMatchup(defense);
+  }
+
+  const ratio=
+    clamp(
+      blend.defense/blend.league,
+      .65,
+      1.35
+    );
+
+  /*
+  Environment score:
+  50 = league average
+  higher = defense allows more
+  lower = defense suppresses more
+  */
+
+  const environmentScore=
+    clamp(
+      50+
+      (ratio-1)*125,
+      25,
+      75
+    );
+
+  /*
+  Projection change stays conservative.
+  Even a very strong matchup can only
+  move the player projection about 7%.
+  */
+
+  const projectionAdjustment=
+    clamp(
+      (ratio-1)*.20,
+      -.07,
+      .07
+    );
+
+  const rank=
+    defenseRank(
+      defense,
+      positionGroup,
+      prop.stat
+    );
+
+  let label="Neutral";
+  let className="neutral";
+
+  if(environmentScore>=63){
+    label="Favorable";
+    className="favorable";
+
+  }else if(environmentScore>=55){
+    label="Slightly Favorable";
+    className="favorable";
+
+  }else if(environmentScore<=37){
+    label="Tough";
+    className="tough";
+
+  }else if(environmentScore<=45){
+    label="Slightly Tough";
+    className="tough";
+  }
+
+  return {
+    available:true,
+    defense,
+    environmentScore,
+    projectionAdjustment,
+    ratio,
+    defenseAllowed:blend.defense,
+    leagueAllowed:blend.league,
+    easiestRank:rank?.easiestRank ?? null,
+    defenseCount:rank?.total ?? null,
+    currentGames:blend.currentGames,
+    priorGames:blend.priorGames,
+    label,
+    className
+  };
+}
+
+function neutralMatchup(defense=""){
+
+  return {
+    available:false,
+    defense,
+    environmentScore:50,
+    projectionAdjustment:0,
+    ratio:1,
+    defenseAllowed:null,
+    leagueAllowed:null,
+    easiestRank:null,
+    defenseCount:null,
+    currentGames:0,
+    priorGames:0,
+    label:"No matchup data",
+    className:"neutral"
+  };
+}
+
+/* -----------------------------
+   ROLE MODEL
+----------------------------- */
+
+function buildRoleContext(combined,stat){
+
+  const roles=
+    combined
+      .map(x=>roleValue(x.row,stat))
+      .filter(v=>v!==null);
+
+  if(roles.length<4){
+
+    return {
+      score:50,
+      label:"Neutral",
+      className:"neutral",
+      recent:0,
+      baseline:0
+    };
+  }
+
+  const recent=
+    mean(
+      roles.slice(
+        0,
+        Math.min(3,roles.length)
+      )
+    );
+
+  const baseline=
+    mean(roles);
+
+  const roleRatio=
+    baseline>0
+      ? recent/baseline
+      : 1;
+
+  const variability=
+    baseline>0
+      ? sd(roles)/baseline
+      : 1;
+
+  const trendComponent=
+    clamp(
+      (roleRatio-1)*80,
+      -20,
+      20
+    );
+
+  const stabilityComponent=
+    clamp(
+      (.45-variability)*25,
+      -10,
+      10
+    );
+
+  const score=
+    clamp(
+      50+
+      trendComponent+
+      stabilityComponent,
+      25,
+      75
+    );
+
+  let label="Stable";
+  let className="neutral";
+
+  if(score>=63){
+    label="Strong / Rising";
+    className="favorable";
+
+  }else if(score>=55){
+    label="Stable / Positive";
+    className="favorable";
+
+  }else if(score<=37){
+    label="Weak / Unstable";
+    className="tough";
+
+  }else if(score<=45){
+    label="Declining / Volatile";
+    className="tough";
+  }
+
+  return {
+    score,
+    label,
+    className,
+    recent,
+    baseline
+  };
+}
+
+/* -----------------------------
+   MODEL v4
+----------------------------- */
+
+function buildModel(prop){
+
+  const playerName=
+    normName(prop.player);
+
+  const line=
+    Number(prop.line);
 
   if(
     !playerName ||
@@ -1247,21 +1697,18 @@ function buildModel(prop){
   const matched=
     statsRows
       .filter(r=>{
+
         const display=
           r.player_display_name ||
           r.player_name ||
           "";
 
-        return (
-          normName(display)===
-          playerName
-        );
+        return normName(display)===playerName;
       })
       .filter(r=>{
+
         const seasonType=
-          text(
-            r.season_type
-          ).toUpperCase();
+          text(r.season_type).toUpperCase();
 
         return (
           !seasonType ||
@@ -1269,42 +1716,25 @@ function buildModel(prop){
         );
       })
       .filter(
-        r=>
-          statValue(
-            r,
-            prop.stat
-          )!==null
+        r=>statValue(r,prop.stat)!==null
       );
 
   if(matched.length<5){
     return null;
   }
 
+  const positionGroup=
+    cleanPositionGroup(matched[0]);
+
   const current=
     matched
-      .filter(
-        r=>
-          num(r.season)===
-          2026
-      )
-      .sort(
-        (a,b)=>
-          num(b.week)-
-          num(a.week)
-      );
+      .filter(r=>num(r.season)===2026)
+      .sort((a,b)=>num(b.week)-num(a.week));
 
   const prior=
     matched
-      .filter(
-        r=>
-          num(r.season)===
-          2025
-      )
-      .sort(
-        (a,b)=>
-          num(b.week)-
-          num(a.week)
-      );
+      .filter(r=>num(r.season)===2025)
+      .sort((a,b)=>num(b.week)-num(a.week));
 
   const currentGames=
     current.slice(0,8);
@@ -1314,54 +1744,35 @@ function buildModel(prop){
 
   let combined=[];
 
-  if(
-    currentGames.length===0
-  ){
+  if(currentGames.length===0){
+
     const weights=[
-      1,
-      .95,
-      .90,
-      .85,
-      .80,
-      .75,
-      .70,
-      .65,
-      .60,
-      .55
+      1,.95,.90,.85,.80,
+      .75,.70,.65,.60,.55
     ];
 
-    priorGames.forEach(
-      (r,i)=>{
-        combined.push({
-          row:r,
-          weight:
-            weights[i] || .5
-        });
-      }
-    );
+    priorGames.forEach((r,i)=>{
+
+      combined.push({
+        row:r,
+        weight:weights[i] || .5
+      });
+    });
 
   }else{
+
     const currentWeights=[
-      1.45,
-      1.32,
-      1.20,
-      1.10,
-      1.00,
-      .92,
-      .85,
-      .78
+      1.45,1.32,1.20,1.10,
+      1.00,.92,.85,.78
     ];
 
-    currentGames.forEach(
-      (r,i)=>{
-        combined.push({
-          row:r,
-          weight:
-            currentWeights[i] ||
-            .75
-        });
-      }
-    );
+    currentGames.forEach((r,i)=>{
+
+      combined.push({
+        row:r,
+        weight:currentWeights[i] || .75
+      });
+    });
 
     const priorLimit=
       currentGames.length>=6
@@ -1373,29 +1784,25 @@ function buildModel(prop){
             : 9;
 
     priorGames
-      .slice(
-        0,
-        priorLimit
-      )
-      .forEach(
-        (r,i)=>{
-          const base=
-            currentGames.length>=6
-              ? .35
-              : currentGames.length>=4
-                ? .45
-                : currentGames.length>=2
-                  ? .58
-                  : .68;
+      .slice(0,priorLimit)
+      .forEach((r,i)=>{
 
-          combined.push({
-            row:r,
-            weight:
-              base*
-              Math.pow(.92,i)
-          });
-        }
-      );
+        const base=
+          currentGames.length>=6
+            ? .35
+            : currentGames.length>=4
+              ? .45
+              : currentGames.length>=2
+                ? .58
+                : .68;
+
+        combined.push({
+          row:r,
+          weight:
+            base*
+            Math.pow(.92,i)
+        });
+      });
   }
 
   if(combined.length<5){
@@ -1404,35 +1811,22 @@ function buildModel(prop){
 
   let values=
     combined.map(
-      x=>
-        statValue(
-          x.row,
-          prop.stat
-        )
+      x=>statValue(x.row,prop.stat)
     );
 
   values=
-    winsorize(
-      values
-    );
+    winsorize(values);
 
   let weightedTotal=0;
   let weightTotal=0;
 
-  combined.forEach(
-    (x,i)=>{
-      weightedTotal+=
-        values[i]*
-        x.weight;
+  combined.forEach((x,i)=>{
+    weightedTotal+=values[i]*x.weight;
+    weightTotal+=x.weight;
+  });
 
-      weightTotal+=
-        x.weight;
-    }
-  );
-
-  const weightedMean=
-    weightedTotal/
-    weightTotal;
+  const playerWeightedMean=
+    weightedTotal/weightTotal;
 
   const med=
     median(values);
@@ -1440,19 +1834,13 @@ function buildModel(prop){
   const recent5=
     values.slice(
       0,
-      Math.min(
-        5,
-        values.length
-      )
+      Math.min(5,values.length)
     );
 
   const recent3=
     values.slice(
       0,
-      Math.min(
-        3,
-        values.length
-      )
+      Math.min(3,values.length)
     );
 
   const last5=
@@ -1461,33 +1849,53 @@ function buildModel(prop){
   const last3=
     mean(recent3);
 
-  let projection=
-    weightedMean*.52 +
+  let baseProjection=
+    playerWeightedMean*.52 +
     med*.22 +
     last5*.16 +
     last3*.10;
 
-  if(
-    currentGames.length===0
-  ){
-    projection=
-      projection*.80 +
+  if(currentGames.length===0){
+
+    baseProjection=
+      baseProjection*.80+
       line*.20;
 
-  }else if(
-    currentGames.length===1
-  ){
-    projection=
-      projection*.85 +
+  }else if(currentGames.length===1){
+
+    baseProjection=
+      baseProjection*.85+
       line*.15;
 
-  }else if(
-    currentGames.length===2
-  ){
-    projection=
-      projection*.90 +
+  }else if(currentGames.length===2){
+
+    baseProjection=
+      baseProjection*.90+
       line*.10;
   }
+
+  const matchupContext=
+    buildMatchupContext(
+      prop,
+      positionGroup
+    );
+
+  /*
+  Model v4 matchup adjustment.
+  */
+
+  const projection=
+    baseProjection*
+    (
+      1+
+      matchupContext.projectionAdjustment
+    );
+
+  const roleContext=
+    buildRoleContext(
+      combined,
+      prop.stat
+    );
 
   const deviation=
     Math.max(
@@ -1514,19 +1922,13 @@ function buildModel(prop){
     );
 
   const overHits=
-    values.filter(
-      v=>v>line
-    ).length;
+    values.filter(v=>v>line).length;
 
   const underHits=
-    values.filter(
-      v=>v<line
-    ).length;
+    values.filter(v=>v<line).length;
 
   const pushes=
-    values.filter(
-      v=>v===line
-    ).length;
+    values.filter(v=>v===line).length;
 
   const historicalOver=
     (
@@ -1543,32 +1945,27 @@ function buildModel(prop){
     values.length;
 
   let overProb=
-    normalOver*.55 +
+    normalOver*.55+
     historicalOver*.45;
 
   let underProb=
     (
       1-normalOver
-    )*.55 +
+    )*.55+
     historicalUnder*.45;
 
   let shrink=.72;
 
-  if(
-    currentGames.length===0
-  ){
+  if(currentGames.length===0){
     shrink=.55;
-  }else if(
-    currentGames.length===1
-  ){
+
+  }else if(currentGames.length===1){
     shrink=.60;
-  }else if(
-    currentGames.length===2
-  ){
+
+  }else if(currentGames.length===2){
     shrink=.66;
-  }else if(
-    currentGames.length>=5
-  ){
+
+  }else if(currentGames.length>=5){
     shrink=.78;
   }
 
@@ -1579,36 +1976,21 @@ function buildModel(prop){
       1
     );
 
-  shrink*=
-    sampleShrink;
+  shrink*=sampleShrink;
 
   overProb=
     .50+
-    (
-      overProb-.50
-    )*
-    shrink;
+    (overProb-.50)*shrink;
 
   underProb=
     .50+
-    (
-      underProb-.50
-    )*
-    shrink;
+    (underProb-.50)*shrink;
 
   overProb=
-    clamp(
-      overProb,
-      .35,
-      .67
-    );
+    clamp(overProb,.35,.67);
 
   underProb=
-    clamp(
-      underProb,
-      .35,
-      .67
-    );
+    clamp(underProb,.35,.67);
 
   const side=
     overProb>=underProb
@@ -1626,37 +2008,44 @@ function buildModel(prop){
       ? historicalOver
       : historicalUnder;
 
+  /*
+  A defense allowing more is good for MORE,
+  but bad for LESS. Flip matchup score
+  depending on the recommended side.
+  */
+
+  const pickMatchupScore=
+    side==="More"
+      ? matchupContext.environmentScore
+      : 100-matchupContext.environmentScore;
+
+  const pickRoleScore=
+    side==="More"
+      ? roleContext.score
+      : 100-roleContext.score;
+
   const projectionGap=
     projection-line;
 
   const absGap=
-    Math.abs(
-      projectionGap
-    );
+    Math.abs(projectionGap);
 
   const standardizedEdge=
     Math.abs(z);
 
   const settings=
-    statSettings(
-      prop.stat
-    );
+    statSettings(prop.stat);
 
   const volatility=
     deviation/
     Math.max(
-      Math.abs(
-        weightedMean
-      ),
+      Math.abs(playerWeightedMean),
       1
     );
 
   const volatilityScore=
     clamp(
-      1-
-      (
-        volatility/.75
-      ),
+      1-(volatility/.75),
       0,
       1
     );
@@ -1687,28 +2076,21 @@ function buildModel(prop){
 
   const probabilityScore=
     clamp(
-      (
-        probability-.50
-      )/
-      .15,
+      (probability-.50)/.15,
       0,
       1
     );
 
   const edgeScore=
     clamp(
-      standardizedEdge/
-      .90,
+      standardizedEdge/.90,
       0,
       1
     );
 
   const historyScore=
     clamp(
-      (
-        histHit-.50
-      )/
-      .30,
+      (histHit-.50)/.30,
       0,
       1
     );
@@ -1723,45 +2105,49 @@ function buildModel(prop){
   const agreementScore=
     agreementCount/3;
 
+  const matchupRatingBoost=
+    clamp(
+      (pickMatchupScore-50)/25,
+      -1,
+      1
+    )*2;
+
+  const roleRatingBoost=
+    clamp(
+      (pickRoleScore-50)/25,
+      -1,
+      1
+    )*1.5;
+
   let rating=
-    50 +
-    probabilityScore*18 +
-    edgeScore*14 +
-    historyScore*9 +
-    sampleScore*5 +
-    agreementScore*4 +
-    volatilityScore*3;
+    50+
+    probabilityScore*18+
+    edgeScore*14+
+    historyScore*9+
+    sampleScore*5+
+    agreementScore*4+
+    volatilityScore*3+
+    matchupRatingBoost+
+    roleRatingBoost;
 
-  rating*=
-    settings.penalty;
+  rating*=settings.penalty;
 
-  if(
-    currentGames.length===0
-  ){
-    rating=
-      Math.min(
-        rating,
-        84
-      );
+  /*
+  Keep early-season public score conservative.
+  Leg Strength below remains uncapped.
+  */
+
+  if(currentGames.length===0){
+    rating=Math.min(rating,84);
   }
 
-  if(
-    currentGames.length===1
-  ){
-    rating=
-      Math.min(
-        rating,
-        85
-      );
+  if(currentGames.length===1){
+    rating=Math.min(rating,85);
   }
 
   rating=
     Math.round(
-      clamp(
-        rating,
-        50,
-        90
-      )
+      clamp(rating,50,90)
     );
 
   const enoughSample=
@@ -1774,12 +2160,10 @@ function buildModel(prop){
     histHit>=.60;
 
   const enoughZ=
-    standardizedEdge>=
-    settings.minZ;
+    standardizedEdge>=settings.minZ;
 
   const enoughGap=
-    absGap>=
-    settings.minGap;
+    absGap>=settings.minGap;
 
   const enoughAgreement=
     agreementCount>=2;
@@ -1802,62 +2186,92 @@ function buildModel(prop){
       ? side
       : "Pass";
 
-  return {
+  const model={
     projection,
+    baseProjection,
     probability,
     rating,
     recommendation,
     side,
-    sample:
-      values.length,
-    currentSample:
-      currentGames.length,
-    priorSample:
-      priorGames.length,
+    sample:values.length,
+    currentSample:currentGames.length,
+    priorSample:priorGames.length,
     last3,
     last5,
     median:med,
     hitRate:histHit,
-    rawDifference:
-      projectionGap,
+    rawDifference:projectionGap,
     standardizedEdge,
     volatility,
-    agreementCount
+    agreementCount,
+    positionGroup,
+
+    matchupAvailable:
+      matchupContext.available,
+
+    opponentDefense:
+      matchupContext.defense,
+
+    matchupEnvironment:
+      matchupContext.environmentScore,
+
+    matchupScore:
+      pickMatchupScore,
+
+    matchupLabel:
+      matchupContext.label,
+
+    matchupClass:
+      matchupContext.className,
+
+    matchupRatio:
+      matchupContext.ratio,
+
+    defenseAllowed:
+      matchupContext.defenseAllowed,
+
+    leagueAllowed:
+      matchupContext.leagueAllowed,
+
+    matchupRank:
+      matchupContext.easiestRank,
+
+    defenseCount:
+      matchupContext.defenseCount,
+
+    matchupCurrentGames:
+      matchupContext.currentGames,
+
+    matchupPriorGames:
+      matchupContext.priorGames,
+
+    roleScore:
+      pickRoleScore,
+
+    roleRawScore:
+      roleContext.score,
+
+    roleLabel:
+      roleContext.label,
+
+    roleClass:
+      roleContext.className
   };
+
+  model.legStrength=
+    calculateLegStrength(
+      prop,
+      model
+    );
+
+  return model;
 }
 
 /* -----------------------------
-   PARLAY ENGINE
+   LEG STRENGTH
 ----------------------------- */
 
-function getBestBetCandidates(){
-  return allProps
-    .map(p=>{
-      const model=
-        models.get(
-          pKey(p)
-        );
-
-      return {
-        prop:p,
-        model
-      };
-    })
-
-    .filter(x=>
-      x.model &&
-      x.model.recommendation!=="Pass"
-    )
-
-    .sort(
-      (a,b)=>
-        legQuality(b)-
-        legQuality(a)
-    );
-}
-
-function legQuality(item){
-  const m=item.model;
+function calculateLegStrength(prop,m){
 
   const leanStrength=
     clamp(
@@ -1912,15 +2326,11 @@ function legQuality(item){
         );
 
   const settings=
-    statSettings(
-      item.prop.stat
-    );
+    statSettings(prop.stat);
 
   const gapStrength=
     clamp(
-      Math.abs(
-        m.rawDifference
-      )/
+      Math.abs(m.rawDifference)/
       Math.max(
         settings.minGap*2.5,
         .75
@@ -1929,16 +2339,39 @@ function legQuality(item){
       1
     );
 
+  const matchupStrength=
+    clamp(
+      m.matchupScore/100,
+      0,
+      1
+    );
+
+  const roleStrength=
+    clamp(
+      m.roleScore/100,
+      0,
+      1
+    );
+
+  /*
+  Model v4 internal ranking:
+  Player history still carries most weight.
+  Matchup and role add context without
+  overpowering the core player model.
+  */
+
   const strength=
-    35 +
-    leanStrength*17 +
-    historyStrength*14 +
-    edgeStrength*18 +
-    agreementStrength*10 +
-    sampleStrength*7 +
-    volatilityStrength*8 +
-    currentSeasonStrength*5 +
-    gapStrength*6;
+    27+
+    leanStrength*15+
+    historyStrength*12+
+    edgeStrength*16+
+    agreementStrength*8+
+    sampleStrength*6+
+    volatilityStrength*6+
+    currentSeasonStrength*4+
+    gapStrength*5+
+    matchupStrength*7+
+    roleStrength*4;
 
   return clamp(
     strength,
@@ -1947,18 +2380,40 @@ function legQuality(item){
   );
 }
 
-function samePlayer(a,b){
-  return (
-    normName(
-      a.prop.player
-    )===
-    normName(
-      b.prop.player
+/* -----------------------------
+   PARLAY ENGINE
+----------------------------- */
+
+function getBestBetCandidates(){
+
+  return allProps
+    .map(p=>({
+      prop:p,
+      model:models.get(pKey(p))
+    }))
+    .filter(x=>
+      x.model &&
+      x.model.recommendation!=="Pass"
     )
+    .sort(
+      (a,b)=>legQuality(b)-legQuality(a)
+    );
+}
+
+function legQuality(item){
+  return item.model.legStrength || 0;
+}
+
+function samePlayer(a,b){
+
+  return (
+    normName(a.prop.player)===
+    normName(b.prop.player)
   );
 }
 
 function sameTeam(a,b){
+
   const ta=
     text(
       a.prop.teamCode||
@@ -1971,32 +2426,23 @@ function sameTeam(a,b){
       b.prop.Team
     );
 
-  return (
-    ta &&
-    tb &&
-    ta===tb
-  );
+  return ta && tb && ta===tb;
 }
 
 function sameGame(a,b){
+
   return (
-    gameKey(
-      a.prop
-    )===
-    gameKey(
-      b.prop
-    )
+    gameKey(a.prop)===
+    gameKey(b.prop)
   );
 }
 
 function statFamily(stat){
-  const s=
-    text(stat)
-      .toLowerCase();
 
-  if(
-    s.includes("pass")
-  ){
+  const s=
+    text(stat).toLowerCase();
+
+  if(s.includes("pass")){
     return "pass";
   }
 
@@ -2008,15 +2454,11 @@ function statFamily(stat){
     return "receiving";
   }
 
-  if(
-    s.includes("rush")
-  ){
+  if(s.includes("rush")){
     return "rushing";
   }
 
-  if(
-    s.includes("interception")
-  ){
+  if(s.includes("interception")){
     return "turnover";
   }
 
@@ -2028,37 +2470,29 @@ function pairCorrelationPenalty(
   b,
   scope
 ){
-  if(
-    samePlayer(a,b)
-  ){
+
+  if(samePlayer(a,b)){
     return 999;
   }
 
   let penalty=0;
 
-  if(
-    sameGame(a,b)
-  ){
+  if(sameGame(a,b)){
+
     penalty+=
       scope==="single"
         ? 2
         : 6;
 
-    if(
-      sameTeam(a,b)
-    ){
+    if(sameTeam(a,b)){
       penalty+=3;
     }
 
     const famA=
-      statFamily(
-        a.prop.stat
-      );
+      statFamily(a.prop.stat);
 
     const famB=
-      statFamily(
-        b.prop.stat
-      );
+      statFamily(b.prop.stat);
 
     if(
       sameTeam(a,b) &&
@@ -2084,18 +2518,13 @@ function comboCorrelation(
   combo,
   scope
 ){
+
   let penalty=0;
 
-  for(
-    let i=0;
-    i<combo.length;
-    i++
-  ){
-    for(
-      let j=i+1;
-      j<combo.length;
-      j++
-    ){
+  for(let i=0;i<combo.length;i++){
+
+    for(let j=i+1;j<combo.length;j++){
+
       penalty+=
         pairCorrelationPenalty(
           combo[i],
@@ -2113,14 +2542,13 @@ function correlationLabel(
   legs,
   scope
 ){
+
   const adjusted=
     penalty/
-    Math.max(
-      1,
-      legs
-    );
+    Math.max(1,legs);
 
   if(scope==="single"){
+
     if(adjusted<=3){
       return {
         text:"Low-Moderate",
@@ -2142,6 +2570,7 @@ function correlationLabel(
   }
 
   if(adjusted<=1.5){
+
     return {
       text:"Low",
       className:"corrLow"
@@ -2149,6 +2578,7 @@ function correlationLabel(
   }
 
   if(adjusted<=4){
+
     return {
       text:"Moderate",
       className:"corrMed"
@@ -2165,41 +2595,44 @@ function parlayMetrics(
   combo,
   scope
 ){
+
   const avgScore=
     mean(
-      combo.map(
-        x=>x.model.rating
-      )
+      combo.map(x=>x.model.rating)
     );
 
   const avgLean=
     mean(
       combo.map(
-        x=>
-          x.model.probability*100
+        x=>x.model.probability*100
       )
     );
 
   const avgHit=
     mean(
       combo.map(
-        x=>
-          x.model.hitRate*100
+        x=>x.model.hitRate*100
       )
     );
 
   const avgEdge=
     mean(
       combo.map(
-        x=>
-          x.model.standardizedEdge
+        x=>x.model.standardizedEdge
       )
     );
 
   const avgStrength=
     mean(
       combo.map(
-        x=>legQuality(x)
+        x=>x.model.legStrength
+      )
+    );
+
+  const avgMatchup=
+    mean(
+      combo.map(
+        x=>x.model.matchupScore
       )
     );
 
@@ -2210,23 +2643,17 @@ function parlayMetrics(
     );
 
   let score=
-    avgStrength*.72 +
-    avgLean*.10 +
-    avgHit*.10 +
-    Math.min(
-      avgEdge,
-      1.75
-    )*5;
+    avgStrength*.74+
+    avgLean*.08+
+    avgHit*.08+
+    avgMatchup*.05+
+    Math.min(avgEdge,1.75)*4;
 
   score-=
     correlation*.55;
 
   score=
-    clamp(
-      score,
-      0,
-      100
-    );
+    clamp(score,0,100);
 
   let grade="C";
 
@@ -2250,6 +2677,7 @@ function parlayMetrics(
     avgHit,
     avgEdge,
     avgStrength,
+    avgMatchup,
     correlation,
     grade,
     score
@@ -2257,10 +2685,9 @@ function parlayMetrics(
 }
 
 function comboKey(combo){
+
   return combo
-    .map(
-      x=>pKey(x.prop)
-    )
+    .map(x=>pKey(x.prop))
     .sort()
     .join("||");
 }
@@ -2270,11 +2697,11 @@ function incrementalPenalty(
   combo,
   scope
 ){
+
   let penalty=0;
 
-  for(
-    const existing of combo
-  ){
+  for(const existing of combo){
+
     const p=
       pairCorrelationPenalty(
         candidate,
@@ -2299,6 +2726,7 @@ function buildGreedyCombo(
   scope,
   variation
 ){
+
   const combo=[];
 
   const seed=
@@ -2313,14 +2741,14 @@ function buildGreedyCombo(
 
   combo.push(seed);
 
-  while(
-    combo.length<legs
-  ){
+  while(combo.length<legs){
+
     let best=null;
     let bestScore=-Infinity;
 
     pool.forEach(
       (candidate,index)=>{
+
         if(
           combo.some(
             x=>
@@ -2338,16 +2766,12 @@ function buildGreedyCombo(
             scope
           );
 
-        if(
-          penalty>=999
-        ){
+        if(penalty>=999){
           return;
         }
 
         let score=
-          legQuality(
-            candidate
-          );
+          legQuality(candidate);
 
         score-=
           penalty*1.6;
@@ -2360,9 +2784,8 @@ function buildGreedyCombo(
             )%7
           )*.18;
 
-        if(
-          scope==="all"
-        ){
+        if(scope==="all"){
+
           const candidateGame=
             gameKey(
               candidate.prop
@@ -2398,6 +2821,7 @@ function buildGreedyCombo(
 }
 
 function generateParlays(){
+
   const scope=
     $("parlayScope").value;
 
@@ -2412,10 +2836,10 @@ function generateParlays(){
   let pool=
     getBestBetCandidates();
 
-  if(
-    scope==="single"
-  ){
+  if(scope==="single"){
+
     if(!selectedGame){
+
       $("parlayResults").innerHTML=
         '<div class="error" style="margin-top:12px">Choose a game first.</div>';
 
@@ -2425,9 +2849,7 @@ function generateParlays(){
     pool=
       pool.filter(
         x=>
-          gameKey(
-            x.prop
-          )===
+          gameKey(x.prop)===
           selectedGame
       );
   }
@@ -2436,24 +2858,19 @@ function generateParlays(){
     pool.slice(
       0,
       scope==="single"
-        ? 35
-        : 50
+        ? 40
+        : 60
     );
 
   const uniquePlayers=
     new Set(
       pool.map(
-        x=>
-          normName(
-            x.prop.player
-          )
+        x=>normName(x.prop.player)
       )
     );
 
-  if(
-    uniquePlayers.size<
-    legs
-  ){
+  if(uniquePlayers.size<legs){
+
     $("parlayResults").innerHTML=
       `
       <div class="empty" style="margin-top:12px">
@@ -2465,25 +2882,26 @@ function generateParlays(){
   }
 
   const combos=[];
-  const seen=
-    new Set();
+  const seen=new Set();
 
   const seeds=
     Math.min(
       pool.length,
-      24
+      30
     );
 
   for(
     let variation=0;
-    variation<5;
+    variation<6;
     variation++
   ){
+
     for(
       let seed=0;
       seed<seeds;
       seed++
     ){
+
       const combo=
         buildGreedyCombo(
           pool,
@@ -2500,9 +2918,7 @@ function generateParlays(){
       const key=
         comboKey(combo);
 
-      if(
-        seen.has(key)
-      ){
+      if(seen.has(key)){
         continue;
       }
 
@@ -2528,15 +2944,13 @@ function generateParlays(){
   generatedParlays=
     combos.slice(0,5);
 
-  renderParlays(
-    scope
-  );
+  renderParlays(scope);
 }
 
 function renderParlays(scope){
-  if(
-    !generatedParlays.length
-  ){
+
+  if(!generatedParlays.length){
+
     $("parlayResults").innerHTML=
       `
       <div class="empty" style="margin-top:12px">
@@ -2551,8 +2965,8 @@ function renderParlays(scope){
     generatedParlays
       .map(
         (item,index)=>{
-          const m=
-            item.metrics;
+
+          const m=item.metrics;
 
           const corr=
             correlationLabel(
@@ -2563,85 +2977,148 @@ function renderParlays(scope){
 
           const legs=
             item.combo
-              .map(
-                x=>{
-                  const p=
-                    x.prop;
+              .map(x=>{
 
-                  const model=
-                    x.model;
+                const p=x.prop;
+                const model=x.model;
 
-                  return `
-                    <div class="parlayLeg">
-                      <div class="row">
-                        <div>
-                          <div style="font-weight:900">
-                            ${text(p.player)}
-                          </div>
+                const matchupText=
+                  model.matchupAvailable
+                    ? `${model.matchupScore.toFixed(0)}/100`
+                    : "N/A";
 
-                          <div class="small">
-                            ${matchup(p)}
-                          </div>
+                const rankText=
+                  model.matchupRank
+                    ? `#${model.matchupRank} easiest`
+                    : "N/A";
+
+                return `
+                  <div class="parlayLeg">
+
+                    <div class="row">
+
+                      <div>
+
+                        <div style="font-weight:900">
+                          ${text(p.player)}
                         </div>
 
-                        <div
-                          class="${model.recommendation==="More"?"more":"less"}"
-                          style="font-weight:900"
-                        >
-                          ${model.recommendation}
+                        <div class="small">
+                          ${matchup(p)}
                         </div>
+
                       </div>
 
                       <div
-                        style="margin-top:5px;font-size:14px"
+                        class="${model.recommendation==="More"?"more":"less"}"
+                        style="font-weight:900"
                       >
-                        <span class="legSide">
-                          ${model.recommendation}
-                          ${text(p.line)}
-                        </span>
-                        •
-                        ${text(p.stat)}
+                        ${model.recommendation}
                       </div>
 
-                      <div class="small" style="margin-top:4px">
-                        Score ${model.rating}
-                        • Lean ${(model.probability*100).toFixed(1)}%
-                        • Hit ${(model.hitRate*100).toFixed(0)}%
-                        • Edge ${model.standardizedEdge.toFixed(2)} SD
-                      </div>
                     </div>
-                  `;
-                }
-              )
+
+                    <div
+                      style="margin-top:5px;font-size:14px"
+                    >
+                      <strong>
+                        ${model.recommendation}
+                        ${text(p.line)}
+                      </strong>
+                      •
+                      ${text(p.stat)}
+                    </div>
+
+                    <div class="small" style="margin-top:4px">
+                      Score ${model.rating}
+                      • Lean ${(model.probability*100).toFixed(1)}%
+                      • Hit ${(model.hitRate*100).toFixed(0)}%
+                      • Edge ${model.standardizedEdge.toFixed(2)} SD
+                    </div>
+
+                    <div class="legDetails">
+
+                      <div class="legDetail">
+                        <div class="legDetailLabel">
+                          Leg Strength
+                        </div>
+                        <div class="legDetailValue favorable">
+                          ${model.legStrength.toFixed(1)}
+                        </div>
+                      </div>
+
+                      <div class="legDetail">
+                        <div class="legDetailLabel">
+                          Matchup
+                        </div>
+                        <div class="legDetailValue">
+                          ${matchupText}
+                        </div>
+                      </div>
+
+                      <div class="legDetail">
+                        <div class="legDetailLabel">
+                          Opponent Rank
+                        </div>
+                        <div class="legDetailValue">
+                          ${rankText}
+                        </div>
+                      </div>
+
+                      <div class="legDetail">
+                        <div class="legDetailLabel">
+                          Player Role
+                        </div>
+                        <div class="legDetailValue">
+                          ${model.roleScore.toFixed(0)}/100
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </div>
+                `;
+              })
               .join("");
 
           return `
             <div class="parlayOption ${index===0?"top":""}">
+
               <div class="parlayHeader">
+
                 <div class="row">
+
                   <div>
+
                     <div class="parlayOptionTitle">
-                      ${index===0?"Top Parlay":"Parlay Option "+(index+1)}
+                      ${index===0
+                        ?"Top Parlay"
+                        :"Parlay Option "+(index+1)}
                     </div>
 
                     <div class="small">
                       ${item.combo.length} legs
+                      • Strength ${m.avgStrength.toFixed(1)}
                     </div>
+
                   </div>
 
                   <div class="grade">
                     ${m.grade}
                   </div>
+
                 </div>
+
               </div>
 
               <div class="parlayStats">
+
                 <div class="parlayStat">
                   <div class="parlayStatLabel">
-                    Avg Score
+                    Avg Strength
                   </div>
                   <div class="parlayStatValue">
-                    ${m.avgScore.toFixed(1)}
+                    ${m.avgStrength.toFixed(1)}
                   </div>
                 </div>
 
@@ -2656,12 +3133,13 @@ function renderParlays(scope){
 
                 <div class="parlayStat">
                   <div class="parlayStatLabel">
-                    Avg Hit
+                    Avg Matchup
                   </div>
                   <div class="parlayStatValue">
-                    ${m.avgHit.toFixed(0)}%
+                    ${m.avgMatchup.toFixed(0)}
                   </div>
                 </div>
+
               </div>
 
               ${legs}
@@ -2682,6 +3160,7 @@ function renderParlays(scope){
               >
                 Add This Parlay to My Lineup
               </button>
+
             </div>
           `;
         }
@@ -2689,48 +3168,46 @@ function renderParlays(scope){
       .join("");
 
   document
-    .querySelectorAll(
-      "[data-parlay]"
-    )
-    .forEach(
-      btn=>{
-        btn.onclick=()=>{
-          const index=
-            Number(
-              btn.dataset.parlay
-            );
+    .querySelectorAll("[data-parlay]")
+    .forEach(btn=>{
 
-          const item=
-            generatedParlays[index];
+      btn.onclick=()=>{
 
-          if(!item){
-            return;
-          }
-
-          item.combo.forEach(
-            x=>{
-              selected[
-                pKey(x.prop)
-              ]=
-                x.model.recommendation;
-            }
+        const index=
+          Number(
+            btn.dataset.parlay
           );
 
-          render();
-          renderPicks();
+        const item=
+          generatedParlays[index];
 
-          btn.textContent=
-            "Added to My Lineup ✓";
-        };
-      }
-    );
+        if(!item){
+          return;
+        }
+
+        item.combo.forEach(x=>{
+
+          selected[
+            pKey(x.prop)
+          ]=
+            x.model.recommendation;
+        });
+
+        render();
+        renderPicks();
+
+        btn.textContent=
+          "Added to My Lineup ✓";
+      };
+    });
 }
 
 /* -----------------------------
-   DATA LOADING
+   DATA
 ----------------------------- */
 
 async function fetchText(url){
+
   const separator=
     url.includes("?")
       ? "&"
@@ -2748,6 +3225,7 @@ async function fetchText(url){
     );
 
   if(!response.ok){
+
     throw new Error(
       `${url} returned HTTP ${response.status}`
     );
@@ -2757,16 +3235,18 @@ async function fetchText(url){
 }
 
 async function loadData(){
+
   $("propList").innerHTML=
-    '<div class="loading">Loading PrizePicks and NFL statistics...</div>';
+    '<div class="loading">Loading PrizePicks, player data and matchup data...</div>';
 
   $("feedStatus").textContent=
     "Loading PrizePicks NFL board...";
 
   $("modelStatus").textContent=
-    "Loading historical NFL player stats...";
+    "Loading Model v4 data...";
 
   try{
+
     const ppRes=
       await fetch(
         PP_URL+
@@ -2778,6 +3258,7 @@ async function loadData(){
       );
 
     if(!ppRes.ok){
+
       throw new Error(
         "PrizePicks feed unavailable"
       );
@@ -2787,18 +3268,15 @@ async function loadData(){
       await ppRes.json();
 
     allProps=
-      Array.isArray(
-        pp.props
-      )
-        ? dedupe(
-            pp.props
-          )
+      Array.isArray(pp.props)
+        ? dedupe(pp.props)
         : [];
 
     $("feedStatus").textContent=
       `${allProps.length} PrizePicks NFL props • ${formatTime(pp.scrapedAt)}`;
 
   }catch(e){
+
     console.error(e);
 
     $("feedStatus").textContent=
@@ -2811,32 +3289,54 @@ async function loadData(){
   }
 
   try{
-    const statsText=
-      await fetchText(
-        NFL_STATS
-      );
+
+    const [
+      statsText,
+      matchupText
+    ]=
+      await Promise.all([
+        fetchText(NFL_STATS),
+        fetchText(MATCHUP_STATS)
+      ]);
 
     statsRows=
-      parseCSV(
-        statsText
-      );
+      parseCSV(statsText);
 
-    if(statsRows.length){
-      $("modelStatus").textContent=
-        `${statsRows.length.toLocaleString()} weekly player records loaded • Model v3 ready`;
-
-    }else{
-      $("modelStatus").textContent=
-        "Historical model file contained no records";
-    }
-
-  }catch(e){
-    console.warn(e);
-
-    statsRows=[];
+    matchupRows=
+      parseCSV(matchupText);
 
     $("modelStatus").textContent=
-      "Historical model unavailable — board still works";
+      `${statsRows.length.toLocaleString()} player records • ${matchupRows.length.toLocaleString()} matchup records • Model v4 ready`;
+
+  }catch(e){
+
+    console.warn(e);
+
+    /*
+    If matchup file fails, try player model only.
+    */
+
+    try{
+
+      const statsText=
+        await fetchText(NFL_STATS);
+
+      statsRows=
+        parseCSV(statsText);
+
+      matchupRows=[];
+
+      $("modelStatus").textContent=
+        `${statsRows.length.toLocaleString()} player records • Matchup file unavailable`;
+
+    }catch(e2){
+
+      statsRows=[];
+      matchupRows=[];
+
+      $("modelStatus").textContent=
+        "Model data unavailable — board still works";
+    }
   }
 
   buildModels();
@@ -2845,51 +3345,51 @@ async function loadData(){
 }
 
 function buildModels(){
+
   models.clear();
 
-  allProps.forEach(
-    p=>{
-      const model=
-        buildModel(p);
+  allProps.forEach(p=>{
 
-      if(model){
-        models.set(
-          pKey(p),
-          model
-        );
-      }
+    const model=
+      buildModel(p);
+
+    if(model){
+
+      models.set(
+        pKey(p),
+        model
+      );
     }
-  );
+  });
 }
 
 function dedupe(props){
-  const seen=
-    new Set();
 
-  return props.filter(
-    p=>{
-      const key=
-        pKey(p);
+  const seen=new Set();
 
-      if(
-        seen.has(key)
-      ){
-        return false;
-      }
+  return props.filter(p=>{
 
-      seen.add(key);
+    const key=
+      pKey(p);
 
-      return true;
+    if(seen.has(key)){
+      return false;
     }
-  );
+
+    seen.add(key);
+
+    return true;
+  });
 }
 
 function formatTime(value){
+
   if(!value){
     return "updated recently";
   }
 
   try{
+
     return "updated "+
       new Date(value)
         .toLocaleString(
@@ -2903,6 +3403,7 @@ function formatTime(value){
         );
 
   }catch{
+
     return "updated recently";
   }
 }
@@ -2912,38 +3413,33 @@ function formatTime(value){
 ----------------------------- */
 
 function buildFilters(){
-  const games=
-    new Map();
 
-  allProps.forEach(
-    p=>{
-      const key=
-        gameKey(p);
+  const games=new Map();
 
-      if(
-        !key ||
-        games.has(key)
-      ){
-        return;
-      }
+  allProps.forEach(p=>{
 
-      let label=
-        matchup(p);
+    const key=
+      gameKey(p);
 
-      if(
-        p.startTimeCST
-      ){
-        label+=
-          " • "+
-          p.startTimeCST;
-      }
-
-      games.set(
-        key,
-        label
-      );
+    if(!key || games.has(key)){
+      return;
     }
-  );
+
+    let label=
+      matchup(p);
+
+    if(p.startTimeCST){
+
+      label+=
+        " • "+
+        p.startTimeCST;
+    }
+
+    games.set(
+      key,
+      label
+    );
+  });
 
   $("gameFilter").innerHTML=
     '<option value="">All NFL Games</option>';
@@ -2954,52 +3450,33 @@ function buildFilters(){
   [...games.entries()]
     .sort(
       (a,b)=>
-        a[1].localeCompare(
-          b[1]
-        )
+        a[1].localeCompare(b[1])
     )
-    .forEach(
-      ([value,label])=>{
-        const option1=
-          document.createElement(
-            "option"
-          );
+    .forEach(([value,label])=>{
 
-        option1.value=
-          value;
+      const option1=
+        document.createElement("option");
 
-        option1.textContent=
-          label;
+      option1.value=value;
+      option1.textContent=label;
 
-        $("gameFilter")
-          .appendChild(
-            option1
-          );
+      $("gameFilter")
+        .appendChild(option1);
 
-        const option2=
-          document.createElement(
-            "option"
-          );
+      const option2=
+        document.createElement("option");
 
-        option2.value=
-          value;
+      option2.value=value;
+      option2.textContent=label;
 
-        option2.textContent=
-          label;
-
-        $("parlayGame")
-          .appendChild(
-            option2
-          );
-      }
-    );
+      $("parlayGame")
+        .appendChild(option2);
+    });
 
   const stats=[
     ...new Set(
       allProps
-        .map(
-          p=>text(p.stat)
-        )
+        .map(p=>text(p.stat))
         .filter(Boolean)
     )
   ].sort();
@@ -3007,48 +3484,31 @@ function buildFilters(){
   $("statFilter").innerHTML=
     '<option value="">All Prop Types</option>';
 
-  stats.forEach(
-    stat=>{
-      const option=
-        document.createElement(
-          "option"
-        );
+  stats.forEach(stat=>{
 
-      option.value=
-        stat;
+    const option=
+      document.createElement("option");
 
-      option.textContent=
-        stat;
+    option.value=stat;
+    option.textContent=stat;
 
-      $("statFilter")
-        .appendChild(
-          option
-        );
-    }
-  );
+    $("statFilter")
+      .appendChild(option);
+  });
 }
 
 function modelFiltersActive(){
+
   return (
-    Number(
-      $("scoreFilter").value
-    )>0 ||
-
-    Number(
-      $("leanFilter").value
-    )>0 ||
-
-    Number(
-      $("hitFilter").value
-    )>0 ||
-
-    Number(
-      $("sampleFilter").value
-    )>0
+    Number($("scoreFilter").value)>0 ||
+    Number($("leanFilter").value)>0 ||
+    Number($("hitFilter").value)>0 ||
+    Number($("sampleFilter").value)>0
   );
 }
 
 function getProps(){
+
   const game=
     $("gameFilter").value;
 
@@ -3085,184 +3545,175 @@ function getProps(){
     modelFiltersActive();
 
   let props=
-    allProps.filter(
-      p=>{
-        if(
-          game &&
-          gameKey(p)!==
-          game
-        ){
+    allProps.filter(p=>{
+
+      if(
+        game &&
+        gameKey(p)!==game
+      ){
+        return false;
+      }
+
+      if(
+        stat &&
+        text(p.stat)!==stat
+      ){
+        return false;
+      }
+
+      if(search){
+
+        const hay=[
+          p.player,
+          p.Team,
+          p.teamCode,
+          p.Opponent,
+          p.opponentCode,
+          p.stat
+        ]
+        .map(text)
+        .join(" ")
+        .toLowerCase();
+
+        if(!hay.includes(search)){
           return false;
         }
+      }
 
-        if(
-          stat &&
-          text(p.stat)!==
-          stat
-        ){
-          return false;
-        }
+      const m=
+        models.get(
+          pKey(p)
+        );
 
-        if(search){
-          const hay=[
-            p.player,
-            p.Team,
-            p.teamCode,
-            p.Opponent,
-            p.opponentCode,
-            p.stat
-          ]
-          .map(text)
-          .join(" ")
-          .toLowerCase();
-
-          if(
-            !hay.includes(
-              search
-            )
-          ){
-            return false;
-          }
-        }
-
-        const m=
-          models.get(
-            pKey(p)
-          );
-
-        if(
-          !bestOnly &&
-          !useModelFilters
-        ){
-          return true;
-        }
-
-        if(!m){
-          return false;
-        }
-
-        if(
-          bestOnly &&
-          m.recommendation===
-          "Pass"
-        ){
-          return false;
-        }
-
-        if(
-          minScore>0 &&
-          m.rating<
-          minScore
-        ){
-          return false;
-        }
-
-        if(
-          minLean>0 &&
-          m.probability<
-          minLean
-        ){
-          return false;
-        }
-
-        if(
-          minHit>0 &&
-          m.hitRate<
-          minHit
-        ){
-          return false;
-        }
-
-        if(
-          minSample>0 &&
-          m.sample<
-          minSample
-        ){
-          return false;
-        }
-
+      if(
+        !bestOnly &&
+        !useModelFilters
+      ){
         return true;
       }
-    );
+
+      if(!m){
+        return false;
+      }
+
+      if(
+        bestOnly &&
+        m.recommendation==="Pass"
+      ){
+        return false;
+      }
+
+      if(
+        minScore>0 &&
+        m.rating<minScore
+      ){
+        return false;
+      }
+
+      if(
+        minLean>0 &&
+        m.probability<minLean
+      ){
+        return false;
+      }
+
+      if(
+        minHit>0 &&
+        m.hitRate<minHit
+      ){
+        return false;
+      }
+
+      if(
+        minSample>0 &&
+        m.sample<minSample
+      ){
+        return false;
+      }
+
+      return true;
+    });
 
   const sort=
     $("sortFilter").value;
 
   if(sort==="rating"){
+
     props.sort(
       (a,b)=>
         (
-          models.get(
-            pKey(b)
-          )?.rating || 0
-        )
-        -
+          models.get(pKey(b))?.rating || 0
+        )-
         (
-          models.get(
-            pKey(a)
-          )?.rating || 0
+          models.get(pKey(a))?.rating || 0
         )
     );
 
-  }else if(
-    sort==="edge"
-  ){
+  }else if(sort==="strength"){
+
     props.sort(
       (a,b)=>
         (
-          models.get(
-            pKey(b)
-          )?.standardizedEdge || 0
-        )
-        -
+          models.get(pKey(b))?.legStrength || 0
+        )-
         (
-          models.get(
-            pKey(a)
-          )?.standardizedEdge || 0
+          models.get(pKey(a))?.legStrength || 0
         )
     );
 
-  }else if(
-    sort==="lean"
-  ){
+  }else if(sort==="matchup"){
+
     props.sort(
       (a,b)=>
         (
-          models.get(
-            pKey(b)
-          )?.probability || 0
-        )
-        -
+          models.get(pKey(b))?.matchupScore || 0
+        )-
         (
-          models.get(
-            pKey(a)
-          )?.probability || 0
+          models.get(pKey(a))?.matchupScore || 0
         )
     );
 
-  }else if(
-    sort==="hit"
-  ){
+  }else if(sort==="edge"){
+
     props.sort(
       (a,b)=>
         (
-          models.get(
-            pKey(b)
-          )?.hitRate || 0
-        )
-        -
+          models.get(pKey(b))?.standardizedEdge || 0
+        )-
         (
-          models.get(
-            pKey(a)
-          )?.hitRate || 0
+          models.get(pKey(a))?.standardizedEdge || 0
+        )
+    );
+
+  }else if(sort==="lean"){
+
+    props.sort(
+      (a,b)=>
+        (
+          models.get(pKey(b))?.probability || 0
+        )-
+        (
+          models.get(pKey(a))?.probability || 0
+        )
+    );
+
+  }else if(sort==="hit"){
+
+    props.sort(
+      (a,b)=>
+        (
+          models.get(pKey(b))?.hitRate || 0
+        )-
+        (
+          models.get(pKey(a))?.hitRate || 0
         )
     );
 
   }else{
+
     props.sort(
       (a,b)=>
-        num(a.rank)-
-        num(b.rank)
+        num(a.rank)-num(b.rank)
     );
   }
 
@@ -3274,6 +3725,7 @@ function getProps(){
 ----------------------------- */
 
 function ratingClass(rating){
+
   if(rating>=82){
     return "good";
   }
@@ -3285,18 +3737,36 @@ function ratingClass(rating){
   return "low";
 }
 
+function scoreClass(score){
+
+  if(score>=58){
+    return "favorable";
+  }
+
+  if(score<=42){
+    return "tough";
+  }
+
+  return "neutral";
+}
+
 function modelHTML(model){
+
   if(!model){
+
     return `
       <div class="model">
+
         <div class="modelHeader">
+
           <div class="modelTitle">
-            PROP EDGE MODEL v3
+            PROP EDGE MODEL v4
           </div>
 
           <div class="rating low">
             —
           </div>
+
         </div>
 
         <div
@@ -3305,20 +3775,19 @@ function modelHTML(model){
         >
           No supported historical model for this prop yet.
         </div>
+
       </div>
     `;
   }
 
   const lean=
     (
-      model.probability*
-      100
+      model.probability*100
     ).toFixed(1);
 
   const hit=
     (
-      model.hitRate*
-      100
+      model.hitRate*100
     ).toFixed(0);
 
   const gap=
@@ -3326,45 +3795,53 @@ function modelHTML(model){
       model.rawDifference>0
         ? "+"
         : ""
-    )
-    +
-    model.rawDifference
-      .toFixed(1);
+    )+
+    model.rawDifference.toFixed(1);
 
   const sideClass=
-    model.recommendation===
-    "More"
+    model.recommendation==="More"
       ? "more"
-      : model.recommendation===
-        "Less"
+      : model.recommendation==="Less"
         ? "less"
         : "pass";
 
   const decision=
-    model.recommendation===
-    "Pass"
+    model.recommendation==="Pass"
       ? "PASS — does not meet Best Bet rules"
       : `${model.recommendation.toUpperCase()} • ${lean}% model lean`;
 
   const seasonText=
-    model.currentSample===
-    0
-      ? "Prior-season baseline only."
-      : `${model.currentSample} current-season game${model.currentSample===1?"":"s"} included.`;
+    model.currentSample===0
+      ? "Prior-season player baseline."
+      : `${model.currentSample} current-season player game${model.currentSample===1?"":"s"} included.`;
+
+  const matchupRank=
+    model.matchupRank
+      ? `#${model.matchupRank} easiest of ${model.defenseCount}`
+      : "N/A";
+
+  const matchupScoreText=
+    model.matchupAvailable
+      ? model.matchupScore.toFixed(0)+"/100"
+      : "N/A";
 
   return `
     <div class="model">
+
       <div class="modelHeader">
+
         <div class="modelTitle">
-          PROP EDGE MODEL v3
+          PROP EDGE MODEL v4
         </div>
 
         <div class="rating ${ratingClass(model.rating)}">
           ${model.rating}
         </div>
+
       </div>
 
       <div class="modelGrid">
+
         <div class="metric">
           <div class="metricLabel">
             Projection
@@ -3403,21 +3880,70 @@ function modelHTML(model){
 
         <div class="metric">
           <div class="metricLabel">
-            Last 3 Avg
-          </div>
-          <div class="metricValue">
-            ${model.last3.toFixed(1)}
-          </div>
-        </div>
-
-        <div class="metric">
-          <div class="metricLabel">
             Edge Strength
           </div>
           <div class="metricValue">
             ${model.standardizedEdge.toFixed(2)} SD
           </div>
         </div>
+
+        <div class="metric">
+          <div class="metricLabel">
+            Leg Strength
+          </div>
+          <div class="metricValue favorable">
+            ${model.legStrength.toFixed(1)}
+          </div>
+        </div>
+
+      </div>
+
+      <div class="matchupPanel">
+
+        <div class="matchupTitle">
+          Matchup & Player Context
+        </div>
+
+        <div class="matchupGrid">
+
+          <div class="matchupBox">
+            <div class="matchupLabel">
+              Matchup Score
+            </div>
+            <div class="matchupValue ${scoreClass(model.matchupScore)}">
+              ${matchupScoreText}
+            </div>
+          </div>
+
+          <div class="matchupBox">
+            <div class="matchupLabel">
+              Opponent Stat Rank
+            </div>
+            <div class="matchupValue">
+              ${matchupRank}
+            </div>
+          </div>
+
+          <div class="matchupBox">
+            <div class="matchupLabel">
+              Player Role
+            </div>
+            <div class="matchupValue ${scoreClass(model.roleScore)}">
+              ${model.roleScore.toFixed(0)}/100
+            </div>
+          </div>
+
+          <div class="matchupBox">
+            <div class="matchupLabel">
+              Position
+            </div>
+            <div class="matchupValue">
+              ${model.positionGroup}
+            </div>
+          </div>
+
+        </div>
+
       </div>
 
       <div class="pickLean ${sideClass}">
@@ -3428,12 +3954,19 @@ function modelHTML(model){
         ${seasonText}
         ${model.sample} regular-season games used.
         ${model.agreementCount}/3 trend signals agree.
+        ${
+          model.matchupAvailable
+            ? ` Opponent matchup adjustment applied.`
+            : ` No matchup adjustment available.`
+        }
       </div>
+
     </div>
   `;
 }
 
 function render(){
+
   const props=
     getProps();
 
@@ -3441,6 +3974,7 @@ function render(){
     `${props.length} prop${props.length===1?"":"s"}`;
 
   if(!props.length){
+
     $("propList").innerHTML=
       '<div class="empty">No props match these filters.</div>';
 
@@ -3448,216 +3982,220 @@ function render(){
   }
 
   const shown=
-    props.slice(
-      0,
-      250
-    );
+    props.slice(0,250);
 
   $("propList").innerHTML=
     shown
-      .map(
-        p=>{
-          const key=
-            pKey(p);
+      .map(p=>{
 
-          const model=
-            models.get(key);
+        const key=
+          pKey(p);
 
-          const selectedSide=
-            selected[key];
+        const model=
+          models.get(key);
 
-          const isBest=
-            model &&
-            model.recommendation!=="Pass";
+        const selectedSide=
+          selected[key];
 
-          return `
-          <article class="prop ${isBest?"bestCard":""}">
-            ${
-              isBest
-                ? '<div class="bestBadge">BEST BET</div>'
-                : ''
-            }
+        const isBest=
+          model &&
+          model.recommendation!=="Pass";
 
-            <div class="propTop">
-              <div>
-                <div class="player">
-                  ${text(p.player)}
-                </div>
+        return `
 
-                <div class="matchup">
-                  ${matchup(p)}
-                  ${
-                    p.startTimeCST
-                      ? " • "+text(p.startTimeCST)
-                      : ""
-                  }
-                </div>
+        <article class="prop ${isBest?"bestCard":""}">
+
+          ${
+            isBest
+              ? '<div class="bestBadge">BEST BET</div>'
+              : ''
+          }
+
+          <div class="propTop">
+
+            <div>
+
+              <div class="player">
+                ${text(p.player)}
               </div>
 
-              <div class="boardRank">
+              <div class="matchup">
+                ${matchup(p)}
                 ${
-                  p.rank
-                    ? "Board #"+text(p.rank)
+                  p.startTimeCST
+                    ? " • "+text(p.startTimeCST)
                     : ""
                 }
               </div>
+
             </div>
 
-            <div class="lineBox">
-              <div class="stat">
-                ${text(p.stat)}
-              </div>
-
-              <div class="line">
-                ${text(p.line)}
-              </div>
+            <div class="boardRank">
+              ${
+                p.rank
+                  ? "Board #"+text(p.rank)
+                  : ""
+              }
             </div>
 
-            ${modelHTML(model)}
+          </div>
 
-            <div class="pickButtons">
-              <button
-                class="moreBtn ${selectedSide==="More"?"selected":""}"
-                data-key="${encodeURIComponent(key)}"
-                data-side="More"
-              >
-                More ${text(p.line)}
-              </button>
+          <div class="lineBox">
 
-              <button
-                class="lessBtn ${selectedSide==="Less"?"selected":""}"
-                data-key="${encodeURIComponent(key)}"
-                data-side="Less"
-              >
-                Less ${text(p.line)}
-              </button>
+            <div class="stat">
+              ${text(p.stat)}
             </div>
-          </article>
-          `;
-        }
-      )
+
+            <div class="line">
+              ${text(p.line)}
+            </div>
+
+          </div>
+
+          ${modelHTML(model)}
+
+          <div class="pickButtons">
+
+            <button
+              class="moreBtn ${selectedSide==="More"?"selected":""}"
+              data-key="${encodeURIComponent(key)}"
+              data-side="More"
+            >
+              More ${text(p.line)}
+            </button>
+
+            <button
+              class="lessBtn ${selectedSide==="Less"?"selected":""}"
+              data-key="${encodeURIComponent(key)}"
+              data-side="Less"
+            >
+              Less ${text(p.line)}
+            </button>
+
+          </div>
+
+        </article>
+        `;
+      })
       .join("");
 
   document
-    .querySelectorAll(
-      "[data-side]"
-    )
-    .forEach(
-      btn=>{
-        btn.onclick=()=>{
-          const key=
-            decodeURIComponent(
-              btn.dataset.key
-            );
+    .querySelectorAll("[data-side]")
+    .forEach(btn=>{
 
-          const side=
-            btn.dataset.side;
+      btn.onclick=()=>{
 
-          if(
-            selected[key]===
-            side
-          ){
-            delete selected[key];
-          }else{
-            selected[key]=side;
-          }
+        const key=
+          decodeURIComponent(
+            btn.dataset.key
+          );
 
-          render();
-          renderPicks();
-        };
-      }
-    );
+        const side=
+          btn.dataset.side;
+
+        if(selected[key]===side){
+          delete selected[key];
+        }else{
+          selected[key]=side;
+        }
+
+        render();
+        renderPicks();
+      };
+    });
 }
 
 function renderPicks(){
+
   const entries=
-    Object.entries(
-      selected
-    );
+    Object.entries(selected);
 
   $("selectedCount").textContent=
     entries.length
       ? `${entries.length} selected`
       : "No picks selected";
 
-  if(
-    !entries.length
-  ){
+  if(!entries.length){
+
     $("pickList").innerHTML="";
     return;
   }
 
   $("pickList").innerHTML=
     entries
-      .map(
-        ([key,side])=>{
-          const p=
-            allProps.find(
-              x=>
-                pKey(x)===
-                key
-            );
+      .map(([key,side])=>{
 
-          if(!p){
-            return "";
-          }
+        const p=
+          allProps.find(
+            x=>pKey(x)===key
+          );
 
-          const m=
-            models.get(key);
+        if(!p){
+          return "";
+        }
 
-          return `
-          <div class="pickItem">
-            <div class="row">
-              <div>
-                <strong>
-                  ${text(p.player)}
-                </strong>
+        const m=
+          models.get(key);
 
-                <div class="small">
-                  ${side}
-                  ${text(p.line)}
-                  •
-                  ${text(p.stat)}
+        return `
 
-                  ${
-                    m
-                      ? ` • Score ${m.rating}/100`
-                      : ""
-                  }
-                </div>
+        <div class="pickItem">
+
+          <div class="row">
+
+            <div>
+
+              <strong>
+                ${text(p.player)}
+              </strong>
+
+              <div class="small">
+
+                ${side}
+                ${text(p.line)}
+                •
+                ${text(p.stat)}
+
+                ${
+                  m
+                    ? ` • Score ${m.rating} • Strength ${m.legStrength.toFixed(1)}`
+                    : ""
+                }
+
               </div>
 
-              <button
-                class="remove"
-                data-remove="${encodeURIComponent(key)}"
-              >
-                Remove
-              </button>
             </div>
+
+            <button
+              class="remove"
+              data-remove="${encodeURIComponent(key)}"
+            >
+              Remove
+            </button>
+
           </div>
-          `;
-        }
-      )
+
+        </div>
+        `;
+      })
       .join("");
 
   document
-    .querySelectorAll(
-      "[data-remove]"
-    )
-    .forEach(
-      btn=>{
-        btn.onclick=()=>{
-          delete selected[
-            decodeURIComponent(
-              btn.dataset.remove
-            )
-          ];
+    .querySelectorAll("[data-remove]")
+    .forEach(btn=>{
 
-          render();
-          renderPicks();
-        };
-      }
-    );
+      btn.onclick=()=>{
+
+        delete selected[
+          decodeURIComponent(
+            btn.dataset.remove
+          )
+        ];
+
+        render();
+        renderPicks();
+      };
+    });
 }
 
 /* -----------------------------
@@ -3665,6 +4203,7 @@ function renderPicks(){
 ----------------------------- */
 
 function setAllPropsMode(){
+
   bestOnly=false;
 
   $("allBtn")
@@ -3685,6 +4224,7 @@ function setAllPropsMode(){
 }
 
 function setBestBetsMode(){
+
   bestOnly=true;
 
   $("bestBtn")
@@ -3699,7 +4239,7 @@ function setBestBetsMode(){
   $("leanFilter").value="0.60";
   $("hitFilter").value="0.60";
   $("sampleFilter").value="8";
-  $("sortFilter").value="rating";
+  $("sortFilter").value="strength";
 
   render();
 }
@@ -3708,29 +4248,14 @@ function setBestBetsMode(){
    EVENTS
 ----------------------------- */
 
-$("gameFilter").onchange=
-  render;
-
-$("statFilter").onchange=
-  render;
-
-$("scoreFilter").onchange=
-  render;
-
-$("leanFilter").onchange=
-  render;
-
-$("hitFilter").onchange=
-  render;
-
-$("sampleFilter").onchange=
-  render;
-
-$("sortFilter").onchange=
-  render;
-
-$("searchInput").oninput=
-  render;
+$("gameFilter").onchange=render;
+$("statFilter").onchange=render;
+$("scoreFilter").onchange=render;
+$("leanFilter").onchange=render;
+$("hitFilter").onchange=render;
+$("sampleFilter").onchange=render;
+$("sortFilter").onchange=render;
+$("searchInput").oninput=render;
 
 $("refreshBtn").onclick=
   loadData;
@@ -3742,6 +4267,7 @@ $("allBtn").onclick=
   setAllPropsMode;
 
 $("clearPicks").onclick=()=>{
+
   selected={};
 
   render();
@@ -3749,6 +4275,7 @@ $("clearPicks").onclick=()=>{
 };
 
 $("parlayScope").onchange=()=>{
+
   const single=
     $("parlayScope").value===
     "single";
