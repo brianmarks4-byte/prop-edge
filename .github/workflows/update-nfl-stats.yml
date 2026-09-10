@@ -1,0 +1,50 @@
+name: Update NFL Stats
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    - cron: "15 */6 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  update-stats:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create data folder
+        run: mkdir -p data
+
+      - name: Download 2025 NFL player stats
+        run: |
+          if [ ! -f data/stats_player_week_2025.csv ]; then
+            curl -L --fail \
+              "https://github.com/nflverse/nflverse-data/releases/download/stats_player/stats_player_week_2025.csv" \
+              -o data/stats_player_week_2025.csv
+          fi
+
+      - name: Download current 2026 NFL player stats
+        run: |
+          curl -L --fail \
+            "https://github.com/nflverse/nflverse-data/releases/download/stats_player/stats_player_week_2026.csv" \
+            -o data/stats_player_week_2026.csv \
+            || echo "2026 stats are not available yet."
+
+      - name: Commit updated stats
+        run: |
+          git config user.name "Prop Edge Bot"
+          git config user.email "actions@github.com"
+
+          git add data/
+
+          if git diff --cached --quiet; then
+            echo "No stats changes."
+          else
+            git commit -m "Update NFL player stats"
+            git push
+          fi
