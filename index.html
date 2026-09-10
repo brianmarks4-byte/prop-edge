@@ -288,7 +288,7 @@ select:focus,input:focus{
   padding:0 11px 11px;
   color:#8e98a8;
   font-size:11px;
-  line-height:1.4;
+  line-height:1.45;
 }
 
 .pickButtons{
@@ -443,11 +443,56 @@ select:focus,input:focus{
     </div>
 
     <div>
+      <label>Minimum Model Score</label>
+      <select id="scoreFilter">
+        <option value="0">Any Score</option>
+        <option value="70">70+</option>
+        <option value="75">75+</option>
+        <option value="80" selected>80+ Best Bets</option>
+        <option value="84">84+ Elite</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Minimum Model Lean</label>
+      <select id="leanFilter">
+        <option value="0">Any Lean</option>
+        <option value="0.58">58%+</option>
+        <option value="0.60" selected>60%+</option>
+        <option value="0.62">62%+</option>
+        <option value="0.64">64%+</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Minimum Historical Hit Rate</label>
+      <select id="hitFilter">
+        <option value="0">Any Hit Rate</option>
+        <option value="0.55">55%+</option>
+        <option value="0.60" selected>60%+</option>
+        <option value="0.70">70%+</option>
+        <option value="0.80">80%+</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Minimum Sample Size</label>
+      <select id="sampleFilter">
+        <option value="5">5+ Games</option>
+        <option value="6">6+ Games</option>
+        <option value="8" selected>8+ Games</option>
+        <option value="10">10 Games</option>
+      </select>
+    </div>
+
+    <div>
       <label>Sort</label>
       <select id="sortFilter">
         <option value="board">PrizePicks Board</option>
-        <option value="rating">Best Model Picks</option>
-        <option value="edge">Strongest Model Edge</option>
+        <option value="rating" selected>Best Model Picks</option>
+        <option value="edge">Strongest Statistical Edge</option>
+        <option value="lean">Highest Model Lean</option>
+        <option value="hit">Highest Historical Hit Rate</option>
       </select>
     </div>
 
@@ -455,7 +500,7 @@ select:focus,input:focus{
 
   <div class="filterButtons" style="margin-top:10px">
     <button id="allBtn" class="filterBtn active">All Props</button>
-    <button id="bestBtn" class="filterBtn">Model Picks Only</button>
+    <button id="bestBtn" class="filterBtn">Best Bets Only</button>
   </div>
 </section>
 
@@ -482,8 +527,8 @@ select:focus,input:focus{
 </section>
 
 <div class="disclaimer">
-  Prop Edge Model v2 is a statistical screening model.
-  Model Score is not a guaranteed hit probability.
+  Prop Edge Model v3 is a statistical screening model.
+  Model Score and Model Lean are estimates, not guaranteed hit rates.
   Early-season projections are intentionally conservative.
 </div>
 
@@ -497,21 +542,52 @@ const PP_URL =
 const NFL_STATS =
 "./data/prop_edge_stats.csv";
 
-let allProps = [];
-let statsRows = [];
-let models = new Map();
-let selected = {};
-let modelOnly = false;
+let allProps=[];
+let statsRows=[];
+let models=new Map();
+let selected={};
+let bestOnly=false;
 
-const $ = id => document.getElementById(id);
+const $=id=>document.getElementById(id);
 
 function text(v){
-  return v === undefined || v === null ? "" : String(v);
+  return v===undefined || v===null ? "" : String(v);
 }
 
 function num(v){
-  const x = Number(v);
+  const x=Number(v);
   return Number.isFinite(x) ? x : 0;
+}
+
+function clamp(x,min,max){
+  return Math.max(min,Math.min(max,x));
+}
+
+function mean(arr){
+  if(!arr.length) return 0;
+  return arr.reduce((a,b)=>a+b,0)/arr.length;
+}
+
+function median(arr){
+  if(!arr.length) return 0;
+
+  const s=[...arr].sort((a,b)=>a-b);
+  const mid=Math.floor(s.length/2);
+
+  return s.length%2
+    ? s[mid]
+    : (s[mid-1]+s[mid])/2;
+}
+
+function sd(arr){
+  if(arr.length<2) return 0;
+
+  const m=mean(arr);
+
+  return Math.sqrt(
+    arr.reduce((s,x)=>s+Math.pow(x-m,2),0) /
+    (arr.length-1)
+  );
 }
 
 function normName(name){
@@ -526,16 +602,18 @@ function gameKey(p){
   if(p.gameId) return text(p.gameId);
 
   return [
-    text(p.teamCode || p.Team),
-    text(p.opponentCode || p.Opponent)
+    text(p.teamCode||p.Team),
+    text(p.opponentCode||p.Opponent)
   ].sort().join("-");
 }
 
 function matchup(p){
-  const a = text(p.teamCode || p.Team);
-  const b = text(p.opponentCode || p.Opponent);
+  const a=text(p.teamCode||p.Team);
+  const b=text(p.opponentCode||p.Opponent);
 
-  return a && b ? `${a} vs ${b}` : a || b || "NFL";
+  return a && b
+    ? `${a} vs ${b}`
+    : a || b || "NFL";
 }
 
 function pKey(p){
@@ -545,26 +623,6 @@ function pKey(p){
     text(p.stat),
     text(p.line)
   ].join("|");
-}
-
-function clamp(x,min,max){
-  return Math.max(min,Math.min(max,x));
-}
-
-function mean(arr){
-  if(!arr.length) return 0;
-  return arr.reduce((a,b)=>a+b,0)/arr.length;
-}
-
-function sd(arr){
-  if(arr.length < 2) return 0;
-
-  const m=mean(arr);
-
-  return Math.sqrt(
-    arr.reduce((s,x)=>s+Math.pow(x-m,2),0) /
-    (arr.length-1)
-  );
 }
 
 function erf(x){
@@ -603,23 +661,23 @@ function parseCSV(data){
 
     const c=data[i];
 
-    if(c === '"'){
+    if(c==='"'){
 
-      if(quoted && data[i+1] === '"'){
+      if(quoted && data[i+1]==='"'){
         field+='"';
         i++;
       }else{
         quoted=!quoted;
       }
 
-    }else if(c === "," && !quoted){
+    }else if(c==="," && !quoted){
 
       row.push(field);
       field="";
 
-    }else if((c === "\n" || c === "\r") && !quoted){
+    }else if((c==="\n" || c==="\r") && !quoted){
 
-      if(c === "\r" && data[i+1] === "\n"){
+      if(c==="\r" && data[i+1]==="\n"){
         i++;
       }
 
@@ -643,7 +701,7 @@ function parseCSV(data){
     rows.push(row);
   }
 
-  if(rows.length < 2){
+  if(rows.length<2){
     return [];
   }
 
@@ -738,24 +796,119 @@ function statValue(row,stat){
   return null;
 }
 
-function currentSeasonRows(rows){
-  return rows.filter(r=>num(r.season)===2026);
+function statSettings(stat){
+
+  const s=text(stat).toLowerCase().trim();
+
+  if(s.includes("pass yards")){
+    return {
+      minGap:15,
+      minZ:.40,
+      volatilityPenalty:1
+    };
+  }
+
+  if(s.includes("receiving yards")){
+    return {
+      minGap:7,
+      minZ:.42,
+      volatilityPenalty:1
+    };
+  }
+
+  if(s.includes("rush yards")){
+    return {
+      minGap:6,
+      minZ:.42,
+      volatilityPenalty:1
+    };
+  }
+
+  if(s.includes("rush+rec yards")){
+    return {
+      minGap:8,
+      minZ:.42,
+      volatilityPenalty:1
+    };
+  }
+
+  if(s.includes("attempts")){
+    return {
+      minGap:2,
+      minZ:.40,
+      volatilityPenalty:1
+    };
+  }
+
+  if(s.includes("completions")){
+    return {
+      minGap:1.5,
+      minZ:.40,
+      volatilityPenalty:1
+    };
+  }
+
+  if(s==="receptions"){
+    return {
+      minGap:1,
+      minZ:.42,
+      volatilityPenalty:1
+    };
+  }
+
+  if(s==="targets"){
+    return {
+      minGap:1.2,
+      minZ:.42,
+      volatilityPenalty:1
+    };
+  }
+
+  if(
+    s.includes("td") ||
+    s.includes("touchdown") ||
+    s.includes("interception")
+  ){
+    return {
+      minGap:.45,
+      minZ:.55,
+      volatilityPenalty:.78
+    };
+  }
+
+  return {
+    minGap:1,
+    minZ:.45,
+    volatilityPenalty:.90
+  };
 }
 
-function previousSeasonRows(rows){
-  return rows.filter(r=>num(r.season)===2025);
+function winsorize(arr){
+
+  if(arr.length<5){
+    return [...arr];
+  }
+
+  const sorted=[...arr].sort((a,b)=>a-b);
+
+  const low=sorted[Math.floor((sorted.length-1)*.10)];
+  const high=sorted[Math.ceil((sorted.length-1)*.90)];
+
+  return arr.map(x=>
+    clamp(x,low,high)
+  );
 }
 
 function buildModel(prop){
 
-  const name=normName(prop.player);
+  const playerName=normName(prop.player);
   const line=Number(prop.line);
 
-  if(!name || !Number.isFinite(line)){
+  if(!playerName || !Number.isFinite(line)){
     return null;
   }
 
-  const matchingRows=statsRows
+  const matched=statsRows
     .filter(r=>{
 
       const display=
@@ -763,223 +916,241 @@ function buildModel(prop){
         r.player_name ||
         "";
 
-      return normName(display)===name;
+      return normName(display)===playerName;
 
     })
     .filter(r=>{
 
-      return statValue(r,prop.stat)!==null;
+      const seasonType=
+        text(r.season_type).toUpperCase();
 
-    });
+      return !seasonType || seasonType==="REG";
 
-  if(matchingRows.length < 5){
+    })
+    .filter(r=>statValue(r,prop.stat)!==null);
+
+  if(matched.length<5){
     return null;
   }
 
-  const rows2026=currentSeasonRows(matchingRows)
+  const current=matched
+    .filter(r=>num(r.season)===2026)
     .sort((a,b)=>num(b.week)-num(a.week));
 
-  const rows2025=previousSeasonRows(matchingRows)
+  const prior=matched
+    .filter(r=>num(r.season)===2025)
     .sort((a,b)=>num(b.week)-num(a.week));
 
-  const currentGames=rows2026.slice(0,8);
-  const priorGames=rows2025.slice(0,10);
+  const currentGames=current.slice(0,8);
+  const priorGames=prior.slice(0,10);
 
   let combined=[];
 
-  /*
-    Early season:
-    prior-year games remain useful,
-    but current-season games gradually take over.
-  */
-
   if(currentGames.length===0){
 
-    combined=priorGames.slice(0,10).map((r,i)=>({
-      row:r,
-      weight:[1,.94,.88,.82,.76,.70,.64,.59,.54,.50][i] || .5
-    }));
+    priorGames.forEach((r,i)=>{
+
+      const weights=[
+        1,
+        .95,
+        .90,
+        .85,
+        .80,
+        .75,
+        .70,
+        .65,
+        .60,
+        .55
+      ];
+
+      combined.push({
+        row:r,
+        weight:weights[i]
+      });
+    });
 
   }else{
 
     currentGames.forEach((r,i)=>{
 
-      const currentWeights=[
-        1.30,
-        1.22,
-        1.14,
-        1.06,
-        .98,
-        .90,
-        .84,
+      const weights=[
+        1.45,
+        1.32,
+        1.20,
+        1.10,
+        1.00,
+        .92,
+        .85,
         .78
       ];
 
       combined.push({
         row:r,
-        weight:currentWeights[i]
+        weight:weights[i]
       });
-
     });
 
     const priorLimit=
-      Math.max(
-        3,
-        10-currentGames.length
-      );
+      currentGames.length>=6
+      ? 3
+      : currentGames.length>=4
+        ? 5
+        : currentGames.length>=2
+          ? 7
+          : 9;
 
     priorGames
       .slice(0,priorLimit)
       .forEach((r,i)=>{
 
-        const priorBase=
-          currentGames.length>=5
-          ? .40
-          : currentGames.length>=3
-            ? .55
-            : .70;
+        const base=
+          currentGames.length>=6
+          ? .35
+          : currentGames.length>=4
+            ? .45
+            : currentGames.length>=2
+              ? .58
+              : .68;
 
         combined.push({
           row:r,
-          weight:
-            priorBase *
-            Math.pow(.92,i)
+          weight:base*Math.pow(.92,i)
         });
-
       });
   }
 
-  if(combined.length < 5){
+  if(combined.length<5){
     return null;
   }
 
-  const values=combined.map(x=>
+  let values=combined.map(x=>
     statValue(x.row,prop.stat)
   );
+
+  values=winsorize(values);
 
   let weightedTotal=0;
   let weightTotal=0;
 
-  combined.forEach(x=>{
-
-    const v=
-      statValue(
-        x.row,
-        prop.stat
-      );
-
-    weightedTotal+=v*x.weight;
+  combined.forEach((x,i)=>{
+    weightedTotal+=values[i]*x.weight;
     weightTotal+=x.weight;
-
   });
 
   const weightedMean=
     weightedTotal/weightTotal;
 
-  const recentValues=
+  const med=
+    median(values);
+
+  const recent5=
     values.slice(0,Math.min(5,values.length));
 
-  const last3=
-    mean(
-      recentValues.slice(
-        0,
-        Math.min(3,recentValues.length)
-      )
-    );
+  const recent3=
+    values.slice(0,Math.min(3,values.length));
 
-  const last5=
-    mean(recentValues);
-
-  /*
-    Projection is intentionally smoother than v1.
-  */
+  const last5=mean(recent5);
+  const last3=mean(recent3);
 
   let projection=
-    weightedMean*.72 +
-    last5*.18 +
+    weightedMean*.52 +
+    med*.22 +
+    last5*.16 +
     last3*.10;
 
   /*
-    If we have zero 2026 games, regress the projection
-    slightly toward the current PrizePicks line.
+  Conservative regression toward market line.
+  Strongest in Week 1.
   */
 
   if(currentGames.length===0){
 
     projection=
-      projection*.82 +
-      line*.18;
+      projection*.80 +
+      line*.20;
 
   }else if(currentGames.length===1){
 
     projection=
-      projection*.88 +
-      line*.12;
+      projection*.85 +
+      line*.15;
+
+  }else if(currentGames.length===2){
+
+    projection=
+      projection*.90 +
+      line*.10;
   }
 
   const deviation=
     Math.max(
       sd(values),
-      Math.max(Math.abs(line)*.08,.75)
+      Math.max(
+        Math.abs(line)*.07,
+        .75
+      )
     );
 
-  /*
-    Standardized distance from the line.
-    This is the important v2 fix:
-    we no longer score tiny lines using huge % differences.
-  */
-
-  const zEdge=
+  const z=
     (projection-line)/deviation;
 
-  const modelOver=
+  const normalOver=
     1-normalCDF(
       (line-projection)/deviation
     );
 
+  const overHits=
+    values.filter(v=>v>line).length;
+
+  const underHits=
+    values.filter(v=>v<line).length;
+
+  const pushHits=
+    values.filter(v=>v===line).length;
+
   const historicalOver=
-    values.filter(v=>v>line).length /
-    values.length;
+    (overHits+.5*pushHits)/values.length;
 
   const historicalUnder=
-    values.filter(v=>v<line).length /
-    values.length;
+    (underHits+.5*pushHits)/values.length;
 
   let overProb=
-    modelOver*.62 +
-    historicalOver*.38;
+    normalOver*.55 +
+    historicalOver*.45;
 
   let underProb=
-    (1-modelOver)*.62 +
-    historicalUnder*.38;
+    (1-normalOver)*.55 +
+    historicalUnder*.45;
 
   /*
-    Conservative probability shrinkage.
+  Sample and early-season shrinkage toward 50%.
   */
 
   let shrink=.72;
 
   if(currentGames.length===0){
-    shrink=.56;
+    shrink=.55;
   }else if(currentGames.length===1){
-    shrink=.62;
+    shrink=.60;
   }else if(currentGames.length===2){
-    shrink=.68;
+    shrink=.66;
+  }else if(currentGames.length>=5){
+    shrink=.78;
   }
 
-  overProb=
-    .50 +
-    (overProb-.50)*shrink;
+  const sampleShrink=
+    clamp(values.length/10,.60,1);
 
-  underProb=
-    .50 +
-    (underProb-.50)*shrink;
+  shrink*=sampleShrink;
 
   overProb=
-    clamp(overProb,.34,.68);
+    .50+(overProb-.50)*shrink;
 
   underProb=
-    clamp(underProb,.34,.68);
+    .50+(underProb-.50)*shrink;
+
+  overProb=clamp(overProb,.35,.67);
+  underProb=clamp(underProb,.35,.67);
 
   const side=
     overProb>=underProb
@@ -989,29 +1160,61 @@ function buildModel(prop){
   const probability=
     Math.max(overProb,underProb);
 
-  const rawDifference=
-    projection-line;
-
-  const standardizedEdge=
-    Math.abs(zEdge);
-
-  const hitRate=
+  const histHit=
     side==="More"
     ? historicalOver
     : historicalUnder;
 
-  /*
-    Model Score v2
-    ----------------
-    Probability = 45%
-    standardized edge = 30%
-    historical agreement = 15%
-    usable sample = 10%
-  */
+  const projectionGap=
+    projection-line;
+
+  const absGap=
+    Math.abs(projectionGap);
+
+  const standardizedEdge=
+    Math.abs(z);
+
+  const settings=
+    statSettings(prop.stat);
+
+  const volatility=
+    deviation/
+    Math.max(
+      Math.abs(weightedMean),
+      1
+    );
+
+  const volatilityScore=
+    clamp(
+      1-(volatility/.75),
+      0,
+      1
+    );
+
+  const projectionAgreement=
+    side==="More"
+      ? projection>line
+      : projection<line;
+
+  const medianAgreement=
+    side==="More"
+      ? med>line
+      : med<line;
+
+  const last5Agreement=
+    side==="More"
+      ? last5>line
+      : last5<line;
+
+  const agreementCount=[
+    projectionAgreement,
+    medianAgreement,
+    last5Agreement
+  ].filter(Boolean).length;
 
   const probabilityScore=
     clamp(
-      (probability-.50)/.16,
+      (probability-.50)/.15,
       0,
       1
     );
@@ -1023,9 +1226,9 @@ function buildModel(prop){
       1
     );
 
-  const hitRateScore=
+  const historyScore=
     clamp(
-      (hitRate-.50)/.25,
+      (histHit-.50)/.30,
       0,
       1
     );
@@ -1037,83 +1240,90 @@ function buildModel(prop){
       1
     );
 
+  const agreementScore=
+    agreementCount/3;
+
   let rating=
     50 +
-    probabilityScore*20 +
+    probabilityScore*18 +
     edgeScore*14 +
-    hitRateScore*8 +
-    sampleScore*5;
+    historyScore*9 +
+    sampleScore*5 +
+    agreementScore*4 +
+    volatilityScore*3;
 
-  /*
-    Early-season cap.
-  */
+  rating*=settings.volatilityPenalty;
 
   if(currentGames.length===0){
-    rating=Math.min(rating,82);
+    rating=Math.min(rating,84);
   }
 
   if(currentGames.length===1){
-    rating=Math.min(rating,84);
+    rating=Math.min(rating,85);
   }
 
   rating=
     Math.round(
-      clamp(rating,50,88)
+      clamp(rating,50,90)
     );
 
-  let recommendation="Pass";
-
   /*
-    Stronger Model Pick rules.
+  BEST BET QUALIFIERS
   */
 
-  const enoughProbability=
-    probability>=.585;
+  const enoughSample=
+    values.length>=8;
 
-  const enoughEdge=
-    standardizedEdge>=.35;
+  const enoughProbability=
+    probability>=.60;
 
   const enoughHistory=
-    hitRate>=.55;
+    histHit>=.60;
 
-  const enoughSample=
-    values.length>=6;
+  const enoughZ=
+    standardizedEdge>=settings.minZ;
+
+  const enoughGap=
+    absGap>=settings.minGap;
+
+  const enoughAgreement=
+    agreementCount>=2;
+
+  const notTooVolatile=
+    volatility<=.85;
 
   const strongPick=
+    enoughSample &&
     enoughProbability &&
-    enoughEdge &&
     enoughHistory &&
-    enoughSample;
+    enoughZ &&
+    enoughGap &&
+    enoughAgreement &&
+    notTooVolatile &&
+    rating>=80;
 
-  if(strongPick){
-    recommendation=side;
-  }
-
-  if(recommendation==="Pass"){
-    rating=Math.min(rating,69);
-  }
-
-  const edgeLabel=
-    standardizedEdge.toFixed(2);
+  const recommendation=
+    strongPick
+    ? side
+    : "Pass";
 
   return {
     projection,
     probability,
-    overProb,
-    underProb,
     rating,
     recommendation,
+    side,
     sample:values.length,
     currentSample:currentGames.length,
     priorSample:priorGames.length,
     last3,
     last5,
-    deviation,
-    zEdge,
+    median:med,
+    hitRate:histHit,
+    rawDifference:projectionGap,
     standardizedEdge,
-    rawDifference,
-    hitRate,
-    edgeLabel
+    volatility,
+    agreementCount
   };
 }
 
@@ -1206,7 +1416,7 @@ async function loadData(){
     if(statsRows.length){
 
       $("modelStatus").textContent=
-        `${statsRows.length.toLocaleString()} weekly player records loaded • Model v2 ready`;
+        `${statsRows.length.toLocaleString()} weekly player records loaded • Model v3 ready`;
 
     }else{
 
@@ -1263,7 +1473,6 @@ function dedupe(props){
     }
 
     seen.add(key);
-
     return true;
   });
 }
@@ -1300,15 +1509,13 @@ function buildFilters(){
 
   allProps.forEach(p=>{
 
-    const key=
-      gameKey(p);
+    const key=gameKey(p);
 
     if(!key || games.has(key)){
       return;
     }
 
-    let label=
-      matchup(p);
+    let label=matchup(p);
 
     if(p.startTimeCST){
       label+=" • "+p.startTimeCST;
@@ -1374,6 +1581,26 @@ function getProps(){
       .trim()
       .toLowerCase();
 
+  const minScore=
+    Number(
+      $("scoreFilter").value
+    );
+
+  const minLean=
+    Number(
+      $("leanFilter").value
+    );
+
+  const minHit=
+    Number(
+      $("hitFilter").value
+    );
+
+  const minSample=
+    Number(
+      $("sampleFilter").value
+    );
+
   let props=
     allProps.filter(p=>{
 
@@ -1404,20 +1631,53 @@ function getProps(){
         }
       }
 
-      if(modelOnly){
+      const m=
+        models.get(
+          pKey(p)
+        );
 
-        const m=
-          models.get(
-            pKey(p)
-          );
+      /*
+      All Props mode:
+      always show full board unless user
+      manually applies model filters.
+      */
+
+      if(!m){
 
         if(
-          !m ||
-          m.recommendation==="Pass" ||
-          m.rating<70
+          bestOnly ||
+          minScore>0 ||
+          minLean>0 ||
+          minHit>0 ||
+          minSample>5
         ){
           return false;
         }
+
+        return true;
+      }
+
+      if(bestOnly){
+
+        if(m.recommendation==="Pass"){
+          return false;
+        }
+      }
+
+      if(minScore>0 && m.rating<minScore){
+        return false;
+      }
+
+      if(minLean>0 && m.probability<minLean){
+        return false;
+      }
+
+      if(minHit>0 && m.hitRate<minHit){
+        return false;
+      }
+
+      if(minSample>0 && m.sample<minSample){
+        return false;
       }
 
       return true;
@@ -1428,29 +1688,35 @@ function getProps(){
 
   if(sort==="rating"){
 
-    props.sort((a,b)=>{
-
-      const ma=models.get(pKey(a));
-      const mb=models.get(pKey(b));
-
-      return (
-        (mb?.rating||0)-
-        (ma?.rating||0)
-      );
-    });
+    props.sort((a,b)=>
+      (models.get(pKey(b))?.rating||0)
+      -
+      (models.get(pKey(a))?.rating||0)
+    );
 
   }else if(sort==="edge"){
 
-    props.sort((a,b)=>{
+    props.sort((a,b)=>
+      (models.get(pKey(b))?.standardizedEdge||0)
+      -
+      (models.get(pKey(a))?.standardizedEdge||0)
+    );
 
-      const ma=models.get(pKey(a));
-      const mb=models.get(pKey(b));
+  }else if(sort==="lean"){
 
-      return (
-        (mb?.standardizedEdge||0)-
-        (ma?.standardizedEdge||0)
-      );
-    });
+    props.sort((a,b)=>
+      (models.get(pKey(b))?.probability||0)
+      -
+      (models.get(pKey(a))?.probability||0)
+    );
+
+  }else if(sort==="hit"){
+
+    props.sort((a,b)=>
+      (models.get(pKey(b))?.hitRate||0)
+      -
+      (models.get(pKey(a))?.hitRate||0)
+    );
 
   }else{
 
@@ -1464,11 +1730,11 @@ function getProps(){
 
 function ratingClass(rating){
 
-  if(rating>=78){
+  if(rating>=82){
     return "good";
   }
 
-  if(rating>=68){
+  if(rating>=72){
     return "mid";
   }
 
@@ -1485,7 +1751,7 @@ function modelHTML(model){
         <div class="modelHeader">
 
           <div class="modelTitle">
-            PROP EDGE MODEL v2
+            PROP EDGE MODEL v3
           </div>
 
           <div class="rating low">
@@ -1494,7 +1760,10 @@ function modelHTML(model){
 
         </div>
 
-        <div class="reason" style="padding-top:11px">
+        <div
+          class="reason"
+          style="padding-top:11px"
+        >
           No supported historical model for this prop yet.
         </div>
 
@@ -1502,47 +1771,34 @@ function modelHTML(model){
     `;
   }
 
-  const prob=
+  const lean=
     (model.probability*100)
       .toFixed(1);
 
-  const projection=
-    model.projection
-      .toFixed(1);
-
-  const difference=
-    (model.rawDifference>0?"+":"")+
-    model.rawDifference
-      .toFixed(1);
-
-  const hitRate=
+  const hit=
     (model.hitRate*100)
       .toFixed(0);
 
-  const leanClass=
+  const gap=
+    (model.rawDifference>0?"+":"")+
+    model.rawDifference.toFixed(1);
+
+  const sideClass=
     model.recommendation==="More"
     ? "more"
     : model.recommendation==="Less"
       ? "less"
       : "pass";
 
-  const lean=
+  const decision=
     model.recommendation==="Pass"
-    ? "PASS — evidence not strong enough"
-    : `${model.recommendation.toUpperCase()} • ${prob}% model lean`;
+    ? "PASS — does not meet Best Bet rules"
+    : `${model.recommendation.toUpperCase()} • ${lean}% model lean`;
 
-  let seasonNote="";
-
-  if(model.currentSample===0){
-
-    seasonNote=
-      "Prior-season baseline only.";
-
-  }else{
-
-    seasonNote=
-      `${model.currentSample} current-season game${model.currentSample===1?"":"s"} included.`;
-  }
+  const seasonText=
+    model.currentSample===0
+    ? "Prior-season baseline only."
+    : `${model.currentSample} current-season game${model.currentSample===1?"":"s"} included.`;
 
   return `
     <div class="model">
@@ -1550,7 +1806,7 @@ function modelHTML(model){
       <div class="modelHeader">
 
         <div class="modelTitle">
-          PROP EDGE MODEL v2
+          PROP EDGE MODEL v3
         </div>
 
         <div class="rating ${ratingClass(model.rating)}">
@@ -1562,63 +1818,69 @@ function modelHTML(model){
       <div class="modelGrid">
 
         <div class="metric">
-
           <div class="metricLabel">
             Projection
           </div>
-
           <div class="metricValue">
-            ${projection}
+            ${model.projection.toFixed(1)}
           </div>
-
         </div>
 
         <div class="metric">
-
           <div class="metricLabel">
             Projection Gap
           </div>
-
           <div class="metricValue">
-            ${difference}
+            ${gap}
           </div>
-
         </div>
 
         <div class="metric">
-
           <div class="metricLabel">
-            Last 3 Avg
+            Median
           </div>
-
           <div class="metricValue">
-            ${model.last3.toFixed(1)}
+            ${model.median.toFixed(1)}
           </div>
-
         </div>
 
         <div class="metric">
-
           <div class="metricLabel">
             Hist. Hit Rate
           </div>
-
           <div class="metricValue">
-            ${hitRate}%
+            ${hit}%
           </div>
+        </div>
 
+        <div class="metric">
+          <div class="metricLabel">
+            Last 3 Avg
+          </div>
+          <div class="metricValue">
+            ${model.last3.toFixed(1)}
+          </div>
+        </div>
+
+        <div class="metric">
+          <div class="metricLabel">
+            Edge Strength
+          </div>
+          <div class="metricValue">
+            ${model.standardizedEdge.toFixed(2)} SD
+          </div>
         </div>
 
       </div>
 
-      <div class="pickLean ${leanClass}">
-        ${lean}
+      <div class="pickLean ${sideClass}">
+        ${decision}
       </div>
 
       <div class="reason">
-        ${seasonNote}
-        ${model.sample} games used.
-        Edge strength ${model.edgeLabel} SD.
+        ${seasonText}
+        ${model.sample} regular-season games used.
+        ${model.agreementCount}/3 trend signals agree.
         Model Score is a screening score, not a guaranteed probability.
       </div>
 
@@ -1648,19 +1910,13 @@ function render(){
   $("propList").innerHTML=
     shown.map(p=>{
 
-      const key=
-        pKey(p);
-
-      const model=
-        models.get(key);
-
-      const selectedSide=
-        selected[key];
+      const key=pKey(p);
+      const model=models.get(key);
+      const selectedSide=selected[key];
 
       const isBest=
         model &&
-        model.recommendation!=="Pass" &&
-        model.rating>=70;
+        model.recommendation!=="Pass";
 
       return `
 
@@ -1668,7 +1924,7 @@ function render(){
 
         ${
           isBest
-          ? '<div class="bestBadge">MODEL PICK</div>'
+          ? '<div class="bestBadge">BEST BET</div>'
           : ''
         }
 
@@ -1752,11 +2008,8 @@ function render(){
           btn.dataset.side;
 
         if(selected[key]===side){
-
           delete selected[key];
-
         }else{
-
           selected[key]=side;
         }
 
@@ -1810,18 +2063,15 @@ function renderPicks(){
             </strong>
 
             <div class="small">
-
               ${side}
               ${text(p.line)}
               •
               ${text(p.stat)}
-
               ${
                 m
                 ? ` • Score ${m.rating}/100`
                 : ""
               }
-
             </div>
 
           </div>
@@ -1858,6 +2108,10 @@ function renderPicks(){
 
 $("gameFilter").onchange=render;
 $("statFilter").onchange=render;
+$("scoreFilter").onchange=render;
+$("leanFilter").onchange=render;
+$("hitFilter").onchange=render;
+$("sampleFilter").onchange=render;
 $("sortFilter").onchange=render;
 $("searchInput").oninput=render;
 
@@ -1865,7 +2119,7 @@ $("refreshBtn").onclick=loadData;
 
 $("bestBtn").onclick=()=>{
 
-  modelOnly=true;
+  bestOnly=true;
 
   $("bestBtn")
     .classList
@@ -1875,15 +2129,18 @@ $("bestBtn").onclick=()=>{
     .classList
     .remove("active");
 
-  $("sortFilter").value=
-    "rating";
+  $("scoreFilter").value="80";
+  $("leanFilter").value="0.60";
+  $("hitFilter").value="0.60";
+  $("sampleFilter").value="8";
+  $("sortFilter").value="rating";
 
   render();
 };
 
 $("allBtn").onclick=()=>{
 
-  modelOnly=false;
+  bestOnly=false;
 
   $("allBtn")
     .classList
@@ -1892,6 +2149,17 @@ $("allBtn").onclick=()=>{
   $("bestBtn")
     .classList
     .remove("active");
+
+  /*
+  Reset model filters so All Props truly
+  shows the entire NFL board.
+  */
+
+  $("scoreFilter").value="0";
+  $("leanFilter").value="0";
+  $("hitFilter").value="0";
+  $("sampleFilter").value="5";
+  $("sortFilter").value="board";
 
   render();
 };
