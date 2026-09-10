@@ -483,8 +483,8 @@ select:focus,input:focus{
 
 <div class="disclaimer">
   Prop Edge Model v1 uses recent NFL player game results.
-  Ratings are estimates, not guarantees. Week 1 relies heavily
-  on prior-season history because current-season samples are limited.
+  Ratings are estimates, not guarantees.
+  Early-season projections rely more heavily on prior-season history.
 </div>
 
 </main>
@@ -494,12 +494,8 @@ select:focus,input:focus{
 const PP_URL =
 "https://raw.githubusercontent.com/ENKDAY/prizepicks-scraper/main/data/prizepicks-nfl.json";
 
-/*
-  NFLVERSE DATA IS NOW HOSTED INSIDE YOUR OWN REPOSITORY.
-  This avoids Safari/GitHub release-asset problems.
-*/
-const NFL_2026 = "./data/stats_player_week_2026.csv";
-const NFL_2025 = "./data/stats_player_week_2025.csv";
+const NFL_STATS =
+"./data/prop_edge_stats.csv";
 
 let allProps = [];
 let statsRows = [];
@@ -621,10 +617,7 @@ function parseCSV(data){
       field="";
     }
 
-    else if(
-      (c === "\n" || c === "\r") &&
-      !quoted
-    ){
+    else if((c === "\n" || c === "\r") && !quoted){
       if(c === "\r" && data[i+1] === "\n") i++;
 
       row.push(field);
@@ -663,27 +656,17 @@ function parseCSV(data){
   });
 }
 
-/*
-  Only map prop types that correspond cleanly to nflverse
-  weekly box-score fields.
-*/
 function statValue(row,stat){
 
   const s=text(stat)
     .toLowerCase()
     .trim();
 
-  if(
-    s === "pass yards" ||
-    s === "passing yards"
-  ){
+  if(s === "pass yards" || s === "passing yards"){
     return num(row.passing_yards);
   }
 
-  if(
-    s === "pass attempts" ||
-    s === "passing attempts"
-  ){
+  if(s === "pass attempts" || s === "passing attempts"){
     return num(row.attempts);
   }
 
@@ -705,29 +688,21 @@ function statValue(row,stat){
 
   if(
     s === "interceptions" ||
-    s === "pass interceptions"
+    s === "pass interceptions" ||
+    s === "passing interceptions"
   ){
     return num(row.interceptions);
   }
 
-  if(
-    s === "rush yards" ||
-    s === "rushing yards"
-  ){
+  if(s === "rush yards" || s === "rushing yards"){
     return num(row.rushing_yards);
   }
 
-  if(
-    s === "rush attempts" ||
-    s === "rushing attempts"
-  ){
+  if(s === "rush attempts" || s === "rushing attempts"){
     return num(row.carries);
   }
 
-  if(
-    s === "receiving yards" ||
-    s === "rec yards"
-  ){
+  if(s === "receiving yards" || s === "rec yards"){
     return num(row.receiving_yards);
   }
 
@@ -744,20 +719,15 @@ function statValue(row,stat){
     s === "rush + rec yards" ||
     s === "rushing + receiving yards"
   ){
-    return (
-      num(row.rushing_yards) +
-      num(row.receiving_yards)
-    );
+    return num(row.rushing_yards) + num(row.receiving_yards);
   }
 
   if(
     s === "rush+rec tds" ||
-    s === "rush + rec tds"
+    s === "rush + rec tds" ||
+    s === "rushing + receiving tds"
   ){
-    return (
-      num(row.rushing_tds) +
-      num(row.receiving_tds)
-    );
+    return num(row.rushing_tds) + num(row.receiving_tds);
   }
 
   return null;
@@ -898,19 +868,11 @@ function buildModel(prop){
     edgeScore*14 +
     sampleScore*8;
 
-  /*
-    Model v1 is intentionally capped.
-    This is a heuristic rating, not a calibrated
-    guaranteed hit probability.
-  */
   rating=Math.round(clamp(rating,50,88));
 
   let recommendation=side;
 
-  if(
-    probability < .555 ||
-    absEdge < 3
-  ){
+  if(probability < .555 || absEdge < 3){
     recommendation="Pass";
     rating=Math.min(rating,69);
   }
@@ -945,9 +907,7 @@ async function fetchText(url){
 
   const response = await fetch(
     url + separator + "v=" + Date.now(),
-    {
-      cache:"no-store"
-    }
+    {cache:"no-store"}
   );
 
   if(!response.ok){
@@ -1004,42 +964,33 @@ async function loadData(){
     return;
   }
 
-  /*
-    2025 should exist.
-    2026 may be unavailable/empty early in the season,
-    so each season is allowed to succeed independently.
-  */
-  const results =
-    await Promise.allSettled([
-      fetchText(NFL_2026),
-      fetchText(NFL_2025)
-    ]);
+  try{
 
-  statsRows=[];
+    const statsText=
+      await fetchText(NFL_STATS);
 
-  results.forEach(result=>{
+    statsRows=
+      parseCSV(statsText);
 
-    if(result.status === "fulfilled"){
+    if(statsRows.length){
 
-      const parsed=parseCSV(result.value);
+      $("modelStatus").textContent=
+        `${statsRows.length.toLocaleString()} weekly player records loaded • Model v1 ready`;
 
-      if(parsed.length){
-        statsRows.push(...parsed);
-      }
     }else{
-      console.warn(
-        "NFL stats file unavailable:",
-        result.reason
-      );
+
+      $("modelStatus").textContent=
+        "Historical model file loaded but contained no player records";
     }
-  });
 
-  if(statsRows.length){
+  }catch(e){
 
-    $("modelStatus").textContent=
-      `${statsRows.length.toLocaleString()} weekly player records loaded • Model v1 ready`;
+    console.warn(
+      "NFL stats file unavailable:",
+      e
+    );
 
-  }else{
+    statsRows=[];
 
     $("modelStatus").textContent=
       "Historical model data unavailable — board still works";
