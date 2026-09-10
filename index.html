@@ -85,10 +85,7 @@ body{
   margin-right:7px;
 }
 
-button,input,select{
-  font:inherit;
-}
-
+button,input,select{font:inherit}
 button{cursor:pointer}
 
 .refresh{
@@ -457,13 +454,8 @@ select:focus,input:focus{
   </div>
 
   <div class="filterButtons" style="margin-top:10px">
-    <button id="allBtn" class="filterBtn active">
-      All Props
-    </button>
-
-    <button id="bestBtn" class="filterBtn">
-      Model Picks Only
-    </button>
+    <button id="allBtn" class="filterBtn active">All Props</button>
+    <button id="bestBtn" class="filterBtn">Model Picks Only</button>
   </div>
 </section>
 
@@ -480,14 +472,10 @@ select:focus,input:focus{
   <div class="row">
     <div>
       <div class="title">My Lineup</div>
-      <div id="selectedCount" class="small">
-        No picks selected
-      </div>
+      <div id="selectedCount" class="small">No picks selected</div>
     </div>
 
-    <button id="clearPicks" class="refresh">
-      Clear
-    </button>
+    <button id="clearPicks" class="refresh">Clear</button>
   </div>
 
   <div id="pickList"></div>
@@ -506,19 +494,18 @@ select:focus,input:focus{
 const PP_URL =
 "https://raw.githubusercontent.com/ENKDAY/prizepicks-scraper/main/data/prizepicks-nfl.json";
 
-const NFL_2026 =
-"https://github.com/nflverse/nflverse-data/releases/download/stats_player/stats_player_week_2026.csv?raw=1";
-
-const NFL_2025 =
-"https://github.com/nflverse/nflverse-data/releases/download/stats_player/stats_player_week_2025.csv?raw=1";
-
+/*
+  NFLVERSE DATA IS NOW HOSTED INSIDE YOUR OWN REPOSITORY.
+  This avoids Safari/GitHub release-asset problems.
+*/
+const NFL_2026 = "./data/stats_player_week_2026.csv";
+const NFL_2025 = "./data/stats_player_week_2025.csv";
 
 let allProps = [];
 let statsRows = [];
 let models = new Map();
 let selected = {};
 let modelOnly = false;
-
 
 const $ = id => document.getElementById(id);
 
@@ -609,7 +596,6 @@ function normalCDF(x){
   return .5*(1+erf(x/Math.sqrt(2)));
 }
 
-
 function parseCSV(data){
 
   const rows=[];
@@ -677,83 +663,86 @@ function parseCSV(data){
   });
 }
 
-
+/*
+  Only map prop types that correspond cleanly to nflverse
+  weekly box-score fields.
+*/
 function statValue(row,stat){
 
-  const s=text(stat).toLowerCase();
+  const s=text(stat)
+    .toLowerCase()
+    .trim();
 
   if(
-    s.includes("pass yards") ||
-    s.includes("passing yards")
+    s === "pass yards" ||
+    s === "passing yards"
   ){
     return num(row.passing_yards);
   }
 
   if(
-    s.includes("pass attempts") ||
-    s.includes("passing attempts")
+    s === "pass attempts" ||
+    s === "passing attempts"
   ){
     return num(row.attempts);
   }
 
   if(
-    s.includes("completion") &&
-    !s.includes("percentage")
+    s === "completions" ||
+    s === "pass completions" ||
+    s === "passing completions"
   ){
     return num(row.completions);
   }
 
   if(
-    s.includes("pass td") ||
-    s.includes("passing td")
+    s === "pass tds" ||
+    s === "passing tds" ||
+    s === "passing touchdowns"
   ){
     return num(row.passing_tds);
   }
 
   if(
-    s.includes("interception")
+    s === "interceptions" ||
+    s === "pass interceptions"
   ){
     return num(row.interceptions);
   }
 
   if(
-    s.includes("rush yards") ||
-    s.includes("rushing yards")
+    s === "rush yards" ||
+    s === "rushing yards"
   ){
     return num(row.rushing_yards);
   }
 
   if(
-    s.includes("rush attempts") ||
-    s.includes("rushing attempts")
+    s === "rush attempts" ||
+    s === "rushing attempts"
   ){
     return num(row.carries);
   }
 
   if(
-    s.includes("receiving yards") ||
-    s.includes("rec yards")
+    s === "receiving yards" ||
+    s === "rec yards"
   ){
     return num(row.receiving_yards);
   }
 
-  if(
-    s === "receptions" ||
-    s.includes("reception")
-  ){
+  if(s === "receptions"){
     return num(row.receptions);
   }
 
-  if(
-    s.includes("targets")
-  ){
+  if(s === "targets"){
     return num(row.targets);
   }
 
   if(
-    s.includes("rush+rec yards") ||
-    s.includes("rushing + receiving") ||
-    s.includes("rush + rec")
+    s === "rush+rec yards" ||
+    s === "rush + rec yards" ||
+    s === "rushing + receiving yards"
   ){
     return (
       num(row.rushing_yards) +
@@ -761,9 +750,18 @@ function statValue(row,stat){
     );
   }
 
+  if(
+    s === "rush+rec tds" ||
+    s === "rush + rec tds"
+  ){
+    return (
+      num(row.rushing_tds) +
+      num(row.receiving_tds)
+    );
+  }
+
   return null;
 }
-
 
 function buildModel(prop){
 
@@ -802,7 +800,9 @@ function buildModel(prop){
 
   const recent=playerRows.slice(0,10);
 
-  const games=recent.map(r=>statValue(r,prop.stat));
+  const games=recent.map(
+    r=>statValue(r,prop.stat)
+  );
 
   const weights=[
     1,.92,.85,.78,.72,
@@ -898,7 +898,12 @@ function buildModel(prop){
     edgeScore*14 +
     sampleScore*8;
 
-  rating=Math.round(clamp(rating,50,99));
+  /*
+    Model v1 is intentionally capped.
+    This is a heuristic rating, not a calibrated
+    guaranteed hit probability.
+  */
+  rating=Math.round(clamp(rating,50,88));
 
   let recommendation=side;
 
@@ -933,7 +938,6 @@ function buildModel(prop){
   };
 }
 
-
 async function fetchText(url){
 
   const separator =
@@ -942,18 +946,18 @@ async function fetchText(url){
   const response = await fetch(
     url + separator + "v=" + Date.now(),
     {
-      cache:"no-store",
-      redirect:"follow"
+      cache:"no-store"
     }
   );
 
   if(!response.ok){
-    throw new Error("HTTP "+response.status);
+    throw new Error(
+      `${url} returned HTTP ${response.status}`
+    );
   }
 
   return response.text();
 }
-
 
 async function loadData(){
 
@@ -989,6 +993,8 @@ async function loadData(){
 
   }catch(e){
 
+    console.error(e);
+
     $("feedStatus").textContent=
       "PrizePicks feed error";
 
@@ -998,40 +1004,42 @@ async function loadData(){
     return;
   }
 
+  /*
+    2025 should exist.
+    2026 may be unavailable/empty early in the season,
+    so each season is allowed to succeed independently.
+  */
+  const results =
+    await Promise.allSettled([
+      fetchText(NFL_2026),
+      fetchText(NFL_2025)
+    ]);
 
-  try{
+  statsRows=[];
 
-    const results=
-      await Promise.allSettled([
-        fetchText(NFL_2026),
-        fetchText(NFL_2025)
-      ]);
+  results.forEach(result=>{
 
-    statsRows=[];
+    if(result.status === "fulfilled"){
 
-    results.forEach(result=>{
+      const parsed=parseCSV(result.value);
 
-      if(result.status === "fulfilled"){
-
-        const parsed = parseCSV(result.value);
-
-        if(parsed.length){
-          statsRows.push(...parsed);
-        }
+      if(parsed.length){
+        statsRows.push(...parsed);
       }
-
-    });
-
-    if(!statsRows.length){
-      throw new Error("No NFL stats loaded");
+    }else{
+      console.warn(
+        "NFL stats file unavailable:",
+        result.reason
+      );
     }
+  });
+
+  if(statsRows.length){
 
     $("modelStatus").textContent=
       `${statsRows.length.toLocaleString()} weekly player records loaded • Model v1 ready`;
 
-  }catch(e){
-
-    console.error(e);
+  }else{
 
     $("modelStatus").textContent=
       "Historical model data unavailable — board still works";
@@ -1041,7 +1049,6 @@ async function loadData(){
   buildFilters();
   render();
 }
-
 
 function buildModels(){
 
@@ -1054,10 +1061,8 @@ function buildModels(){
     if(model){
       models.set(pKey(p),model);
     }
-
   });
 }
-
 
 function dedupe(props){
 
@@ -1073,7 +1078,6 @@ function dedupe(props){
     return true;
   });
 }
-
 
 function formatTime(value){
 
@@ -1093,7 +1097,6 @@ function formatTime(value){
     return "updated recently";
   }
 }
-
 
 function buildFilters(){
 
@@ -1128,7 +1131,6 @@ function buildFilters(){
       $("gameFilter").appendChild(o);
     });
 
-
   const stats=[
     ...new Set(
       allProps
@@ -1150,11 +1152,11 @@ function buildFilters(){
   });
 }
 
-
 function getProps(){
 
   const game=$("gameFilter").value;
   const stat=$("statFilter").value;
+
   const search=$("searchInput")
     .value.trim().toLowerCase();
 
@@ -1199,7 +1201,6 @@ function getProps(){
     return true;
   });
 
-
   const sort=$("sortFilter").value;
 
   if(sort==="rating"){
@@ -1215,9 +1216,7 @@ function getProps(){
       );
     });
 
-  }
-
-  else if(sort==="edge"){
+  }else if(sort==="edge"){
 
     props.sort((a,b)=>{
 
@@ -1230,9 +1229,7 @@ function getProps(){
       );
     });
 
-  }
-
-  else{
+  }else{
 
     props.sort((a,b)=>
       num(a.rank)-num(b.rank)
@@ -1242,14 +1239,12 @@ function getProps(){
   return props;
 }
 
-
 function ratingClass(rating){
 
   if(rating>=75) return "good";
   if(rating>=65) return "mid";
   return "low";
 }
-
 
 function modelHTML(model){
 
@@ -1263,13 +1258,14 @@ function modelHTML(model){
         </div>
 
         <div class="reason" style="padding-top:11px">
-          Not enough supported historical data for this prop yet.
+          No supported historical model for this prop yet.
         </div>
       </div>
     `;
   }
 
-  const prob=(model.probability*100).toFixed(1);
+  const prob=
+    (model.probability*100).toFixed(1);
 
   const projection=
     model.projection.toFixed(1);
@@ -1337,14 +1333,13 @@ function modelHTML(model){
 
       <div class="reason">
         Based on ${model.sample} recent games.
-        Rating includes recent form, line separation,
-        variance and historical hit rate.
+        Model score uses recent production, line separation,
+        variance and historical results.
       </div>
 
     </div>
   `;
 }
-
 
 function render(){
 
@@ -1441,7 +1436,6 @@ function render(){
         </div>
 
       </article>
-
       `;
     }).join("");
 
@@ -1451,9 +1445,8 @@ function render(){
 
       btn.onclick=()=>{
 
-        const key=decodeURIComponent(
-          btn.dataset.key
-        );
+        const key=
+          decodeURIComponent(btn.dataset.key);
 
         const side=btn.dataset.side;
 
@@ -1468,7 +1461,6 @@ function render(){
       };
     });
 }
-
 
 function renderPicks(){
 
@@ -1523,7 +1515,6 @@ function renderPicks(){
         </div>
 
       </div>
-
       `;
     }).join("");
 
@@ -1542,7 +1533,6 @@ function renderPicks(){
       };
     });
 }
-
 
 $("gameFilter").onchange=render;
 $("statFilter").onchange=render;
@@ -1580,7 +1570,6 @@ $("clearPicks").onclick=()=>{
   render();
   renderPicks();
 };
-
 
 loadData();
 renderPicks();
