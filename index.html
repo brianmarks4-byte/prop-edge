@@ -447,7 +447,7 @@ select:focus,input:focus{
       <select id="sortFilter">
         <option value="board">PrizePicks Board</option>
         <option value="rating">Best Model Picks</option>
-        <option value="edge">Largest Projection Edge</option>
+        <option value="edge">Strongest Model Edge</option>
       </select>
     </div>
 
@@ -482,9 +482,9 @@ select:focus,input:focus{
 </section>
 
 <div class="disclaimer">
-  Prop Edge Model v1 uses recent NFL player game results.
-  Ratings are estimates, not guarantees.
-  Early-season projections rely more heavily on prior-season history.
+  Prop Edge Model v2 is a statistical screening model.
+  Model Score is not a guaranteed hit probability.
+  Early-season projections are intentionally conservative.
 </div>
 
 </main>
@@ -559,7 +559,7 @@ function mean(arr){
 function sd(arr){
   if(arr.length < 2) return 0;
 
-  const m = mean(arr);
+  const m=mean(arr);
 
   return Math.sqrt(
     arr.reduce((s,x)=>s+Math.pow(x-m,2),0) /
@@ -568,8 +568,8 @@ function sd(arr){
 }
 
 function erf(x){
-  const sign = x < 0 ? -1 : 1;
-  x = Math.abs(x);
+  const sign=x<0?-1:1;
+  x=Math.abs(x);
 
   const a1=.254829592;
   const a2=-.284496736;
@@ -604,21 +604,24 @@ function parseCSV(data){
     const c=data[i];
 
     if(c === '"'){
+
       if(quoted && data[i+1] === '"'){
         field+='"';
         i++;
       }else{
         quoted=!quoted;
       }
-    }
 
-    else if(c === "," && !quoted){
+    }else if(c === "," && !quoted){
+
       row.push(field);
       field="";
-    }
 
-    else if((c === "\n" || c === "\r") && !quoted){
-      if(c === "\r" && data[i+1] === "\n") i++;
+    }else if((c === "\n" || c === "\r") && !quoted){
+
+      if(c === "\r" && data[i+1] === "\n"){
+        i++;
+      }
 
       row.push(field);
       field="";
@@ -628,9 +631,9 @@ function parseCSV(data){
       }
 
       row=[];
-    }
 
-    else{
+    }else{
+
       field+=c;
     }
   }
@@ -640,7 +643,9 @@ function parseCSV(data){
     rows.push(row);
   }
 
-  if(rows.length < 2) return [];
+  if(rows.length < 2){
+    return [];
+  }
 
   const headers=rows[0];
 
@@ -662,75 +667,83 @@ function statValue(row,stat){
     .toLowerCase()
     .trim();
 
-  if(s === "pass yards" || s === "passing yards"){
+  if(s==="pass yards" || s==="passing yards"){
     return num(row.passing_yards);
   }
 
-  if(s === "pass attempts" || s === "passing attempts"){
+  if(s==="pass attempts" || s==="passing attempts"){
     return num(row.attempts);
   }
 
   if(
-    s === "completions" ||
-    s === "pass completions" ||
-    s === "passing completions"
+    s==="completions" ||
+    s==="pass completions" ||
+    s==="passing completions"
   ){
     return num(row.completions);
   }
 
   if(
-    s === "pass tds" ||
-    s === "passing tds" ||
-    s === "passing touchdowns"
+    s==="pass tds" ||
+    s==="passing tds" ||
+    s==="passing touchdowns"
   ){
     return num(row.passing_tds);
   }
 
   if(
-    s === "interceptions" ||
-    s === "pass interceptions" ||
-    s === "passing interceptions"
+    s==="interceptions" ||
+    s==="pass interceptions" ||
+    s==="passing interceptions"
   ){
     return num(row.interceptions);
   }
 
-  if(s === "rush yards" || s === "rushing yards"){
+  if(s==="rush yards" || s==="rushing yards"){
     return num(row.rushing_yards);
   }
 
-  if(s === "rush attempts" || s === "rushing attempts"){
+  if(s==="rush attempts" || s==="rushing attempts"){
     return num(row.carries);
   }
 
-  if(s === "receiving yards" || s === "rec yards"){
+  if(s==="receiving yards" || s==="rec yards"){
     return num(row.receiving_yards);
   }
 
-  if(s === "receptions"){
+  if(s==="receptions"){
     return num(row.receptions);
   }
 
-  if(s === "targets"){
+  if(s==="targets"){
     return num(row.targets);
   }
 
   if(
-    s === "rush+rec yards" ||
-    s === "rush + rec yards" ||
-    s === "rushing + receiving yards"
+    s==="rush+rec yards" ||
+    s==="rush + rec yards" ||
+    s==="rushing + receiving yards"
   ){
-    return num(row.rushing_yards) + num(row.receiving_yards);
+    return num(row.rushing_yards)+num(row.receiving_yards);
   }
 
   if(
-    s === "rush+rec tds" ||
-    s === "rush + rec tds" ||
-    s === "rushing + receiving tds"
+    s==="rush+rec tds" ||
+    s==="rush + rec tds" ||
+    s==="rushing + receiving tds"
   ){
-    return num(row.rushing_tds) + num(row.receiving_tds);
+    return num(row.rushing_tds)+num(row.receiving_tds);
   }
 
   return null;
+}
+
+function currentSeasonRows(rows){
+  return rows.filter(r=>num(r.season)===2026);
+}
+
+function previousSeasonRows(rows){
+  return rows.filter(r=>num(r.season)===2025);
 }
 
 function buildModel(prop){
@@ -742,173 +755,385 @@ function buildModel(prop){
     return null;
   }
 
-  const playerRows=statsRows
+  const matchingRows=statsRows
     .filter(r=>{
+
       const display=
         r.player_display_name ||
         r.player_name ||
         "";
 
-      return normName(display) === name;
+      return normName(display)===name;
+
     })
     .filter(r=>{
-      return statValue(r,prop.stat) !== null;
-    })
-    .sort((a,b)=>{
 
-      const sa=num(a.season);
-      const sb=num(b.season);
+      return statValue(r,prop.stat)!==null;
 
-      if(sa !== sb) return sb-sa;
-
-      return num(b.week)-num(a.week);
     });
 
-  if(playerRows.length < 3){
+  if(matchingRows.length < 5){
     return null;
   }
 
-  const recent=playerRows.slice(0,10);
+  const rows2026=currentSeasonRows(matchingRows)
+    .sort((a,b)=>num(b.week)-num(a.week));
 
-  const games=recent.map(
-    r=>statValue(r,prop.stat)
+  const rows2025=previousSeasonRows(matchingRows)
+    .sort((a,b)=>num(b.week)-num(a.week));
+
+  const currentGames=rows2026.slice(0,8);
+  const priorGames=rows2025.slice(0,10);
+
+  let combined=[];
+
+  /*
+    Early season:
+    prior-year games remain useful,
+    but current-season games gradually take over.
+  */
+
+  if(currentGames.length===0){
+
+    combined=priorGames.slice(0,10).map((r,i)=>({
+      row:r,
+      weight:[1,.94,.88,.82,.76,.70,.64,.59,.54,.50][i] || .5
+    }));
+
+  }else{
+
+    currentGames.forEach((r,i)=>{
+
+      const currentWeights=[
+        1.30,
+        1.22,
+        1.14,
+        1.06,
+        .98,
+        .90,
+        .84,
+        .78
+      ];
+
+      combined.push({
+        row:r,
+        weight:currentWeights[i]
+      });
+
+    });
+
+    const priorLimit=
+      Math.max(
+        3,
+        10-currentGames.length
+      );
+
+    priorGames
+      .slice(0,priorLimit)
+      .forEach((r,i)=>{
+
+        const priorBase=
+          currentGames.length>=5
+          ? .40
+          : currentGames.length>=3
+            ? .55
+            : .70;
+
+        combined.push({
+          row:r,
+          weight:
+            priorBase *
+            Math.pow(.92,i)
+        });
+
+      });
+  }
+
+  if(combined.length < 5){
+    return null;
+  }
+
+  const values=combined.map(x=>
+    statValue(x.row,prop.stat)
   );
-
-  const weights=[
-    1,.92,.85,.78,.72,
-    .66,.61,.56,.52,.48
-  ].slice(0,games.length);
 
   let weightedTotal=0;
   let weightTotal=0;
 
-  games.forEach((value,i)=>{
-    weightedTotal += value*weights[i];
-    weightTotal += weights[i];
+  combined.forEach(x=>{
+
+    const v=
+      statValue(
+        x.row,
+        prop.stat
+      );
+
+    weightedTotal+=v*x.weight;
+    weightTotal+=x.weight;
+
   });
 
   const weightedMean=
     weightedTotal/weightTotal;
 
+  const recentValues=
+    values.slice(0,Math.min(5,values.length));
+
   const last3=
-    mean(games.slice(0,Math.min(3,games.length)));
+    mean(
+      recentValues.slice(
+        0,
+        Math.min(3,recentValues.length)
+      )
+    );
 
   const last5=
-    mean(games.slice(0,Math.min(5,games.length)));
+    mean(recentValues);
 
-  const projection=
-    weightedMean*.60 +
-    last5*.25 +
-    last3*.15;
+  /*
+    Projection is intentionally smoother than v1.
+  */
 
-  const deviation=sd(games);
+  let projection=
+    weightedMean*.72 +
+    last5*.18 +
+    last3*.10;
 
-  let overNormal=.50;
+  /*
+    If we have zero 2026 games, regress the projection
+    slightly toward the current PrizePicks line.
+  */
 
-  if(deviation > .01){
-    const z=(line-projection)/deviation;
-    overNormal=1-normalCDF(z);
-  }else{
-    overNormal=projection > line ? .70 : .30;
+  if(currentGames.length===0){
+
+    projection=
+      projection*.82 +
+      line*.18;
+
+  }else if(currentGames.length===1){
+
+    projection=
+      projection*.88 +
+      line*.12;
   }
 
-  const empiricalOver=
-    games.filter(v=>v>line).length/games.length;
+  const deviation=
+    Math.max(
+      sd(values),
+      Math.max(Math.abs(line)*.08,.75)
+    );
 
-  const empiricalUnder=
-    games.filter(v=>v<line).length/games.length;
+  /*
+    Standardized distance from the line.
+    This is the important v2 fix:
+    we no longer score tiny lines using huge % differences.
+  */
+
+  const zEdge=
+    (projection-line)/deviation;
+
+  const modelOver=
+    1-normalCDF(
+      (line-projection)/deviation
+    );
+
+  const historicalOver=
+    values.filter(v=>v>line).length /
+    values.length;
+
+  const historicalUnder=
+    values.filter(v=>v<line).length /
+    values.length;
 
   let overProb=
-    overNormal*.58 +
-    empiricalOver*.42;
+    modelOver*.62 +
+    historicalOver*.38;
 
   let underProb=
-    (1-overNormal)*.58 +
-    empiricalUnder*.42;
+    (1-modelOver)*.62 +
+    historicalUnder*.38;
 
-  const sampleFactor=
-    clamp(games.length/8,.45,1);
+  /*
+    Conservative probability shrinkage.
+  */
+
+  let shrink=.72;
+
+  if(currentGames.length===0){
+    shrink=.56;
+  }else if(currentGames.length===1){
+    shrink=.62;
+  }else if(currentGames.length===2){
+    shrink=.68;
+  }
 
   overProb=
-    .50+(overProb-.50)*sampleFactor;
+    .50 +
+    (overProb-.50)*shrink;
 
   underProb=
-    .50+(underProb-.50)*sampleFactor;
+    .50 +
+    (underProb-.50)*shrink;
 
-  overProb=clamp(overProb,.25,.75);
-  underProb=clamp(underProb,.25,.75);
+  overProb=
+    clamp(overProb,.34,.68);
+
+  underProb=
+    clamp(underProb,.34,.68);
 
   const side=
-    overProb >= underProb
+    overProb>=underProb
     ? "More"
     : "Less";
 
   const probability=
     Math.max(overProb,underProb);
 
-  const edgePct=
-    line !== 0
-    ? ((projection-line)/Math.abs(line))*100
-    : 0;
+  const rawDifference=
+    projection-line;
 
-  const absEdge=Math.abs(edgePct);
+  const standardizedEdge=
+    Math.abs(zEdge);
+
+  const hitRate=
+    side==="More"
+    ? historicalOver
+    : historicalUnder;
+
+  /*
+    Model Score v2
+    ----------------
+    Probability = 45%
+    standardized edge = 30%
+    historical agreement = 15%
+    usable sample = 10%
+  */
 
   const probabilityScore=
-    clamp((probability-.50)/.20,0,1);
+    clamp(
+      (probability-.50)/.16,
+      0,
+      1
+    );
 
   const edgeScore=
-    clamp(absEdge/15,0,1);
+    clamp(
+      standardizedEdge/.90,
+      0,
+      1
+    );
+
+  const hitRateScore=
+    clamp(
+      (hitRate-.50)/.25,
+      0,
+      1
+    );
 
   const sampleScore=
-    clamp(games.length/8,0,1);
+    clamp(
+      values.length/10,
+      0,
+      1
+    );
 
   let rating=
     50 +
-    probabilityScore*28 +
+    probabilityScore*20 +
     edgeScore*14 +
-    sampleScore*8;
+    hitRateScore*8 +
+    sampleScore*5;
 
-  rating=Math.round(clamp(rating,50,88));
+  /*
+    Early-season cap.
+  */
 
-  let recommendation=side;
+  if(currentGames.length===0){
+    rating=Math.min(rating,82);
+  }
 
-  if(probability < .555 || absEdge < 3){
-    recommendation="Pass";
+  if(currentGames.length===1){
+    rating=Math.min(rating,84);
+  }
+
+  rating=
+    Math.round(
+      clamp(rating,50,88)
+    );
+
+  let recommendation="Pass";
+
+  /*
+    Stronger Model Pick rules.
+  */
+
+  const enoughProbability=
+    probability>=.585;
+
+  const enoughEdge=
+    standardizedEdge>=.35;
+
+  const enoughHistory=
+    hitRate>=.55;
+
+  const enoughSample=
+    values.length>=6;
+
+  const strongPick=
+    enoughProbability &&
+    enoughEdge &&
+    enoughHistory &&
+    enoughSample;
+
+  if(strongPick){
+    recommendation=side;
+  }
+
+  if(recommendation==="Pass"){
     rating=Math.min(rating,69);
   }
 
-  if(
-    probability >= .60 &&
-    absEdge >= 5 &&
-    games.length >= 5
-  ){
-    rating=Math.max(rating,75);
-  }
+  const edgeLabel=
+    standardizedEdge.toFixed(2);
 
   return {
     projection,
     probability,
     overProb,
     underProb,
-    edgePct,
     rating,
     recommendation,
-    games,
-    sample:games.length,
+    sample:values.length,
+    currentSample:currentGames.length,
+    priorSample:priorGames.length,
     last3,
-    last5
+    last5,
+    deviation,
+    zEdge,
+    standardizedEdge,
+    rawDifference,
+    hitRate,
+    edgeLabel
   };
 }
 
 async function fetchText(url){
 
-  const separator =
-    url.includes("?") ? "&" : "?";
+  const separator=
+    url.includes("?")
+    ? "&"
+    : "?";
 
-  const response = await fetch(
-    url + separator + "v=" + Date.now(),
-    {cache:"no-store"}
-  );
+  const response=
+    await fetch(
+      url+
+      separator+
+      "v="+
+      Date.now(),
+      {
+        cache:"no-store"
+      }
+    );
 
   if(!response.ok){
     throw new Error(
@@ -932,16 +1157,22 @@ async function loadData(){
 
   try{
 
-    const ppRes=await fetch(
-      PP_URL+"?v="+Date.now(),
-      {cache:"no-store"}
-    );
+    const ppRes=
+      await fetch(
+        PP_URL+"?v="+Date.now(),
+        {
+          cache:"no-store"
+        }
+      );
 
     if(!ppRes.ok){
-      throw new Error("PrizePicks feed unavailable");
+      throw new Error(
+        "PrizePicks feed unavailable"
+      );
     }
 
-    const pp=await ppRes.json();
+    const pp=
+      await ppRes.json();
 
     allProps=
       Array.isArray(pp.props)
@@ -975,7 +1206,7 @@ async function loadData(){
     if(statsRows.length){
 
       $("modelStatus").textContent=
-        `${statsRows.length.toLocaleString()} weekly player records loaded • Model v1 ready`;
+        `${statsRows.length.toLocaleString()} weekly player records loaded • Model v2 ready`;
 
     }else{
 
@@ -1007,10 +1238,14 @@ function buildModels(){
 
   allProps.forEach(p=>{
 
-    const model=buildModel(p);
+    const model=
+      buildModel(p);
 
     if(model){
-      models.set(pKey(p),model);
+      models.set(
+        pKey(p),
+        model
+      );
     }
   });
 }
@@ -1023,28 +1258,38 @@ function dedupe(props){
 
     const key=pKey(p);
 
-    if(seen.has(key)) return false;
+    if(seen.has(key)){
+      return false;
+    }
 
     seen.add(key);
+
     return true;
   });
 }
 
 function formatTime(value){
 
-  if(!value) return "updated recently";
+  if(!value){
+    return "updated recently";
+  }
 
   try{
 
     return "updated "+
-      new Date(value).toLocaleString([],{
-        month:"short",
-        day:"numeric",
-        hour:"numeric",
-        minute:"2-digit"
-      });
+      new Date(value)
+        .toLocaleString(
+          [],
+          {
+            month:"short",
+            day:"numeric",
+            hour:"numeric",
+            minute:"2-digit"
+          }
+        );
 
   }catch{
+
     return "updated recently";
   }
 }
@@ -1055,11 +1300,15 @@ function buildFilters(){
 
   allProps.forEach(p=>{
 
-    const key=gameKey(p);
+    const key=
+      gameKey(p);
 
-    if(!key || games.has(key)) return;
+    if(!key || games.has(key)){
+      return;
+    }
 
-    let label=matchup(p);
+    let label=
+      matchup(p);
 
     if(p.startTimeCST){
       label+=" • "+p.startTimeCST;
@@ -1072,14 +1321,19 @@ function buildFilters(){
     '<option value="">All NFL Games</option>';
 
   [...games.entries()]
-    .sort((a,b)=>a[1].localeCompare(b[1]))
+    .sort((a,b)=>
+      a[1].localeCompare(b[1])
+    )
     .forEach(([value,label])=>{
 
-      const o=document.createElement("option");
+      const o=
+        document.createElement("option");
+
       o.value=value;
       o.textContent=label;
 
-      $("gameFilter").appendChild(o);
+      $("gameFilter")
+        .appendChild(o);
     });
 
   const stats=[
@@ -1095,64 +1349,82 @@ function buildFilters(){
 
   stats.forEach(stat=>{
 
-    const o=document.createElement("option");
+    const o=
+      document.createElement("option");
+
     o.value=stat;
     o.textContent=stat;
 
-    $("statFilter").appendChild(o);
+    $("statFilter")
+      .appendChild(o);
   });
 }
 
 function getProps(){
 
-  const game=$("gameFilter").value;
-  const stat=$("statFilter").value;
+  const game=
+    $("gameFilter").value;
 
-  const search=$("searchInput")
-    .value.trim().toLowerCase();
+  const stat=
+    $("statFilter").value;
 
-  let props=allProps.filter(p=>{
+  const search=
+    $("searchInput")
+      .value
+      .trim()
+      .toLowerCase();
 
-    if(game && gameKey(p)!==game){
-      return false;
-    }
+  let props=
+    allProps.filter(p=>{
 
-    if(stat && text(p.stat)!==stat){
-      return false;
-    }
-
-    if(search){
-
-      const hay=[
-        p.player,
-        p.Team,
-        p.teamCode,
-        p.Opponent,
-        p.opponentCode,
-        p.stat
-      ].map(text).join(" ").toLowerCase();
-
-      if(!hay.includes(search)){
+      if(game && gameKey(p)!==game){
         return false;
       }
-    }
 
-    if(modelOnly){
-
-      const m=models.get(pKey(p));
-
-      if(
-        !m ||
-        m.recommendation==="Pass"
-      ){
+      if(stat && text(p.stat)!==stat){
         return false;
       }
-    }
 
-    return true;
-  });
+      if(search){
 
-  const sort=$("sortFilter").value;
+        const hay=[
+          p.player,
+          p.Team,
+          p.teamCode,
+          p.Opponent,
+          p.opponentCode,
+          p.stat
+        ]
+        .map(text)
+        .join(" ")
+        .toLowerCase();
+
+        if(!hay.includes(search)){
+          return false;
+        }
+      }
+
+      if(modelOnly){
+
+        const m=
+          models.get(
+            pKey(p)
+          );
+
+        if(
+          !m ||
+          m.recommendation==="Pass" ||
+          m.rating<70
+        ){
+          return false;
+        }
+      }
+
+      return true;
+    });
+
+  const sort=
+    $("sortFilter").value;
 
   if(sort==="rating"){
 
@@ -1175,8 +1447,8 @@ function getProps(){
       const mb=models.get(pKey(b));
 
       return (
-        Math.abs(mb?.edgePct||0)-
-        Math.abs(ma?.edgePct||0)
+        (mb?.standardizedEdge||0)-
+        (ma?.standardizedEdge||0)
       );
     });
 
@@ -1192,8 +1464,14 @@ function getProps(){
 
 function ratingClass(rating){
 
-  if(rating>=75) return "good";
-  if(rating>=65) return "mid";
+  if(rating>=78){
+    return "good";
+  }
+
+  if(rating>=68){
+    return "mid";
+  }
+
   return "low";
 }
 
@@ -1203,27 +1481,43 @@ function modelHTML(model){
 
     return `
       <div class="model">
+
         <div class="modelHeader">
-          <div class="modelTitle">PROP EDGE MODEL</div>
-          <div class="rating low">—</div>
+
+          <div class="modelTitle">
+            PROP EDGE MODEL v2
+          </div>
+
+          <div class="rating low">
+            —
+          </div>
+
         </div>
 
         <div class="reason" style="padding-top:11px">
           No supported historical model for this prop yet.
         </div>
+
       </div>
     `;
   }
 
   const prob=
-    (model.probability*100).toFixed(1);
+    (model.probability*100)
+      .toFixed(1);
 
   const projection=
-    model.projection.toFixed(1);
+    model.projection
+      .toFixed(1);
 
-  const edge=
-    (model.edgePct>0?"+":"")+
-    model.edgePct.toFixed(1)+"%";
+  const difference=
+    (model.rawDifference>0?"+":"")+
+    model.rawDifference
+      .toFixed(1);
+
+  const hitRate=
+    (model.hitRate*100)
+      .toFixed(0);
 
   const leanClass=
     model.recommendation==="More"
@@ -1234,46 +1528,85 @@ function modelHTML(model){
 
   const lean=
     model.recommendation==="Pass"
-    ? "PASS — edge too small"
-    : `${model.recommendation.toUpperCase()} • ${prob}% est.`;
+    ? "PASS — evidence not strong enough"
+    : `${model.recommendation.toUpperCase()} • ${prob}% model lean`;
+
+  let seasonNote="";
+
+  if(model.currentSample===0){
+
+    seasonNote=
+      "Prior-season baseline only.";
+
+  }else{
+
+    seasonNote=
+      `${model.currentSample} current-season game${model.currentSample===1?"":"s"} included.`;
+  }
 
   return `
     <div class="model">
 
       <div class="modelHeader">
+
         <div class="modelTitle">
-          PROP EDGE MODEL v1
+          PROP EDGE MODEL v2
         </div>
 
         <div class="rating ${ratingClass(model.rating)}">
           ${model.rating}
         </div>
+
       </div>
 
       <div class="modelGrid">
 
         <div class="metric">
-          <div class="metricLabel">Projection</div>
-          <div class="metricValue">${projection}</div>
+
+          <div class="metricLabel">
+            Projection
+          </div>
+
+          <div class="metricValue">
+            ${projection}
+          </div>
+
         </div>
 
         <div class="metric">
-          <div class="metricLabel">vs Line</div>
-          <div class="metricValue">${edge}</div>
+
+          <div class="metricLabel">
+            Projection Gap
+          </div>
+
+          <div class="metricValue">
+            ${difference}
+          </div>
+
         </div>
 
         <div class="metric">
-          <div class="metricLabel">Last 3 Avg</div>
+
+          <div class="metricLabel">
+            Last 3 Avg
+          </div>
+
           <div class="metricValue">
             ${model.last3.toFixed(1)}
           </div>
+
         </div>
 
         <div class="metric">
-          <div class="metricLabel">Last 5 Avg</div>
-          <div class="metricValue">
-            ${model.last5.toFixed(1)}
+
+          <div class="metricLabel">
+            Hist. Hit Rate
           </div>
+
+          <div class="metricValue">
+            ${hitRate}%
+          </div>
+
         </div>
 
       </div>
@@ -1283,9 +1616,10 @@ function modelHTML(model){
       </div>
 
       <div class="reason">
-        Based on ${model.sample} recent games.
-        Model score uses recent production, line separation,
-        variance and historical results.
+        ${seasonNote}
+        ${model.sample} games used.
+        Edge strength ${model.edgeLabel} SD.
+        Model Score is a screening score, not a guaranteed probability.
       </div>
 
     </div>
@@ -1294,7 +1628,8 @@ function modelHTML(model){
 
 function render(){
 
-  const props=getProps();
+  const props=
+    getProps();
 
   $("propCount").textContent=
     `${props.length} prop${props.length===1?"":"s"}`;
@@ -1307,26 +1642,32 @@ function render(){
     return;
   }
 
-  const shown=props.slice(0,250);
+  const shown=
+    props.slice(0,250);
 
   $("propList").innerHTML=
     shown.map(p=>{
 
-      const key=pKey(p);
-      const model=models.get(key);
+      const key=
+        pKey(p);
 
-      const selectedSide=selected[key];
+      const model=
+        models.get(key);
+
+      const selectedSide=
+        selected[key];
 
       const isBest=
         model &&
         model.recommendation!=="Pass" &&
-        model.rating>=75;
+        model.rating>=70;
 
       return `
 
       <article class="prop ${isBest?"bestCard":""}">
 
-        ${isBest
+        ${
+          isBest
           ? '<div class="bestBadge">MODEL PICK</div>'
           : ''
         }
@@ -1334,21 +1675,25 @@ function render(){
         <div class="propTop">
 
           <div>
+
             <div class="player">
               ${text(p.player)}
             </div>
 
             <div class="matchup">
               ${matchup(p)}
-              ${p.startTimeCST
+              ${
+                p.startTimeCST
                 ? " • "+text(p.startTimeCST)
                 : ""
               }
             </div>
+
           </div>
 
           <div class="boardRank">
-            ${p.rank
+            ${
+              p.rank
               ? "Board #"+text(p.rank)
               : ""
             }
@@ -1357,6 +1702,7 @@ function render(){
         </div>
 
         <div class="lineBox">
+
           <div class="stat">
             ${text(p.stat)}
           </div>
@@ -1364,6 +1710,7 @@ function render(){
           <div class="line">
             ${text(p.line)}
           </div>
+
         </div>
 
         ${modelHTML(model)}
@@ -1397,13 +1744,19 @@ function render(){
       btn.onclick=()=>{
 
         const key=
-          decodeURIComponent(btn.dataset.key);
+          decodeURIComponent(
+            btn.dataset.key
+          );
 
-        const side=btn.dataset.side;
+        const side=
+          btn.dataset.side;
 
         if(selected[key]===side){
+
           delete selected[key];
+
         }else{
+
           selected[key]=side;
         }
 
@@ -1415,7 +1768,8 @@ function render(){
 
 function renderPicks(){
 
-  const entries=Object.entries(selected);
+  const entries=
+    Object.entries(selected);
 
   $("selectedCount").textContent=
     entries.length
@@ -1423,6 +1777,7 @@ function renderPicks(){
     : "No picks selected";
 
   if(!entries.length){
+
     $("pickList").innerHTML="";
     return;
   }
@@ -1430,13 +1785,17 @@ function renderPicks(){
   $("pickList").innerHTML=
     entries.map(([key,side])=>{
 
-      const p=allProps.find(
-        x=>pKey(x)===key
-      );
+      const p=
+        allProps.find(
+          x=>pKey(x)===key
+        );
 
-      if(!p) return "";
+      if(!p){
+        return "";
+      }
 
-      const m=models.get(key);
+      const m=
+        models.get(key);
 
       return `
 
@@ -1445,16 +1804,26 @@ function renderPicks(){
         <div class="row">
 
           <div>
-            <strong>${text(p.player)}</strong>
+
+            <strong>
+              ${text(p.player)}
+            </strong>
 
             <div class="small">
-              ${side} ${text(p.line)}
-              • ${text(p.stat)}
-              ${m
-                ? ` • Model ${m.rating}/100`
+
+              ${side}
+              ${text(p.line)}
+              •
+              ${text(p.stat)}
+
+              ${
+                m
+                ? ` • Score ${m.rating}/100`
                 : ""
               }
+
             </div>
+
           </div>
 
           <button
@@ -1476,7 +1845,9 @@ function renderPicks(){
       btn.onclick=()=>{
 
         delete selected[
-          decodeURIComponent(btn.dataset.remove)
+          decodeURIComponent(
+            btn.dataset.remove
+          )
         ];
 
         render();
@@ -1496,10 +1867,16 @@ $("bestBtn").onclick=()=>{
 
   modelOnly=true;
 
-  $("bestBtn").classList.add("active");
-  $("allBtn").classList.remove("active");
+  $("bestBtn")
+    .classList
+    .add("active");
 
-  $("sortFilter").value="rating";
+  $("allBtn")
+    .classList
+    .remove("active");
+
+  $("sortFilter").value=
+    "rating";
 
   render();
 };
@@ -1508,8 +1885,13 @@ $("allBtn").onclick=()=>{
 
   modelOnly=false;
 
-  $("allBtn").classList.add("active");
-  $("bestBtn").classList.remove("active");
+  $("allBtn")
+    .classList
+    .add("active");
+
+  $("bestBtn")
+    .classList
+    .remove("active");
 
   render();
 };
