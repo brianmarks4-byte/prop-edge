@@ -40,7 +40,19 @@ jobs:
             rm -f /tmp/stats_2026.csv
           fi
 
-      - name: Build Prop Edge v4 data
+      - name: Download 2026 NFL injury reports
+        run: |
+          if curl -L --fail \
+            "https://github.com/nflverse/nflverse-data/releases/download/injuries/injuries_2026.csv" \
+            -o /tmp/injuries_2026.csv
+          then
+            mv /tmp/injuries_2026.csv data/injuries_2026.csv
+          else
+            echo "2026 injury data not available right now."
+            rm -f /tmp/injuries_2026.csv
+          fi
+
+      - name: Build Prop Edge v6 data
         run: |
           python - <<'PY'
           import csv
@@ -55,6 +67,8 @@ jobs:
               "data/stats_player_week_2025.csv",
               "data/stats_player_week_2026.csv",
           ]
+
+          injury_source = "data/injuries_2026.csv"
 
           # ---------------------------------
           # PLAYER MODEL FILE
@@ -114,6 +128,27 @@ jobs:
           matchup_output = "data/prop_edge_matchups.csv"
 
           # ---------------------------------
+          # INJURY MODEL FILE
+          # ---------------------------------
+
+          injury_output = "data/prop_edge_injuries.csv"
+
+          # These are the fields Prop Edge v6
+          # will read if they exist in nflverse.
+          injury_output_columns = [
+              "season",
+              "week",
+              "team",
+              "player_name",
+              "position",
+              "report_primary_injury",
+              "report_secondary_injury",
+              "report_status",
+              "practice_status",
+              "date_modified",
+          ]
+
+          # ---------------------------------
           # HELPERS
           # ---------------------------------
 
@@ -133,22 +168,34 @@ jobs:
 
               position = (row.get("position") or "").strip().upper()
 
-              if position in ("QB",):
+              if position == "QB":
                   return "QB"
 
               if position in ("RB", "FB"):
                   return "RB"
 
-              if position in ("WR",):
+              if position == "WR":
                   return "WR"
 
-              if position in ("TE",):
+              if position == "TE":
                   return "TE"
 
               return "OTHER"
 
+          def first_value(row, names):
+              for name in names:
+                  value = row.get(name)
+
+                  if value is not None:
+                      value = str(value).strip()
+
+                      if value:
+                          return value
+
+              return ""
+
           # ---------------------------------
-          # READ DATA
+          # READ PLAYER DATA
           # ---------------------------------
 
           all_rows = []
@@ -178,7 +225,10 @@ jobs:
 
                       all_rows.append(row)
 
-          print(f"Loaded {len(all_rows)} regular-season player rows")
+          print(
+              f"Loaded {len(all_rows)} "
+              "regular-season player rows"
+          )
 
           # ---------------------------------
           # WRITE COMPACT PLAYER FILE
@@ -218,27 +268,6 @@ jobs:
           # BUILD DEFENSE / MATCHUP DATA
           # ---------------------------------
 
-          #
-          # Each row in the nflverse player file tells us:
-          #
-          # team          = offense
-          # opponent_team = defense
-          #
-          # That lets Prop Edge calculate what each defense
-          # actually allowed to each position group.
-          #
-          # We create:
-          #
-          # QB
-          # RB
-          # WR
-          # TE
-          # OTHER
-          # ALL
-          #
-          # for every defense / week.
-          #
-
           matchup = defaultdict(lambda: {
               "pass_attempts_allowed": 0.0,
               "completions_allowed": 0.0,
@@ -271,8 +300,13 @@ jobs:
 
           for row in all_rows:
 
-              season = str(row.get("season") or "").strip()
-              week = str(row.get("week") or "").strip()
+              season = str(
+                  row.get("season") or ""
+              ).strip()
+
+              week = str(
+                  row.get("week") or ""
+              ).strip()
 
               offense = (
                   row.get("team") or ""
@@ -345,9 +379,12 @@ jobs:
 
                   value = totals[metric]
 
-                  # Cleaner CSV output.
-                  if abs(value - round(value)) < 0.000001:
+                  if abs(
+                      value - round(value)
+                  ) < 0.000001:
+
                       value = int(round(value))
+
                   else:
                       value = round(value, 3)
 
@@ -386,6 +423,184 @@ jobs:
           )
 
           # ---------------------------------
+          # BUILD INJURY FILE
+          # ---------------------------------
+
+          injury_rows = []
+
+          if os.path.exists(injury_source):
+
+              with open(
+                  injury_source,
+                  newline="",
+                  encoding="utf-8-sig"
+              ) as f:
+
+                  reader = csv.DictReader(f)
+
+                  source_columns = reader.fieldnames or []
+
+                  print(
+                      "Injury source columns: "
+                      + ", ".join(source_columns)
+                  )
+
+                  for row in reader:
+
+                      season = first_value(
+                          row,
+                          [
+                              "season",
+                          ]
+                      )
+
+                      week = first_value(
+                          row,
+                          [
+                              "week",
+                          ]
+                      )
+
+                      team = first_value(
+                          row,
+                          [
+                              "team",
+                              "team_abbr",
+                              "club",
+                          ]
+                      ).upper()
+
+                      player_name = first_value(
+                          row,
+                          [
+                              "full_name",
+                              "player_name",
+                              "player",
+                              "name",
+                          ]
+                      )
+
+                      position = first_value(
+                          row,
+                          [
+                              "position",
+                              "pos",
+                          ]
+                      ).upper()
+
+                      primary_injury = first_value(
+                          row,
+                          [
+                              "report_primary_injury",
+                              "primary_injury",
+                              "injury",
+                          ]
+                      )
+
+                      secondary_injury = first_value(
+                          row,
+                          [
+                              "report_secondary_injury",
+                              "secondary_injury",
+                          ]
+                      )
+
+                      report_status = first_value(
+                          row,
+                          [
+                              "report_status",
+                              "game_status",
+                              "status",
+                          ]
+                      )
+
+                      practice_status = first_value(
+                          row,
+                          [
+                              "practice_status",
+                              "practice_participation",
+                              "practice",
+                          ]
+                      )
+
+                      date_modified = first_value(
+                          row,
+                          [
+                              "date_modified",
+                              "last_modified",
+                              "updated_at",
+                              "date",
+                          ]
+                      )
+
+                      # We need a player name to match
+                      # the record to PrizePicks.
+                      if not player_name:
+                          continue
+
+                      injury_rows.append({
+                          "season": season,
+                          "week": week,
+                          "team": team,
+                          "player_name": player_name,
+                          "position": position,
+                          "report_primary_injury": primary_injury,
+                          "report_secondary_injury": secondary_injury,
+                          "report_status": report_status,
+                          "practice_status": practice_status,
+                          "date_modified": date_modified,
+                      })
+
+          # Newest / highest week first.
+          def injury_sort_key(row):
+
+              try:
+                  season = int(
+                      row.get("season") or 0
+                  )
+              except:
+                  season = 0
+
+              try:
+                  week = int(
+                      row.get("week") or 0
+                  )
+              except:
+                  week = 0
+
+              return (
+                  -season,
+                  -week,
+                  row.get("team", ""),
+                  row.get("player_name", "")
+              )
+
+          injury_rows.sort(
+              key=injury_sort_key
+          )
+
+          with open(
+              injury_output,
+              "w",
+              newline="",
+              encoding="utf-8"
+          ) as out:
+
+              writer = csv.DictWriter(
+                  out,
+                  fieldnames=injury_output_columns
+              )
+
+              writer.writeheader()
+
+              writer.writerows(injury_rows)
+
+          print(
+              f"Wrote {len(injury_rows)} injury rows "
+              f"to {injury_output}"
+          )
+
+          # ---------------------------------
           # QUICK VALIDATION
           # ---------------------------------
 
@@ -411,6 +626,25 @@ jobs:
           if not matchup_rows:
               raise RuntimeError(
                   "No matchup rows were generated."
+              )
+
+          if os.path.exists(injury_source):
+
+              if not injury_rows:
+                  print(
+                      "WARNING: Injury source downloaded "
+                      "but no usable player rows were found."
+                  )
+
+              else:
+                  print(
+                      "Injury database successfully built."
+                  )
+
+          else:
+              print(
+                  "Injury source unavailable. "
+                  "Player and matchup data still completed."
               )
 
           PY
