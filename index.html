@@ -2,22 +2,37 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1,viewport-fit=cover"
+>
+
 <meta name="theme-color" content="#090b10">
-<meta name="apple-mobile-web-app-capable" content="yes">
+
+<meta
+  name="apple-mobile-web-app-capable"
+  content="yes"
+>
 
 <title>Prop Edge</title>
 
 <style>
-*{box-sizing:border-box}
+
+*{
+  box-sizing:border-box;
+}
 
 :root{
+
   --bg:#090b10;
   --card:#11151d;
   --card2:#090d13;
   --border:#202633;
+
   --text:#f5f7fb;
   --muted:#929bac;
+
   --green:#55e59f;
   --red:#ff7c91;
   --yellow:#f0c86c;
@@ -25,568 +40,1103 @@
 }
 
 body{
+
   margin:0;
+
   background:var(--bg);
   color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
 }
 
 .app{
+
   max-width:760px;
+
   margin:auto;
-  padding:24px 14px 80px;
+
+  padding:
+    24px
+    14px
+    80px;
 }
 
 .brand{
+
   font-size:30px;
+
   font-weight:900;
+
   letter-spacing:-1px;
 }
 
-.brand span{color:var(--green)}
+.brand span{
+
+  color:var(--green);
+}
 
 .subtitle{
+
   color:var(--muted);
+
   margin-top:5px;
+
   line-height:1.4;
 }
 
 .card{
+
   background:var(--card);
-  border:1px solid var(--border);
+
+  border:
+    1px solid
+    var(--border);
+
   border-radius:17px;
+
   padding:14px;
+
   margin-top:15px;
 }
 
 .row{
+
   display:flex;
-  justify-content:space-between;
+
+  justify-content:
+    space-between;
+
   align-items:center;
+
   gap:10px;
 }
 
 .title{
+
   font-size:18px;
+
   font-weight:900;
 }
 
 .small{
+
   color:var(--muted);
+
   font-size:12px;
+
   line-height:1.45;
 }
 
 .live{
+
   width:9px;
+
   height:9px;
+
   display:inline-block;
+
   border-radius:50%;
+
   background:var(--green);
+
   margin-right:7px;
 }
 
-button,input,select{font:inherit}
-button{cursor:pointer}
+button,
+input,
+select{
+
+  font:inherit;
+}
+
+button{
+
+  cursor:pointer;
+}
 
 .refresh,
-.primaryBtn{
+.primaryBtn,
+.discountBtn,
+.removeDiscountBtn{
+
   border:0;
+
   border-radius:11px;
-  padding:10px 13px;
+
+  padding:
+    10px
+    13px;
+
   background:#1c2530;
+
   color:white;
+
   font-weight:800;
 }
 
 .primaryBtn{
+
   width:100%;
+
   background:#173b2c;
+
   color:var(--green);
-  border:1px solid #2b684b;
+
+  border:
+    1px solid
+    #2b684b;
+}
+
+.discountBtn{
+
+  width:100%;
+
+  background:#352a16;
+
+  color:var(--yellow);
+
+  border:
+    1px solid
+    #66512a;
+}
+
+.removeDiscountBtn{
+
+  width:100%;
+
+  background:#321c21;
+
+  color:var(--red);
+
+  border:
+    1px solid
+    #56303a;
 }
 
 .filters{
+
   display:grid;
+
   gap:10px;
 }
 
 label{
+
   display:block;
+
   color:#9ba4b4;
+
   font-size:12px;
+
   font-weight:800;
+
   margin-bottom:5px;
 }
 
-select,input{
+select,
+input{
+
   width:100%;
+
   background:var(--card2);
+
   color:white;
-  border:1px solid #29313f;
+
+  border:
+    1px solid
+    #29313f;
+
   border-radius:11px;
+
   padding:12px;
+
   font-size:16px;
+
   outline:none;
 }
 
-select:focus,input:focus{
+select:focus,
+input:focus{
+
   border-color:var(--green);
 }
 
 .filterButtons{
+
   display:grid;
-  grid-template-columns:1fr 1fr 1fr;
+
+  grid-template-columns:
+    1fr
+    1fr
+    1fr;
+
   gap:7px;
 }
 
 .filterBtn{
-  border:1px solid #303847;
+
+  border:
+    1px solid
+    #303847;
+
   background:transparent;
+
   color:#c9ced8;
+
   border-radius:10px;
-  padding:10px 6px;
+
+  padding:
+    10px
+    6px;
+
   font-weight:800;
+
   font-size:13px;
 }
 
 .filterBtn.active{
+
   background:#173b2c;
+
   border-color:var(--green);
+
   color:var(--green);
 }
 
 .boardHead{
+
   display:flex;
-  justify-content:space-between;
+
+  justify-content:
+    space-between;
+
   align-items:flex-end;
-  margin:22px 3px 10px;
+
+  margin:
+    22px
+    3px
+    10px;
 }
 
 .boardTitle{
+
   font-size:22px;
+
   font-weight:900;
 }
 
 .count{
+
   color:var(--muted);
+
   font-size:13px;
 }
 
 .props{
+
   display:grid;
+
   gap:11px;
 }
 
 .prop{
+
   background:var(--card);
-  border:1px solid var(--border);
+
+  border:
+    1px solid
+    var(--border);
+
   border-radius:17px;
+
   padding:14px;
 }
 
 .bestCard{
+
   background:#0e1d17;
-  border:1px solid #24563e;
+
+  border:
+    1px solid
+    #24563e;
 }
 
 .starCard{
+
   border-color:#524628;
 }
 
+.discountCard{
+
+  border-color:#7d612d;
+}
+
 .bestBadge,
-.starBadge{
+.starBadge,
+.discountBadge{
+
   display:inline-block;
-  padding:5px 8px;
+
+  padding:
+    5px
+    8px;
+
   border-radius:999px;
+
   font-size:10px;
+
   font-weight:900;
+
   margin-bottom:8px;
+
   margin-right:5px;
 }
 
 .bestBadge{
+
   background:#173b2c;
+
   color:var(--green);
 }
 
 .starBadge{
+
   background:#332d1c;
+
   color:var(--yellow);
 }
 
+.discountBadge{
+
+  background:#473617;
+
+  color:#ffd76b;
+}
+
 .propTop{
+
   display:flex;
-  justify-content:space-between;
+
+  justify-content:
+    space-between;
+
   gap:10px;
 }
 
 .player{
+
   font-weight:900;
+
   font-size:18px;
 }
 
 .matchup{
+
   color:var(--muted);
+
   font-size:12px;
+
   margin-top:4px;
 }
 
 .boardRank{
+
   color:#798396;
+
   font-size:11px;
+
   white-space:nowrap;
 }
 
 .lineBox{
+
   margin-top:12px;
+
   padding:11px;
+
   background:var(--card2);
+
   border-radius:12px;
 }
 
 .stat{
+
   color:#a5adbb;
+
   font-size:12px;
+
   font-weight:800;
 }
 
 .line{
+
   font-size:27px;
+
   font-weight:900;
+
   margin-top:1px;
 }
 
+.activeLine{
+
+  color:var(--yellow);
+}
+
+.standardLine{
+
+  margin-top:4px;
+
+  color:#737d8d;
+
+  font-size:11px;
+}
+
+.discountSource{
+
+  margin-top:4px;
+
+  color:var(--yellow);
+
+  font-size:11px;
+
+  font-weight:800;
+}
+
+.discountControls{
+
+  display:grid;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
+  gap:8px;
+
+  margin-top:9px;
+}
+
 .model{
+
   margin-top:11px;
-  border:1px solid #273241;
+
+  border:
+    1px solid
+    #273241;
+
   border-radius:13px;
+
   overflow:hidden;
 }
 
 .modelHeader{
-  padding:10px 11px;
+
+  padding:
+    10px
+    11px;
+
   background:#151c25;
+
   display:flex;
-  justify-content:space-between;
+
+  justify-content:
+    space-between;
+
   align-items:center;
 }
 
 .modelTitle{
+
   font-size:12px;
+
   font-weight:900;
+
   color:#b6bfcd;
 }
 
 .rating{
+
   font-size:20px;
+
   font-weight:900;
 }
 
-.rating.good{color:var(--green)}
-.rating.mid{color:var(--yellow)}
-.rating.low{color:var(--muted)}
+.rating.good{
+
+  color:var(--green);
+}
+
+.rating.mid{
+
+  color:var(--yellow);
+}
+
+.rating.low{
+
+  color:var(--muted);
+}
 
 .modelGrid{
+
   display:grid;
-  grid-template-columns:1fr 1fr;
+
+  grid-template-columns:
+    1fr
+    1fr;
 }
 
 .metric{
-  padding:10px 11px;
-  border-top:1px solid #202a36;
+
+  padding:
+    10px
+    11px;
+
+  border-top:
+    1px solid
+    #202a36;
 }
 
 .metric:nth-child(odd){
-  border-right:1px solid #202a36;
+
+  border-right:
+    1px solid
+    #202a36;
 }
 
 .metricLabel{
+
   color:#798396;
+
   font-size:10px;
+
   text-transform:uppercase;
+
   font-weight:800;
 }
 
 .metricValue{
+
   margin-top:3px;
+
   font-weight:900;
+
   font-size:15px;
 }
 
 .matchupPanel{
-  border-top:1px solid #263140;
+
+  border-top:
+    1px solid
+    #263140;
+
   background:#0d1219;
+
   padding:11px;
 }
 
 .matchupTitle{
+
   font-size:11px;
+
   font-weight:900;
+
   color:#9fa9b9;
+
   text-transform:uppercase;
 }
 
 .matchupGrid{
+
   display:grid;
-  grid-template-columns:1fr 1fr;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
   gap:8px;
+
   margin-top:8px;
 }
 
 .matchupBox{
+
   background:#111923;
-  border:1px solid #242f3d;
+
+  border:
+    1px solid
+    #242f3d;
+
   border-radius:10px;
+
   padding:9px;
 }
 
 .matchupLabel{
+
   font-size:9px;
+
   text-transform:uppercase;
+
   color:#778193;
+
   font-weight:900;
 }
 
 .matchupValue{
+
   margin-top:3px;
+
   font-size:14px;
+
   font-weight:900;
 }
 
-.favorable{color:var(--green)}
-.neutral{color:var(--yellow)}
-.tough{color:var(--red)}
+.favorable{
+
+  color:var(--green);
+}
+
+.neutral{
+
+  color:var(--yellow);
+}
+
+.tough{
+
+  color:var(--red);
+}
 
 .pickLean{
+
   padding:11px;
-  border-top:1px solid #202a36;
+
+  border-top:
+    1px solid
+    #202a36;
+
   font-weight:900;
 }
 
-.more{color:var(--green)}
-.less{color:var(--red)}
-.pass{color:var(--yellow)}
+.more{
+
+  color:var(--green);
+}
+
+.less{
+
+  color:var(--red);
+}
+
+.pass{
+
+  color:var(--yellow);
+}
 
 .reason{
-  padding:0 11px 11px;
+
+  padding:
+    0
+    11px
+    11px;
+
   color:#8e98a8;
+
   font-size:11px;
+
   line-height:1.45;
 }
 
 .pickButtons{
+
   display:grid;
-  grid-template-columns:1fr 1fr;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
   gap:8px;
+
   margin-top:10px;
 }
 
-.moreBtn,.lessBtn{
+.moreBtn,
+.lessBtn{
+
   border-radius:11px;
+
   padding:11px;
+
   font-weight:900;
 }
 
 .moreBtn{
+
   background:#123527;
-  border:1px solid #22523e;
+
+  border:
+    1px solid
+    #22523e;
+
   color:#74efb2;
 }
 
 .lessBtn{
+
   background:#351c22;
-  border:1px solid #56303a;
+
+  border:
+    1px solid
+    #56303a;
+
   color:#ff8ea0;
 }
 
 .moreBtn.selected{
+
   border-color:var(--green);
+
   background:#1c523b;
 }
 
 .lessBtn.selected{
+
   border-color:var(--red);
+
   background:#572733;
 }
 
-.loading,.empty,.error{
+.loading,
+.empty,
+.error{
+
   background:var(--card);
-  border:1px solid var(--border);
+
+  border:
+    1px solid
+    var(--border);
+
   border-radius:16px;
+
   padding:22px;
+
   text-align:center;
+
   color:var(--muted);
 }
 
-.error{color:#ff9aaa}
+.error{
+
+  color:#ff9aaa;
+}
 
 .modelStatus{
+
   margin-top:7px;
+
   color:var(--muted);
+
   font-size:12px;
 }
 
-.feedFresh{color:var(--green)}
-.feedAging{color:var(--yellow)}
-.feedStale{color:var(--red)}
+.feedFresh{
+
+  color:var(--green);
+}
+
+.feedAging{
+
+  color:var(--yellow);
+}
+
+.feedStale{
+
+  color:var(--red);
+}
 
 .pickItem{
+
   background:var(--card2);
-  border:1px solid var(--border);
+
+  border:
+    1px solid
+    var(--border);
+
   padding:11px;
+
   border-radius:12px;
+
   margin-top:8px;
 }
 
 .remove{
+
   border:0;
+
   background:transparent;
+
   color:var(--red);
+
   font-weight:900;
 }
 
-/* PARLAY */
-
 .parlayControls{
+
   display:grid;
+
   gap:10px;
+
   margin-top:12px;
 }
 
 .parlayOption{
+
   background:#0c1118;
-  border:1px solid #283240;
+
+  border:
+    1px solid
+    #283240;
+
   border-radius:15px;
+
   margin-top:12px;
+
   overflow:hidden;
 }
 
 .parlayOption.top{
+
   border-color:#2d6b4d;
+
   background:#0d1914;
 }
 
 .parlayHeader{
+
   padding:12px;
-  border-bottom:1px solid #242d39;
+
+  border-bottom:
+    1px solid
+    #242d39;
 }
 
 .parlayOptionTitle{
+
   font-weight:900;
+
   font-size:16px;
 }
 
 .grade{
+
   font-size:25px;
+
   font-weight:900;
+
   color:var(--green);
 }
 
 .parlayStats{
+
   display:grid;
-  grid-template-columns:1fr 1fr 1fr;
+
+  grid-template-columns:
+    1fr
+    1fr
+    1fr;
+
   gap:1px;
+
   background:#202936;
 }
 
 .parlayStat{
+
   background:#0c1118;
-  padding:10px 8px;
+
+  padding:
+    10px
+    8px;
+
   text-align:center;
 }
 
 .parlayStatLabel{
+
   color:#778193;
+
   font-size:9px;
+
   font-weight:900;
+
   text-transform:uppercase;
 }
 
 .parlayStatValue{
+
   margin-top:3px;
+
   font-weight:900;
+
   font-size:14px;
 }
 
 .parlayLeg{
-  padding:11px 12px;
-  border-bottom:1px solid #202936;
+
+  padding:
+    11px
+    12px;
+
+  border-bottom:
+    1px solid
+    #202936;
 }
 
 .legDetails{
+
   display:grid;
-  grid-template-columns:1fr 1fr;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
   gap:6px;
+
   margin-top:8px;
 }
 
 .legDetail{
+
   background:#101720;
-  border:1px solid #202b38;
-  padding:7px 8px;
+
+  border:
+    1px solid
+    #202b38;
+
+  padding:
+    7px
+    8px;
+
   border-radius:8px;
 }
 
 .legDetailLabel{
+
   color:#778193;
+
   font-size:8px;
+
   font-weight:900;
+
   text-transform:uppercase;
 }
 
 .legDetailValue{
+
   font-size:12px;
+
   font-weight:900;
+
   margin-top:2px;
 }
 
 .contextWarning{
+
   margin-top:7px;
-  padding:7px 8px;
+
+  padding:
+    7px
+    8px;
+
   background:#291b1d;
-  border:1px solid #553037;
+
+  border:
+    1px solid
+    #553037;
+
   border-radius:8px;
+
   color:#ff9aaa;
+
   font-size:10px;
+
   font-weight:800;
 }
 
-.corrLow{color:var(--green)}
-.corrMed{color:var(--yellow)}
-.corrHigh{color:var(--red)}
+.corrLow{
+
+  color:var(--green);
+}
+
+.corrMed{
+
+  color:var(--yellow);
+}
+
+.corrHigh{
+
+  color:var(--red);
+}
 
 .addParlayBtn{
-  width:calc(100% - 24px);
+
+  width:
+    calc(100% - 24px);
+
   margin:12px;
+
   padding:11px;
+
   border-radius:11px;
-  border:1px solid #315b46;
+
+  border:
+    1px solid
+    #315b46;
+
   background:#173b2c;
+
   color:var(--green);
+
   font-weight:900;
 }
 
-.hidden{display:none}
+.hidden{
+
+  display:none;
+}
 
 .disclaimer{
+
   margin-top:18px;
+
   font-size:11px;
+
   color:#606979;
+
   line-height:1.5;
+
   text-align:center;
 }
+
 </style>
 </head>
 
 <body>
+
 <main class="app">
 
 <header>
-  <div class="brand">Prop <span>Edge</span></div>
-  <div class="subtitle">
-    NFL PrizePicks board + player form + matchup analysis
+
+  <div class="brand">
+    Prop <span>Edge</span>
   </div>
+
+  <div class="subtitle">
+    NFL PrizePicks board + player form + matchup analysis + discounts
+  </div>
+
 </header>
 
 <section class="card">
@@ -596,23 +1146,44 @@ select:focus,input:focus{
     <div>
 
       <div class="title">
-        <span class="live"></span>Live Data
+
+        <span class="live"></span>
+        Live Data
+
       </div>
 
-      <div id="feedStatus" class="small">
+      <div
+        id="feedStatus"
+        class="small"
+      >
         Loading PrizePicks...
       </div>
 
-      <div id="feedAge" class="small">
+      <div
+        id="feedAge"
+        class="small"
+      >
       </div>
 
-      <div id="modelStatus" class="modelStatus">
-        Loading Model v4.1...
+      <div
+        id="promoStatus"
+        class="small"
+      >
+      </div>
+
+      <div
+        id="modelStatus"
+        class="modelStatus"
+      >
+        Loading Model v5...
       </div>
 
     </div>
 
-    <button class="refresh" id="refreshBtn">
+    <button
+      class="refresh"
+      id="refreshBtn"
+    >
       Refresh
     </button>
 
@@ -622,101 +1193,256 @@ select:focus,input:focus{
 
 <section class="card">
 
-  <div class="title" style="margin-bottom:12px">
+  <div
+    class="title"
+    style="margin-bottom:12px"
+  >
     Filters
   </div>
 
   <div class="filters">
 
     <div>
-      <label>Game</label>
+
+      <label>
+        Game
+      </label>
+
       <select id="gameFilter">
-        <option value="">All NFL Games</option>
+
+        <option value="">
+          All NFL Games
+        </option>
+
       </select>
+
     </div>
 
     <div>
-      <label>Prop Type</label>
+
+      <label>
+        Prop Type
+      </label>
+
       <select id="statFilter">
-        <option value="">All Prop Types</option>
+
+        <option value="">
+          All Prop Types
+        </option>
+
       </select>
+
     </div>
 
     <div>
-      <label>Player / Team</label>
-      <input id="searchInput" placeholder="Search player or team">
+
+      <label>
+        Player / Team
+      </label>
+
+      <input
+        id="searchInput"
+        placeholder="Search player or team"
+      >
+
     </div>
 
     <div>
-      <label>Minimum Model Score</label>
+
+      <label>
+        Minimum Model Score
+      </label>
+
       <select id="scoreFilter">
-        <option value="0" selected>Any Score</option>
-        <option value="70">70+</option>
-        <option value="75">75+</option>
-        <option value="80">80+ Best Bets</option>
-        <option value="84">84+ Elite</option>
+
+        <option value="0" selected>
+          Any Score
+        </option>
+
+        <option value="70">
+          70+
+        </option>
+
+        <option value="75">
+          75+
+        </option>
+
+        <option value="80">
+          80+ Best Bets
+        </option>
+
+        <option value="84">
+          84+ Elite
+        </option>
+
       </select>
+
     </div>
 
     <div>
-      <label>Minimum Model Lean</label>
+
+      <label>
+        Minimum Model Lean
+      </label>
+
       <select id="leanFilter">
-        <option value="0" selected>Any Lean</option>
-        <option value="0.58">58%+</option>
-        <option value="0.60">60%+</option>
-        <option value="0.62">62%+</option>
-        <option value="0.64">64%+</option>
+
+        <option value="0" selected>
+          Any Lean
+        </option>
+
+        <option value="0.58">
+          58%+
+        </option>
+
+        <option value="0.60">
+          60%+
+        </option>
+
+        <option value="0.62">
+          62%+
+        </option>
+
+        <option value="0.64">
+          64%+
+        </option>
+
       </select>
+
     </div>
 
     <div>
-      <label>Minimum Historical Hit Rate</label>
+
+      <label>
+        Minimum Historical Hit Rate
+      </label>
+
       <select id="hitFilter">
-        <option value="0" selected>Any Hit Rate</option>
-        <option value="0.55">55%+</option>
-        <option value="0.60">60%+</option>
-        <option value="0.70">70%+</option>
-        <option value="0.80">80%+</option>
+
+        <option value="0" selected>
+          Any Hit Rate
+        </option>
+
+        <option value="0.55">
+          55%+
+        </option>
+
+        <option value="0.60">
+          60%+
+        </option>
+
+        <option value="0.70">
+          70%+
+        </option>
+
+        <option value="0.80">
+          80%+
+        </option>
+
       </select>
+
     </div>
 
     <div>
-      <label>Minimum Sample Size</label>
+
+      <label>
+        Minimum Sample Size
+      </label>
+
       <select id="sampleFilter">
-        <option value="0" selected>Any Sample</option>
-        <option value="5">5+ Games</option>
-        <option value="6">6+ Games</option>
-        <option value="8">8+ Games</option>
-        <option value="10">10+ Games</option>
+
+        <option value="0" selected>
+          Any Sample
+        </option>
+
+        <option value="5">
+          5+ Games
+        </option>
+
+        <option value="6">
+          6+ Games
+        </option>
+
+        <option value="8">
+          8+ Games
+        </option>
+
+        <option value="10">
+          10+ Games
+        </option>
+
       </select>
+
     </div>
 
     <div>
-      <label>Sort</label>
+
+      <label>
+        Sort
+      </label>
+
       <select id="sortFilter">
-        <option value="board" selected>PrizePicks Board</option>
-        <option value="rating">Best Model Picks</option>
-        <option value="strength">Highest Leg Strength</option>
-        <option value="matchup">Best Matchup</option>
-        <option value="edge">Strongest Statistical Edge</option>
-        <option value="lean">Highest Model Lean</option>
-        <option value="hit">Highest Historical Hit Rate</option>
+
+        <option
+          value="board"
+          selected
+        >
+          PrizePicks Board
+        </option>
+
+        <option value="rating">
+          Best Model Picks
+        </option>
+
+        <option value="strength">
+          Highest Leg Strength
+        </option>
+
+        <option value="matchup">
+          Best Matchup
+        </option>
+
+        <option value="edge">
+          Strongest Statistical Edge
+        </option>
+
+        <option value="lean">
+          Highest Model Lean
+        </option>
+
+        <option value="hit">
+          Highest Historical Hit Rate
+        </option>
+
       </select>
+
     </div>
 
   </div>
 
-  <div class="filterButtons" style="margin-top:10px">
+  <div
+    class="filterButtons"
+    style="margin-top:10px"
+  >
 
-    <button id="allBtn" class="filterBtn active">
+    <button
+      id="allBtn"
+      class="filterBtn active"
+    >
       All Props
     </button>
 
-    <button id="bestBtn" class="filterBtn">
+    <button
+      id="bestBtn"
+      class="filterBtn"
+    >
       Best Bets
     </button>
 
-    <button id="starBtn" class="filterBtn">
+    <button
+      id="starBtn"
+      class="filterBtn"
+    >
       ⭐ Stars
     </button>
 
@@ -730,39 +1456,96 @@ select:focus,input:focus{
     Parlay Builder
   </div>
 
-  <div class="small" style="margin-top:4px">
-    Builds combinations using player strength, matchup quality, player role and correlation.
+  <div
+    class="small"
+    style="margin-top:4px"
+  >
+    Uses active discounted lines automatically.
   </div>
 
   <div class="parlayControls">
 
     <div>
-      <label>Parlay Scope</label>
+
+      <label>
+        Parlay Scope
+      </label>
+
       <select id="parlayScope">
-        <option value="all" selected>All Games</option>
-        <option value="single">Single Game</option>
+
+        <option
+          value="all"
+          selected
+        >
+          All Games
+        </option>
+
+        <option value="single">
+          Single Game
+        </option>
+
       </select>
+
     </div>
 
-    <div id="parlayGameWrap" class="hidden">
-      <label>Game</label>
+    <div
+      id="parlayGameWrap"
+      class="hidden"
+    >
+
+      <label>
+        Game
+      </label>
+
       <select id="parlayGame">
-        <option value="">Select a game</option>
+
+        <option value="">
+          Select a game
+        </option>
+
       </select>
+
     </div>
 
     <div>
-      <label>Number of Legs</label>
+
+      <label>
+        Number of Legs
+      </label>
+
       <select id="legCount">
-        <option value="3">3 Legs</option>
-        <option value="4" selected>4 Legs</option>
-        <option value="5">5 Legs</option>
-        <option value="6">6 Legs</option>
-        <option value="7">7 Legs</option>
+
+        <option value="3">
+          3 Legs
+        </option>
+
+        <option
+          value="4"
+          selected
+        >
+          4 Legs
+        </option>
+
+        <option value="5">
+          5 Legs
+        </option>
+
+        <option value="6">
+          6 Legs
+        </option>
+
+        <option value="7">
+          7 Legs
+        </option>
+
       </select>
+
     </div>
 
-    <button id="generateParlays" class="primaryBtn">
+    <button
+      id="generateParlays"
+      class="primaryBtn"
+    >
       Generate Top Parlays
     </button>
 
@@ -770,7 +1553,10 @@ select:focus,input:focus{
 
   <div id="parlayResults">
 
-    <div class="small" style="margin-top:12px">
+    <div
+      class="small"
+      style="margin-top:12px"
+    >
       Choose your settings and tap Generate Top Parlays.
     </div>
 
@@ -779,11 +1565,24 @@ select:focus,input:focus{
 </section>
 
 <div class="boardHead">
-  <div class="boardTitle">NFL Props</div>
-  <div id="propCount" class="count">0 props</div>
+
+  <div class="boardTitle">
+    NFL Props
+  </div>
+
+  <div
+    id="propCount"
+    class="count"
+  >
+    0 props
+  </div>
+
 </div>
 
-<section id="propList" class="props">
+<section
+  id="propList"
+  class="props"
+>
 
   <div class="loading">
     Loading...
@@ -801,13 +1600,19 @@ select:focus,input:focus{
         My Lineup
       </div>
 
-      <div id="selectedCount" class="small">
+      <div
+        id="selectedCount"
+        class="small"
+      >
         No picks selected
       </div>
 
     </div>
 
-    <button id="clearPicks" class="refresh">
+    <button
+      id="clearPicks"
+      class="refresh"
+    >
       Clear
     </button>
 
@@ -818,83 +1623,121 @@ select:focus,input:focus{
 </section>
 
 <div class="disclaimer">
-  Prop Edge Model v4.1 is a statistical screening model.
-  Model Score, Model Lean, Leg Strength, Matchup Score and Parlay Grade are not guaranteed probabilities.
-  PrizePicks lines come from an unofficial mirror, so always compare the displayed line with PrizePicks before submitting an entry.
+
+  Prop Edge Model v5 is a statistical screening model.
+
+  Model Score, Model Lean, Leg Strength,
+  Matchup Score and Parlay Grade are not
+  guaranteed probabilities.
+
+  PrizePicks lines come from an unofficial
+  data source.
+
+  Automatic promo detection may not include
+  account-specific offers.
+
+  Always compare the active line with PrizePicks
+  before submitting.
+
 </div>
 
 </main>
 
 <script>
 
-const PP_URL =
+const PP_URL=
 "https://raw.githubusercontent.com/ENKDAY/prizepicks-scraper/main/data/prizepicks-nfl.json";
 
-const NFL_STATS =
+const NFL_STATS=
 "./data/prop_edge_stats.csv";
 
-const MATCHUP_STATS =
+const MATCHUP_STATS=
 "./data/prop_edge_matchups.csv";
 
+const PROMO_STATS=
+"./data/prop_edge_promos.json";
+
+const OVERRIDE_STORAGE=
+"prop-edge-discount-overrides-v1";
+
 let allProps=[];
+
 let statsRows=[];
+
 let matchupRows=[];
-let models=new Map();
+
+let models=
+  new Map();
+
 let selected={};
+
 let bestOnly=false;
+
 let starOnly=false;
+
 let generatedParlays=[];
-let starPlayers=new Set();
 
-const $=id=>document.getElementById(id);
+let starPlayers=
+  new Set();
 
-/* -----------------------------
-   HELPERS
------------------------------ */
+let promoLines=
+  new Map();
+
+let manualOverrides={};
+
+const $=
+  id=>
+    document.getElementById(id);
+
+
+/* HELPERS */
 
 function text(v){
-  return v===undefined || v===null
-    ? ""
-    : String(v);
+
+  return v===undefined ||
+    v===null
+
+      ? ""
+
+      : String(v);
 }
 
 function num(v){
-  const x=Number(v);
+
+  const x=
+    Number(v);
+
   return Number.isFinite(x)
     ? x
     : 0;
 }
 
-function clamp(x,min,max){
+function clamp(
+  x,
+  min,
+  max
+){
+
   return Math.max(
     min,
-    Math.min(max,x)
+    Math.min(
+      max,
+      x
+    )
   );
 }
 
 function mean(arr){
-  if(!arr.length) return 0;
+
+  if(!arr.length){
+    return 0;
+  }
 
   return arr.reduce(
     (a,b)=>a+b,
     0
-  )/arr.length;
-}
-
-function weightedMean(items){
-
-  let total=0;
-  let weights=0;
-
-  items.forEach(x=>{
-
-    total+=x.value*x.weight;
-    weights+=x.weight;
-  });
-
-  return weights
-    ? total/weights
-    : 0;
+  )/
+  arr.length;
 }
 
 function median(arr){
@@ -903,58 +1746,98 @@ function median(arr){
     return 0;
   }
 
-  const s=
+  const sorted=
     [...arr].sort(
       (a,b)=>a-b
     );
 
-  const mid=
+  const middle=
     Math.floor(
-      s.length/2
+      sorted.length/2
     );
 
-  return s.length%2
-    ? s[mid]
-    : (s[mid-1]+s[mid])/2;
+  return sorted.length%2
+
+    ? sorted[middle]
+
+    : (
+        sorted[middle-1]+
+        sorted[middle]
+      )/2;
 }
 
 function sd(arr){
 
-  if(arr.length<2){
+  if(
+    arr.length<2
+  ){
     return 0;
   }
 
-  const m=mean(arr);
+  const avg=
+    mean(arr);
 
   return Math.sqrt(
+
     arr.reduce(
-      (sum,x)=>
-        sum+
-        Math.pow(x-m,2),
+      (total,x)=>
+        total+
+        Math.pow(
+          x-avg,
+          2
+        ),
       0
     )/
-    (arr.length-1)
+    (
+      arr.length-1
+    )
   );
+}
+
+function weightedMean(items){
+
+  let total=0;
+
+  let weights=0;
+
+  items.forEach(
+    x=>{
+
+      total+=
+        x.value*
+        x.weight;
+
+      weights+=
+        x.weight;
+    }
+  );
+
+  return weights
+    ? total/weights
+    : 0;
 }
 
 function normName(name){
 
   return text(name)
+
     .toLowerCase()
+
     .normalize("NFD")
+
     .replace(
       /[\u0300-\u036f]/g,
       ""
     )
+
     .replace(
       /[^a-z0-9]/g,
       ""
     );
 }
 
-/* -----------------------------
-   TEAM CODE NORMALIZATION
------------------------------ */
+
+/* TEAM NORMALIZATION */
 
 function teamCode(value){
 
@@ -994,16 +1877,16 @@ function teamCode(value){
 
     LVR:"LV",
     LV:"LV"
-
   };
 
-  return aliases[code] || code;
+  return aliases[code] ||
+    code;
 }
 
 function offenseCode(p){
 
   return teamCode(
-    p.teamCode||
+    p.teamCode ||
     p.Team
   );
 }
@@ -1011,20 +1894,28 @@ function offenseCode(p){
 function opponentCode(p){
 
   return teamCode(
-    p.opponentCode||
+    p.opponentCode ||
     p.Opponent
   );
 }
 
 function gameKey(p){
 
-  if(p.gameId){
-    return text(p.gameId);
+  if(
+    p.gameId
+  ){
+
+    return text(
+      p.gameId
+    );
   }
 
   return [
+
     offenseCode(p),
+
     opponentCode(p)
+
   ]
   .sort()
   .join("-");
@@ -1032,67 +1923,347 @@ function gameKey(p){
 
 function matchup(p){
 
-  const a=
+  const team=
     text(
-      p.teamCode||
+      p.teamCode ||
       p.Team
     );
 
-  const b=
+  const opponent=
     text(
-      p.opponentCode||
+      p.opponentCode ||
       p.Opponent
     );
 
-  return a && b
-    ? `${a} vs ${b}`
-    : a || b || "NFL";
+  if(
+    team &&
+    opponent
+  ){
+
+    return `${team} vs ${opponent}`;
+  }
+
+  return team ||
+    opponent ||
+    "NFL";
 }
 
 function pKey(p){
 
   return [
-    text(p.gameId),
-    text(p.player),
-    text(p.stat),
-    text(p.line)
+
+    text(
+      p.gameId
+    ),
+
+    text(
+      p.player
+    ),
+
+    text(
+      p.stat
+    ),
+
+    text(
+      p.line
+    )
+
   ].join("|");
 }
 
-/* -----------------------------
-   STAR PLAYER VIEW
------------------------------ */
+
+/* DISCOUNT SYSTEM */
+
+function discountKey(p){
+
+  return [
+
+    text(
+      p.gameId
+    ),
+
+    normName(
+      p.player
+    ),
+
+    text(
+      p.stat
+    )
+    .toLowerCase()
+    .trim()
+
+  ].join("|");
+}
+
+function loadOverrides(){
+
+  try{
+
+    manualOverrides=
+      JSON.parse(
+        localStorage.getItem(
+          OVERRIDE_STORAGE
+        ) ||
+        "{}"
+      );
+
+  }catch{
+
+    manualOverrides={};
+  }
+}
+
+function saveOverrides(){
+
+  localStorage.setItem(
+    OVERRIDE_STORAGE,
+    JSON.stringify(
+      manualOverrides
+    )
+  );
+}
+
+function activeLineInfo(p){
+
+  const key=
+    discountKey(p);
+
+  const standard=
+    Number(
+      p.line
+    );
+
+  const manual=
+    Number(
+      manualOverrides[
+        key
+      ]
+    );
+
+  if(
+    manualOverrides[
+      key
+    ]!==undefined &&
+    Number.isFinite(manual)
+  ){
+
+    return {
+
+      line:manual,
+
+      standard,
+
+      source:"manual"
+    };
+  }
+
+  const automatic=
+    Number(
+      promoLines.get(
+        key
+      )
+    );
+
+  if(
+    promoLines.has(key) &&
+    Number.isFinite(automatic)
+  ){
+
+    return {
+
+      line:automatic,
+
+      standard,
+
+      source:"automatic"
+    };
+  }
+
+  return {
+
+    line:standard,
+
+    standard,
+
+    source:"standard"
+  };
+}
+
+function activeLine(p){
+
+  return activeLineInfo(
+    p
+  ).line;
+}
+
+function hasDiscount(p){
+
+  const x=
+    activeLineInfo(p);
+
+  return (
+
+    Number.isFinite(
+      x.line
+    ) &&
+
+    Number.isFinite(
+      x.standard
+    ) &&
+
+    x.line!==
+    x.standard
+  );
+}
+
+function setDiscount(p){
+
+  const current=
+    activeLineInfo(
+      p
+    );
+
+  const answer=
+    prompt(
+      `${p.player} — ${p.stat}\n\nStandard line: ${p.line}\n\nEnter the discounted line shown in PrizePicks:`,
+      current.source==="manual"
+        ? current.line
+        : ""
+    );
+
+  if(
+    answer===null
+  ){
+    return;
+  }
+
+  const value=
+    Number(
+      answer.trim()
+    );
+
+  if(
+    !Number.isFinite(value) ||
+    value<0
+  ){
+
+    alert(
+      "Enter a valid number."
+    );
+
+    return;
+  }
+
+  manualOverrides[
+    discountKey(p)
+  ]=
+    value;
+
+  saveOverrides();
+
+  buildModels();
+
+  render();
+
+  renderPicks();
+
+  generatedParlays=[];
+
+  $("parlayResults").innerHTML=
+    `
+    <div class="small" style="margin-top:12px">
+      Discount updated. Generate Top Parlays again to use the new line.
+    </div>
+    `;
+}
+
+function removeDiscount(p){
+
+  delete manualOverrides[
+    discountKey(p)
+  ];
+
+  saveOverrides();
+
+  buildModels();
+
+  render();
+
+  renderPicks();
+
+  generatedParlays=[];
+
+  $("parlayResults").innerHTML=
+    `
+    <div class="small" style="margin-top:12px">
+      Manual discount removed.
+    </div>
+    `;
+}
+
+
+/* STAR PLAYERS */
 
 const STAR_FALLBACK=[
+
   "Christian McCaffrey",
+
   "Puka Nacua",
+
   "Matthew Stafford",
+
   "George Kittle",
+
   "Justin Jefferson",
+
   "Ja'Marr Chase",
+
   "CeeDee Lamb",
+
   "Amon-Ra St. Brown",
+
   "A.J. Brown",
+
   "Saquon Barkley",
+
   "Bijan Robinson",
+
   "Jahmyr Gibbs",
+
   "Josh Allen",
+
   "Lamar Jackson",
+
   "Patrick Mahomes",
+
   "Joe Burrow",
+
   "Jalen Hurts",
+
   "Jayden Daniels",
+
   "Dak Prescott",
+
   "Brock Purdy",
+
   "Justin Herbert",
+
   "C.J. Stroud",
+
   "Drake Maye",
+
   "Malik Nabers",
+
   "Nico Collins",
+
   "Brian Thomas Jr.",
+
   "Drake London",
+
   "Garrett Wilson",
+
   "Trey McBride",
+
   "Brock Bowers"
 ];
 
@@ -1101,72 +2272,91 @@ function buildStarPlayerSet(){
   const players=
     new Map();
 
-  allProps.forEach(p=>{
+  allProps.forEach(
+    p=>{
 
-    const key=
-      normName(p.player);
-
-    if(!key){
-      return;
-    }
-
-    if(!players.has(key)){
-
-      players.set(
-        key,
-        {
-          name:p.player,
-          props:0,
-          bestRank:99999
-        }
-      );
-    }
-
-    const x=
-      players.get(key);
-
-    x.props++;
-
-    const rank=
-      Number(p.rank);
-
-    if(
-      Number.isFinite(rank) &&
-      rank>0
-    ){
-
-      x.bestRank=
-        Math.min(
-          x.bestRank,
-          rank
+      const key=
+        normName(
+          p.player
         );
-    }
-  });
 
-  const dynamic=
-    [...players.entries()]
-      .sort(
-        (a,b)=>
-          a[1].bestRank-
-          b[1].bestRank ||
-          b[1].props-
-          a[1].props
-      )
-      .slice(
-        0,
-        35
-      )
-      .map(
-        x=>x[0]
-      );
+      if(!key){
+        return;
+      }
+
+      if(
+        !players.has(
+          key
+        )
+      ){
+
+        players.set(
+          key,
+          {
+            props:0,
+            rank:99999
+          }
+        );
+      }
+
+      const entry=
+        players.get(
+          key
+        );
+
+      entry.props++;
+
+      const rank=
+        Number(
+          p.rank
+        );
+
+      if(
+        Number.isFinite(
+          rank
+        ) &&
+        rank>0
+      ){
+
+        entry.rank=
+          Math.min(
+            entry.rank,
+            rank
+          );
+      }
+    }
+  );
 
   starPlayers=
-    new Set(dynamic);
+    new Set(
+
+      [...players.entries()]
+
+        .sort(
+          (a,b)=>
+            a[1].rank-
+            b[1].rank ||
+            b[1].props-
+            a[1].props
+        )
+
+        .slice(
+          0,
+          35
+        )
+
+        .map(
+          x=>x[0]
+        )
+    );
 
   STAR_FALLBACK.forEach(
     name=>{
+
       starPlayers.add(
-        normName(name)
+        normName(
+          name
+        )
       );
     }
   );
@@ -1179,9 +2369,8 @@ function isStarPlayer(name){
   );
 }
 
-/* -----------------------------
-   MATH
------------------------------ */
+
+/* NORMAL DISTRIBUTION */
 
 function erf(x){
 
@@ -1190,22 +2379,52 @@ function erf(x){
       ? -1
       : 1;
 
-  x=Math.abs(x);
+  x=
+    Math.abs(x);
 
   const a1=.254829592;
+
   const a2=-.284496736;
+
   const a3=1.421413741;
+
   const a4=-1.453152027;
+
   const a5=1.061405429;
+
   const p=.3275911;
 
   const t=
-    1/(1+p*x);
+    1/
+    (
+      1+
+      p*x
+    );
 
   const y=
     1-
-    (((((a5*t+a4)*t)+a3)*t+a2)*t+a1)*
-    t*Math.exp(-x*x);
+    (
+      (
+        (
+          (
+            (
+              a5*t+
+              a4
+            )*
+            t+
+            a3
+          )*
+          t+
+          a2
+        )*
+        t+
+        a1
+      )*
+      t*
+      Math.exp(
+        -x*x
+      )
+    );
 
   return sign*y;
 }
@@ -1216,21 +2435,23 @@ function normalCDF(x){
     (
       1+
       erf(
-        x/Math.sqrt(2)
+        x/
+        Math.sqrt(2)
       )
     );
 }
 
-/* -----------------------------
-   CSV
------------------------------ */
+
+/* CSV */
 
 function parseCSV(data){
 
   const rows=[];
 
   let row=[];
+
   let field="";
+
   let quoted=false;
 
   for(
@@ -1239,9 +2460,12 @@ function parseCSV(data){
     i++
   ){
 
-    const c=data[i];
+    const c=
+      data[i];
 
-    if(c==='"'){
+    if(
+      c==='"'
+    ){
 
       if(
         quoted &&
@@ -1249,11 +2473,13 @@ function parseCSV(data){
       ){
 
         field+='"';
+
         i++;
 
       }else{
 
-        quoted=!quoted;
+        quoted=
+          !quoted;
       }
 
     }else if(
@@ -1261,7 +2487,10 @@ function parseCSV(data){
       !quoted
     ){
 
-      row.push(field);
+      row.push(
+        field
+      );
+
       field="";
 
     }else if(
@@ -1276,18 +2505,26 @@ function parseCSV(data){
         c==="\r" &&
         data[i+1]==="\n"
       ){
+
         i++;
       }
 
-      row.push(field);
+      row.push(
+        field
+      );
+
       field="";
 
       if(
         row.some(
-          v=>v!==""
+          value=>
+            value!==""
         )
       ){
-        rows.push(row);
+
+        rows.push(
+          row
+        );
       }
 
       row=[];
@@ -1298,13 +2535,24 @@ function parseCSV(data){
     }
   }
 
-  if(field || row.length){
+  if(
+    field ||
+    row.length
+  ){
 
-    row.push(field);
-    rows.push(row);
+    row.push(
+      field
+    );
+
+    rows.push(
+      row
+    );
   }
 
-  if(rows.length<2){
+  if(
+    rows.length<2
+  ){
+
     return [];
   }
 
@@ -1313,27 +2561,32 @@ function parseCSV(data){
 
   return rows
     .slice(1)
-    .map(values=>{
+    .map(
+      values=>{
 
-      const obj={};
+        const obj={};
 
-      headers.forEach(
-        (h,i)=>{
+        headers.forEach(
+          (header,index)=>{
 
-          obj[h]=
-            values[i] ?? "";
-        }
-      );
+            obj[header]=
+              values[index] ??
+              "";
+          }
+        );
 
-      return obj;
-    });
+        return obj;
+      }
+    );
 }
 
-/* -----------------------------
-   STAT MAPPING
------------------------------ */
 
-function statValue(row,stat){
+/* STAT VALUES */
+
+function statValue(
+  row,
+  stat
+){
 
   const s=
     text(stat)
@@ -1343,84 +2596,143 @@ function statValue(row,stat){
   if(
     s==="pass yards" ||
     s==="passing yards"
-  )
-    return num(row.passing_yards);
+  ){
+
+    return num(
+      row.passing_yards
+    );
+  }
 
   if(
     s==="pass attempts" ||
     s==="passing attempts"
-  )
-    return num(row.attempts);
+  ){
+
+    return num(
+      row.attempts
+    );
+  }
 
   if(
     s==="completions" ||
     s==="pass completions" ||
     s==="passing completions"
-  )
-    return num(row.completions);
+  ){
+
+    return num(
+      row.completions
+    );
+  }
 
   if(
     s==="pass tds" ||
     s==="passing tds" ||
     s==="passing touchdowns"
-  )
-    return num(row.passing_tds);
+  ){
+
+    return num(
+      row.passing_tds
+    );
+  }
 
   if(
     s==="interceptions" ||
     s==="pass interceptions" ||
     s==="passing interceptions"
-  )
-    return num(row.interceptions);
+  ){
+
+    return num(
+      row.interceptions
+    );
+  }
 
   if(
     s==="rush yards" ||
     s==="rushing yards"
-  )
-    return num(row.rushing_yards);
+  ){
+
+    return num(
+      row.rushing_yards
+    );
+  }
 
   if(
     s==="rush attempts" ||
     s==="rushing attempts"
-  )
-    return num(row.carries);
+  ){
+
+    return num(
+      row.carries
+    );
+  }
 
   if(
     s==="receiving yards" ||
     s==="rec yards"
-  )
-    return num(row.receiving_yards);
+  ){
 
-  if(s==="receptions")
-    return num(row.receptions);
+    return num(
+      row.receiving_yards
+    );
+  }
 
-  if(s==="targets")
-    return num(row.targets);
+  if(
+    s==="receptions"
+  ){
+
+    return num(
+      row.receptions
+    );
+  }
+
+  if(
+    s==="targets"
+  ){
+
+    return num(
+      row.targets
+    );
+  }
 
   if(
     s==="rush+rec yards" ||
     s==="rush + rec yards" ||
     s==="rushing + receiving yards"
-  )
+  ){
+
     return (
-      num(row.rushing_yards)+
-      num(row.receiving_yards)
+      num(
+        row.rushing_yards
+      )+
+      num(
+        row.receiving_yards
+      )
     );
+  }
 
   if(
     s==="rush+rec tds" ||
     s==="rush + rec tds" ||
     s==="rushing + receiving tds"
-  )
+  ){
+
     return (
-      num(row.rushing_tds)+
-      num(row.receiving_tds)
+      num(
+        row.rushing_tds
+      )+
+      num(
+        row.receiving_tds
+      )
     );
+  }
 
   return null;
 }
 
-function matchupMetric(row,stat){
+function matchupMetric(
+  row,
+  stat
+){
 
   const s=
     text(stat)
@@ -1430,84 +2742,143 @@ function matchupMetric(row,stat){
   if(
     s==="pass yards" ||
     s==="passing yards"
-  )
-    return num(row.passing_yards_allowed);
+  ){
+
+    return num(
+      row.passing_yards_allowed
+    );
+  }
 
   if(
     s==="pass attempts" ||
     s==="passing attempts"
-  )
-    return num(row.pass_attempts_allowed);
+  ){
+
+    return num(
+      row.pass_attempts_allowed
+    );
+  }
 
   if(
     s==="completions" ||
     s==="pass completions" ||
     s==="passing completions"
-  )
-    return num(row.completions_allowed);
+  ){
+
+    return num(
+      row.completions_allowed
+    );
+  }
 
   if(
     s==="pass tds" ||
     s==="passing tds" ||
     s==="passing touchdowns"
-  )
-    return num(row.passing_tds_allowed);
+  ){
+
+    return num(
+      row.passing_tds_allowed
+    );
+  }
 
   if(
     s==="interceptions" ||
     s==="pass interceptions" ||
     s==="passing interceptions"
-  )
-    return num(row.interceptions_forced);
+  ){
+
+    return num(
+      row.interceptions_forced
+    );
+  }
 
   if(
     s==="rush yards" ||
     s==="rushing yards"
-  )
-    return num(row.rushing_yards_allowed);
+  ){
+
+    return num(
+      row.rushing_yards_allowed
+    );
+  }
 
   if(
     s==="rush attempts" ||
     s==="rushing attempts"
-  )
-    return num(row.rush_attempts_allowed);
+  ){
+
+    return num(
+      row.rush_attempts_allowed
+    );
+  }
 
   if(
     s==="receiving yards" ||
     s==="rec yards"
-  )
-    return num(row.receiving_yards_allowed);
+  ){
 
-  if(s==="receptions")
-    return num(row.receptions_allowed);
+    return num(
+      row.receiving_yards_allowed
+    );
+  }
 
-  if(s==="targets")
-    return num(row.targets_allowed);
+  if(
+    s==="receptions"
+  ){
+
+    return num(
+      row.receptions_allowed
+    );
+  }
+
+  if(
+    s==="targets"
+  ){
+
+    return num(
+      row.targets_allowed
+    );
+  }
 
   if(
     s==="rush+rec yards" ||
     s==="rush + rec yards" ||
     s==="rushing + receiving yards"
-  )
+  ){
+
     return (
-      num(row.rushing_yards_allowed)+
-      num(row.receiving_yards_allowed)
+      num(
+        row.rushing_yards_allowed
+      )+
+      num(
+        row.receiving_yards_allowed
+      )
     );
+  }
 
   if(
     s==="rush+rec tds" ||
     s==="rush + rec tds" ||
     s==="rushing + receiving tds"
-  )
+  ){
+
     return (
-      num(row.rushing_tds_allowed)+
-      num(row.receiving_tds_allowed)
+      num(
+        row.rushing_tds_allowed
+      )+
+      num(
+        row.receiving_tds_allowed
+      )
     );
+  }
 
   return null;
 }
 
-function roleValue(row,stat){
+function roleValue(
+  row,
+  stat
+){
 
   const s=
     text(stat)
@@ -1556,13 +2927,20 @@ function roleValue(row,stat){
   ){
 
     return (
-      num(row.carries)+
-      num(row.targets)
+      num(
+        row.carries
+      )+
+      num(
+        row.targets
+      )
     );
   }
 
   return null;
 }
+
+
+/* MODEL SETTINGS */
 
 function statSettings(stat){
 
@@ -1574,91 +2952,113 @@ function statSettings(stat){
   if(
     s==="pass yards" ||
     s==="passing yards"
-  )
+  ){
+
     return {
       minGap:15,
       minZ:.40,
       penalty:1
     };
+  }
 
   if(
     s==="receiving yards" ||
     s==="rec yards"
-  )
+  ){
+
     return {
       minGap:7,
       minZ:.42,
       penalty:1
     };
+  }
 
   if(
     s==="rush yards" ||
     s==="rushing yards"
-  )
+  ){
+
     return {
       minGap:6,
       minZ:.42,
       penalty:1
     };
+  }
 
   if(
     s==="rush+rec yards" ||
     s==="rush + rec yards" ||
     s==="rushing + receiving yards"
-  )
+  ){
+
     return {
       minGap:8,
       minZ:.42,
       penalty:1
     };
+  }
 
   if(
     s==="pass attempts" ||
     s==="passing attempts" ||
     s==="rush attempts" ||
     s==="rushing attempts"
-  )
+  ){
+
     return {
       minGap:2,
       minZ:.40,
       penalty:1
     };
+  }
 
   if(
     s==="completions" ||
     s==="pass completions" ||
     s==="passing completions"
-  )
+  ){
+
     return {
       minGap:1.5,
       minZ:.40,
       penalty:1
     };
+  }
 
-  if(s==="receptions")
+  if(
+    s==="receptions"
+  ){
+
     return {
       minGap:1,
       minZ:.42,
       penalty:1
     };
+  }
 
-  if(s==="targets")
+  if(
+    s==="targets"
+  ){
+
     return {
       minGap:1.2,
       minZ:.42,
       penalty:1
     };
+  }
 
   if(
     s.includes("td") ||
     s.includes("touchdown") ||
     s.includes("interception")
-  )
+  ){
+
     return {
       minGap:.45,
       minZ:.55,
       penalty:.78
     };
+  }
 
   return {
     minGap:1,
@@ -1669,7 +3069,10 @@ function statSettings(stat){
 
 function winsorize(arr){
 
-  if(arr.length<5){
+  if(
+    arr.length<5
+  ){
+
     return [...arr];
   }
 
@@ -1681,40 +3084,46 @@ function winsorize(arr){
   const low=
     sorted[
       Math.floor(
-        (sorted.length-1)*.10
+        (
+          sorted.length-1
+        )*
+        .10
       )
     ];
 
   const high=
     sorted[
       Math.ceil(
-        (sorted.length-1)*.90
+        (
+          sorted.length-1
+        )*
+        .90
       )
     ];
 
   return arr.map(
-    x=>clamp(
-      x,
-      low,
-      high
-    )
+    x=>
+      clamp(
+        x,
+        low,
+        high
+      )
   );
 }
 
-/* -----------------------------
-   POSITION
------------------------------ */
+
+/* POSITION */
 
 function cleanPositionGroup(row){
 
-  const pg=
+  const group=
     text(
       row.position_group
     )
     .toUpperCase()
     .trim();
 
-  const p=
+  const position=
     text(
       row.position
     )
@@ -1722,36 +3131,44 @@ function cleanPositionGroup(row){
     .trim();
 
   if(
-    pg==="QB" ||
-    p==="QB"
-  )
+    group==="QB" ||
+    position==="QB"
+  ){
+
     return "QB";
+  }
 
   if(
-    pg==="RB" ||
-    p==="RB" ||
-    p==="FB"
-  )
+    group==="RB" ||
+    position==="RB" ||
+    position==="FB"
+  ){
+
     return "RB";
+  }
 
   if(
-    pg==="WR" ||
-    p==="WR"
-  )
+    group==="WR" ||
+    position==="WR"
+  ){
+
     return "WR";
+  }
 
   if(
-    pg==="TE" ||
-    p==="TE"
-  )
-    return "TE";
+    group==="TE" ||
+    position==="TE"
+  ){
 
-  return pg || "OTHER";
+    return "TE";
+  }
+
+  return group ||
+    "OTHER";
 }
 
-/* -----------------------------
-   MATCHUP MODEL
------------------------------ */
+
+/* MATCHUP MODEL */
 
 function seasonDefenseAverage(
   defense,
@@ -1762,60 +3179,68 @@ function seasonDefenseAverage(
 
   const rows=
     matchupRows.filter(
-      r=>
-        teamCode(r.defense)===
+      row=>
+
+        teamCode(
+          row.defense
+        )===
         defense &&
 
         text(
-          r.position_group
+          row.position_group
         )
         .toUpperCase()===
         positionGroup &&
 
-        num(r.season)===
+        num(
+          row.season
+        )===
         season &&
 
         matchupMetric(
-          r,
+          row,
           stat
         )!==null
     );
 
-  if(!rows.length){
+  if(
+    !rows.length
+  ){
+
     return null;
   }
 
   const sorted=
     [...rows].sort(
       (a,b)=>
-        num(b.week)-
-        num(a.week)
-    );
-
-  const weighted=
-    sorted.map(
-      (r,i)=>({
-
-        value:
-          matchupMetric(
-            r,
-            stat
-          ),
-
-        weight:
-          Math.pow(
-            .93,
-            i
-          )
-
-      })
+        num(
+          b.week
+        )-
+        num(
+          a.week
+        )
     );
 
   return {
 
     value:
       weightedMean(
-        weighted
+        sorted.map(
+          (row,index)=>({
+
+            value:
+              matchupMetric(
+                row,
+                stat
+              ),
+
+            weight:
+              Math.pow(
+                .93,
+                index
+              )
+          })
+        )
       ),
 
     games:
@@ -1831,31 +3256,37 @@ function seasonLeagueAverage(
 
   const rows=
     matchupRows.filter(
-      r=>
+      row=>
+
         text(
-          r.position_group
+          row.position_group
         )
         .toUpperCase()===
         positionGroup &&
 
-        num(r.season)===
+        num(
+          row.season
+        )===
         season &&
 
         matchupMetric(
-          r,
+          row,
           stat
         )!==null
     );
 
-  if(!rows.length){
+  if(
+    !rows.length
+  ){
+
     return null;
   }
 
   return mean(
     rows.map(
-      r=>
+      row=>
         matchupMetric(
-          r,
+          row,
           stat
         )
     )
@@ -1902,29 +3333,35 @@ function blendedDefenseValue(
     !current &&
     !prior
   ){
+
     return null;
   }
 
-  if(!current){
+  if(
+    !current
+  ){
 
     return {
+
       defense:
         prior.value,
 
       league:
         leaguePrior,
 
-      currentGames:
-        0,
+      currentGames:0,
 
       priorGames:
         prior.games
     };
   }
 
-  if(!prior){
+  if(
+    !prior
+  ){
 
     return {
+
       defense:
         current.value,
 
@@ -1934,8 +3371,7 @@ function blendedDefenseValue(
       currentGames:
         current.games,
 
-      priorGames:
-        0
+      priorGames:0
     };
   }
 
@@ -1947,7 +3383,8 @@ function blendedDefenseValue(
     );
 
   const priorWeight=
-    1-currentWeight;
+    1-
+    currentWeight;
 
   return {
 
@@ -1985,25 +3422,26 @@ function defenseRank(
   stat
 ){
 
-  const defenses=[
-    ...new Set(
-      matchupRows
-        .map(
-          r=>
-            teamCode(
-              r.defense
-            )
-        )
-        .filter(Boolean)
-    )
-  ];
+  const defenses=
+    [
+      ...new Set(
+        matchupRows
+          .map(
+            row=>
+              teamCode(
+                row.defense
+              )
+          )
+          .filter(Boolean)
+      )
+    ];
 
   const scores=[];
 
   defenses.forEach(
     defense=>{
 
-      const x=
+      const value=
         blendedDefenseValue(
           defense,
           positionGroup,
@@ -2011,27 +3449,27 @@ function defenseRank(
         );
 
       if(
-        x &&
+        value &&
         Number.isFinite(
-          x.defense
+          value.defense
         )
       ){
 
         scores.push({
+
           defense,
-          value:x.defense
+
+          value:
+            value.defense
         });
       }
     }
   );
 
-  /*
-  #1 = defense that allows the most.
-  */
-
   scores.sort(
     (a,b)=>
-      b.value-a.value
+      b.value-
+      a.value
   );
 
   const index=
@@ -2041,7 +3479,10 @@ function defenseRank(
         targetDefense
     );
 
-  if(index<0){
+  if(
+    index<0
+  ){
+
     return null;
   }
 
@@ -2062,20 +3503,16 @@ function neutralMatchup(
   return {
 
     available:false,
+
     defense,
 
     environmentScore:50,
-    projectionAdjustment:0,
-    ratio:1,
 
-    defenseAllowed:null,
-    leagueAllowed:null,
+    projectionAdjustment:0,
 
     rawAllowedRank:null,
-    defenseCount:null,
 
-    currentGames:0,
-    priorGames:0
+    defenseCount:null
   };
 }
 
@@ -2085,7 +3522,9 @@ function buildMatchupContext(
 ){
 
   const defense=
-    opponentCode(prop);
+    opponentCode(
+      prop
+    );
 
   if(
     !defense ||
@@ -2097,7 +3536,7 @@ function buildMatchupContext(
     );
   }
 
-  const blend=
+  const blended=
     blendedDefenseValue(
       defense,
       positionGroup,
@@ -2105,9 +3544,9 @@ function buildMatchupContext(
     );
 
   if(
-    !blend ||
-    !blend.league ||
-    blend.league<=0
+    !blended ||
+    !blended.league ||
+    blended.league<=0
   ){
 
     return neutralMatchup(
@@ -2117,16 +3556,11 @@ function buildMatchupContext(
 
   const ratio=
     clamp(
-      blend.defense/
-      blend.league,
+      blended.defense/
+      blended.league,
       .65,
       1.35
     );
-
-  /*
-  Higher means defense allows
-  more production in this stat.
-  */
 
   const environmentScore=
     clamp(
@@ -2138,11 +3572,6 @@ function buildMatchupContext(
       25,
       75
     );
-
-  /*
-  Matchup can only move projection
-  by at most +/- 7%.
-  */
 
   const projectionAdjustment=
     clamp(
@@ -2171,80 +3600,64 @@ function buildMatchupContext(
 
     projectionAdjustment,
 
-    ratio,
-
-    defenseAllowed:
-      blend.defense,
-
-    leagueAllowed:
-      blend.league,
-
     rawAllowedRank:
-      rank?.rawAllowedRank ??
+      rank?.
+      rawAllowedRank ??
       null,
 
     defenseCount:
-      rank?.total ??
-      null,
-
-    currentGames:
-      blend.currentGames,
-
-    priorGames:
-      blend.priorGames
+      rank?.
+      total ??
+      null
   };
 }
 
-/* -----------------------------
-   ROLE
------------------------------ */
+
+/* ROLE */
 
 function buildRoleContext(
   combined,
   stat
 ){
 
-  const roles=
+  const values=
     combined
       .map(
-        x=>
+        item=>
           roleValue(
-            x.row,
+            item.row,
             stat
           )
       )
       .filter(
-        v=>v!==null
+        value=>
+          value!==null
       );
 
   if(
-    roles.length<4
+    values.length<4
   ){
 
     return {
-      score:50,
-      recent:0,
-      baseline:0
+
+      score:50
     };
   }
 
   const recent=
     mean(
-      roles.slice(
+      values.slice(
         0,
-        Math.min(
-          3,
-          roles.length
-        )
+        3
       )
     );
 
   const baseline=
     mean(
-      roles
+      values
     );
 
-  const roleRatio=
+  const ratio=
     baseline>0
       ? recent/
         baseline
@@ -2252,21 +3665,21 @@ function buildRoleContext(
 
   const variability=
     baseline>0
-      ? sd(roles)/
+      ? sd(values)/
         baseline
       : 1;
 
-  const trendComponent=
+  const trend=
     clamp(
       (
-        roleRatio-1
+        ratio-1
       )*
       80,
       -20,
       20
     );
 
-  const stabilityComponent=
+  const stability=
     clamp(
       (
         .45-
@@ -2277,41 +3690,41 @@ function buildRoleContext(
       10
     );
 
-  const score=
-    clamp(
-      50+
-      trendComponent+
-      stabilityComponent,
-      25,
-      75
-    );
-
   return {
-    score,
-    recent,
-    baseline
+
+    score:
+      clamp(
+        50+
+        trend+
+        stability,
+        25,
+        75
+      )
   };
 }
 
-/* -----------------------------
-   MODEL v4.1
------------------------------ */
+
+/* PLAYER MODEL */
 
 function buildModel(prop){
 
-  const playerName=
+  const player=
     normName(
       prop.player
     );
 
   const line=
     Number(
-      prop.line
+      activeLine(
+        prop
+      )
     );
 
   if(
-    !playerName ||
-    !Number.isFinite(line)
+    !player ||
+    !Number.isFinite(
+      line
+    )
   ){
 
     return null;
@@ -2319,28 +3732,23 @@ function buildModel(prop){
 
   const matched=
     statsRows
+
       .filter(
-        r=>{
-
-          const display=
-            r.player_display_name ||
-            r.player_name ||
-            "";
-
-          return (
-            normName(
-              display
-            )===
-            playerName
-          );
-        }
+        row=>
+          normName(
+            row.player_display_name ||
+            row.player_name ||
+            ""
+          )===
+          player
       )
+
       .filter(
-        r=>{
+        row=>{
 
           const seasonType=
             text(
-              r.season_type
+              row.season_type
             )
             .toUpperCase();
 
@@ -2350,10 +3758,11 @@ function buildModel(prop){
           );
         }
       )
+
       .filter(
-        r=>
+        row=>
           statValue(
-            r,
+            row,
             prop.stat
           )!==null
       );
@@ -2373,27 +3782,39 @@ function buildModel(prop){
   const current=
     matched
       .filter(
-        r=>
-          num(r.season)===
+        row=>
+          num(
+            row.season
+          )===
           2026
       )
       .sort(
         (a,b)=>
-          num(b.week)-
-          num(a.week)
+          num(
+            b.week
+          )-
+          num(
+            a.week
+          )
       );
 
   const prior=
     matched
       .filter(
-        r=>
-          num(r.season)===
+        row=>
+          num(
+            row.season
+          )===
           2025
       )
       .sort(
         (a,b)=>
-          num(b.week)-
-          num(a.week)
+          num(
+            b.week
+          )-
+          num(
+            a.week
+          )
       );
 
   const currentGames=
@@ -2415,6 +3836,7 @@ function buildModel(prop){
   ){
 
     const weights=[
+
       1,
       .95,
       .90,
@@ -2428,49 +3850,48 @@ function buildModel(prop){
     ];
 
     priorGames.forEach(
-      (r,i)=>{
+      (row,index)=>{
 
         combined.push({
 
-          row:r,
+          row,
 
           weight:
-            weights[i] ||
+            weights[index] ||
             .5
-
         });
       }
     );
 
   }else{
 
-    const currentWeights=[
+    const weights=[
+
       1.45,
       1.32,
       1.20,
       1.10,
-      1.00,
+      1,
       .92,
       .85,
       .78
     ];
 
     currentGames.forEach(
-      (r,i)=>{
+      (row,index)=>{
 
         combined.push({
 
-          row:r,
+          row,
 
           weight:
-            currentWeights[i] ||
+            weights[index] ||
             .75
-
         });
       }
     );
 
-    const priorLimit=
+    const limit=
       currentGames.length>=6
         ? 3
         : currentGames.length>=4
@@ -2479,34 +3900,33 @@ function buildModel(prop){
             ? 7
             : 9;
 
+    const base=
+      currentGames.length>=6
+        ? .35
+        : currentGames.length>=4
+          ? .45
+          : currentGames.length>=2
+            ? .58
+            : .68;
+
     priorGames
       .slice(
         0,
-        priorLimit
+        limit
       )
       .forEach(
-        (r,i)=>{
-
-          const base=
-            currentGames.length>=6
-              ? .35
-              : currentGames.length>=4
-                ? .45
-                : currentGames.length>=2
-                  ? .58
-                  : .68;
+        (row,index)=>{
 
           combined.push({
 
-            row:r,
+            row,
 
             weight:
               base*
               Math.pow(
                 .92,
-                i
+                index
               )
-
           });
         }
       );
@@ -2520,35 +3940,34 @@ function buildModel(prop){
   }
 
   let values=
-    combined.map(
-      x=>
-        statValue(
-          x.row,
-          prop.stat
-        )
-    );
-
-  values=
     winsorize(
-      values
+
+      combined.map(
+        item=>
+          statValue(
+            item.row,
+            prop.stat
+          )
+      )
     );
 
   let weightedTotal=0;
+
   let weightTotal=0;
 
   combined.forEach(
-    (x,i)=>{
+    (item,index)=>{
 
       weightedTotal+=
-        values[i]*
-        x.weight;
+        values[index]*
+        item.weight;
 
       weightTotal+=
-        x.weight;
+        item.weight;
     }
   );
 
-  const playerWeightedMean=
+  const weightedAverage=
     weightedTotal/
     weightTotal;
 
@@ -2557,36 +3976,24 @@ function buildModel(prop){
       values
     );
 
-  const recent5=
-    values.slice(
-      0,
-      Math.min(
-        5,
-        values.length
-      )
-    );
-
-  const recent3=
-    values.slice(
-      0,
-      Math.min(
-        3,
-        values.length
-      )
-    );
-
   const last5=
     mean(
-      recent5
+      values.slice(
+        0,
+        5
+      )
     );
 
   const last3=
     mean(
-      recent3
+      values.slice(
+        0,
+        3
+      )
     );
 
   let baseProjection=
-    playerWeightedMean*.52+
+    weightedAverage*.52+
     med*.22+
     last5*.16+
     last3*.10;
@@ -2640,7 +4047,8 @@ function buildModel(prop){
     Math.max(
       sd(values),
       Math.max(
-        Math.abs(line)*.07,
+        Math.abs(line)*
+        .07,
         .75
       )
     );
@@ -2664,30 +4072,35 @@ function buildModel(prop){
 
   const overHits=
     values.filter(
-      v=>v>line
+      value=>
+        value>line
     ).length;
 
   const underHits=
     values.filter(
-      v=>v<line
+      value=>
+        value<line
     ).length;
 
   const pushes=
     values.filter(
-      v=>v===line
+      value=>
+        value===line
     ).length;
 
   const historicalOver=
     (
       overHits+
-      .5*pushes
+      .5*
+      pushes
     )/
     values.length;
 
   const historicalUnder=
     (
       underHits+
-      .5*pushes
+      .5*
+      pushes
     )/
     values.length;
 
@@ -2729,42 +4142,33 @@ function buildModel(prop){
     shrink=.78;
   }
 
-  const sampleShrink=
+  shrink*=
     clamp(
       values.length/10,
       .60,
       1
     );
 
-  shrink*=
-    sampleShrink;
-
-  overProb=
-    .50+
-    (
-      overProb-
-      .50
-    )*
-    shrink;
-
-  underProb=
-    .50+
-    (
-      underProb-
-      .50
-    )*
-    shrink;
-
   overProb=
     clamp(
-      overProb,
+      .50+
+      (
+        overProb-
+        .50
+      )*
+      shrink,
       .35,
       .67
     );
 
   underProb=
     clamp(
-      underProb,
+      .50+
+      (
+        underProb-
+        .50
+      )*
+      shrink,
       .35,
       .67
     );
@@ -2781,235 +4185,124 @@ function buildModel(prop){
       underProb
     );
 
-  const histHit=
+  const hitRate=
     side==="More"
       ? historicalOver
       : historicalUnder;
 
-  /*
-  Matchup score is flipped for Less.
-  100 = very supportive of selected side.
-  */
-
-  const pickMatchupScore=
+  const matchupScore=
     side==="More"
+
       ? matchupContext
           .environmentScore
+
       : 100-
         matchupContext
           .environmentScore;
 
-  /*
-  Player role is also side-aware.
-  More workload helps More.
-  Less workload helps Less.
-  */
-
-  const pickRoleScore=
+  const roleScore=
     side==="More"
+
       ? roleContext.score
+
       : 100-
         roleContext.score;
 
-  const rawAllowedRank=
+  const sideMatchupRank=
+
     matchupContext
-      .rawAllowedRank;
+      .rawAllowedRank &&
 
-  const defenseCount=
     matchupContext
-      .defenseCount;
+      .defenseCount
 
-  /*
-  Side-specific rank:
-  #1 = best matchup for THIS PICK.
-  */
+      ? (
+          side==="More"
 
-  let sideMatchupRank=null;
+            ? matchupContext
+                .rawAllowedRank
 
-  if(
-    rawAllowedRank &&
-    defenseCount
-  ){
+            : matchupContext
+                .defenseCount-
+              matchupContext
+                .rawAllowedRank+
+              1
+        )
 
-    sideMatchupRank=
-      side==="More"
-        ? rawAllowedRank
-        : defenseCount-
-          rawAllowedRank+
-          1;
-  }
+      : null;
 
-  let matchupLabel=
-    "Neutral";
+  const matchupLabel=
+    matchupScore>=63
+      ? "Favorable"
 
-  if(
-    pickMatchupScore>=63
-  ){
+      : matchupScore>=55
+        ? "Slightly Favorable"
 
-    matchupLabel=
-      "Favorable";
+        : matchupScore<=37
+          ? "Tough"
 
-  }else if(
-    pickMatchupScore>=55
-  ){
+          : matchupScore<=45
+            ? "Slightly Tough"
 
-    matchupLabel=
-      "Slightly Favorable";
+            : "Neutral";
 
-  }else if(
-    pickMatchupScore<=37
-  ){
+  const roleLabel=
+    roleScore>=63
+      ? "Supportive"
 
-    matchupLabel=
-      "Tough";
+      : roleScore>=55
+        ? "Slightly Supportive"
 
-  }else if(
-    pickMatchupScore<=45
-  ){
+        : roleScore<=37
+          ? "Strong Conflict"
 
-    matchupLabel=
-      "Slightly Tough";
-  }
+          : roleScore<=45
+            ? "Some Conflict"
 
-  let roleLabel=
-    "Stable";
+            : "Stable";
 
-  if(
-    pickRoleScore>=63
-  ){
-
-    roleLabel=
-      "Supportive";
-
-  }else if(
-    pickRoleScore>=55
-  ){
-
-    roleLabel=
-      "Slightly Supportive";
-
-  }else if(
-    pickRoleScore<=37
-  ){
-
-    roleLabel=
-      "Strong Conflict";
-
-  }else if(
-    pickRoleScore<=45
-  ){
-
-    roleLabel=
-      "Some Conflict";
-  }
-
-  /*
-  Context conflict penalty.
-  Used primarily by parlay ranking.
-  */
-
-  let contextPenalty=0;
-
-  if(
-    matchupContext.available
-  ){
-
-    if(
-      pickMatchupScore<35
-    ){
-      contextPenalty+=5;
-
-    }else if(
-      pickMatchupScore<42
-    ){
-      contextPenalty+=2.5;
-    }
-  }
-
-  if(
-    pickRoleScore<35
-  ){
-
-    contextPenalty+=5;
-
-  }else if(
-    pickRoleScore<42
-  ){
-
-    contextPenalty+=2.5;
-  }
-
-  const strongContextConflict=
-    (
-      matchupContext.available &&
-      pickMatchupScore<40 &&
-      pickRoleScore<40
-    );
-
-  const projectionGap=
+  const difference=
     projection-
     line;
 
-  const absGap=
-    Math.abs(
-      projectionGap
+  const edge=
+    Math.abs(z);
+
+  const volatility=
+    deviation/
+    Math.max(
+      Math.abs(
+        weightedAverage
+      ),
+      1
     );
 
-  const standardizedEdge=
-    Math.abs(
-      z
-    );
+  const agreementCount=[
+
+    side==="More"
+      ? projection>line
+      : projection<line,
+
+    side==="More"
+      ? med>line
+      : med<line,
+
+    side==="More"
+      ? last5>line
+      : last5<line
+
+  ]
+  .filter(Boolean)
+  .length;
 
   const settings=
     statSettings(
       prop.stat
     );
 
-  const volatility=
-    deviation/
-    Math.max(
-      Math.abs(
-        playerWeightedMean
-      ),
-      1
-    );
+  let rating=
+    50+
 
-  const volatilityScore=
-    clamp(
-      1-
-      (
-        volatility/
-        .75
-      ),
-      0,
-      1
-    );
-
-  const projectionAgreement=
-    side==="More"
-      ? projection>line
-      : projection<line;
-
-  const medianAgreement=
-    side==="More"
-      ? med>line
-      : med<line;
-
-  const last5Agreement=
-    side==="More"
-      ? last5>line
-      : last5<line;
-
-  const agreementCount=
-    [
-      projectionAgreement,
-      medianAgreement,
-      last5Agreement
-    ]
-    .filter(Boolean)
-    .length;
-
-  const probabilityScore=
     clamp(
       (
         probability-
@@ -3018,55 +4311,65 @@ function buildModel(prop){
       .15,
       0,
       1
-    );
+    )*
+    18+
 
-  const edgeScore=
     clamp(
-      standardizedEdge/
+      edge/
       .90,
       0,
       1
-    );
+    )*
+    14+
 
-  const historyScore=
     clamp(
       (
-        histHit-
+        hitRate-
         .50
       )/
       .30,
       0,
       1
-    );
+    )*
+    9+
 
-  const sampleScore=
     clamp(
       values.length/
       10,
       0,
       1
-    );
+    )*
+    5+
 
-  const agreementScore=
-    agreementCount/
-    3;
+    (
+      agreementCount/
+      3
+    )*
+    4+
 
-  const matchupBoost=
+    clamp(
+      1-
+      volatility/
+      .75,
+      0,
+      1
+    )*
+    3+
+
     clamp(
       (
-        pickMatchupScore-
+        matchupScore-
         50
       )/
       25,
       -1,
       1
     )*
-    2;
+    2+
 
-  const roleBoost=
     clamp(
       (
-        pickRoleScore-
+        roleScore-
         50
       )/
       25,
@@ -3074,17 +4377,6 @@ function buildModel(prop){
       1
     )*
     1.5;
-
-  let rating=
-    50+
-    probabilityScore*18+
-    edgeScore*14+
-    historyScore*9+
-    sampleScore*5+
-    agreementScore*4+
-    volatilityScore*3+
-    matchupBoost+
-    roleBoost;
 
   rating*=
     settings.penalty;
@@ -3121,31 +4413,90 @@ function buildModel(prop){
     );
 
   const strongPick=
+
     values.length>=8 &&
+
     probability>=.60 &&
-    histHit>=.60 &&
-    standardizedEdge>=
-      settings.minZ &&
-    absGap>=
-      settings.minGap &&
+
+    hitRate>=.60 &&
+
+    edge>=
+    settings.minZ &&
+
+    Math.abs(
+      difference
+    )>=
+    settings.minGap &&
+
     agreementCount>=2 &&
+
     volatility<=.85 &&
+
     rating>=80;
 
-  const recommendation=
-    strongPick
-      ? side
-      : "Pass";
+  let contextPenalty=0;
+
+  if(
+    matchupContext.available
+  ){
+
+    if(
+      matchupScore<35
+    ){
+
+      contextPenalty+=5;
+
+    }else if(
+      matchupScore<42
+    ){
+
+      contextPenalty+=2.5;
+    }
+  }
+
+  if(
+    roleScore<35
+  ){
+
+    contextPenalty+=5;
+
+  }else if(
+    roleScore<42
+  ){
+
+    contextPenalty+=2.5;
+  }
+
+  const strongContextConflict=
+    matchupContext.available &&
+    matchupScore<40 &&
+    roleScore<40;
 
   const model={
 
+    line,
+
+    standardLine:
+      Number(
+        prop.line
+      ),
+
+    lineSource:
+      activeLineInfo(
+        prop
+      ).source,
+
     projection,
-    baseProjection,
 
     probability,
+
     rating,
 
-    recommendation,
+    recommendation:
+      strongPick
+        ? side
+        : "Pass",
+
     side,
 
     sample:
@@ -3154,21 +4505,20 @@ function buildModel(prop){
     currentSample:
       currentGames.length,
 
-    priorSample:
-      priorGames.length,
+    median:
+      med,
 
     last3,
+
     last5,
 
-    median:med,
-
-    hitRate:
-      histHit,
+    hitRate,
 
     rawDifference:
-      projectionGap,
+      difference,
 
-    standardizedEdge,
+    standardizedEdge:
+      edge,
 
     volatility,
 
@@ -3179,29 +4529,23 @@ function buildModel(prop){
     matchupAvailable:
       matchupContext.available,
 
-    opponentDefense:
-      matchupContext.defense,
-
-    matchupScore:
-      pickMatchupScore,
+    matchupScore,
 
     matchupLabel,
 
-    rawAllowedRank,
-
     sideMatchupRank,
 
-    defenseCount,
+    defenseCount:
+      matchupContext
+        .defenseCount,
 
-    roleScore:
-      pickRoleScore,
+    roleScore,
 
     roleLabel,
 
     contextPenalty,
 
     strongContextConflict
-
   };
 
   model.legStrength=
@@ -3213,92 +4557,94 @@ function buildModel(prop){
   return model;
 }
 
-/* -----------------------------
-   LEG STRENGTH
------------------------------ */
+
+/* LEG STRENGTH */
 
 function calculateLegStrength(
   prop,
-  m
+  model
 ){
-
-  const leanStrength=
-    clamp(
-      (
-        m.probability-
-        .50
-      )/
-      .17,
-      0,
-      1
-    );
-
-  const historyStrength=
-    clamp(
-      (
-        m.hitRate-
-        .50
-      )/
-      .45,
-      0,
-      1
-    );
-
-  const edgeStrength=
-    clamp(
-      m.standardizedEdge/
-      1.75,
-      0,
-      1
-    );
-
-  const agreementStrength=
-    clamp(
-      m.agreementCount/
-      3,
-      0,
-      1
-    );
-
-  const sampleStrength=
-    clamp(
-      m.sample/
-      12,
-      0,
-      1
-    );
-
-  const volatilityStrength=
-    clamp(
-      1-
-      (
-        m.volatility/
-        .85
-      ),
-      0,
-      1
-    );
-
-  const currentSeasonStrength=
-    m.currentSample===0
-      ? .35
-      : clamp(
-          .45+
-          m.currentSample*
-          .10,
-          .45,
-          1
-        );
 
   const settings=
     statSettings(
       prop.stat
     );
 
-  const gapStrength=
+  let strength=
+
+    27+
+
+    clamp(
+      (
+        model.probability-
+        .50
+      )/
+      .17,
+      0,
+      1
+    )*
+    15+
+
+    clamp(
+      (
+        model.hitRate-
+        .50
+      )/
+      .45,
+      0,
+      1
+    )*
+    12+
+
+    clamp(
+      model.standardizedEdge/
+      1.75,
+      0,
+      1
+    )*
+    16+
+
+    clamp(
+      model.agreementCount/
+      3,
+      0,
+      1
+    )*
+    8+
+
+    clamp(
+      model.sample/
+      12,
+      0,
+      1
+    )*
+    6+
+
+    clamp(
+      1-
+      model.volatility/
+      .85,
+      0,
+      1
+    )*
+    6+
+
+    (
+      model.currentSample===0
+        ? .35
+        : clamp(
+            .45+
+            model.currentSample*
+            .10,
+            .45,
+            1
+          )
+    )*
+    4+
+
     clamp(
       Math.abs(
-        m.rawDifference
+        model.rawDifference
       )/
       Math.max(
         settings.minGap*
@@ -3307,48 +4653,30 @@ function calculateLegStrength(
       ),
       0,
       1
-    );
+    )*
+    5+
 
-  const matchupStrength=
     clamp(
-      m.matchupScore/
+      model.matchupScore/
       100,
       0,
       1
-    );
+    )*
+    7+
 
-  const roleStrength=
     clamp(
-      m.roleScore/
+      model.roleScore/
       100,
       0,
       1
-    );
-
-  let strength=
-    27+
-    leanStrength*15+
-    historyStrength*12+
-    edgeStrength*16+
-    agreementStrength*8+
-    sampleStrength*6+
-    volatilityStrength*6+
-    currentSeasonStrength*4+
-    gapStrength*5+
-    matchupStrength*7+
-    roleStrength*4;
-
-  /*
-  v4.1:
-  Penalize strong disagreement between
-  historical edge and context.
-  */
+    )*
+    4;
 
   strength-=
-    m.contextPenalty;
+    model.contextPenalty;
 
   if(
-    m.strongContextConflict
+    model.strongContextConflict
   ){
 
     strength-=3;
@@ -3361,1129 +4689,200 @@ function calculateLegStrength(
   );
 }
 
-/* -----------------------------
-   PARLAY
------------------------------ */
 
-function getBestBetCandidates(){
+/* AUTOMATIC PROMO FILE */
 
-  return allProps
-    .map(
-      p=>({
+function loadPromoObject(data){
 
-        prop:p,
+  promoLines.clear();
 
-        model:
-          models.get(
-            pKey(p)
-          )
-
-      })
-    )
-    .filter(
-      x=>
-        x.model &&
-        x.model.recommendation!=="Pass"
-    )
-    .sort(
-      (a,b)=>
-        b.model.legStrength-
-        a.model.legStrength
-    );
-}
-
-function samePlayer(a,b){
-
-  return (
-    normName(
-      a.prop.player
-    )===
-    normName(
-      b.prop.player
-    )
-  );
-}
-
-function sameTeam(a,b){
-
-  return (
-    offenseCode(
-      a.prop
-    )===
-    offenseCode(
-      b.prop
-    )
-  );
-}
-
-function sameGame(a,b){
-
-  return (
-    gameKey(
-      a.prop
-    )===
-    gameKey(
-      b.prop
-    )
-  );
-}
-
-function statFamily(stat){
-
-  const s=
-    text(stat)
-      .toLowerCase();
+  let promos=[];
 
   if(
-    s.includes("pass")
-  ){
-    return "pass";
-  }
-
-  if(
-    s.includes("receiv") ||
-    s==="receptions" ||
-    s==="targets"
-  ){
-    return "receiving";
-  }
-
-  if(
-    s.includes("rush")
-  ){
-    return "rushing";
-  }
-
-  if(
-    s.includes("interception")
-  ){
-    return "turnover";
-  }
-
-  return "other";
-}
-
-function pairCorrelationPenalty(
-  a,
-  b,
-  scope
-){
-
-  if(
-    samePlayer(
-      a,
-      b
-    )
+    Array.isArray(data)
   ){
 
-    return 999;
-  }
-
-  let penalty=0;
-
-  if(
-    sameGame(
-      a,
-      b
-    )
-  ){
-
-    penalty+=
-      scope==="single"
-        ? 2
-        : 6;
-
-    if(
-      sameTeam(
-        a,
-        b
-      )
-    ){
-
-      penalty+=3;
-    }
-
-    const famA=
-      statFamily(
-        a.prop.stat
-      );
-
-    const famB=
-      statFamily(
-        b.prop.stat
-      );
-
-    if(
-      sameTeam(
-        a,
-        b
-      ) &&
-      (
-        (
-          famA==="pass" &&
-          famB==="receiving"
-        ) ||
-        (
-          famB==="pass" &&
-          famA==="receiving"
-        )
-      )
-    ){
-
-      penalty+=4;
-    }
-  }
-
-  return penalty;
-}
-
-function comboCorrelation(
-  combo,
-  scope
-){
-
-  let penalty=0;
-
-  for(
-    let i=0;
-    i<combo.length;
-    i++
-  ){
-
-    for(
-      let j=i+1;
-      j<combo.length;
-      j++
-    ){
-
-      penalty+=
-        pairCorrelationPenalty(
-          combo[i],
-          combo[j],
-          scope
-        );
-    }
-  }
-
-  return penalty;
-}
-
-function correlationLabel(
-  penalty,
-  legs,
-  scope
-){
-
-  const adjusted=
-    penalty/
-    Math.max(
-      1,
-      legs
-    );
-
-  if(
-    scope==="single"
-  ){
-
-    if(
-      adjusted<=3
-    ){
-
-      return {
-        text:"Low-Moderate",
-        className:"corrLow"
-      };
-    }
-
-    if(
-      adjusted<=6
-    ){
-
-      return {
-        text:"Moderate",
-        className:"corrMed"
-      };
-    }
-
-    return {
-      text:"High",
-      className:"corrHigh"
-    };
-  }
-
-  if(
-    adjusted<=1.5
-  ){
-
-    return {
-      text:"Low",
-      className:"corrLow"
-    };
-  }
-
-  if(
-    adjusted<=4
-  ){
-
-    return {
-      text:"Moderate",
-      className:"corrMed"
-    };
-  }
-
-  return {
-    text:"High",
-    className:"corrHigh"
-  };
-}
-
-function parlayMetrics(
-  combo,
-  scope
-){
-
-  const avgStrength=
-    mean(
-      combo.map(
-        x=>
-          x.model
-            .legStrength
-      )
-    );
-
-  const avgLean=
-    mean(
-      combo.map(
-        x=>
-          x.model
-            .probability*
-          100
-      )
-    );
-
-  const avgHit=
-    mean(
-      combo.map(
-        x=>
-          x.model
-            .hitRate*
-          100
-      )
-    );
-
-  const avgMatchup=
-    mean(
-      combo.map(
-        x=>
-          x.model
-            .matchupScore
-      )
-    );
-
-  const avgEdge=
-    mean(
-      combo.map(
-        x=>
-          x.model
-            .standardizedEdge
-      )
-    );
-
-  const correlation=
-    comboCorrelation(
-      combo,
-      scope
-    );
-
-  const conflictCount=
-    combo.filter(
-      x=>
-        x.model
-          .strongContextConflict
-    ).length;
-
-  let score=
-    avgStrength*.74+
-    avgLean*.08+
-    avgHit*.08+
-    avgMatchup*.05+
-    Math.min(
-      avgEdge,
-      1.75
-    )*4;
-
-  score-=
-    correlation*.55;
-
-  score-=
-    conflictCount*2;
-
-  score=
-    clamp(
-      score,
-      0,
-      100
-    );
-
-  let grade="C";
-
-  if(score>=84){
-    grade="A+";
+    promos=data;
 
   }else if(
-    score>=81
-  ){
-    grade="A";
-
-  }else if(
-    score>=78
-  ){
-    grade="A-";
-
-  }else if(
-    score>=74
-  ){
-    grade="B+";
-
-  }else if(
-    score>=70
-  ){
-    grade="B";
-
-  }else if(
-    score>=66
-  ){
-    grade="B-";
-  }
-
-  return {
-    avgStrength,
-    avgLean,
-    avgHit,
-    avgMatchup,
-    correlation,
-    conflictCount,
-    score,
-    grade
-  };
-}
-
-function incrementalPenalty(
-  candidate,
-  combo,
-  scope
-){
-
-  let penalty=0;
-
-  for(
-    const existing of combo
-  ){
-
-    const x=
-      pairCorrelationPenalty(
-        candidate,
-        existing,
-        scope
-      );
-
-    if(
-      x>=999
-    ){
-
-      return 999;
-    }
-
-    penalty+=x;
-  }
-
-  return penalty;
-}
-
-function comboKey(combo){
-
-  return combo
-    .map(
-      x=>
-        pKey(
-          x.prop
-        )
+    Array.isArray(
+      data.promos
     )
-    .sort()
-    .join("||");
-}
-
-function buildGreedyCombo(
-  pool,
-  seedIndex,
-  legs,
-  scope,
-  variation
-){
-
-  const combo=[];
-
-  const seed=
-    pool[
-      seedIndex%
-      pool.length
-    ];
-
-  if(!seed){
-    return null;
-  }
-
-  combo.push(seed);
-
-  while(
-    combo.length<
-    legs
   ){
 
-    let best=null;
-    let bestScore=
-      -Infinity;
+    promos=
+      data.promos;
 
-    pool.forEach(
-      (candidate,index)=>{
-
-        if(
-          combo.some(
-            x=>
-              pKey(x.prop)===
-              pKey(candidate.prop)
-          )
-        ){
-
-          return;
-        }
-
-        const penalty=
-          incrementalPenalty(
-            candidate,
-            combo,
-            scope
-          );
-
-        if(
-          penalty>=999
-        ){
-
-          return;
-        }
-
-        let score=
-          candidate.model
-            .legStrength;
-
-        score-=
-          penalty*1.6;
-
-        /*
-        Extra context conflict penalty.
-        */
-
-        score-=
-          candidate.model
-            .contextPenalty*
-          .8;
-
-        if(
-          candidate.model
-            .strongContextConflict
-        ){
-
-          score-=4;
-        }
-
-        /*
-        All Games favors diversification.
-        */
-
-        if(
-          scope==="all"
-        ){
-
-          const candidateGame=
-            gameKey(
-              candidate.prop
-            );
-
-          const gameAlreadyUsed=
-            combo.some(
-              x=>
-                gameKey(
-                  x.prop
-                )===
-                candidateGame
-            );
-
-          if(
-            gameAlreadyUsed
-          ){
-
-            score-=3;
-          }
-        }
-
-        /*
-        Small variation creates several
-        different strong combinations.
-        */
-
-        score-=
-          Math.abs(
-            (
-              index+
-              variation*3
-            )%
-            7
-          )*
-          .18;
-
-        if(
-          score>
-          bestScore
-        ){
-
-          bestScore=
-            score;
-
-          best=
-            candidate;
-        }
-      }
-    );
-
-    if(!best){
-      return null;
-    }
-
-    combo.push(
-      best
-    );
-  }
-
-  return combo;
-}
-
-function generateParlays(){
-
-  const scope=
-    $("parlayScope").value;
-
-  const legs=
-    Number(
-      $("legCount").value
-    );
-
-  const selectedGame=
-    $("parlayGame").value;
-
-  let pool=
-    getBestBetCandidates();
-
-  if(
-    scope==="single"
+  }else if(
+    Array.isArray(
+      data.props
+    )
   ){
 
-    if(
-      !selectedGame
-    ){
-
-      $("parlayResults").innerHTML=
-        `
-        <div class="error" style="margin-top:12px">
-          Choose a game first.
-        </div>
-        `;
-
-      return;
-    }
-
-    pool=
-      pool.filter(
-        x=>
-          gameKey(
-            x.prop
-          )===
-          selectedGame
-      );
+    promos=
+      data.props;
   }
 
-  pool=
-    pool.slice(
-      0,
-      scope==="single"
-        ? 40
-        : 60
-    );
+  promos.forEach(
+    promo=>{
 
-  const uniquePlayers=
-    new Set(
-      pool.map(
-        x=>
-          normName(
-            x.prop.player
-          )
-      )
-    );
+      const player=
+        promo.player ||
+        promo.player_name;
 
-  if(
-    uniquePlayers.size<
-    legs
-  ){
+      const stat=
+        promo.stat ||
+        promo.stat_type;
 
-    $("parlayResults").innerHTML=
-      `
-      <div class="empty" style="margin-top:12px">
-        Not enough qualifying Best Bets to build a ${legs}-leg parlay.
-      </div>
-      `;
+      const line=
+        Number(
 
-    return;
-  }
+          promo.discountLine ??
 
-  const combos=[];
-  const seen=
-    new Set();
+          promo.discount_line ??
 
-  const seeds=
-    Math.min(
-      pool.length,
-      30
-    );
+          promo.promoLine ??
 
-  for(
-    let variation=0;
-    variation<6;
-    variation++
-  ){
+          promo.promo_line ??
 
-    for(
-      let seed=0;
-      seed<seeds;
-      seed++
-    ){
-
-      const combo=
-        buildGreedyCombo(
-          pool,
-          seed,
-          legs,
-          scope,
-          variation
-        );
-
-      if(!combo){
-        continue;
-      }
-
-      const key=
-        comboKey(
-          combo
+          promo.line
         );
 
       if(
-        seen.has(key)
+        !player ||
+        !stat ||
+        !Number.isFinite(
+          line
+        )
       ){
 
-        continue;
+        return;
       }
 
-      seen.add(key);
+      const gameId=
+        promo.gameId ||
+        promo.game_id ||
+        "";
 
-      combos.push({
+      if(
+        gameId
+      ){
 
-        combo,
+        promoLines.set(
 
-        metrics:
-          parlayMetrics(
-            combo,
-            scope
+          [
+            text(gameId),
+            normName(player),
+            text(stat)
+              .toLowerCase()
+              .trim()
+          ].join("|"),
+
+          line
+        );
+
+      }else{
+
+        allProps
+
+          .filter(
+            p=>
+              normName(
+                p.player
+              )===
+              normName(
+                player
+              ) &&
+
+              text(
+                p.stat
+              )
+              .toLowerCase()
+              .trim()===
+              text(
+                stat
+              )
+              .toLowerCase()
+              .trim()
           )
 
-      });
-    }
-  }
-
-  combos.sort(
-    (a,b)=>
-      b.metrics.score-
-      a.metrics.score
-  );
-
-  generatedParlays=
-    combos.slice(
-      0,
-      5
-    );
-
-  renderParlays(
-    scope
-  );
-}
-
-function scoreClass(score){
-
-  if(
-    score>=58
-  ){
-    return "favorable";
-  }
-
-  if(
-    score<=42
-  ){
-    return "tough";
-  }
-
-  return "neutral";
-}
-
-function renderParlays(scope){
-
-  if(
-    !generatedParlays.length
-  ){
-
-    $("parlayResults").innerHTML=
-      `
-      <div class="empty" style="margin-top:12px">
-        No valid parlay combinations found.
-      </div>
-      `;
-
-    return;
-  }
-
-  $("parlayResults").innerHTML=
-    generatedParlays
-      .map(
-        (item,index)=>{
-
-          const m=
-            item.metrics;
-
-          const corr=
-            correlationLabel(
-              m.correlation,
-              item.combo.length,
-              scope
-            );
-
-          const legs=
-            item.combo
-              .map(
-                x=>{
-
-                  const p=
-                    x.prop;
-
-                  const model=
-                    x.model;
-
-                  const rankText=
-                    model.sideMatchupRank &&
-                    model.defenseCount
-
-                      ? `#${model.sideMatchupRank} of ${model.defenseCount}`
-
-                      : "N/A";
-
-                  return `
-                  <div class="parlayLeg">
-
-                    <div class="row">
-
-                      <div>
-
-                        <div style="font-weight:900">
-                          ${text(p.player)}
-                        </div>
-
-                        <div class="small">
-                          ${matchup(p)}
-                        </div>
-
-                      </div>
-
-                      <div
-                        class="${model.recommendation==="More"?"more":"less"}"
-                        style="font-weight:900"
-                      >
-                        ${model.recommendation}
-                      </div>
-
-                    </div>
-
-                    <div style="margin-top:5px;font-size:14px">
-
-                      <strong>
-                        ${model.recommendation}
-                        ${text(p.line)}
-                      </strong>
-
-                      • ${text(p.stat)}
-
-                    </div>
-
-                    <div class="small" style="margin-top:4px">
-
-                      Score ${model.rating}
-                      • Lean ${(model.probability*100).toFixed(1)}%
-                      • Hit ${(model.hitRate*100).toFixed(0)}%
-                      • Edge ${model.standardizedEdge.toFixed(2)} SD
-
-                    </div>
-
-                    <div class="legDetails">
-
-                      <div class="legDetail">
-
-                        <div class="legDetailLabel">
-                          Leg Strength
-                        </div>
-
-                        <div class="legDetailValue favorable">
-                          ${model.legStrength.toFixed(1)}
-                        </div>
-
-                      </div>
-
-                      <div class="legDetail">
-
-                        <div class="legDetailLabel">
-                          Matchup
-                        </div>
-
-                        <div class="legDetailValue ${scoreClass(model.matchupScore)}">
-                          ${model.matchupScore.toFixed(0)}/100
-                        </div>
-
-                      </div>
-
-                      <div class="legDetail">
-
-                        <div class="legDetailLabel">
-                          Matchup For Pick
-                        </div>
-
-                        <div class="legDetailValue ${scoreClass(model.matchupScore)}">
-                          ${model.matchupLabel}
-                        </div>
-
-                      </div>
-
-                      <div class="legDetail">
-
-                        <div class="legDetailLabel">
-                          Side Rank
-                        </div>
-
-                        <div class="legDetailValue">
-                          ${rankText}
-                        </div>
-
-                      </div>
-
-                      <div class="legDetail">
-
-                        <div class="legDetailLabel">
-                          Player Role
-                        </div>
-
-                        <div class="legDetailValue ${scoreClass(model.roleScore)}">
-                          ${model.roleScore.toFixed(0)}/100
-                        </div>
-
-                      </div>
-
-                      <div class="legDetail">
-
-                        <div class="legDetailLabel">
-                          Role Context
-                        </div>
-
-                        <div class="legDetailValue ${scoreClass(model.roleScore)}">
-                          ${model.roleLabel}
-                        </div>
-
-                      </div>
-
-                    </div>
-
-                    ${
-                      model.strongContextConflict
-                        ? `
-                          <div class="contextWarning">
-                            ⚠ Matchup and player role both disagree with this historical edge.
-                          </div>
-                        `
-                        : ""
-                    }
-
-                  </div>
-                  `;
-                }
-              )
-              .join("");
-
-          return `
-          <div class="parlayOption ${index===0?"top":""}">
-
-            <div class="parlayHeader">
-
-              <div class="row">
-
-                <div>
-
-                  <div class="parlayOptionTitle">
-                    ${
-                      index===0
-                        ? "Top Parlay"
-                        : "Parlay Option "+(index+1)
-                    }
-                  </div>
-
-                  <div class="small">
-                    ${item.combo.length} legs
-                    • Strength ${m.avgStrength.toFixed(1)}
-                  </div>
-
-                </div>
-
-                <div class="grade">
-                  ${m.grade}
-                </div>
-
-              </div>
-
-            </div>
-
-            <div class="parlayStats">
-
-              <div class="parlayStat">
-
-                <div class="parlayStatLabel">
-                  Avg Strength
-                </div>
-
-                <div class="parlayStatValue">
-                  ${m.avgStrength.toFixed(1)}
-                </div>
-
-              </div>
-
-              <div class="parlayStat">
-
-                <div class="parlayStatLabel">
-                  Avg Lean
-                </div>
-
-                <div class="parlayStatValue">
-                  ${m.avgLean.toFixed(1)}%
-                </div>
-
-              </div>
-
-              <div class="parlayStat">
-
-                <div class="parlayStatLabel">
-                  Avg Matchup
-                </div>
-
-                <div class="parlayStatValue">
-                  ${m.avgMatchup.toFixed(0)}
-                </div>
-
-              </div>
-
-            </div>
-
-            ${legs}
-
-            <div
-              class="small"
-              style="padding:10px 12px 0"
-            >
-
-              Correlation:
-
-              <strong class="${corr.className}">
-                ${corr.text}
-              </strong>
-
-              ${
-                m.conflictCount
-                  ? ` • ${m.conflictCount} context conflict${m.conflictCount===1?"":"s"}`
-                  : ""
-              }
-
-            </div>
-
-            <button
-              class="addParlayBtn"
-              data-parlay="${index}"
-            >
-              Add This Parlay to My Lineup
-            </button>
-
-          </div>
-          `;
-        }
-      )
-      .join("");
-
-  document
-    .querySelectorAll(
-      "[data-parlay]"
-    )
-    .forEach(
-      btn=>{
-
-        btn.onclick=()=>{
-
-          const index=
-            Number(
-              btn.dataset.parlay
-            );
-
-          const item=
-            generatedParlays[
-              index
-            ];
-
-          if(!item){
-            return;
-          }
-
-          item.combo.forEach(
-            x=>{
-
-              selected[
-                pKey(
-                  x.prop
-                )
-              ]=
-                x.model
-                  .recommendation;
+          .forEach(
+            p=>{
+
+              promoLines.set(
+                discountKey(p),
+                line
+              );
             }
           );
-
-          render();
-          renderPicks();
-
-          btn.textContent=
-            "Added to My Lineup ✓";
-        };
       }
-    );
+    }
+  );
 }
 
-/* -----------------------------
-   DATA
------------------------------ */
+async function loadPromoData(){
+
+  try{
+
+    const response=
+      await fetch(
+        PROMO_STATS+
+        "?v="+
+        Date.now(),
+        {
+          cache:"no-store"
+        }
+      );
+
+    if(
+      !response.ok
+    ){
+
+      throw new Error(
+        "No promo file"
+      );
+    }
+
+    const data=
+      await response.json();
+
+    loadPromoObject(
+      data
+    );
+
+    if(
+      promoLines.size
+    ){
+
+      $("promoStatus").textContent=
+        `🔥 ${promoLines.size} automatic discounted lines detected`;
+
+      $("promoStatus").className=
+        "small feedFresh";
+
+    }else{
+
+      $("promoStatus").textContent=
+        "Automatic promo file connected • no discounts detected";
+
+      $("promoStatus").className=
+        "small";
+    }
+
+  }catch{
+
+    promoLines.clear();
+
+    $("promoStatus").textContent=
+      "Manual discount override ready • automatic promos not connected yet";
+
+    $("promoStatus").className=
+      "small";
+  }
+}
+
+
+/* DATA */
 
 async function fetchText(url){
 
@@ -4494,16 +4893,20 @@ async function fetchText(url){
 
   const response=
     await fetch(
+
       url+
       separator+
       "v="+
       Date.now(),
+
       {
         cache:"no-store"
       }
     );
 
-  if(!response.ok){
+  if(
+    !response.ok
+  ){
 
     throw new Error(
       `${url} returned HTTP ${response.status}`
@@ -4513,15 +4916,36 @@ async function fetchText(url){
   return response.text();
 }
 
+function dedupe(props){
+
+  const seen=
+    new Set();
+
+  return props.filter(
+    p=>{
+
+      const key=
+        pKey(p);
+
+      if(
+        seen.has(
+          key
+        )
+      ){
+
+        return false;
+      }
+
+      seen.add(
+        key
+      );
+
+      return true;
+    }
+  );
+}
+
 function formatAge(ms){
-
-  if(
-    !Number.isFinite(ms) ||
-    ms<0
-  ){
-
-    return "";
-  }
 
   const mins=
     Math.floor(
@@ -4529,61 +4953,78 @@ function formatAge(ms){
       60000
     );
 
-  if(mins<60){
+  if(
+    mins<60
+  ){
 
     return `${mins}m`;
   }
 
-  const hours=
-    Math.floor(
-      mins/
-      60
-    );
-
-  const remaining=
-    mins%
-    60;
-
-  return `${hours}h ${remaining}m`;
+  return `${Math.floor(
+    mins/60
+  )}h ${mins%60}m`;
 }
 
-function setFeedAge(scrapedAt){
-
-  const el=
-    $("feedAge");
-
-  if(!scrapedAt){
-
-    el.textContent=
-      "Feed freshness unavailable";
-
-    el.className=
-      "small feedAging";
-
-    return;
-  }
-
-  const ts=
-    new Date(
-      scrapedAt
-    ).getTime();
+function formatTime(value){
 
   if(
-    !Number.isFinite(ts)
+    !value
   ){
 
-    el.textContent=
+    return "updated recently";
+  }
+
+  try{
+
+    return "updated "+
+      new Date(
+        value
+      )
+      .toLocaleString(
+        [],
+        {
+          month:"short",
+          day:"numeric",
+          hour:"numeric",
+          minute:"2-digit"
+        }
+      );
+
+  }catch{
+
+    return "updated recently";
+  }
+}
+
+function setFeedAge(
+  scrapedAt
+){
+
+  const element=
+    $("feedAge");
+
+  if(
+    !scrapedAt
+  ){
+
+    element.textContent=
       "Feed freshness unavailable";
 
-    el.className=
+    element.className=
       "small feedAging";
 
     return;
   }
+
+  const timestamp=
+    new Date(
+      scrapedAt
+    )
+    .getTime();
 
   const age=
     Date.now()-
-    ts;
+    timestamp;
 
   const minutes=
     age/
@@ -4593,28 +5034,28 @@ function setFeedAge(scrapedAt){
     minutes<=60
   ){
 
-    el.textContent=
+    element.textContent=
       `Feed age ${formatAge(age)} • Fresh`;
 
-    el.className=
+    element.className=
       "small feedFresh";
 
   }else if(
     minutes<=180
   ){
 
-    el.textContent=
+    element.textContent=
       `Feed age ${formatAge(age)} • Check PrizePicks before submitting`;
 
-    el.className=
+    element.className=
       "small feedAging";
 
   }else{
 
-    el.textContent=
+    element.textContent=
       `⚠ Feed age ${formatAge(age)} • Lines may be stale`;
 
-    el.className=
+    element.className=
       "small feedStale";
   }
 }
@@ -4632,22 +5073,24 @@ async function loadData(){
     "Loading PrizePicks NFL board...";
 
   $("modelStatus").textContent=
-    "Loading Model v4.1 data...";
+    "Loading Model v5...";
 
   try{
 
-    const ppRes=
+    const response=
       await fetch(
+
         PP_URL+
         "?v="+
         Date.now(),
+
         {
           cache:"no-store"
         }
       );
 
     if(
-      !ppRes.ok
+      !response.ok
     ){
 
       throw new Error(
@@ -4655,36 +5098,38 @@ async function loadData(){
       );
     }
 
-    const pp=
-      await ppRes.json();
+    const data=
+      await response.json();
 
     allProps=
       Array.isArray(
-        pp.props
+        data.props
       )
         ? dedupe(
-            pp.props
+            data.props
           )
         : [];
 
     buildStarPlayerSet();
 
     $("feedStatus").textContent=
-      `${allProps.length} PrizePicks NFL props • ${formatTime(pp.scrapedAt)}`;
+
+      `${allProps.length} PrizePicks NFL props • ${formatTime(
+        data.scrapedAt
+      )}`;
 
     setFeedAge(
-      pp.scrapedAt
+      data.scrapedAt
     );
 
-  }catch(e){
+  }catch(error){
 
-    console.error(e);
+    console.error(
+      error
+    );
 
     $("feedStatus").textContent=
       "PrizePicks feed error";
-
-    $("feedAge").textContent=
-      "";
 
     $("propList").innerHTML=
       `
@@ -4695,6 +5140,8 @@ async function loadData(){
 
     return;
   }
+
+  await loadPromoData();
 
   try{
 
@@ -4707,6 +5154,7 @@ async function loadData(){
           fetchText(
             NFL_STATS
           ),
+
           fetchText(
             MATCHUP_STATS
           )
@@ -4724,32 +5172,34 @@ async function loadData(){
       );
 
     $("modelStatus").textContent=
-      `${statsRows.length.toLocaleString()} player records • ${matchupRows.length.toLocaleString()} matchup records • Model v4.1 ready`;
 
-  }catch(e){
+      `${statsRows.length.toLocaleString()} player records • ${matchupRows.length.toLocaleString()} matchup records • Model v5 ready`;
 
-    console.warn(e);
+  }catch(error){
+
+    console.warn(
+      error
+    );
 
     try{
 
-      const statsText=
-        await fetchText(
-          NFL_STATS
-        );
-
       statsRows=
         parseCSV(
-          statsText
+          await fetchText(
+            NFL_STATS
+          )
         );
 
       matchupRows=[];
 
       $("modelStatus").textContent=
-        `${statsRows.length.toLocaleString()} player records • Matchup file unavailable`;
 
-    }catch(e2){
+        `${statsRows.length.toLocaleString()} player records • matchup file unavailable`;
+
+    }catch{
 
       statsRows=[];
+
       matchupRows=[];
 
       $("modelStatus").textContent=
@@ -4758,8 +5208,12 @@ async function loadData(){
   }
 
   buildModels();
+
   buildFilters();
+
   render();
+
+  renderPicks();
 }
 
 function buildModels(){
@@ -4772,7 +5226,9 @@ function buildModels(){
       const model=
         buildModel(p);
 
-      if(model){
+      if(
+        model
+      ){
 
         models.set(
           pKey(p),
@@ -4783,60 +5239,8 @@ function buildModels(){
   );
 }
 
-function dedupe(props){
 
-  const seen=
-    new Set();
-
-  return props.filter(
-    p=>{
-
-      const key=
-        pKey(p);
-
-      if(
-        seen.has(key)
-      ){
-
-        return false;
-      }
-
-      seen.add(key);
-
-      return true;
-    }
-  );
-}
-
-function formatTime(value){
-
-  if(!value){
-    return "updated recently";
-  }
-
-  try{
-
-    return "updated "+
-      new Date(value)
-        .toLocaleString(
-          [],
-          {
-            month:"short",
-            day:"numeric",
-            hour:"numeric",
-            minute:"2-digit"
-          }
-        );
-
-  }catch{
-
-    return "updated recently";
-  }
-}
-
-/* -----------------------------
-   FILTERS
------------------------------ */
+/* FILTERS */
 
 function buildFilters(){
 
@@ -4883,30 +5287,32 @@ function buildFilters(){
     '<option value="">Select a game</option>';
 
   [...games.entries()]
+
     .sort(
       (a,b)=>
         a[1]
-          .localeCompare(
-            b[1]
-          )
+        .localeCompare(
+          b[1]
+        )
     )
+
     .forEach(
       ([value,label])=>{
 
-        const option1=
+        const option=
           document.createElement(
             "option"
           );
 
-        option1.value=
+        option.value=
           value;
 
-        option1.textContent=
+        option.textContent=
           label;
 
         $("gameFilter")
           .appendChild(
-            option1
+            option
           );
 
         const option2=
@@ -4927,19 +5333,20 @@ function buildFilters(){
       }
     );
 
-  const stats=[
-    ...new Set(
-      allProps
-        .map(
-          p=>
-            text(
-              p.stat
-            )
-        )
-        .filter(Boolean)
-    )
-  ]
-  .sort();
+  const stats=
+    [
+      ...new Set(
+        allProps
+          .map(
+            p=>
+              text(
+                p.stat
+              )
+          )
+          .filter(Boolean)
+      )
+    ]
+    .sort();
 
   $("statFilter").innerHTML=
     '<option value="">All Prop Types</option>';
@@ -4969,6 +5376,7 @@ function buildFilters(){
 function modelFiltersActive(){
 
   return (
+
     Number(
       $("scoreFilter").value
     )>0 ||
@@ -5039,29 +5447,34 @@ function getProps(){
 
         if(
           stat &&
-          text(p.stat)!==
+          text(
+            p.stat
+          )!==
           stat
         ){
 
           return false;
         }
 
-        if(search){
+        if(
+          search
+        ){
 
-          const hay=[
-            p.player,
-            p.Team,
-            p.teamCode,
-            p.Opponent,
-            p.opponentCode,
-            p.stat
-          ]
-          .map(text)
-          .join(" ")
-          .toLowerCase();
+          const haystack=
+            [
+              p.player,
+              p.Team,
+              p.teamCode,
+              p.Opponent,
+              p.opponentCode,
+              p.stat
+            ]
+            .map(text)
+            .join(" ")
+            .toLowerCase();
 
           if(
-            !hay.includes(
+            !haystack.includes(
               search
             )
           ){
@@ -5080,15 +5493,10 @@ function getProps(){
           return false;
         }
 
-        const m=
+        const model=
           models.get(
             pKey(p)
           );
-
-        /*
-        Star mode intentionally allows
-        model Pass props to remain visible.
-        */
 
         if(
           starOnly
@@ -5105,14 +5513,16 @@ function getProps(){
           return true;
         }
 
-        if(!m){
+        if(
+          !model
+        ){
 
           return false;
         }
 
         if(
           bestOnly &&
-          m.recommendation===
+          model.recommendation===
           "Pass"
         ){
 
@@ -5120,8 +5530,8 @@ function getProps(){
         }
 
         if(
-          minScore>0 &&
-          m.rating<
+          minScore &&
+          model.rating<
           minScore
         ){
 
@@ -5129,8 +5539,8 @@ function getProps(){
         }
 
         if(
-          minLean>0 &&
-          m.probability<
+          minLean &&
+          model.probability<
           minLean
         ){
 
@@ -5138,8 +5548,8 @@ function getProps(){
         }
 
         if(
-          minHit>0 &&
-          m.hitRate<
+          minHit &&
+          model.hitRate<
           minHit
         ){
 
@@ -5147,8 +5557,8 @@ function getProps(){
         }
 
         if(
-          minSample>0 &&
-          m.sample<
+          minSample &&
+          model.sample<
           minSample
         ){
 
@@ -5162,23 +5572,30 @@ function getProps(){
   const sort=
     $("sortFilter").value;
 
+  function modelValue(
+    p,
+    key
+  ){
+
+    return models.get(
+      pKey(p)
+    )?.[key] ||
+    0;
+  }
+
   if(
     sort==="rating"
   ){
 
     props.sort(
       (a,b)=>
-        (
-          models.get(
-            pKey(b)
-          )?.rating ||
-          0
+        modelValue(
+          b,
+          "rating"
         )-
-        (
-          models.get(
-            pKey(a)
-          )?.rating ||
-          0
+        modelValue(
+          a,
+          "rating"
         )
     );
 
@@ -5188,17 +5605,13 @@ function getProps(){
 
     props.sort(
       (a,b)=>
-        (
-          models.get(
-            pKey(b)
-          )?.legStrength ||
-          0
+        modelValue(
+          b,
+          "legStrength"
         )-
-        (
-          models.get(
-            pKey(a)
-          )?.legStrength ||
-          0
+        modelValue(
+          a,
+          "legStrength"
         )
     );
 
@@ -5208,17 +5621,13 @@ function getProps(){
 
     props.sort(
       (a,b)=>
-        (
-          models.get(
-            pKey(b)
-          )?.matchupScore ||
-          0
+        modelValue(
+          b,
+          "matchupScore"
         )-
-        (
-          models.get(
-            pKey(a)
-          )?.matchupScore ||
-          0
+        modelValue(
+          a,
+          "matchupScore"
         )
     );
 
@@ -5228,17 +5637,13 @@ function getProps(){
 
     props.sort(
       (a,b)=>
-        (
-          models.get(
-            pKey(b)
-          )?.standardizedEdge ||
-          0
+        modelValue(
+          b,
+          "standardizedEdge"
         )-
-        (
-          models.get(
-            pKey(a)
-          )?.standardizedEdge ||
-          0
+        modelValue(
+          a,
+          "standardizedEdge"
         )
     );
 
@@ -5248,17 +5653,13 @@ function getProps(){
 
     props.sort(
       (a,b)=>
-        (
-          models.get(
-            pKey(b)
-          )?.probability ||
-          0
+        modelValue(
+          b,
+          "probability"
         )-
-        (
-          models.get(
-            pKey(a)
-          )?.probability ||
-          0
+        modelValue(
+          a,
+          "probability"
         )
     );
 
@@ -5268,17 +5669,13 @@ function getProps(){
 
     props.sort(
       (a,b)=>
-        (
-          models.get(
-            pKey(b)
-          )?.hitRate ||
-          0
+        modelValue(
+          b,
+          "hitRate"
         )-
-        (
-          models.get(
-            pKey(a)
-          )?.hitRate ||
-          0
+        modelValue(
+          a,
+          "hitRate"
         )
     );
 
@@ -5286,38 +5683,70 @@ function getProps(){
 
     props.sort(
       (a,b)=>
-        num(a.rank)-
-        num(b.rank)
+        num(
+          a.rank
+        )-
+        num(
+          b.rank
+        )
     );
   }
 
   return props;
 }
 
-/* -----------------------------
-   DISPLAY
------------------------------ */
 
-function ratingClass(rating){
+/* MODEL DISPLAY */
+
+function ratingClass(
+  rating
+){
 
   if(
     rating>=82
   ){
+
     return "good";
   }
 
   if(
     rating>=72
   ){
+
     return "mid";
   }
 
   return "low";
 }
 
-function modelHTML(model){
+function scoreClass(
+  score
+){
 
-  if(!model){
+  if(
+    score>=58
+  ){
+
+    return "favorable";
+  }
+
+  if(
+    score<=42
+  ){
+
+    return "tough";
+  }
+
+  return "neutral";
+}
+
+function modelHTML(
+  model
+){
+
+  if(
+    !model
+  ){
 
     return `
     <div class="model">
@@ -5325,7 +5754,7 @@ function modelHTML(model){
       <div class="modelHeader">
 
         <div class="modelTitle">
-          PROP EDGE MODEL v4.1
+          PROP EDGE MODEL v5
         </div>
 
         <div class="rating low">
@@ -5349,15 +5778,13 @@ function modelHTML(model){
     (
       model.probability*
       100
-    )
-    .toFixed(1);
+    ).toFixed(1);
 
   const hit=
     (
       model.hitRate*
       100
-    )
-    .toFixed(0);
+    ).toFixed(0);
 
   const gap=
     (
@@ -5368,7 +5795,7 @@ function modelHTML(model){
     model.rawDifference
       .toFixed(1);
 
-  const sideClass=
+  const className=
     model.recommendation===
     "More"
 
@@ -5389,7 +5816,7 @@ function modelHTML(model){
 
       : `${model.recommendation.toUpperCase()} • ${lean}% model lean`;
 
-  const rankText=
+  const rank=
     model.sideMatchupRank &&
     model.defenseCount
 
@@ -5403,10 +5830,14 @@ function modelHTML(model){
     <div class="modelHeader">
 
       <div class="modelTitle">
-        PROP EDGE MODEL v4.1
+        PROP EDGE MODEL v5
       </div>
 
-      <div class="rating ${ratingClass(model.rating)}">
+      <div
+        class="rating ${ratingClass(
+          model.rating
+        )}"
+      >
         ${model.rating}
       </div>
 
@@ -5502,7 +5933,11 @@ function modelHTML(model){
             Matchup For ${model.side}
           </div>
 
-          <div class="matchupValue ${scoreClass(model.matchupScore)}">
+          <div
+            class="matchupValue ${scoreClass(
+              model.matchupScore
+            )}"
+          >
             ${model.matchupScore.toFixed(0)}/100
           </div>
 
@@ -5514,7 +5949,11 @@ function modelHTML(model){
             Matchup Rating
           </div>
 
-          <div class="matchupValue ${scoreClass(model.matchupScore)}">
+          <div
+            class="matchupValue ${scoreClass(
+              model.matchupScore
+            )}"
+          >
             ${model.matchupLabel}
           </div>
 
@@ -5527,7 +5966,7 @@ function modelHTML(model){
           </div>
 
           <div class="matchupValue">
-            ${rankText}
+            ${rank}
           </div>
 
         </div>
@@ -5538,7 +5977,11 @@ function modelHTML(model){
             Player Role
           </div>
 
-          <div class="matchupValue ${scoreClass(model.roleScore)}">
+          <div
+            class="matchupValue ${scoreClass(
+              model.roleScore
+            )}"
+          >
             ${model.roleScore.toFixed(0)}/100
           </div>
 
@@ -5548,24 +5991,39 @@ function modelHTML(model){
 
     </div>
 
-    <div class="pickLean ${sideClass}">
+    <div
+      class="pickLean ${className}"
+    >
       ${decision}
     </div>
 
     <div class="reason">
 
       ${model.sample} regular-season games used.
+
       ${model.agreementCount}/3 trend signals agree.
 
       ${
         model.matchupAvailable
+
           ? " Opponent matchup adjustment applied."
+
           : " No matchup adjustment available."
       }
 
       ${
+        model.lineSource!=="standard"
+
+          ? " 🔥 Model recalculated using discounted line."
+
+          : ""
+      }
+
+      ${
         model.strongContextConflict
+
           ? " ⚠ Matchup and role strongly disagree with the historical edge."
+
           : ""
       }
 
@@ -5574,6 +6032,9 @@ function modelHTML(model){
   </div>
   `;
 }
+
+
+/* MAIN BOARD */
 
 function render(){
 
@@ -5597,14 +6058,13 @@ function render(){
     return;
   }
 
-  const shown=
-    props.slice(
-      0,
-      250
-    );
-
   $("propList").innerHTML=
-    shown
+
+    props
+      .slice(
+        0,
+        250
+      )
       .map(
         p=>{
 
@@ -5616,33 +6076,74 @@ function render(){
               key
             );
 
-          const selectedSide=
-            selected[
-              key
-            ];
+          const current=
+            activeLineInfo(
+              p
+            );
+
+          const discounted=
+            hasDiscount(
+              p
+            );
+
+          const manual=
+            current.source===
+            "manual";
 
           const isBest=
             model &&
-            model.recommendation!=="Pass";
+            model.recommendation!==
+            "Pass";
 
           const star=
             isStarPlayer(
               p.player
             );
 
+          const selectedSide=
+            selected[
+              key
+            ];
+
           return `
-          <article class="prop ${isBest?"bestCard":star?"starCard":""}">
+          <article
+            class="prop ${
+              discounted
+                ? "discountCard"
+                : isBest
+                  ? "bestCard"
+                  : star
+                    ? "starCard"
+                    : ""
+            }"
+          >
 
             ${
               isBest
+
                 ? '<span class="bestBadge">BEST BET</span>'
-                : ''
+
+                : ""
             }
 
             ${
               star
+
                 ? '<span class="starBadge">⭐ STAR</span>'
-                : ''
+
+                : ""
+            }
+
+            ${
+              discounted
+
+                ? `<span class="discountBadge">🔥 ${
+                    manual
+                      ? "MANUAL DISCOUNT"
+                      : "AUTO DISCOUNT"
+                  }</span>`
+
+                : ""
             }
 
             <div class="propTop">
@@ -5691,9 +6192,55 @@ function render(){
                 ${text(p.stat)}
               </div>
 
-              <div class="line">
-                ${text(p.line)}
+              <div class="line ${discounted?"activeLine":""}">
+                ${current.line}
               </div>
+
+              ${
+                discounted
+
+                  ? `
+                    <div class="standardLine">
+                      Standard line: ${current.standard}
+                    </div>
+
+                    <div class="discountSource">
+                      ${
+                        current.source==="manual"
+
+                          ? "🔥 Manual discount active"
+
+                          : "🔥 Automatic discount detected"
+                      }
+                    </div>
+                  `
+
+                  : ""
+              }
+
+            </div>
+
+            <div class="discountControls">
+
+              <button
+                class="discountBtn"
+                data-discount="${encodeURIComponent(key)}"
+              >
+                ${
+                  manual
+                    ? "Edit Discount"
+                    : "🔥 Set Discount"
+                }
+              </button>
+
+              <button
+                class="removeDiscountBtn"
+                data-clear-discount="${encodeURIComponent(key)}"
+                ${manual?"":"disabled"}
+                style="${manual?"":"opacity:.35"}"
+              >
+                Remove Discount
+              </button>
 
             </div>
 
@@ -5706,7 +6253,7 @@ function render(){
                 data-key="${encodeURIComponent(key)}"
                 data-side="More"
               >
-                More ${text(p.line)}
+                More ${current.line}
               </button>
 
               <button
@@ -5714,7 +6261,7 @@ function render(){
                 data-key="${encodeURIComponent(key)}"
                 data-side="Less"
               >
-                Less ${text(p.line)}
+                Less ${current.line}
               </button>
 
             </div>
@@ -5730,39 +6277,121 @@ function render(){
       "[data-side]"
     )
     .forEach(
-      btn=>{
+      button=>{
 
-        btn.onclick=()=>{
+        button.onclick=
+          ()=>{
 
-          const key=
-            decodeURIComponent(
-              btn.dataset.key
-            );
+            const key=
+              decodeURIComponent(
+                button.dataset.key
+              );
 
-          const side=
-            btn.dataset.side;
+            const side=
+              button.dataset.side;
 
-          if(
-            selected[key]===
-            side
-          ){
+            if(
+              selected[key]===
+              side
+            ){
 
-            delete selected[
-              key
-            ];
+              delete selected[
+                key
+              ];
 
-          }else{
+            }else{
 
-            selected[key]=
-              side;
-          }
+              selected[
+                key
+              ]=
+                side;
+            }
 
-          render();
-          renderPicks();
-        };
+            render();
+
+            renderPicks();
+          };
+      }
+    );
+
+  document
+    .querySelectorAll(
+      "[data-discount]"
+    )
+    .forEach(
+      button=>{
+
+        button.onclick=
+          ()=>{
+
+            const key=
+              decodeURIComponent(
+                button.dataset.discount
+              );
+
+            const prop=
+              allProps.find(
+                p=>
+                  pKey(p)===
+                  key
+              );
+
+            if(
+              prop
+            ){
+
+              setDiscount(
+                prop
+              );
+            }
+          };
+      }
+    );
+
+  document
+    .querySelectorAll(
+      "[data-clear-discount]"
+    )
+    .forEach(
+      button=>{
+
+        button.onclick=
+          ()=>{
+
+            if(
+              button.disabled
+            ){
+
+              return;
+            }
+
+            const key=
+              decodeURIComponent(
+                button.dataset.clearDiscount
+              );
+
+            const prop=
+              allProps.find(
+                p=>
+                  pKey(p)===
+                  key
+              );
+
+            if(
+              prop
+            ){
+
+              removeDiscount(
+                prop
+              );
+            }
+          };
       }
     );
 }
+
+
+/* MY LINEUP */
 
 function renderPicks(){
 
@@ -5772,6 +6401,7 @@ function renderPicks(){
     );
 
   $("selectedCount").textContent=
+
     entries.length
 
       ? `${entries.length} selected`
@@ -5789,24 +6419,33 @@ function renderPicks(){
   }
 
   $("pickList").innerHTML=
+
     entries
       .map(
         ([key,side])=>{
 
           const p=
             allProps.find(
-              x=>
-                pKey(x)===
+              prop=>
+                pKey(prop)===
                 key
             );
 
-          if(!p){
+          if(
+            !p
+          ){
+
             return "";
           }
 
-          const m=
+          const model=
             models.get(
               key
+            );
+
+          const line=
+            activeLine(
+              p
             );
 
           return `
@@ -5823,12 +6462,19 @@ function renderPicks(){
                 <div class="small">
 
                   ${side}
-                  ${text(p.line)}
+                  ${line}
+
                   • ${text(p.stat)}
 
                   ${
-                    m
-                      ? ` • Score ${m.rating} • Strength ${m.legStrength.toFixed(1)}`
+                    hasDiscount(p)
+                      ? " • 🔥 Discount"
+                      : ""
+                  }
+
+                  ${
+                    model
+                      ? ` • Score ${model.rating} • Strength ${model.legStrength.toFixed(1)}`
                       : ""
                   }
 
@@ -5856,26 +6502,1037 @@ function renderPicks(){
       "[data-remove]"
     )
     .forEach(
-      btn=>{
+      button=>{
 
-        btn.onclick=()=>{
+        button.onclick=
+          ()=>{
 
-          delete selected[
-            decodeURIComponent(
-              btn.dataset.remove
-            )
-          ];
+            delete selected[
+              decodeURIComponent(
+                button.dataset.remove
+              )
+            ];
 
-          render();
-          renderPicks();
-        };
+            render();
+
+            renderPicks();
+          };
       }
     );
 }
 
-/* -----------------------------
-   MODES
------------------------------ */
+
+/* PARLAY */
+
+function getBestBetCandidates(){
+
+  return allProps
+
+    .map(
+      p=>({
+
+        prop:p,
+
+        model:
+          models.get(
+            pKey(p)
+          )
+      })
+    )
+
+    .filter(
+      x=>
+        x.model &&
+        x.model.recommendation!==
+        "Pass"
+    )
+
+    .sort(
+      (a,b)=>
+        b.model.legStrength-
+        a.model.legStrength
+    );
+}
+
+function samePlayer(
+  a,
+  b
+){
+
+  return normName(
+    a.prop.player
+  )===
+  normName(
+    b.prop.player
+  );
+}
+
+function sameGame(
+  a,
+  b
+){
+
+  return gameKey(
+    a.prop
+  )===
+  gameKey(
+    b.prop
+  );
+}
+
+function sameTeam(
+  a,
+  b
+){
+
+  return offenseCode(
+    a.prop
+  )===
+  offenseCode(
+    b.prop
+  );
+}
+
+function statFamily(stat){
+
+  const s=
+    text(stat)
+      .toLowerCase();
+
+  if(
+    s.includes("pass")
+  ){
+
+    return "pass";
+  }
+
+  if(
+    s.includes("receiv") ||
+    s==="receptions" ||
+    s==="targets"
+  ){
+
+    return "receiving";
+  }
+
+  if(
+    s.includes("rush")
+  ){
+
+    return "rushing";
+  }
+
+  return "other";
+}
+
+function pairPenalty(
+  a,
+  b,
+  scope
+){
+
+  if(
+    samePlayer(
+      a,
+      b
+    )
+  ){
+
+    return 999;
+  }
+
+  let penalty=0;
+
+  if(
+    sameGame(
+      a,
+      b
+    )
+  ){
+
+    penalty+=
+      scope==="single"
+        ? 2
+        : 6;
+
+    if(
+      sameTeam(
+        a,
+        b
+      )
+    ){
+
+      penalty+=3;
+    }
+
+    const familyA=
+      statFamily(
+        a.prop.stat
+      );
+
+    const familyB=
+      statFamily(
+        b.prop.stat
+      );
+
+    if(
+      sameTeam(
+        a,
+        b
+      ) &&
+      (
+        (
+          familyA==="pass" &&
+          familyB==="receiving"
+        ) ||
+        (
+          familyB==="pass" &&
+          familyA==="receiving"
+        )
+      )
+    ){
+
+      penalty+=4;
+    }
+  }
+
+  return penalty;
+}
+
+function comboPenalty(
+  combo,
+  scope
+){
+
+  let total=0;
+
+  for(
+    let i=0;
+    i<combo.length;
+    i++
+  ){
+
+    for(
+      let j=i+1;
+      j<combo.length;
+      j++
+    ){
+
+      total+=
+        pairPenalty(
+          combo[i],
+          combo[j],
+          scope
+        );
+    }
+  }
+
+  return total;
+}
+
+function incrementalPenalty(
+  candidate,
+  combo,
+  scope
+){
+
+  let total=0;
+
+  for(
+    const item
+    of combo
+  ){
+
+    const penalty=
+      pairPenalty(
+        candidate,
+        item,
+        scope
+      );
+
+    if(
+      penalty>=999
+    ){
+
+      return 999;
+    }
+
+    total+=
+      penalty;
+  }
+
+  return total;
+}
+
+function buildCombo(
+  pool,
+  seed,
+  legs,
+  scope
+){
+
+  const combo=[
+
+    pool[
+      seed%
+      pool.length
+    ]
+  ];
+
+  if(
+    !combo[0]
+  ){
+
+    return null;
+  }
+
+  while(
+    combo.length<
+    legs
+  ){
+
+    let best=null;
+
+    let bestScore=
+      -Infinity;
+
+    pool.forEach(
+      candidate=>{
+
+        if(
+          combo.some(
+            x=>
+              pKey(
+                x.prop
+              )===
+              pKey(
+                candidate.prop
+              )
+          )
+        ){
+
+          return;
+        }
+
+        const penalty=
+          incrementalPenalty(
+            candidate,
+            combo,
+            scope
+          );
+
+        if(
+          penalty>=999
+        ){
+
+          return;
+        }
+
+        let score=
+          candidate.model
+            .legStrength-
+          penalty*
+          1.6;
+
+        if(
+          scope==="all" &&
+          combo.some(
+            x=>
+              gameKey(
+                x.prop
+              )===
+              gameKey(
+                candidate.prop
+              )
+          )
+        ){
+
+          score-=3;
+        }
+
+        if(
+          candidate.model
+            .strongContextConflict
+        ){
+
+          score-=4;
+        }
+
+        if(
+          score>
+          bestScore
+        ){
+
+          bestScore=
+            score;
+
+          best=
+            candidate;
+        }
+      }
+    );
+
+    if(
+      !best
+    ){
+
+      return null;
+    }
+
+    combo.push(
+      best
+    );
+  }
+
+  return combo;
+}
+
+function comboKey(
+  combo
+){
+
+  return combo
+
+    .map(
+      x=>
+        pKey(
+          x.prop
+        )
+    )
+
+    .sort()
+
+    .join("||");
+}
+
+function parlayMetrics(
+  combo,
+  scope
+){
+
+  const avgStrength=
+    mean(
+      combo.map(
+        x=>
+          x.model
+            .legStrength
+      )
+    );
+
+  const avgLean=
+    mean(
+      combo.map(
+        x=>
+          x.model
+            .probability*
+          100
+      )
+    );
+
+  const avgMatchup=
+    mean(
+      combo.map(
+        x=>
+          x.model
+            .matchupScore
+      )
+    );
+
+  const avgHit=
+    mean(
+      combo.map(
+        x=>
+          x.model
+            .hitRate*
+          100
+      )
+    );
+
+  const correlation=
+    comboPenalty(
+      combo,
+      scope
+    );
+
+  let score=
+    avgStrength*.75+
+    avgLean*.08+
+    avgHit*.08+
+    avgMatchup*.05-
+    correlation*.55;
+
+  score=
+    clamp(
+      score,
+      0,
+      100
+    );
+
+  let grade="C";
+
+  if(
+    score>=84
+  ){
+
+    grade="A+";
+
+  }else if(
+    score>=81
+  ){
+
+    grade="A";
+
+  }else if(
+    score>=78
+  ){
+
+    grade="A-";
+
+  }else if(
+    score>=74
+  ){
+
+    grade="B+";
+
+  }else if(
+    score>=70
+  ){
+
+    grade="B";
+  }
+
+  return {
+
+    avgStrength,
+
+    avgLean,
+
+    avgHit,
+
+    avgMatchup,
+
+    correlation,
+
+    score,
+
+    grade
+  };
+}
+
+function correlationLabel(
+  penalty,
+  legs,
+  scope
+){
+
+  const adjusted=
+    penalty/
+    Math.max(
+      1,
+      legs
+    );
+
+  if(
+    scope==="single"
+  ){
+
+    if(
+      adjusted<=3
+    ){
+
+      return {
+        text:"Low-Moderate",
+        className:"corrLow"
+      };
+    }
+
+    if(
+      adjusted<=6
+    ){
+
+      return {
+        text:"Moderate",
+        className:"corrMed"
+      };
+    }
+
+    return {
+      text:"High",
+      className:"corrHigh"
+    };
+  }
+
+  if(
+    adjusted<=1.5
+  ){
+
+    return {
+      text:"Low",
+      className:"corrLow"
+    };
+  }
+
+  if(
+    adjusted<=4
+  ){
+
+    return {
+      text:"Moderate",
+      className:"corrMed"
+    };
+  }
+
+  return {
+    text:"High",
+    className:"corrHigh"
+  };
+}
+
+function generateParlays(){
+
+  const scope=
+    $("parlayScope").value;
+
+  const legs=
+    Number(
+      $("legCount").value
+    );
+
+  const game=
+    $("parlayGame").value;
+
+  let pool=
+    getBestBetCandidates();
+
+  if(
+    scope==="single"
+  ){
+
+    if(
+      !game
+    ){
+
+      $("parlayResults").innerHTML=
+        `
+        <div class="error" style="margin-top:12px">
+          Choose a game first.
+        </div>
+        `;
+
+      return;
+    }
+
+    pool=
+      pool.filter(
+        x=>
+          gameKey(
+            x.prop
+          )===
+          game
+      );
+  }
+
+  pool=
+    pool.slice(
+      0,
+      scope==="single"
+        ? 40
+        : 60
+    );
+
+  const playerCount=
+    new Set(
+      pool.map(
+        x=>
+          normName(
+            x.prop.player
+          )
+      )
+    ).size;
+
+  if(
+    playerCount<
+    legs
+  ){
+
+    $("parlayResults").innerHTML=
+      `
+      <div class="empty" style="margin-top:12px">
+        Not enough qualifying Best Bets to build this parlay.
+      </div>
+      `;
+
+    return;
+  }
+
+  const results=[];
+
+  const seen=
+    new Set();
+
+  const seeds=
+    Math.min(
+      pool.length,
+      30
+    );
+
+  for(
+    let seed=0;
+    seed<seeds;
+    seed++
+  ){
+
+    const combo=
+      buildCombo(
+        pool,
+        seed,
+        legs,
+        scope
+      );
+
+    if(
+      !combo
+    ){
+
+      continue;
+    }
+
+    const key=
+      comboKey(
+        combo
+      );
+
+    if(
+      seen.has(key)
+    ){
+
+      continue;
+    }
+
+    seen.add(key);
+
+    results.push({
+
+      combo,
+
+      metrics:
+        parlayMetrics(
+          combo,
+          scope
+        )
+    });
+  }
+
+  results.sort(
+    (a,b)=>
+      b.metrics.score-
+      a.metrics.score
+  );
+
+  generatedParlays=
+    results.slice(
+      0,
+      5
+    );
+
+  renderParlays(
+    scope
+  );
+}
+
+function renderParlays(
+  scope
+){
+
+  if(
+    !generatedParlays.length
+  ){
+
+    $("parlayResults").innerHTML=
+      `
+      <div class="empty" style="margin-top:12px">
+        No valid parlay combinations found.
+      </div>
+      `;
+
+    return;
+  }
+
+  $("parlayResults").innerHTML=
+
+    generatedParlays
+      .map(
+        (item,index)=>{
+
+          const metrics=
+            item.metrics;
+
+          const correlation=
+            correlationLabel(
+              metrics.correlation,
+              item.combo.length,
+              scope
+            );
+
+          const legs=
+            item.combo
+              .map(
+                x=>{
+
+                  const prop=
+                    x.prop;
+
+                  const model=
+                    x.model;
+
+                  const line=
+                    activeLineInfo(
+                      prop
+                    );
+
+                  return `
+                  <div class="parlayLeg">
+
+                    <div class="row">
+
+                      <div>
+
+                        <div style="font-weight:900">
+                          ${text(prop.player)}
+                        </div>
+
+                        <div class="small">
+                          ${matchup(prop)}
+                        </div>
+
+                      </div>
+
+                      <div
+                        class="${
+                          model.recommendation==="More"
+                            ? "more"
+                            : "less"
+                        }"
+                        style="font-weight:900"
+                      >
+                        ${model.recommendation}
+                      </div>
+
+                    </div>
+
+                    <div
+                      style="margin-top:5px;font-size:14px"
+                    >
+
+                      <strong>
+
+                        ${model.recommendation}
+
+                        ${line.line}
+
+                      </strong>
+
+                      • ${text(prop.stat)}
+
+                    </div>
+
+                    ${
+                      line.source!=="standard"
+
+                        ? `
+                          <div class="small activeLine">
+                            🔥 Discounted line
+                            • Standard ${line.standard}
+                          </div>
+                        `
+
+                        : ""
+                    }
+
+                    <div
+                      class="small"
+                      style="margin-top:4px"
+                    >
+
+                      Score ${model.rating}
+
+                      • Lean ${(model.probability*100).toFixed(1)}%
+
+                      • Hit ${(model.hitRate*100).toFixed(0)}%
+
+                      • Strength ${model.legStrength.toFixed(1)}
+
+                    </div>
+
+                  </div>
+                  `;
+                }
+              )
+              .join("");
+
+          return `
+          <div
+            class="parlayOption ${
+              index===0
+                ? "top"
+                : ""
+            }"
+          >
+
+            <div class="parlayHeader">
+
+              <div class="row">
+
+                <div>
+
+                  <div class="parlayOptionTitle">
+
+                    ${
+                      index===0
+                        ? "Top Parlay"
+                        : "Parlay Option "+(
+                            index+1
+                          )
+                    }
+
+                  </div>
+
+                  <div class="small">
+
+                    ${item.combo.length} legs
+
+                    • Strength ${metrics.avgStrength.toFixed(1)}
+
+                  </div>
+
+                </div>
+
+                <div class="grade">
+                  ${metrics.grade}
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="parlayStats">
+
+              <div class="parlayStat">
+
+                <div class="parlayStatLabel">
+                  Avg Strength
+                </div>
+
+                <div class="parlayStatValue">
+                  ${metrics.avgStrength.toFixed(1)}
+                </div>
+
+              </div>
+
+              <div class="parlayStat">
+
+                <div class="parlayStatLabel">
+                  Avg Lean
+                </div>
+
+                <div class="parlayStatValue">
+                  ${metrics.avgLean.toFixed(1)}%
+                </div>
+
+              </div>
+
+              <div class="parlayStat">
+
+                <div class="parlayStatLabel">
+                  Avg Matchup
+                </div>
+
+                <div class="parlayStatValue">
+                  ${metrics.avgMatchup.toFixed(0)}
+                </div>
+
+              </div>
+
+            </div>
+
+            ${legs}
+
+            <div
+              class="small"
+              style="padding:10px 12px 0"
+            >
+
+              Correlation:
+
+              <strong class="${correlation.className}">
+                ${correlation.text}
+              </strong>
+
+            </div>
+
+            <button
+              class="addParlayBtn"
+              data-parlay="${index}"
+            >
+              Add This Parlay to My Lineup
+            </button>
+
+          </div>
+          `;
+        }
+      )
+      .join("");
+
+  document
+    .querySelectorAll(
+      "[data-parlay]"
+    )
+    .forEach(
+      button=>{
+
+        button.onclick=
+          ()=>{
+
+            const item=
+              generatedParlays[
+                Number(
+                  button.dataset.parlay
+                )
+              ];
+
+            if(
+              !item
+            ){
+
+              return;
+            }
+
+            item.combo.forEach(
+              x=>{
+
+                selected[
+                  pKey(
+                    x.prop
+                  )
+                ]=
+                  x.model
+                    .recommendation;
+              }
+            );
+
+            render();
+
+            renderPicks();
+
+            button.textContent=
+              "Added to My Lineup ✓";
+          };
+      }
+    );
+}
+
+
+/* MODES */
 
 function clearModeButtons(){
 
@@ -5885,12 +7542,14 @@ function clearModeButtons(){
     "starBtn"
   ]
   .forEach(
-    id=>
+    id=>{
+
       $(id)
         .classList
         .remove(
           "active"
-        )
+        );
+    }
   );
 }
 
@@ -5912,6 +7571,7 @@ function resetModelFilters(){
 function setAllPropsMode(){
 
   bestOnly=false;
+
   starOnly=false;
 
   clearModeButtons();
@@ -5933,6 +7593,7 @@ function setAllPropsMode(){
 function setBestBetsMode(){
 
   bestOnly=true;
+
   starOnly=false;
 
   clearModeButtons();
@@ -5964,6 +7625,7 @@ function setBestBetsMode(){
 function setStarMode(){
 
   bestOnly=false;
+
   starOnly=true;
 
   clearModeButtons();
@@ -5982,9 +7644,8 @@ function setStarMode(){
   render();
 }
 
-/* -----------------------------
-   EVENTS
------------------------------ */
+
+/* EVENTS */
 
 $("gameFilter").onchange=
   render;
@@ -6013,11 +7674,11 @@ $("searchInput").oninput=
 $("refreshBtn").onclick=
   loadData;
 
-$("bestBtn").onclick=
-  setBestBetsMode;
-
 $("allBtn").onclick=
   setAllPropsMode;
+
+$("bestBtn").onclick=
+  setBestBetsMode;
 
 $("starBtn").onclick=
   setStarMode;
@@ -6028,6 +7689,7 @@ $("clearPicks").onclick=
     selected={};
 
     render();
+
     renderPicks();
   };
 
@@ -6044,21 +7706,21 @@ $("parlayScope").onchange=
         "hidden",
         !single
       );
-
-    $("parlayResults").innerHTML=
-      `
-      <div class="small" style="margin-top:12px">
-        Choose your settings and tap Generate Top Parlays.
-      </div>
-      `;
   };
 
 $("generateParlays").onclick=
   generateParlays;
 
+
+/* START */
+
+loadOverrides();
+
 loadData();
+
 renderPicks();
 
 </script>
+
 </body>
 </html>
