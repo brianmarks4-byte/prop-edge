@@ -21,7 +21,6 @@
   --green:#55e59f;
   --red:#ff7c91;
   --yellow:#f0c86c;
-  --blue:#6ea8fe;
 }
 
 body{
@@ -90,9 +89,7 @@ button,input,select{
   font:inherit;
 }
 
-button{
-  cursor:pointer;
-}
+button{cursor:pointer}
 
 .refresh{
   border:0;
@@ -272,7 +269,6 @@ select:focus,input:focus{
   font-size:10px;
   text-transform:uppercase;
   font-weight:800;
-  letter-spacing:.4px;
 }
 
 .metricValue{
@@ -366,10 +362,6 @@ select:focus,input:focus{
   font-size:12px;
 }
 
-.picks{
-  margin-top:22px;
-}
-
 .pickItem{
   background:var(--card2);
   border:1px solid var(--border);
@@ -392,147 +384,134 @@ select:focus,input:focus{
   line-height:1.5;
   text-align:center;
 }
-
-@media(min-width:620px){
-  .filters{
-    grid-template-columns:1fr 1fr;
-  }
-}
 </style>
 </head>
 
 <body>
 <main class="app">
 
-  <header>
-    <div class="brand">Prop <span>Edge</span></div>
-    <div class="subtitle">
-      NFL PrizePicks board + automatic statistical prop ratings
-    </div>
-  </header>
+<header>
+  <div class="brand">Prop <span>Edge</span></div>
+  <div class="subtitle">
+    NFL PrizePicks board + automatic statistical prop ratings
+  </div>
+</header>
 
-  <section class="card">
-    <div class="row">
-      <div>
-        <div class="title">
-          <span class="live"></span>Live Data
-        </div>
-        <div id="feedStatus" class="small">
-          Loading PrizePicks...
-        </div>
-        <div id="modelStatus" class="modelStatus">
-          Loading Prop Edge model...
-        </div>
+<section class="card">
+  <div class="row">
+    <div>
+      <div class="title">
+        <span class="live"></span>Live Data
       </div>
 
-      <button class="refresh" id="refreshBtn">
-        Refresh
-      </button>
-    </div>
-  </section>
-
-  <section class="card">
-    <div class="title" style="margin-bottom:12px">
-      Filters
-    </div>
-
-    <div class="filters">
-
-      <div>
-        <label>Game</label>
-        <select id="gameFilter">
-          <option value="">All NFL Games</option>
-        </select>
+      <div id="feedStatus" class="small">
+        Loading PrizePicks...
       </div>
 
-      <div>
-        <label>Prop Type</label>
-        <select id="statFilter">
-          <option value="">All Prop Types</option>
-        </select>
+      <div id="modelStatus" class="modelStatus">
+        Loading Prop Edge model...
       </div>
-
-      <div>
-        <label>Player / Team</label>
-        <input id="searchInput"
-          placeholder="Search player or team">
-      </div>
-
-      <div>
-        <label>Sort</label>
-        <select id="sortFilter">
-          <option value="board">PrizePicks Board</option>
-          <option value="rating">Best Model Picks</option>
-          <option value="edge">Largest Projection Edge</option>
-        </select>
-      </div>
-
     </div>
 
-    <div class="filterButtons" style="margin-top:10px">
-      <button id="allBtn" class="filterBtn active">
-        All Props
-      </button>
+    <button class="refresh" id="refreshBtn">
+      Refresh
+    </button>
+  </div>
+</section>
 
-      <button id="bestBtn" class="filterBtn">
-        Model Picks Only
-      </button>
-    </div>
-
-  </section>
-
-  <div class="boardHead">
-    <div class="boardTitle">NFL Props</div>
-    <div id="propCount" class="count">0 props</div>
+<section class="card">
+  <div class="title" style="margin-bottom:12px">
+    Filters
   </div>
 
-  <section id="propList" class="props">
-    <div class="loading">Loading...</div>
-  </section>
+  <div class="filters">
 
-  <section class="card picks">
-    <div class="row">
-      <div>
-        <div class="title">My Lineup</div>
-        <div id="selectedCount" class="small">
-          No picks selected
-        </div>
-      </div>
-      <button id="clearPicks" class="refresh">
-        Clear
-      </button>
+    <div>
+      <label>Game</label>
+      <select id="gameFilter">
+        <option value="">All NFL Games</option>
+      </select>
     </div>
 
-    <div id="pickList"></div>
-  </section>
+    <div>
+      <label>Prop Type</label>
+      <select id="statFilter">
+        <option value="">All Prop Types</option>
+      </select>
+    </div>
 
-  <div class="disclaimer">
-    Prop Edge Model v1 uses historical NFL game results and recent-form
-    weighting. Ratings are estimates, not guarantees. Injuries, weather,
-    lineup changes and other information may not yet be incorporated.
+    <div>
+      <label>Player / Team</label>
+      <input id="searchInput" placeholder="Search player or team">
+    </div>
+
+    <div>
+      <label>Sort</label>
+      <select id="sortFilter">
+        <option value="board">PrizePicks Board</option>
+        <option value="rating">Best Model Picks</option>
+        <option value="edge">Largest Projection Edge</option>
+      </select>
+    </div>
+
   </div>
+
+  <div class="filterButtons" style="margin-top:10px">
+    <button id="allBtn" class="filterBtn active">
+      All Props
+    </button>
+
+    <button id="bestBtn" class="filterBtn">
+      Model Picks Only
+    </button>
+  </div>
+</section>
+
+<div class="boardHead">
+  <div class="boardTitle">NFL Props</div>
+  <div id="propCount" class="count">0 props</div>
+</div>
+
+<section id="propList" class="props">
+  <div class="loading">Loading...</div>
+</section>
+
+<section class="card">
+  <div class="row">
+    <div>
+      <div class="title">My Lineup</div>
+      <div id="selectedCount" class="small">
+        No picks selected
+      </div>
+    </div>
+
+    <button id="clearPicks" class="refresh">
+      Clear
+    </button>
+  </div>
+
+  <div id="pickList"></div>
+</section>
+
+<div class="disclaimer">
+  Prop Edge Model v1 uses recent NFL player game results.
+  Ratings are estimates, not guarantees. Week 1 relies heavily
+  on prior-season history because current-season samples are limited.
+</div>
 
 </main>
 
 <script>
 
-/* -------------------------
-   DATA SOURCES
-------------------------- */
-
 const PP_URL =
 "https://raw.githubusercontent.com/ENKDAY/prizepicks-scraper/main/data/prizepicks-nfl.json";
 
 const NFL_2026 =
-"https://github.com/nflverse/nflverse-data/releases/download/stats_player/stats_player_week_2026.csv";
+"https://github.com/nflverse/nflverse-data/releases/download/stats_player/stats_player_week_2026.csv?raw=1";
 
 const NFL_2025 =
-"https://github.com/nflverse/nflverse-data/releases/download/stats_player/stats_player_week_2025.csv";
+"https://github.com/nflverse/nflverse-data/releases/download/stats_player/stats_player_week_2025.csv?raw=1";
 
-
-/* -------------------------
-   STATE
-------------------------- */
 
 let allProps = [];
 let statsRows = [];
@@ -540,10 +519,6 @@ let models = new Map();
 let selected = {};
 let modelOnly = false;
 
-
-/* -------------------------
-   HELPERS
-------------------------- */
 
 const $ = id => document.getElementById(id);
 
@@ -609,8 +584,6 @@ function sd(arr){
   );
 }
 
-/* approximation of normal CDF */
-
 function erf(x){
   const sign = x < 0 ? -1 : 1;
   x = Math.abs(x);
@@ -636,10 +609,6 @@ function normalCDF(x){
   return .5*(1+erf(x/Math.sqrt(2)));
 }
 
-
-/* -------------------------
-   SIMPLE CSV PARSER
-------------------------- */
 
 function parseCSV(data){
 
@@ -708,10 +677,6 @@ function parseCSV(data){
   });
 }
 
-
-/* -------------------------
-   PROP -> NFLVERSE STAT
-------------------------- */
 
 function statValue(row,stat){
 
@@ -796,23 +761,9 @@ function statValue(row,stat){
     );
   }
 
-  if(
-    s.includes("rush+rec td") ||
-    s.includes("rush + rec td")
-  ){
-    return (
-      num(row.rushing_tds) +
-      num(row.receiving_tds)
-    );
-  }
-
   return null;
 }
 
-
-/* -------------------------
-   MODEL
-------------------------- */
 
 function buildModel(prop){
 
@@ -833,8 +784,7 @@ function buildModel(prop){
       return normName(display) === name;
     })
     .filter(r=>{
-      const val=statValue(r,prop.stat);
-      return val !== null;
+      return statValue(r,prop.stat) !== null;
     })
     .sort((a,b)=>{
 
@@ -854,17 +804,8 @@ function buildModel(prop){
 
   const games=recent.map(r=>statValue(r,prop.stat));
 
-  if(games.some(x=>x === null)){
-    return null;
-  }
-
-  /*
-     Weighted recent form.
-     Most recent game gets the largest weight.
-  */
-
   const weights=[
-    1.00,.92,.85,.78,.72,
+    1,.92,.85,.78,.72,
     .66,.61,.56,.52,.48
   ].slice(0,games.length);
 
@@ -884,16 +825,6 @@ function buildModel(prop){
 
   const last5=
     mean(games.slice(0,Math.min(5,games.length)));
-
-  /*
-    Projection blends:
-    60% weighted recent sample
-    25% last 5
-    15% last 3
-
-    This avoids one extreme game completely
-    controlling the projection.
-  */
 
   const projection=
     weightedMean*.60 +
@@ -917,12 +848,6 @@ function buildModel(prop){
   const empiricalUnder=
     games.filter(v=>v<line).length/games.length;
 
-  /*
-    Blend probability estimate:
-    distribution-based estimate + actual recent
-    line hit rate.
-  */
-
   let overProb=
     overNormal*.58 +
     empiricalOver*.42;
@@ -931,12 +856,8 @@ function buildModel(prop){
     (1-overNormal)*.58 +
     empiricalUnder*.42;
 
-  /*
-    Reduce extreme probabilities with small samples.
-  */
-
   const sampleFactor=
-    clamp(games.length/8,0.45,1);
+    clamp(games.length/8,.45,1);
 
   overProb=
     .50+(overProb-.50)*sampleFactor;
@@ -962,13 +883,6 @@ function buildModel(prop){
 
   const absEdge=Math.abs(edgePct);
 
-  /*
-    Rating emphasizes:
-    estimated hit probability
-    projection separation
-    sample size
-  */
-
   const probabilityScore=
     clamp((probability-.50)/.20,0,1);
 
@@ -985,11 +899,6 @@ function buildModel(prop){
     sampleScore*8;
 
   rating=Math.round(clamp(rating,50,99));
-
-  /*
-    We don't want tiny edges appearing as
-    strong picks.
-  */
 
   let recommendation=side;
 
@@ -1025,25 +934,26 @@ function buildModel(prop){
 }
 
 
-/* -------------------------
-   LOAD DATA
-------------------------- */
-
 async function fetchText(url){
 
-  const response=await fetch(
-    url+"?v="+Date.now(),
-    {cache:"no-store"}
+  const separator =
+    url.includes("?") ? "&" : "?";
+
+  const response = await fetch(
+    url + separator + "v=" + Date.now(),
+    {
+      cache:"no-store",
+      redirect:"follow"
+    }
   );
 
   if(!response.ok){
-    throw new Error(
-      "HTTP "+response.status
-    );
+    throw new Error("HTTP "+response.status);
   }
 
   return response.text();
 }
+
 
 async function loadData(){
 
@@ -1088,13 +998,8 @@ async function loadData(){
     return;
   }
 
-  try{
 
-    /*
-      Current season + previous season gives
-      useful recent-game history even early
-      in a new NFL season.
-    */
+  try{
 
     const results=
       await Promise.allSettled([
@@ -1107,9 +1012,12 @@ async function loadData(){
     results.forEach(result=>{
 
       if(result.status === "fulfilled"){
-        statsRows.push(
-          ...parseCSV(result.value)
-        );
+
+        const parsed = parseCSV(result.value);
+
+        if(parsed.length){
+          statsRows.push(...parsed);
+        }
       }
 
     });
@@ -1135,10 +1043,6 @@ async function loadData(){
 }
 
 
-/* -------------------------
-   BUILD MODEL CACHE
-------------------------- */
-
 function buildModels(){
 
   models.clear();
@@ -1155,10 +1059,6 @@ function buildModels(){
 }
 
 
-/* -------------------------
-   BOARD HELPERS
-------------------------- */
-
 function dedupe(props){
 
   const seen=new Set();
@@ -1173,6 +1073,7 @@ function dedupe(props){
     return true;
   });
 }
+
 
 function formatTime(value){
 
@@ -1192,6 +1093,7 @@ function formatTime(value){
     return "updated recently";
   }
 }
+
 
 function buildFilters(){
 
@@ -1248,10 +1150,6 @@ function buildFilters(){
   });
 }
 
-
-/* -------------------------
-   FILTER / SORT
-------------------------- */
 
 function getProps(){
 
@@ -1345,16 +1243,13 @@ function getProps(){
 }
 
 
-/* -------------------------
-   RENDER
-------------------------- */
-
 function ratingClass(rating){
 
   if(rating>=75) return "good";
   if(rating>=65) return "mid";
   return "low";
 }
+
 
 function modelHTML(model){
 
@@ -1366,6 +1261,7 @@ function modelHTML(model){
           <div class="modelTitle">PROP EDGE MODEL</div>
           <div class="rating low">—</div>
         </div>
+
         <div class="reason" style="padding-top:11px">
           Not enough supported historical data for this prop yet.
         </div>
@@ -1449,6 +1345,7 @@ function modelHTML(model){
   `;
 }
 
+
 function render(){
 
   const props=getProps();
@@ -1463,11 +1360,6 @@ function render(){
 
     return;
   }
-
-  /*
-    Limit DOM load for Safari.
-    Filters still search the entire board.
-  */
 
   const shown=props.slice(0,250);
 
@@ -1578,10 +1470,6 @@ function render(){
 }
 
 
-/* -------------------------
-   LINEUP
-------------------------- */
-
 function renderPicks(){
 
   const entries=Object.entries(selected);
@@ -1656,10 +1544,6 @@ function renderPicks(){
 }
 
 
-/* -------------------------
-   EVENTS
-------------------------- */
-
 $("gameFilter").onchange=render;
 $("statFilter").onchange=render;
 $("sortFilter").onchange=render;
@@ -1697,10 +1581,6 @@ $("clearPicks").onclick=()=>{
   renderPicks();
 };
 
-
-/* -------------------------
-   START
-------------------------- */
 
 loadData();
 renderPicks();
