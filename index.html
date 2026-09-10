@@ -417,6 +417,7 @@ select:focus,input:focus{
 </section>
 
 <section class="card">
+
   <div class="title" style="margin-bottom:12px">
     Filters
   </div>
@@ -445,10 +446,10 @@ select:focus,input:focus{
     <div>
       <label>Minimum Model Score</label>
       <select id="scoreFilter">
-        <option value="0">Any Score</option>
+        <option value="0" selected>Any Score</option>
         <option value="70">70+</option>
         <option value="75">75+</option>
-        <option value="80" selected>80+ Best Bets</option>
+        <option value="80">80+ Best Bets</option>
         <option value="84">84+ Elite</option>
       </select>
     </div>
@@ -456,9 +457,9 @@ select:focus,input:focus{
     <div>
       <label>Minimum Model Lean</label>
       <select id="leanFilter">
-        <option value="0">Any Lean</option>
+        <option value="0" selected>Any Lean</option>
         <option value="0.58">58%+</option>
-        <option value="0.60" selected>60%+</option>
+        <option value="0.60">60%+</option>
         <option value="0.62">62%+</option>
         <option value="0.64">64%+</option>
       </select>
@@ -467,9 +468,9 @@ select:focus,input:focus{
     <div>
       <label>Minimum Historical Hit Rate</label>
       <select id="hitFilter">
-        <option value="0">Any Hit Rate</option>
+        <option value="0" selected>Any Hit Rate</option>
         <option value="0.55">55%+</option>
-        <option value="0.60" selected>60%+</option>
+        <option value="0.60">60%+</option>
         <option value="0.70">70%+</option>
         <option value="0.80">80%+</option>
       </select>
@@ -478,9 +479,10 @@ select:focus,input:focus{
     <div>
       <label>Minimum Sample Size</label>
       <select id="sampleFilter">
+        <option value="0" selected>Any Sample</option>
         <option value="5">5+ Games</option>
         <option value="6">6+ Games</option>
-        <option value="8" selected>8+ Games</option>
+        <option value="8">8+ Games</option>
         <option value="10">10 Games</option>
       </select>
     </div>
@@ -488,8 +490,8 @@ select:focus,input:focus{
     <div>
       <label>Sort</label>
       <select id="sortFilter">
-        <option value="board">PrizePicks Board</option>
-        <option value="rating" selected>Best Model Picks</option>
+        <option value="board" selected>PrizePicks Board</option>
+        <option value="rating">Best Model Picks</option>
         <option value="edge">Strongest Statistical Edge</option>
         <option value="lean">Highest Model Lean</option>
         <option value="hit">Highest Historical Hit Rate</option>
@@ -502,6 +504,7 @@ select:focus,input:focus{
     <button id="allBtn" class="filterBtn active">All Props</button>
     <button id="bestBtn" class="filterBtn">Best Bets Only</button>
   </div>
+
 </section>
 
 <div class="boardHead">
@@ -514,16 +517,22 @@ select:focus,input:focus{
 </section>
 
 <section class="card">
+
   <div class="row">
     <div>
       <div class="title">My Lineup</div>
-      <div id="selectedCount" class="small">No picks selected</div>
+      <div id="selectedCount" class="small">
+        No picks selected
+      </div>
     </div>
 
-    <button id="clearPicks" class="refresh">Clear</button>
+    <button id="clearPicks" class="refresh">
+      Clear
+    </button>
   </div>
 
   <div id="pickList"></div>
+
 </section>
 
 <div class="disclaimer">
@@ -569,6 +578,7 @@ function mean(arr){
 }
 
 function median(arr){
+
   if(!arr.length) return 0;
 
   const s=[...arr].sort((a,b)=>a-b);
@@ -580,17 +590,21 @@ function median(arr){
 }
 
 function sd(arr){
+
   if(arr.length<2) return 0;
 
   const m=mean(arr);
 
   return Math.sqrt(
-    arr.reduce((s,x)=>s+Math.pow(x-m,2),0) /
-    (arr.length-1)
+    arr.reduce(
+      (sum,x)=>sum+Math.pow(x-m,2),
+      0
+    )/(arr.length-1)
   );
 }
 
 function normName(name){
+
   return text(name)
     .toLowerCase()
     .normalize("NFD")
@@ -599,7 +613,10 @@ function normName(name){
 }
 
 function gameKey(p){
-  if(p.gameId) return text(p.gameId);
+
+  if(p.gameId){
+    return text(p.gameId);
+  }
 
   return [
     text(p.teamCode||p.Team),
@@ -608,6 +625,7 @@ function gameKey(p){
 }
 
 function matchup(p){
+
   const a=text(p.teamCode||p.Team);
   const b=text(p.opponentCode||p.Opponent);
 
@@ -617,6 +635,7 @@ function matchup(p){
 }
 
 function pKey(p){
+
   return [
     text(p.gameId),
     text(p.player),
@@ -626,6 +645,7 @@ function pKey(p){
 }
 
 function erf(x){
+
   const sign=x<0?-1:1;
   x=Math.abs(x);
 
@@ -653,6 +673,7 @@ function normalCDF(x){
 function parseCSV(data){
 
   const rows=[];
+
   let row=[];
   let field="";
   let quoted=false;
@@ -675,9 +696,15 @@ function parseCSV(data){
       row.push(field);
       field="";
 
-    }else if((c==="\n" || c==="\r") && !quoted){
+    }else if(
+      (c==="\n" || c==="\r") &&
+      !quoted
+    ){
 
-      if(c==="\r" && data[i+1]==="\n"){
+      if(
+        c==="\r" &&
+        data[i+1]==="\n"
+      ){
         i++;
       }
 
@@ -697,6 +724,7 @@ function parseCSV(data){
   }
 
   if(field || row.length){
+
     row.push(field);
     rows.push(row);
   }
@@ -707,16 +735,18 @@ function parseCSV(data){
 
   const headers=rows[0];
 
-  return rows.slice(1).map(values=>{
+  return rows
+    .slice(1)
+    .map(values=>{
 
-    const obj={};
+      const obj={};
 
-    headers.forEach((h,i)=>{
-      obj[h]=values[i] ?? "";
+      headers.forEach((h,i)=>{
+        obj[h]=values[i] ?? "";
+      });
+
+      return obj;
     });
-
-    return obj;
-  });
 }
 
 function statValue(row,stat){
@@ -725,11 +755,17 @@ function statValue(row,stat){
     .toLowerCase()
     .trim();
 
-  if(s==="pass yards" || s==="passing yards"){
+  if(
+    s==="pass yards" ||
+    s==="passing yards"
+  ){
     return num(row.passing_yards);
   }
 
-  if(s==="pass attempts" || s==="passing attempts"){
+  if(
+    s==="pass attempts" ||
+    s==="passing attempts"
+  ){
     return num(row.attempts);
   }
 
@@ -757,15 +793,24 @@ function statValue(row,stat){
     return num(row.interceptions);
   }
 
-  if(s==="rush yards" || s==="rushing yards"){
+  if(
+    s==="rush yards" ||
+    s==="rushing yards"
+  ){
     return num(row.rushing_yards);
   }
 
-  if(s==="rush attempts" || s==="rushing attempts"){
+  if(
+    s==="rush attempts" ||
+    s==="rushing attempts"
+  ){
     return num(row.carries);
   }
 
-  if(s==="receiving yards" || s==="rec yards"){
+  if(
+    s==="receiving yards" ||
+    s==="rec yards"
+  ){
     return num(row.receiving_yards);
   }
 
@@ -782,7 +827,10 @@ function statValue(row,stat){
     s==="rush + rec yards" ||
     s==="rushing + receiving yards"
   ){
-    return num(row.rushing_yards)+num(row.receiving_yards);
+    return (
+      num(row.rushing_yards) +
+      num(row.receiving_yards)
+    );
   }
 
   if(
@@ -790,7 +838,10 @@ function statValue(row,stat){
     s==="rush + rec tds" ||
     s==="rushing + receiving tds"
   ){
-    return num(row.rushing_tds)+num(row.receiving_tds);
+    return (
+      num(row.rushing_tds) +
+      num(row.receiving_tds)
+    );
   }
 
   return null;
@@ -798,53 +849,77 @@ function statValue(row,stat){
 
 function statSettings(stat){
 
-  const s=text(stat).toLowerCase().trim();
+  const s=text(stat)
+    .toLowerCase()
+    .trim();
 
-  if(s.includes("pass yards")){
+  if(
+    s==="pass yards" ||
+    s==="passing yards"
+  ){
     return {
       minGap:15,
       minZ:.40,
-      volatilityPenalty:1
+      penalty:1
     };
   }
 
-  if(s.includes("receiving yards")){
+  if(
+    s==="receiving yards" ||
+    s==="rec yards"
+  ){
     return {
       minGap:7,
       minZ:.42,
-      volatilityPenalty:1
+      penalty:1
     };
   }
 
-  if(s.includes("rush yards")){
+  if(
+    s==="rush yards" ||
+    s==="rushing yards"
+  ){
     return {
       minGap:6,
       minZ:.42,
-      volatilityPenalty:1
+      penalty:1
     };
   }
 
-  if(s.includes("rush+rec yards")){
+  if(
+    s==="rush+rec yards" ||
+    s==="rush + rec yards" ||
+    s==="rushing + receiving yards"
+  ){
     return {
       minGap:8,
       minZ:.42,
-      volatilityPenalty:1
+      penalty:1
     };
   }
 
-  if(s.includes("attempts")){
+  if(
+    s==="pass attempts" ||
+    s==="passing attempts" ||
+    s==="rush attempts" ||
+    s==="rushing attempts"
+  ){
     return {
       minGap:2,
       minZ:.40,
-      volatilityPenalty:1
+      penalty:1
     };
   }
 
-  if(s.includes("completions")){
+  if(
+    s==="completions" ||
+    s==="pass completions" ||
+    s==="passing completions"
+  ){
     return {
       minGap:1.5,
       minZ:.40,
-      volatilityPenalty:1
+      penalty:1
     };
   }
 
@@ -852,7 +927,7 @@ function statSettings(stat){
     return {
       minGap:1,
       minZ:.42,
-      volatilityPenalty:1
+      penalty:1
     };
   }
 
@@ -860,7 +935,7 @@ function statSettings(stat){
     return {
       minGap:1.2,
       minZ:.42,
-      volatilityPenalty:1
+      penalty:1
     };
   }
 
@@ -872,14 +947,14 @@ function statSettings(stat){
     return {
       minGap:.45,
       minZ:.55,
-      volatilityPenalty:.78
+      penalty:.78
     };
   }
 
   return {
     minGap:1,
     minZ:.45,
-    volatilityPenalty:.90
+    penalty:.90
   };
 }
 
@@ -889,10 +964,22 @@ function winsorize(arr){
     return [...arr];
   }
 
-  const sorted=[...arr].sort((a,b)=>a-b);
+  const sorted=
+    [...arr].sort((a,b)=>a-b);
 
-  const low=sorted[Math.floor((sorted.length-1)*.10)];
-  const high=sorted[Math.ceil((sorted.length-1)*.90)];
+  const low=
+    sorted[
+      Math.floor(
+        (sorted.length-1)*.10
+      )
+    ];
+
+  const high=
+    sorted[
+      Math.ceil(
+        (sorted.length-1)*.90
+      )
+    ];
 
   return arr.map(x=>
     clamp(x,low,high)
@@ -901,103 +988,133 @@ function winsorize(arr){
 
 function buildModel(prop){
 
-  const playerName=normName(prop.player);
-  const line=Number(prop.line);
+  const playerName=
+    normName(prop.player);
 
-  if(!playerName || !Number.isFinite(line)){
+  const line=
+    Number(prop.line);
+
+  if(
+    !playerName ||
+    !Number.isFinite(line)
+  ){
     return null;
   }
 
-  const matched=statsRows
-    .filter(r=>{
+  const matched=
+    statsRows
+      .filter(r=>{
 
-      const display=
-        r.player_display_name ||
-        r.player_name ||
-        "";
+        const display=
+          r.player_display_name ||
+          r.player_name ||
+          "";
 
-      return normName(display)===playerName;
+        return (
+          normName(display)===
+          playerName
+        );
+      })
 
-    })
-    .filter(r=>{
+      .filter(r=>{
 
-      const seasonType=
-        text(r.season_type).toUpperCase();
+        const seasonType=
+          text(r.season_type)
+            .toUpperCase();
 
-      return !seasonType || seasonType==="REG";
+        return (
+          !seasonType ||
+          seasonType==="REG"
+        );
+      })
 
-    })
-    .filter(r=>statValue(r,prop.stat)!==null);
+      .filter(r=>
+        statValue(r,prop.stat)!==null
+      );
 
   if(matched.length<5){
     return null;
   }
 
-  const current=matched
-    .filter(r=>num(r.season)===2026)
-    .sort((a,b)=>num(b.week)-num(a.week));
+  const current=
+    matched
+      .filter(r=>num(r.season)===2026)
+      .sort(
+        (a,b)=>num(b.week)-num(a.week)
+      );
 
-  const prior=matched
-    .filter(r=>num(r.season)===2025)
-    .sort((a,b)=>num(b.week)-num(a.week));
+  const prior=
+    matched
+      .filter(r=>num(r.season)===2025)
+      .sort(
+        (a,b)=>num(b.week)-num(a.week)
+      );
 
-  const currentGames=current.slice(0,8);
-  const priorGames=prior.slice(0,10);
+  const currentGames=
+    current.slice(0,8);
+
+  const priorGames=
+    prior.slice(0,10);
 
   let combined=[];
 
   if(currentGames.length===0){
 
-    priorGames.forEach((r,i)=>{
+    const weights=[
+      1,
+      .95,
+      .90,
+      .85,
+      .80,
+      .75,
+      .70,
+      .65,
+      .60,
+      .55
+    ];
 
-      const weights=[
-        1,
-        .95,
-        .90,
-        .85,
-        .80,
-        .75,
-        .70,
-        .65,
-        .60,
-        .55
-      ];
+    priorGames.forEach(
+      (r,i)=>{
 
-      combined.push({
-        row:r,
-        weight:weights[i]
-      });
-    });
+        combined.push({
+          row:r,
+          weight:weights[i] || .5
+        });
+      }
+    );
 
   }else{
 
-    currentGames.forEach((r,i)=>{
+    const currentWeights=[
+      1.45,
+      1.32,
+      1.20,
+      1.10,
+      1.00,
+      .92,
+      .85,
+      .78
+    ];
 
-      const weights=[
-        1.45,
-        1.32,
-        1.20,
-        1.10,
-        1.00,
-        .92,
-        .85,
-        .78
-      ];
+    currentGames.forEach(
+      (r,i)=>{
 
-      combined.push({
-        row:r,
-        weight:weights[i]
-      });
-    });
+        combined.push({
+          row:r,
+          weight:
+            currentWeights[i] || .75
+        });
+      }
+    );
 
     const priorLimit=
       currentGames.length>=6
-      ? 3
-      : currentGames.length>=4
-        ? 5
-        : currentGames.length>=2
-          ? 7
-          : 9;
+        ? 3
+        : currentGames.length>=4
+          ? 5
+          : currentGames.length>=2
+            ? 7
+            : 9;
 
     priorGames
       .slice(0,priorLimit)
@@ -1005,16 +1122,17 @@ function buildModel(prop){
 
         const base=
           currentGames.length>=6
-          ? .35
-          : currentGames.length>=4
-            ? .45
-            : currentGames.length>=2
-              ? .58
-              : .68;
+            ? .35
+            : currentGames.length>=4
+              ? .45
+              : currentGames.length>=2
+                ? .58
+                : .68;
 
         combined.push({
           row:r,
-          weight:base*Math.pow(.92,i)
+          weight:
+            base*Math.pow(.92,i)
         });
       });
   }
@@ -1023,17 +1141,25 @@ function buildModel(prop){
     return null;
   }
 
-  let values=combined.map(x=>
-    statValue(x.row,prop.stat)
-  );
+  let values=
+    combined.map(x=>
+      statValue(
+        x.row,
+        prop.stat
+      )
+    );
 
-  values=winsorize(values);
+  values=
+    winsorize(values);
 
   let weightedTotal=0;
   let weightTotal=0;
 
   combined.forEach((x,i)=>{
-    weightedTotal+=values[i]*x.weight;
+
+    weightedTotal+=
+      values[i]*x.weight;
+
     weightTotal+=x.weight;
   });
 
@@ -1044,13 +1170,22 @@ function buildModel(prop){
     median(values);
 
   const recent5=
-    values.slice(0,Math.min(5,values.length));
+    values.slice(
+      0,
+      Math.min(5,values.length)
+    );
 
   const recent3=
-    values.slice(0,Math.min(3,values.length));
+    values.slice(
+      0,
+      Math.min(3,values.length)
+    );
 
-  const last5=mean(recent5);
-  const last3=mean(recent3);
+  const last5=
+    mean(recent5);
+
+  const last3=
+    mean(recent3);
 
   let projection=
     weightedMean*.52 +
@@ -1059,8 +1194,7 @@ function buildModel(prop){
     last3*.10;
 
   /*
-  Conservative regression toward market line.
-  Strongest in Week 1.
+  Early-season regression toward market line.
   */
 
   if(currentGames.length===0){
@@ -1092,27 +1226,41 @@ function buildModel(prop){
     );
 
   const z=
-    (projection-line)/deviation;
+    (projection-line)/
+    deviation;
 
   const normalOver=
     1-normalCDF(
-      (line-projection)/deviation
+      (line-projection)/
+      deviation
     );
 
   const overHits=
-    values.filter(v=>v>line).length;
+    values.filter(
+      v=>v>line
+    ).length;
 
   const underHits=
-    values.filter(v=>v<line).length;
+    values.filter(
+      v=>v<line
+    ).length;
 
-  const pushHits=
-    values.filter(v=>v===line).length;
+  const pushes=
+    values.filter(
+      v=>v===line
+    ).length;
 
   const historicalOver=
-    (overHits+.5*pushHits)/values.length;
+    (
+      overHits +
+      .5*pushes
+    )/values.length;
 
   const historicalUnder=
-    (underHits+.5*pushHits)/values.length;
+    (
+      underHits +
+      .5*pushes
+    )/values.length;
 
   let overProb=
     normalOver*.55 +
@@ -1121,10 +1269,6 @@ function buildModel(prop){
   let underProb=
     (1-normalOver)*.55 +
     historicalUnder*.45;
-
-  /*
-  Sample and early-season shrinkage toward 50%.
-  */
 
   let shrink=.72;
 
@@ -1139,37 +1283,59 @@ function buildModel(prop){
   }
 
   const sampleShrink=
-    clamp(values.length/10,.60,1);
+    clamp(
+      values.length/10,
+      .60,
+      1
+    );
 
   shrink*=sampleShrink;
 
   overProb=
-    .50+(overProb-.50)*shrink;
+    .50+
+    (overProb-.50)*shrink;
 
   underProb=
-    .50+(underProb-.50)*shrink;
+    .50+
+    (underProb-.50)*shrink;
 
-  overProb=clamp(overProb,.35,.67);
-  underProb=clamp(underProb,.35,.67);
+  overProb=
+    clamp(
+      overProb,
+      .35,
+      .67
+    );
+
+  underProb=
+    clamp(
+      underProb,
+      .35,
+      .67
+    );
 
   const side=
     overProb>=underProb
-    ? "More"
-    : "Less";
+      ? "More"
+      : "Less";
 
   const probability=
-    Math.max(overProb,underProb);
+    Math.max(
+      overProb,
+      underProb
+    );
 
   const histHit=
     side==="More"
-    ? historicalOver
-    : historicalUnder;
+      ? historicalOver
+      : historicalUnder;
 
   const projectionGap=
     projection-line;
 
   const absGap=
-    Math.abs(projectionGap);
+    Math.abs(
+      projectionGap
+    );
 
   const standardizedEdge=
     Math.abs(z);
@@ -1206,11 +1372,14 @@ function buildModel(prop){
       ? last5>line
       : last5<line;
 
-  const agreementCount=[
-    projectionAgreement,
-    medianAgreement,
-    last5Agreement
-  ].filter(Boolean).length;
+  const agreementCount=
+    [
+      projectionAgreement,
+      medianAgreement,
+      last5Agreement
+    ]
+    .filter(Boolean)
+    .length;
 
   const probabilityScore=
     clamp(
@@ -1252,7 +1421,7 @@ function buildModel(prop){
     agreementScore*4 +
     volatilityScore*3;
 
-  rating*=settings.volatilityPenalty;
+  rating*=settings.penalty;
 
   if(currentGames.length===0){
     rating=Math.min(rating,84);
@@ -1264,11 +1433,15 @@ function buildModel(prop){
 
   rating=
     Math.round(
-      clamp(rating,50,90)
+      clamp(
+        rating,
+        50,
+        90
+      )
     );
 
   /*
-  BEST BET QUALIFIERS
+  FINAL BEST BET RULES
   */
 
   const enoughSample=
@@ -1281,10 +1454,12 @@ function buildModel(prop){
     histHit>=.60;
 
   const enoughZ=
-    standardizedEdge>=settings.minZ;
+    standardizedEdge>=
+    settings.minZ;
 
   const enoughGap=
-    absGap>=settings.minGap;
+    absGap>=
+    settings.minGap;
 
   const enoughAgreement=
     agreementCount>=2;
@@ -1304,8 +1479,8 @@ function buildModel(prop){
 
   const recommendation=
     strongPick
-    ? side
-    : "Pass";
+      ? side
+      : "Pass";
 
   return {
     projection,
@@ -1314,13 +1489,16 @@ function buildModel(prop){
     recommendation,
     side,
     sample:values.length,
-    currentSample:currentGames.length,
-    priorSample:priorGames.length,
+    currentSample:
+      currentGames.length,
+    priorSample:
+      priorGames.length,
     last3,
     last5,
     median:med,
     hitRate:histHit,
-    rawDifference:projectionGap,
+    rawDifference:
+      projectionGap,
     standardizedEdge,
     volatility,
     agreementCount
@@ -1331,8 +1509,8 @@ async function fetchText(url){
 
   const separator=
     url.includes("?")
-    ? "&"
-    : "?";
+      ? "&"
+      : "?";
 
   const response=
     await fetch(
@@ -1346,6 +1524,7 @@ async function fetchText(url){
     );
 
   if(!response.ok){
+
     throw new Error(
       `${url} returned HTTP ${response.status}`
     );
@@ -1369,13 +1548,16 @@ async function loadData(){
 
     const ppRes=
       await fetch(
-        PP_URL+"?v="+Date.now(),
+        PP_URL+
+        "?v="+
+        Date.now(),
         {
           cache:"no-store"
         }
       );
 
     if(!ppRes.ok){
+
       throw new Error(
         "PrizePicks feed unavailable"
       );
@@ -1386,8 +1568,8 @@ async function loadData(){
 
     allProps=
       Array.isArray(pp.props)
-      ? dedupe(pp.props)
-      : [];
+        ? dedupe(pp.props)
+        : [];
 
     $("feedStatus").textContent=
       `${allProps.length} PrizePicks NFL props • ${formatTime(pp.scrapedAt)}`;
@@ -1408,7 +1590,9 @@ async function loadData(){
   try{
 
     const statsText=
-      await fetchText(NFL_STATS);
+      await fetchText(
+        NFL_STATS
+      );
 
     statsRows=
       parseCSV(statsText);
@@ -1421,20 +1605,17 @@ async function loadData(){
     }else{
 
       $("modelStatus").textContent=
-        "Historical model file loaded but contained no player records";
+        "Historical model file contained no records";
     }
 
   }catch(e){
 
-    console.warn(
-      "NFL stats file unavailable:",
-      e
-    );
+    console.warn(e);
 
     statsRows=[];
 
     $("modelStatus").textContent=
-      "Historical model data unavailable — board still works";
+      "Historical model unavailable — board still works";
   }
 
   buildModels();
@@ -1452,6 +1633,7 @@ function buildModels(){
       buildModel(p);
 
     if(model){
+
       models.set(
         pKey(p),
         model
@@ -1462,7 +1644,8 @@ function buildModels(){
 
 function dedupe(props){
 
-  const seen=new Set();
+  const seen=
+    new Set();
 
   return props.filter(p=>{
 
@@ -1473,6 +1656,7 @@ function dedupe(props){
     }
 
     seen.add(key);
+
     return true;
   });
 }
@@ -1505,43 +1689,60 @@ function formatTime(value){
 
 function buildFilters(){
 
-  const games=new Map();
+  const games=
+    new Map();
 
   allProps.forEach(p=>{
 
-    const key=gameKey(p);
+    const key=
+      gameKey(p);
 
-    if(!key || games.has(key)){
+    if(
+      !key ||
+      games.has(key)
+    ){
       return;
     }
 
-    let label=matchup(p);
+    let label=
+      matchup(p);
 
     if(p.startTimeCST){
-      label+=" • "+p.startTimeCST;
+
+      label+=
+        " • "+
+        p.startTimeCST;
     }
 
-    games.set(key,label);
+    games.set(
+      key,
+      label
+    );
   });
 
   $("gameFilter").innerHTML=
     '<option value="">All NFL Games</option>';
 
   [...games.entries()]
-    .sort((a,b)=>
-      a[1].localeCompare(b[1])
+    .sort(
+      (a,b)=>
+        a[1].localeCompare(b[1])
     )
-    .forEach(([value,label])=>{
+    .forEach(
+      ([value,label])=>{
 
-      const o=
-        document.createElement("option");
+        const option=
+          document.createElement(
+            "option"
+          );
 
-      o.value=value;
-      o.textContent=label;
+        option.value=value;
+        option.textContent=label;
 
-      $("gameFilter")
-        .appendChild(o);
-    });
+        $("gameFilter")
+          .appendChild(option);
+      }
+    );
 
   const stats=[
     ...new Set(
@@ -1556,15 +1757,27 @@ function buildFilters(){
 
   stats.forEach(stat=>{
 
-    const o=
-      document.createElement("option");
+    const option=
+      document.createElement(
+        "option"
+      );
 
-    o.value=stat;
-    o.textContent=stat;
+    option.value=stat;
+    option.textContent=stat;
 
     $("statFilter")
-      .appendChild(o);
+      .appendChild(option);
   });
+}
+
+function modelFiltersActive(){
+
+  return (
+    Number($("scoreFilter").value)>0 ||
+    Number($("leanFilter").value)>0 ||
+    Number($("hitFilter").value)>0 ||
+    Number($("sampleFilter").value)>0
+  );
 }
 
 function getProps(){
@@ -1601,14 +1814,23 @@ function getProps(){
       $("sampleFilter").value
     );
 
+  const useModelFilters=
+    modelFiltersActive();
+
   let props=
     allProps.filter(p=>{
 
-      if(game && gameKey(p)!==game){
+      if(
+        game &&
+        gameKey(p)!==game
+      ){
         return false;
       }
 
-      if(stat && text(p.stat)!==stat){
+      if(
+        stat &&
+        text(p.stat)!==stat
+      ){
         return false;
       }
 
@@ -1626,7 +1848,9 @@ function getProps(){
         .join(" ")
         .toLowerCase();
 
-        if(!hay.includes(search)){
+        if(
+          !hay.includes(search)
+        ){
           return false;
         }
       }
@@ -1637,46 +1861,55 @@ function getProps(){
         );
 
       /*
-      All Props mode:
-      always show full board unless user
-      manually applies model filters.
+      If All Props is selected and
+      every model filter is set to Any,
+      the prop stays visible even when
+      no model exists for it.
       */
 
-      if(!m){
-
-        if(
-          bestOnly ||
-          minScore>0 ||
-          minLean>0 ||
-          minHit>0 ||
-          minSample>5
-        ){
-          return false;
-        }
-
+      if(
+        !bestOnly &&
+        !useModelFilters
+      ){
         return true;
       }
 
-      if(bestOnly){
-
-        if(m.recommendation==="Pass"){
-          return false;
-        }
-      }
-
-      if(minScore>0 && m.rating<minScore){
+      if(!m){
         return false;
       }
 
-      if(minLean>0 && m.probability<minLean){
+      if(
+        bestOnly &&
+        m.recommendation==="Pass"
+      ){
         return false;
       }
 
-      if(minHit>0 && m.hitRate<minHit){
+      if(
+        minScore>0 &&
+        m.rating<minScore
+      ){
         return false;
       }
 
-      if(minSample>0 && m.sample<minSample){
+      if(
+        minLean>0 &&
+        m.probability<minLean
+      ){
+        return false;
+      }
+
+      if(
+        minHit>0 &&
+        m.hitRate<minHit
+      ){
+        return false;
+      }
+
+      if(
+        minSample>0 &&
+        m.sample<minSample
+      ){
         return false;
       }
 
@@ -1688,40 +1921,78 @@ function getProps(){
 
   if(sort==="rating"){
 
-    props.sort((a,b)=>
-      (models.get(pKey(b))?.rating||0)
-      -
-      (models.get(pKey(a))?.rating||0)
+    props.sort(
+      (a,b)=>
+        (
+          models.get(
+            pKey(b)
+          )?.rating || 0
+        )
+        -
+        (
+          models.get(
+            pKey(a)
+          )?.rating || 0
+        )
     );
 
   }else if(sort==="edge"){
 
-    props.sort((a,b)=>
-      (models.get(pKey(b))?.standardizedEdge||0)
-      -
-      (models.get(pKey(a))?.standardizedEdge||0)
+    props.sort(
+      (a,b)=>
+        (
+          models.get(
+            pKey(b)
+          )?.standardizedEdge || 0
+        )
+        -
+        (
+          models.get(
+            pKey(a)
+          )?.standardizedEdge || 0
+        )
     );
 
   }else if(sort==="lean"){
 
-    props.sort((a,b)=>
-      (models.get(pKey(b))?.probability||0)
-      -
-      (models.get(pKey(a))?.probability||0)
+    props.sort(
+      (a,b)=>
+        (
+          models.get(
+            pKey(b)
+          )?.probability || 0
+        )
+        -
+        (
+          models.get(
+            pKey(a)
+          )?.probability || 0
+        )
     );
 
   }else if(sort==="hit"){
 
-    props.sort((a,b)=>
-      (models.get(pKey(b))?.hitRate||0)
-      -
-      (models.get(pKey(a))?.hitRate||0)
+    props.sort(
+      (a,b)=>
+        (
+          models.get(
+            pKey(b)
+          )?.hitRate || 0
+        )
+        -
+        (
+          models.get(
+            pKey(a)
+          )?.hitRate || 0
+        )
     );
 
   }else{
 
-    props.sort((a,b)=>
-      num(a.rank)-num(b.rank)
+    props.sort(
+      (a,b)=>
+        num(a.rank)-
+        num(b.rank)
     );
   }
 
@@ -1747,17 +2018,13 @@ function modelHTML(model){
 
     return `
       <div class="model">
-
         <div class="modelHeader">
-
           <div class="modelTitle">
             PROP EDGE MODEL v3
           </div>
-
           <div class="rating low">
             —
           </div>
-
         </div>
 
         <div
@@ -1766,39 +2033,46 @@ function modelHTML(model){
         >
           No supported historical model for this prop yet.
         </div>
-
       </div>
     `;
   }
 
   const lean=
-    (model.probability*100)
-      .toFixed(1);
+    (
+      model.probability*100
+    ).toFixed(1);
 
   const hit=
-    (model.hitRate*100)
-      .toFixed(0);
+    (
+      model.hitRate*100
+    ).toFixed(0);
 
   const gap=
-    (model.rawDifference>0?"+":"")+
-    model.rawDifference.toFixed(1);
+    (
+      model.rawDifference>0
+        ? "+"
+        : ""
+    )
+    +
+    model.rawDifference
+      .toFixed(1);
 
   const sideClass=
     model.recommendation==="More"
-    ? "more"
-    : model.recommendation==="Less"
-      ? "less"
-      : "pass";
+      ? "more"
+      : model.recommendation==="Less"
+        ? "less"
+        : "pass";
 
   const decision=
     model.recommendation==="Pass"
-    ? "PASS — does not meet Best Bet rules"
-    : `${model.recommendation.toUpperCase()} • ${lean}% model lean`;
+      ? "PASS — does not meet Best Bet rules"
+      : `${model.recommendation.toUpperCase()} • ${lean}% model lean`;
 
   const seasonText=
     model.currentSample===0
-    ? "Prior-season baseline only."
-    : `${model.currentSample} current-season game${model.currentSample===1?"":"s"} included.`;
+      ? "Prior-season baseline only."
+      : `${model.currentSample} current-season game${model.currentSample===1?"":"s"} included.`;
 
   return `
     <div class="model">
@@ -1910,9 +2184,14 @@ function render(){
   $("propList").innerHTML=
     shown.map(p=>{
 
-      const key=pKey(p);
-      const model=models.get(key);
-      const selectedSide=selected[key];
+      const key=
+        pKey(p);
+
+      const model=
+        models.get(key);
+
+      const selectedSide=
+        selected[key];
 
       const isBest=
         model &&
@@ -1924,8 +2203,8 @@ function render(){
 
         ${
           isBest
-          ? '<div class="bestBadge">BEST BET</div>'
-          : ''
+            ? '<div class="bestBadge">BEST BET</div>'
+            : ''
         }
 
         <div class="propTop">
@@ -1940,8 +2219,8 @@ function render(){
               ${matchup(p)}
               ${
                 p.startTimeCST
-                ? " • "+text(p.startTimeCST)
-                : ""
+                  ? " • "+text(p.startTimeCST)
+                  : ""
               }
             </div>
 
@@ -1950,8 +2229,8 @@ function render(){
           <div class="boardRank">
             ${
               p.rank
-              ? "Board #"+text(p.rank)
-              : ""
+                ? "Board #"+text(p.rank)
+                : ""
             }
           </div>
 
@@ -2007,7 +2286,9 @@ function render(){
         const side=
           btn.dataset.side;
 
-        if(selected[key]===side){
+        if(
+          selected[key]===side
+        ){
           delete selected[key];
         }else{
           selected[key]=side;
@@ -2026,8 +2307,8 @@ function renderPicks(){
 
   $("selectedCount").textContent=
     entries.length
-    ? `${entries.length} selected`
-    : "No picks selected";
+      ? `${entries.length} selected`
+      : "No picks selected";
 
   if(!entries.length){
 
@@ -2036,57 +2317,60 @@ function renderPicks(){
   }
 
   $("pickList").innerHTML=
-    entries.map(([key,side])=>{
+    entries.map(
+      ([key,side])=>{
 
-      const p=
-        allProps.find(
-          x=>pKey(x)===key
-        );
+        const p=
+          allProps.find(
+            x=>pKey(x)===key
+          );
 
-      if(!p){
-        return "";
-      }
+        if(!p){
+          return "";
+        }
 
-      const m=
-        models.get(key);
+        const m=
+          models.get(key);
 
-      return `
+        return `
 
-      <div class="pickItem">
+        <div class="pickItem">
 
-        <div class="row">
+          <div class="row">
 
-          <div>
+            <div>
 
-            <strong>
-              ${text(p.player)}
-            </strong>
+              <strong>
+                ${text(p.player)}
+              </strong>
 
-            <div class="small">
-              ${side}
-              ${text(p.line)}
-              •
-              ${text(p.stat)}
-              ${
-                m
-                ? ` • Score ${m.rating}/100`
-                : ""
-              }
+              <div class="small">
+                ${side}
+                ${text(p.line)}
+                •
+                ${text(p.stat)}
+
+                ${
+                  m
+                    ? ` • Score ${m.rating}/100`
+                    : ""
+                }
+              </div>
+
             </div>
+
+            <button
+              class="remove"
+              data-remove="${encodeURIComponent(key)}">
+              Remove
+            </button>
 
           </div>
 
-          <button
-            class="remove"
-            data-remove="${encodeURIComponent(key)}">
-            Remove
-          </button>
-
         </div>
-
-      </div>
-      `;
-    }).join("");
+        `;
+      }
+    ).join("");
 
   document
     .querySelectorAll("[data-remove]")
@@ -2106,39 +2390,7 @@ function renderPicks(){
     });
 }
 
-$("gameFilter").onchange=render;
-$("statFilter").onchange=render;
-$("scoreFilter").onchange=render;
-$("leanFilter").onchange=render;
-$("hitFilter").onchange=render;
-$("sampleFilter").onchange=render;
-$("sortFilter").onchange=render;
-$("searchInput").oninput=render;
-
-$("refreshBtn").onclick=loadData;
-
-$("bestBtn").onclick=()=>{
-
-  bestOnly=true;
-
-  $("bestBtn")
-    .classList
-    .add("active");
-
-  $("allBtn")
-    .classList
-    .remove("active");
-
-  $("scoreFilter").value="80";
-  $("leanFilter").value="0.60";
-  $("hitFilter").value="0.60";
-  $("sampleFilter").value="8";
-  $("sortFilter").value="rating";
-
-  render();
-};
-
-$("allBtn").onclick=()=>{
+function setAllPropsMode(){
 
   bestOnly=false;
 
@@ -2150,19 +2402,57 @@ $("allBtn").onclick=()=>{
     .classList
     .remove("active");
 
-  /*
-  Reset model filters so All Props truly
-  shows the entire NFL board.
-  */
-
   $("scoreFilter").value="0";
   $("leanFilter").value="0";
   $("hitFilter").value="0";
-  $("sampleFilter").value="5";
+  $("sampleFilter").value="0";
   $("sortFilter").value="board";
 
   render();
-};
+}
+
+function setBestBetsMode(){
+
+  bestOnly=true;
+
+  $("bestBtn")
+    .classList
+    .add("active");
+
+  $("allBtn")
+    .classList
+    .remove("active");
+
+  /*
+  Strict automatic Best Bet settings.
+  */
+
+  $("scoreFilter").value="80";
+  $("leanFilter").value="0.60";
+  $("hitFilter").value="0.60";
+  $("sampleFilter").value="8";
+  $("sortFilter").value="rating";
+
+  render();
+}
+
+$("gameFilter").onchange=render;
+$("statFilter").onchange=render;
+$("scoreFilter").onchange=render;
+$("leanFilter").onchange=render;
+$("hitFilter").onchange=render;
+$("sampleFilter").onchange=render;
+$("sortFilter").onchange=render;
+$("searchInput").oninput=render;
+
+$("refreshBtn").onclick=
+  loadData;
+
+$("bestBtn").onclick=
+  setBestBetsMode;
+
+$("allBtn").onclick=
+  setAllPropsMode;
 
 $("clearPicks").onclick=()=>{
 
