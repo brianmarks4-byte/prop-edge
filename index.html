@@ -1972,6 +1972,81 @@ function pKey(p){
 }
 
 
+/* GAME START FILTER */
+
+function gameStartTime(p){
+
+  const possibleTimes=[
+
+    p.startTimeIso,
+
+    p.startTime,
+
+    p.start_time,
+
+    p.startTimeUTC
+
+  ];
+
+  for(
+    const value
+    of possibleTimes
+  ){
+
+    if(
+      !value
+    ){
+
+      continue;
+    }
+
+    const timestamp=
+      new Date(
+        value
+      )
+      .getTime();
+
+    if(
+      Number.isFinite(
+        timestamp
+      )
+    ){
+
+      return timestamp;
+    }
+  }
+
+  return null;
+}
+
+function gameHasStarted(p){
+
+  const start=
+    gameStartTime(
+      p
+    );
+
+  if(
+    start===null
+  ){
+
+    return false;
+  }
+
+  return Date.now()>=start;
+}
+
+function upcomingProps(){
+
+  return allProps.filter(
+    p=>
+      !gameHasStarted(
+        p
+      )
+  );
+}
+
+
 /* DISCOUNT SYSTEM */
 
 function discountKey(p){
@@ -2117,6 +2192,19 @@ function hasDiscount(p){
 }
 
 function setDiscount(p){
+
+  if(
+    gameHasStarted(
+      p
+    )
+  ){
+
+    alert(
+      "This game has already started."
+    );
+
+    return;
+  }
 
   const current=
     activeLineInfo(
@@ -2272,7 +2360,7 @@ function buildStarPlayerSet(){
   const players=
     new Map();
 
-  allProps.forEach(
+  upcomingProps().forEach(
     p=>{
 
       const key=
@@ -3708,6 +3796,15 @@ function buildRoleContext(
 
 function buildModel(prop){
 
+  if(
+    gameHasStarted(
+      prop
+    )
+  ){
+
+    return null;
+  }
+
   const player=
     normName(
       prop.player
@@ -4783,7 +4880,7 @@ function loadPromoObject(data){
 
       }else{
 
-        allProps
+        upcomingProps()
 
           .filter(
             p=>
@@ -5112,9 +5209,13 @@ async function loadData(){
 
     buildStarPlayerSet();
 
+    const activeCount=
+      upcomingProps()
+        .length;
+
     $("feedStatus").textContent=
 
-      `${allProps.length} PrizePicks NFL props • ${formatTime(
+      `${activeCount} active PrizePicks NFL props • ${formatTime(
         data.scrapedAt
       )}`;
 
@@ -5220,7 +5321,7 @@ function buildModels(){
 
   models.clear();
 
-  allProps.forEach(
+  upcomingProps().forEach(
     p=>{
 
       const model=
@@ -5247,7 +5348,7 @@ function buildFilters(){
   const games=
     new Map();
 
-  allProps.forEach(
+  upcomingProps().forEach(
     p=>{
 
       const key=
@@ -5279,6 +5380,12 @@ function buildFilters(){
       );
     }
   );
+
+  const previousGame=
+    $("gameFilter").value;
+
+  const previousParlayGame=
+    $("parlayGame").value;
 
   $("gameFilter").innerHTML=
     '<option value="">All NFL Games</option>';
@@ -5333,10 +5440,30 @@ function buildFilters(){
       }
     );
 
+  if(
+    games.has(
+      previousGame
+    )
+  ){
+
+    $("gameFilter").value=
+      previousGame;
+  }
+
+  if(
+    games.has(
+      previousParlayGame
+    )
+  ){
+
+    $("parlayGame").value=
+      previousParlayGame;
+  }
+
   const stats=
     [
       ...new Set(
-        allProps
+        upcomingProps()
           .map(
             p=>
               text(
@@ -5347,6 +5474,9 @@ function buildFilters(){
       )
     ]
     .sort();
+
+  const previousStat=
+    $("statFilter").value;
 
   $("statFilter").innerHTML=
     '<option value="">All Prop Types</option>';
@@ -5371,6 +5501,16 @@ function buildFilters(){
         );
     }
   );
+
+  if(
+    stats.includes(
+      previousStat
+    )
+  ){
+
+    $("statFilter").value=
+      previousStat;
+  }
 }
 
 function modelFiltersActive(){
@@ -5433,7 +5573,7 @@ function getProps(){
     modelFiltersActive();
 
   let props=
-    allProps.filter(
+    upcomingProps().filter(
       p=>{
 
         if(
@@ -6051,7 +6191,7 @@ function render(){
     $("propList").innerHTML=
       `
       <div class="empty">
-        No props match these filters.
+        No upcoming props match these filters.
       </div>
       `;
 
@@ -6287,6 +6427,29 @@ function render(){
                 button.dataset.key
               );
 
+            const prop=
+              allProps.find(
+                p=>
+                  pKey(p)===
+                  key
+              );
+
+            if(
+              !prop ||
+              gameHasStarted(
+                prop
+              )
+            ){
+
+              alert(
+                "This game has already started."
+              );
+
+              render();
+
+              return;
+            }
+
             const side=
               button.dataset.side;
 
@@ -6393,7 +6556,39 @@ function render(){
 
 /* MY LINEUP */
 
+function removeStartedSelections(){
+
+  Object.keys(
+    selected
+  )
+  .forEach(
+    key=>{
+
+      const p=
+        allProps.find(
+          prop=>
+            pKey(prop)===
+            key
+        );
+
+      if(
+        p &&
+        gameHasStarted(
+          p
+        )
+      ){
+
+        delete selected[
+          key
+        ];
+      }
+    }
+  );
+}
+
 function renderPicks(){
+
+  removeStartedSelections();
 
   const entries=
     Object.entries(
@@ -6432,7 +6627,10 @@ function renderPicks(){
             );
 
           if(
-            !p
+            !p ||
+            gameHasStarted(
+              p
+            )
           ){
 
             return "";
@@ -6526,7 +6724,7 @@ function renderPicks(){
 
 function getBestBetCandidates(){
 
-  return allProps
+  return upcomingProps()
 
     .map(
       p=>({
@@ -6798,6 +6996,15 @@ function buildCombo(
 
     pool.forEach(
       candidate=>{
+
+        if(
+          gameHasStarted(
+            candidate.prop
+          )
+        ){
+
+          return;
+        }
 
         if(
           combo.some(
@@ -7128,7 +7335,10 @@ function generateParlays(){
           gameKey(
             x.prop
           )===
-          game
+          game &&
+          !gameHasStarted(
+            x.prop
+          )
       );
   }
 
@@ -7158,7 +7368,7 @@ function generateParlays(){
     $("parlayResults").innerHTML=
       `
       <div class="empty" style="margin-top:12px">
-        Not enough qualifying Best Bets to build this parlay.
+        Not enough qualifying upcoming Best Bets to build this parlay.
       </div>
       `;
 
@@ -7192,6 +7402,18 @@ function generateParlays(){
 
     if(
       !combo
+    ){
+
+      continue;
+    }
+
+    if(
+      combo.some(
+        x=>
+          gameHasStarted(
+            x.prop
+          )
+      )
     ){
 
       continue;
@@ -7244,6 +7466,17 @@ function renderParlays(
   scope
 ){
 
+  generatedParlays=
+    generatedParlays.filter(
+      item=>
+        !item.combo.some(
+          x=>
+            gameHasStarted(
+              x.prop
+            )
+        )
+    );
+
   if(
     !generatedParlays.length
   ){
@@ -7251,7 +7484,7 @@ function renderParlays(
     $("parlayResults").innerHTML=
       `
       <div class="empty" style="margin-top:12px">
-        No valid parlay combinations found.
+        No valid upcoming parlay combinations found.
       </div>
       `;
 
@@ -7507,6 +7740,24 @@ function renderParlays(
               return;
             }
 
+            if(
+              item.combo.some(
+                x=>
+                  gameHasStarted(
+                    x.prop
+                  )
+              )
+            ){
+
+              alert(
+                "One of these games has already started. Generate the parlay again."
+              );
+
+              generateParlays();
+
+              return;
+            }
+
             item.combo.forEach(
               x=>{
 
@@ -7645,6 +7896,53 @@ function setStarMode(){
 }
 
 
+/* AUTOMATIC START-TIME CLEANUP */
+
+function refreshStartedGames(){
+
+  let removedParlay=false;
+
+  removeStartedSelections();
+
+  if(
+    generatedParlays.some(
+      item=>
+        item.combo.some(
+          x=>
+            gameHasStarted(
+              x.prop
+            )
+        )
+    )
+  ){
+
+    generatedParlays=[];
+
+    removedParlay=true;
+  }
+
+  buildModels();
+
+  buildFilters();
+
+  render();
+
+  renderPicks();
+
+  if(
+    removedParlay
+  ){
+
+    $("parlayResults").innerHTML=
+      `
+      <div class="small" style="margin-top:12px">
+        A game started, so the old parlay results were cleared. Generate Top Parlays again.
+      </div>
+      `;
+  }
+}
+
+
 /* EVENTS */
 
 $("gameFilter").onchange=
@@ -7719,6 +8017,14 @@ loadOverrides();
 loadData();
 
 renderPicks();
+
+
+/* CHECK FOR GAMES STARTING WHILE APP IS OPEN */
+
+setInterval(
+  refreshStartedGames,
+  30000
+);
 
 </script>
 
