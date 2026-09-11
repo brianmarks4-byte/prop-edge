@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#08110d">
-<title>Prop Edge v6.2</title>
+<title>Prop Edge v6.3</title>
 <link rel="manifest" href="./manifest.webmanifest">
 <style>
 :root{--bg:#070b10;--panel:#0b1118;--border:#263444;--text:#f4f7fb;--muted:#8e9aab;--green:#54e6a3;--yellow:#f6c753;--red:#ff6767}
@@ -36,9 +36,9 @@ select,input{width:100%;border:1px solid #2a394a;border-radius:14px;padding:13px
 </style>
 </head>
 <body>
-<div class="loading" id="loading"><div class="loadingBox"><h2>Loading Prop Edge v6.2</h2><div class="muted" id="loadingText">Loading data…</div></div></div>
+<div class="loading" id="loading"><div class="loadingBox"><h2>Loading Prop Edge v6.3</h2><div class="muted" id="loadingText">Loading data…</div></div></div>
 <div class="app">
-<section class="hero"><h1>Prop Edge <span class="version">v6.2</span></h1><p>NFL PrizePicks board + player form + injury-aware Final Check + improved parlay builder.</p></section>
+<section class="hero"><h1>Prop Edge <span class="version">v6.3</span></h1><p>NFL PrizePicks board + player form + injury-aware Final Check + verified full-game prop modeling.</p></section>
 
 <section class="panel"><div class="panelTitle">Live Data</div><div class="statusGrid">
 <div class="statusCell"><div class="label">PrizePicks</div><div class="value" id="ppStatus">Loading…</div></div>
@@ -58,7 +58,7 @@ select,input{width:100%;border:1px solid #2a394a;border-radius:14px;padding:13px
 <div class="field full"><label>Sort</label><select id="sortFilter"><option value="board">PrizePicks Board</option><option value="final">Best Final Check</option><option value="strength">Highest Leg Strength</option><option value="score">Best Model Score</option></select></div>
 </div><div class="modes"><button class="modeBtn active" data-mode="all">All Props</button><button class="modeBtn" data-mode="best">Best Bets</button><button class="modeBtn" data-mode="stars">⭐ Stars</button></div></section>
 
-<section class="panel"><div class="panelTitle">Parlay Builder</div><div class="panelSub">Single Game uses a broader pool. Duplicate parlays are removed even if the same legs appear in a different order.</div><div class="parlayControls">
+<section class="panel"><div class="panelTitle">Parlay Builder</div><div class="panelSub">Only supported full-game props are eligible. Specialty partial-game props are excluded. Duplicate parlays are removed even if the same legs appear in a different order.</div><div class="parlayControls">
 <div class="row2"><div class="field"><label>Scope</label><select id="parlayScope"><option value="all">All Games</option><option value="single">Single Game</option></select></div>
 <div class="field"><label>Legs</label><select id="parlayLegs"><option>3</option><option selected>4</option><option>5</option><option>6</option><option>7</option></select></div></div>
 <div class="field" id="singleGameWrap" style="display:none"><label>Single Game</label><select id="parlayGame"></select></div>
@@ -127,7 +127,16 @@ function injury(p){
   if(ps.includes("limited"))return{pen:4,label:"Limited Practice"};
   return{pen:0,label:ps.includes("full")?"Full Practice":""};
 }
+function supportedStat(s){
+  s=String(s||"").trim().toLowerCase().replace(/\s+/g," ");
+  return [
+    "pass yards","passing yards","pass attempts","completions","pass tds",
+    "interceptions","rush yards","rush attempts","receiving yards","rec yards",
+    "receptions","targets","rush+rec yards"
+  ].includes(s);
+}
 function model(p){
+  if(!supportedStat(p.stat))return{score:0,lean:.5,hit:.5,side:"—",strength:0,final:"Avoid",sample:0,inj:injury(p),unsupported:true};
   let rows=stats.filter(r=>norm(r.player_display_name||r.player_name)==norm(p.player));
   let v=rows.map(r=>val(r,p.stat)).filter(Number.isFinite).slice(0,10),line=num(p.line);
   if(v.length<3)return{score:50,lean:.5,hit:.5,side:"More",strength:45,final:"Avoid",sample:v.length,inj:injury(p)};
@@ -144,7 +153,7 @@ function filters(){
   let g=$("gameFilter").value,s=$("statFilter").value,q=norm($("searchInput").value),ms=num($("scoreFilter").value),ml=num($("leanFilter").value),mh=num($("hitFilter").value),mn=num($("sampleFilter").value);
   let a=props.filter(p=>{
     let m=models.get(pk(p));
-    return(!g||team(p.Team)+" vs "+team(p.Opponent)==g)&&(!s||p.stat==s)&&(!q||norm(p.player).includes(q))&&m.score>=ms&&m.lean>=ml&&m.hit>=mh&&m.sample>=mn&&(mode!="best"||["Strong Keep","Keep"].includes(m.final));
+    return m&&!m.unsupported&&(!g||team(p.Team)+" vs "+team(p.Opponent)==g)&&(!s||p.stat==s)&&(!q||norm(p.player).includes(q))&&m.score>=ms&&m.lean>=ml&&m.hit>=mh&&m.sample>=mn&&(mode!="best"||["Strong Keep","Keep"].includes(m.final));
   });
   let sort=$("sortFilter").value;
   if(sort=="final"||sort=="strength")a.sort((x,y)=>models.get(pk(y)).strength-models.get(pk(x)).strength);
@@ -171,7 +180,7 @@ function render(){
   }).join("");
 }
 function populate(){
-  let games=[...new Set(props.map(p=>team(p.Team)+" vs "+team(p.Opponent)))].sort(),ss=[...new Set(props.map(p=>p.stat))].sort();
+  let games=[...new Set(props.map(p=>team(p.Team)+" vs "+team(p.Opponent)))].sort(),ss=[...new Set(props.filter(p=>supportedStat(p.stat)).map(p=>p.stat))].sort();
   $("gameFilter").innerHTML='<option value="">All NFL Games</option>'+games.map(x=>`<option>${x}</option>`).join("");
   $("parlayGame").innerHTML=games.map(x=>`<option>${x}</option>`).join("");
   $("statFilter").innerHTML='<option value="">All Prop Types</option>'+ss.map(x=>`<option>${x}</option>`).join("");
@@ -192,7 +201,7 @@ function candidatePool(){
   let single=$("parlayScope").value=="single",g=$("parlayGame").value;
   let a=props.map(p=>({p,m:models.get(pk(p))})).filter(x=>{
     if(single&&team(x.p.Team)+" vs "+team(x.p.Opponent)!=g)return false;
-    if(x.m.final=="Avoid"||x.m.inj.label=="Out")return false;
+    if(x.m.unsupported||x.m.final=="Avoid"||x.m.inj.label=="Out")return false;
     return single
       ? x.m.sample>=3&&x.m.lean>=.52&&x.m.strength>=60
       : x.m.sample>=5&&x.m.lean>=.54&&x.m.strength>=67;
