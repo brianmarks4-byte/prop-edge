@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#08110d">
-<title>Prop Edge v6.4</title>
+<title>Prop Edge v6.3R</title>
 <link rel="manifest" href="./manifest.webmanifest">
 <style>
 :root{--bg:#070b10;--panel:#0b1118;--border:#263444;--text:#f4f7fb;--muted:#8e9aab;--green:#54e6a3;--yellow:#f6c753;--red:#ff6767}
@@ -36,9 +36,9 @@ select,input{width:100%;border:1px solid #2a394a;border-radius:14px;padding:13px
 </style>
 </head>
 <body>
-<div class="loading" id="loading"><div class="loadingBox"><h2>Loading Prop Edge v6.4</h2><div class="muted" id="loadingText">Loading data…</div></div></div>
+<div class="loading" id="loading"><div class="loadingBox"><h2>Loading Prop Edge v6.3R</h2><div class="muted" id="loadingText">Loading data…</div></div></div>
 <div class="app">
-<section class="hero"><h1>Prop Edge <span class="version">v6.4</span></h1><p>NFL PrizePicks board + player form + injury-aware Final Check + verified full-game prop modeling.</p></section>
+<section class="hero"><h1>Prop Edge <span class="version">v6.3R</span></h1><p>NFL PrizePicks board + player form + injury-aware Final Check + verified full-game prop modeling.</p></section>
 
 <section class="panel"><div class="panelTitle">Live Data</div><div class="statusGrid">
 <div class="statusCell"><div class="label">PrizePicks</div><div class="value" id="ppStatus">Loading…</div></div>
@@ -58,7 +58,7 @@ select,input{width:100%;border:1px solid #2a394a;border-radius:14px;padding:13px
 <div class="field full"><label>Sort</label><select id="sortFilter"><option value="board">PrizePicks Board</option><option value="final">Best Final Check</option><option value="strength">Highest Leg Strength</option><option value="score">Best Model Score</option></select></div>
 </div><div class="modes"><button class="modeBtn active" data-mode="all">All Props</button><button class="modeBtn" data-mode="best">Best Bets</button><button class="modeBtn" data-mode="stars">⭐ Stars</button></div></section>
 
-<section class="panel"><div class="panelTitle">Parlay Builder</div><div class="panelSub">Rams vs 49ers is locked to the current official PrizePicks public board. Unsupported/stale mirror props are excluded. Duplicate parlays are removed.</div><div class="parlayControls">
+<section class="panel"><div class="panelTitle">Parlay Builder</div><div class="panelSub">Normal supported PrizePicks props are eligible, including receptions such as Kittle 3.5 when present in the feed. Specialty partial-game props are excluded. Duplicate parlays are removed.</div><div class="parlayControls">
 <div class="row2"><div class="field"><label>Scope</label><select id="parlayScope"><option value="all">All Games</option><option value="single">Single Game</option></select></div>
 <div class="field"><label>Legs</label><select id="parlayLegs"><option>3</option><option selected>4</option><option>5</option><option>6</option><option>7</option></select></div></div>
 <div class="field" id="singleGameWrap" style="display:none"><label>Single Game</label><select id="parlayGame"></select></div>
@@ -197,36 +197,10 @@ function renderLineup(){
 }
 window.removeLine=i=>{lineup.splice(i,1);renderLineup()}
 
-const OFFICIAL_BOARD_NOW=[
-  {player:"Matthew Stafford",stat:"Pass Yards",line:262.5},
-  {player:"Brock Purdy",stat:"Pass Yards",line:241.5},
-  {player:"Christian McCaffrey",stat:"Rush Yards",line:60.5},
-  {player:"Kyren Williams",stat:"Rush Yards",line:56.5},
-  {player:"Puka Nacua",stat:"Receiving Yards",line:90.5},
-  {player:"Davante Adams",stat:"Receiving Yards",line:53.5}
-];
-function canonicalStat(s){
-  s=String(s||"").trim().toLowerCase();
-  if(s=="passing yards"||s=="pass yards")return"pass yards";
-  if(s=="rushing yards"||s=="rush yards")return"rush yards";
-  if(s=="receiving yards"||s=="rec yards")return"receiving yards";
-  return s;
-}
-function officialTonightMatch(p){
-  let g=[team(p.Team),team(p.Opponent)];
-  let isTonight=g.includes("LA")&&g.includes("SF");
-  if(!isTonight)return true;
-  return OFFICIAL_BOARD_NOW.some(o=>
-    norm(o.player)==norm(p.player)&&
-    canonicalStat(o.stat)==canonicalStat(p.stat)&&
-    Math.abs(num(o.line)-num(p.line))<0.001
-  );
-}
 function candidatePool(){
   let single=$("parlayScope").value=="single",g=$("parlayGame").value;
   let a=props.map(p=>({p,m:models.get(pk(p))})).filter(x=>{
     if(single&&team(x.p.Team)+" vs "+team(x.p.Opponent)!=g)return false;
-    if(!officialTonightMatch(x.p))return false;
     if(x.m.unsupported||x.m.final=="Avoid"||x.m.inj.label=="Out")return false;
     return single
       ? x.m.sample>=3&&x.m.lean>=.52&&x.m.strength>=60
