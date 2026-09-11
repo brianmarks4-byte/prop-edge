@@ -4,1539 +4,308 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#08110d">
-<title>Prop Edge v6</title>
+<title>Prop Edge v6.2</title>
 <link rel="manifest" href="./manifest.webmanifest">
-
 <style>
-:root{
-  --bg:#070b10;--panel:#0b1118;--border:#263444;--text:#f4f7fb;
-  --muted:#8e9aab;--green:#54e6a3;--yellow:#f6c753;
-  --red:#ff6767;--blue:#64b5ff
-}
+:root{--bg:#070b10;--panel:#0b1118;--border:#263444;--text:#f4f7fb;--muted:#8e9aab;--green:#54e6a3;--yellow:#f6c753;--red:#ff6767}
 *{box-sizing:border-box}
-body{
-  margin:0;
-  background:radial-gradient(circle at top,#0c1712 0,#070b10 26rem);
-  color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif
-}
-button,select,input{font:inherit}
-button{cursor:pointer}
+body{margin:0;background:radial-gradient(circle at top,#0c1712 0,#070b10 26rem);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+button,select,input{font:inherit}button{cursor:pointer}
 .app{width:min(940px,100%);margin:auto;padding:18px 14px 70px}
-.hero{padding:18px 4px 14px}
-.hero h1{margin:0;font-size:34px;letter-spacing:-1px}
-.hero .version{color:var(--green)}
-.hero p{margin:9px 0 0;color:var(--muted);line-height:1.45}
-.panel{
-  background:rgba(10,16,23,.96);
-  border:1px solid var(--border);
-  border-radius:21px;
-  overflow:hidden;
-  margin:14px 0
-}
-.panelTitle{padding:18px 18px 4px;font-size:22px;font-weight:800}
-.panelSub{padding:0 18px 16px;color:var(--muted);font-size:14px;line-height:1.45}
-.statusGrid{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--border)}
+.hero{padding:18px 4px 14px}.hero h1{margin:0;font-size:34px}.version,.ok{color:var(--green)}.hero p,.muted{color:var(--muted)}
+.panel{background:#0a1017;border:1px solid var(--border);border-radius:21px;overflow:hidden;margin:14px 0}
+.panelTitle{padding:18px 18px 4px;font-size:22px;font-weight:800}.panelSub{padding:0 18px 16px;color:var(--muted)}
+.statusGrid{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--border)}
 .statusCell{padding:15px 12px;border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
-.statusCell:nth-child(2n){border-right:0}
-.label{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.8px;font-weight:800}
-.value{margin-top:5px;font-size:16px;font-weight:800}
-.ok{color:var(--green)}.warn{color:var(--yellow)}.bad{color:var(--red)}
-.filters{display:grid;grid-template-columns:repeat(2,1fr);gap:11px;padding:16px}
-.field{min-width:0}.field.full{grid-column:1/-1}
-.field label{display:block;color:var(--muted);font-size:12px;font-weight:800;margin:0 0 7px}
-select,input{
-  width:100%;border:1px solid #2a394a;border-radius:14px;
-  padding:13px 12px;color:var(--text);background:#080e14;outline:none
-}
-select:focus,input:focus{border-color:var(--green)}
-.modes{display:flex;gap:8px;padding:0 16px 16px;overflow:auto}
-.modeBtn{
-  flex:1;min-width:max-content;border:1px solid #2a394a;background:#090f15;
-  color:var(--muted);border-radius:13px;padding:11px 14px;font-weight:800
-}
-.modeBtn.active{background:#163f2d;color:var(--green);border-color:#287750}
-.actionBtn{
-  width:100%;border:1px solid #287750;background:#16452f;color:var(--green);
-  padding:15px;border-radius:15px;font-weight:900;font-size:18px
-}
-.parlayControls{padding:16px;display:grid;gap:11px}
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.propsHeader{display:flex;justify-content:space-between;align-items:center;padding:4px 3px 10px}
-.propsHeader h2{margin:0;font-size:24px}.count{color:var(--muted)}
-.propCard{
-  border:1px solid var(--border);border-radius:19px;background:#0a1117;
-  overflow:hidden;margin-bottom:12px;padding:16px
-}
-.propTop{display:flex;justify-content:space-between;gap:12px}
-.propPlayer{font-weight:900;font-size:21px}
-.propMatch{color:var(--muted);margin-top:3px}
-.scoreBadge{
-  min-width:56px;text-align:center;padding:8px;border:1px solid #2c6b4d;
-  border-radius:12px;color:var(--green);background:#0d271b;font-weight:900
-}
-.propLine{font-size:20px;font-weight:900;margin-top:12px}
-.recSide{color:var(--green)}
-.discountText{margin-top:6px;color:var(--yellow)}
-.detailsGrid{
-  display:grid;grid-template-columns:repeat(4,1fr);margin-top:14px;
-  border:1px solid #22313e;border-radius:13px;overflow:hidden
-}
-.detail{padding:10px 5px;text-align:center;background:#081017;border-right:1px solid #22313e}
-.detail:last-child{border-right:0}
-.dLabel{color:var(--muted);font-size:10px;text-transform:uppercase;font-weight:900}
-.dValue{margin-top:4px;font-weight:900;font-size:15px}
-.contextRow{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}
-.contextBox{border:1px solid #243441;border-radius:12px;background:#080e14;padding:10px}
-.cTitle{color:var(--muted);font-size:11px;font-weight:900;text-transform:uppercase}
-.cValue{margin-top:4px;font-weight:800;line-height:1.3}
-.finalCheckBox{
-  margin-top:10px;border:1px solid #304236;background:#09160f;
-  border-radius:13px;padding:11px
-}
-.finalCheckTop{display:flex;justify-content:space-between;gap:8px;align-items:center}
-.finalCheckTitle{font-weight:900}.finalScore{color:var(--green);font-weight:900}
-.reason{color:var(--muted);font-size:13px;margin-top:6px;line-height:1.4}
-.finalTag{
-  display:inline-flex;align-items:center;border-radius:999px;margin-top:8px;
-  padding:6px 9px;font-size:12px;font-weight:900;border:1px solid
-}
-.final-strong{color:var(--green);border-color:#26734d;background:#103322}
-.final-keep{color:#a7eecb;border-color:#295b45;background:#10251b}
-.final-caution{color:var(--yellow);border-color:#6b5826;background:#2b240e}
-.final-avoid{color:var(--red);border-color:#753232;background:#2c1111}
-.injuryNote{margin-top:7px;font-size:13px;line-height:1.4;color:var(--yellow)}
-.buttons{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
-.smallBtn{
-  border:1px solid #2d3d4c;border-radius:12px;padding:11px 8px;
-  background:#0b131a;color:var(--text);font-weight:800
-}
-.smallBtn.green{background:#133b29;border-color:#256845;color:var(--green)}
-.smallBtn.yellow{color:var(--yellow)}.smallBtn.red{color:var(--red)}
-.lineup{padding:0 16px 16px}
-.lineupItem{padding:12px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;gap:10px}
-.lineupInfo strong{display:block}.lineupInfo span{color:var(--muted);font-size:13px}
-.remove{border:0;background:none;color:var(--red);font-weight:800}
-.empty{color:var(--muted);text-align:center;padding:30px 18px;line-height:1.5}
-.parlayCard{
-  margin:0 16px 16px;border:1px solid #287750;border-radius:20px;
-  overflow:hidden;background:#07120d
-}
-.parlayHead{display:flex;justify-content:space-between;gap:10px;padding:17px;border-bottom:1px solid #254131}
-.parlayTitle{font-size:22px;font-weight:900}.parlaySub{margin-top:3px;color:var(--muted)}
-.grade{font-size:38px;font-weight:900;color:var(--green)}
-.parlayMetrics{display:grid;grid-template-columns:repeat(3,1fr);background:#091017}
-.metricBox{text-align:center;padding:13px 6px;border-right:1px solid #223240}
-.metricBox:last-child{border-right:0}
-.mLabel{color:var(--muted);font-size:11px;font-weight:900;text-transform:uppercase}
-.mValue{font-size:20px;font-weight:900;margin-top:4px}
-.parlayLeg{padding:15px 17px;border-top:1px solid #20382c}
-.legTop{display:flex;justify-content:space-between;gap:12px}
-.player{font-size:21px;font-weight:900}.match{color:var(--muted);margin-top:3px}
-.side{color:var(--green);font-size:19px;font-weight:900}
-.legLine{margin-top:10px;font-size:19px;font-weight:800}
-.smallStats{color:var(--muted);margin-top:7px;line-height:1.4}
-.correlation{padding:17px;color:var(--muted)}.correlation strong{color:var(--yellow)}
-.parlayFooter{padding:0 16px 16px}
-.loading{
-  position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
-  background:rgba(3,6,8,.88);z-index:50;padding:20px
-}
-.loading.hidden{display:none}
-.loadingBox{
-  width:min(380px,100%);border:1px solid #2b3d49;background:#0b1218;
-  border-radius:18px;padding:22px;text-align:center
-}
-.spinner{
-  width:34px;height:34px;border:4px solid #24363f;border-top-color:var(--green);
-  border-radius:50%;margin:0 auto 14px;animation:spin .8s linear infinite
-}
-@keyframes spin{to{transform:rotate(360deg)}}
-.footnote{color:var(--muted);font-size:12px;line-height:1.45;padding:12px 4px 0}
-@media(min-width:720px){
-  .statusGrid{grid-template-columns:repeat(4,1fr)}
-  .statusCell:nth-child(2n){border-right:1px solid var(--border)}
-  .statusCell:nth-child(4n){border-right:0}
-  .filters{grid-template-columns:repeat(4,1fr)}
-  .field.full{grid-column:auto}
-}
+.label{color:var(--muted);font-size:12px;text-transform:uppercase;font-weight:800}.value{margin-top:5px;font-weight:800}.warn{color:var(--yellow)}.bad{color:var(--red)}
+.filters,.parlayControls{padding:16px;display:grid;gap:11px}.filters{grid-template-columns:1fr 1fr}.full{grid-column:1/-1}.field label{display:block;color:var(--muted);font-size:12px;font-weight:800;margin-bottom:7px}
+select,input{width:100%;border:1px solid #2a394a;border-radius:14px;padding:13px 12px;color:var(--text);background:#080e14}
+.modes{display:flex;gap:8px;padding:0 16px 16px}.modeBtn,.smallBtn{border:1px solid #2a394a;background:#090f15;color:var(--muted);border-radius:13px;padding:11px;font-weight:800}.modeBtn{flex:1}.modeBtn.active,.actionBtn{background:#163f2d;color:var(--green);border-color:#287750}
+.actionBtn{width:100%;border:1px solid #287750;padding:15px;border-radius:15px;font-weight:900}.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.propsHeader{display:flex;justify-content:space-between;align-items:center}.propCard,.parlayCard{border:1px solid var(--border);border-radius:19px;background:#0a1117;margin-bottom:12px;padding:16px}
+.propTop,.finalTop,.legTop{display:flex;justify-content:space-between;gap:12px}.propPlayer,.player{font-size:20px;font-weight:900}.propMatch,.match,.reason,.smallStats{color:var(--muted)}
+.scoreBadge{padding:8px;border:1px solid #2c6b4d;border-radius:12px;color:var(--green);font-weight:900}.propLine{font-size:19px;font-weight:900;margin-top:12px}.recSide{color:var(--green)}
+.detailsGrid{display:grid;grid-template-columns:repeat(4,1fr);margin-top:14px;border:1px solid #22313e;border-radius:13px;overflow:hidden}.detail{text-align:center;padding:10px 4px}.dLabel{color:var(--muted);font-size:10px;font-weight:900}.dValue{font-weight:900;margin-top:4px}
+.finalCheckBox{margin-top:10px;border:1px solid #304236;border-radius:13px;padding:11px}.finalTag{display:inline-block;border-radius:999px;margin-top:7px;padding:6px 9px;font-size:12px;font-weight:900;border:1px solid}
+.final-strong{color:var(--green)}.final-keep{color:#a7eecb}.final-caution{color:var(--yellow)}.final-avoid{color:var(--red)}.injuryNote,.lineNote{margin-top:7px;color:var(--yellow);font-size:13px}
+.buttons{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.lineup{padding:0 16px 16px}.lineupItem{padding:12px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between}.remove{background:none;border:0;color:var(--red)}
+.empty{color:var(--muted);text-align:center;padding:25px}.parlayCard{margin:0 16px 16px;padding:0;overflow:hidden;border-color:#287750}.parlayHead{padding:16px;display:flex;justify-content:space-between}.grade{font-size:36px;font-weight:900;color:var(--green)}
+.parlayLeg{padding:14px 16px;border-top:1px solid #20382c}.side{color:var(--green);font-weight:900}.correlation{padding:15px;color:var(--muted)}.parlayFooter{padding:0 16px 16px}
+.loading{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#05090ded;z-index:50}.hidden{display:none}.loadingBox{padding:25px;text-align:center}
+@media(min-width:720px){.statusGrid{grid-template-columns:repeat(4,1fr)}.filters{grid-template-columns:repeat(4,1fr)}}
 </style>
 </head>
-
 <body>
-
-<div class="loading" id="loading">
-  <div class="loadingBox">
-    <div class="spinner"></div>
-    <div style="font-size:20px;font-weight:900">Loading Prop Edge v6</div>
-    <div id="loadingText" style="margin-top:7px;color:var(--muted)">Loading data…</div>
-  </div>
-</div>
-
+<div class="loading" id="loading"><div class="loadingBox"><h2>Loading Prop Edge v6.2</h2><div class="muted" id="loadingText">Loading data…</div></div></div>
 <div class="app">
+<section class="hero"><h1>Prop Edge <span class="version">v6.2</span></h1><p>NFL PrizePicks board + player form + injury-aware Final Check + improved parlay builder.</p></section>
 
-<section class="hero">
-  <h1>Prop Edge <span class="version">v6</span></h1>
-  <p>NFL PrizePicks board + player form + matchup analysis + injury-aware Final Check.</p>
-</section>
+<section class="panel"><div class="panelTitle">Live Data</div><div class="statusGrid">
+<div class="statusCell"><div class="label">PrizePicks</div><div class="value" id="ppStatus">Loading…</div></div>
+<div class="statusCell"><div class="label">Feed Age</div><div class="value" id="feedAge">—</div></div>
+<div class="statusCell"><div class="label">NFL Injuries</div><div class="value" id="injuryStatus">Loading…</div></div>
+<div class="statusCell"><div class="label">Model</div><div class="value" id="modelStatus">Loading…</div></div>
+</div></section>
 
-<section class="panel">
-  <div class="panelTitle">Live Data</div>
-  <div class="panelSub">PrizePicks + nflverse player, matchup and injury data.</div>
-  <div class="statusGrid">
-    <div class="statusCell"><div class="label">PrizePicks</div><div class="value" id="ppStatus">Loading…</div></div>
-    <div class="statusCell"><div class="label">Feed Age</div><div class="value" id="feedAge">—</div></div>
-    <div class="statusCell"><div class="label">NFL Injuries</div><div class="value" id="injuryStatus">Loading…</div></div>
-    <div class="statusCell"><div class="label">Model</div><div class="value" id="modelStatus">Loading…</div></div>
-  </div>
-</section>
+<section class="panel"><div class="panelTitle">Filters</div><div class="filters">
+<div class="field"><label>Game</label><select id="gameFilter"></select></div>
+<div class="field"><label>Prop Type</label><select id="statFilter"></select></div>
+<div class="field full"><label>Search Player</label><input id="searchInput" placeholder="Puka, Kittle, Kyren…"></div>
+<div class="field"><label>Minimum Score</label><select id="scoreFilter"><option value="0">Any Score</option><option value="70">70+</option><option value="75">75+</option><option value="80">80+</option></select></div>
+<div class="field"><label>Minimum Lean</label><select id="leanFilter"><option value="0">Any Lean</option><option value=".55">55%+</option><option value=".60">60%+</option></select></div>
+<div class="field"><label>Minimum Hit Rate</label><select id="hitFilter"><option value="0">Any Hit Rate</option><option value=".55">55%+</option><option value=".60">60%+</option></select></div>
+<div class="field"><label>Minimum Sample</label><select id="sampleFilter"><option value="0">Any Sample</option><option value="5">5+</option><option value="8">8+</option></select></div>
+<div class="field full"><label>Sort</label><select id="sortFilter"><option value="board">PrizePicks Board</option><option value="final">Best Final Check</option><option value="strength">Highest Leg Strength</option><option value="score">Best Model Score</option></select></div>
+</div><div class="modes"><button class="modeBtn active" data-mode="all">All Props</button><button class="modeBtn" data-mode="best">Best Bets</button><button class="modeBtn" data-mode="stars">⭐ Stars</button></div></section>
 
-<section class="panel">
-  <div class="panelTitle">Filters</div>
-  <div class="filters">
-    <div class="field">
-      <label>Game</label>
-      <select id="gameFilter"></select>
-    </div>
-    <div class="field">
-      <label>Prop Type</label>
-      <select id="statFilter"></select>
-    </div>
-    <div class="field full">
-      <label>Search Player</label>
-      <input id="searchInput" type="search" placeholder="Puka, Kittle, Kyren…">
-    </div>
-    <div class="field">
-      <label>Minimum Model Score</label>
-      <select id="scoreFilter">
-        <option value="0">Any Score</option>
-        <option value="70">70+</option>
-        <option value="75">75+</option>
-        <option value="80">80+</option>
-        <option value="85">85+</option>
-      </select>
-    </div>
-    <div class="field">
-      <label>Minimum Lean</label>
-      <select id="leanFilter">
-        <option value="0">Any Lean</option>
-        <option value=".55">55%+</option>
-        <option value=".60">60%+</option>
-        <option value=".63">63%+</option>
-        <option value=".65">65%+</option>
-      </select>
-    </div>
-    <div class="field">
-      <label>Minimum Hit Rate</label>
-      <select id="hitFilter">
-        <option value="0">Any Hit Rate</option>
-        <option value=".55">55%+</option>
-        <option value=".60">60%+</option>
-        <option value=".65">65%+</option>
-        <option value=".70">70%+</option>
-      </select>
-    </div>
-    <div class="field">
-      <label>Minimum Sample</label>
-      <select id="sampleFilter">
-        <option value="0">Any Sample</option>
-        <option value="5">5+</option>
-        <option value="8">8+</option>
-        <option value="10">10+</option>
-      </select>
-    </div>
-    <div class="field full">
-      <label>Sort</label>
-      <select id="sortFilter">
-        <option value="board">PrizePicks Board</option>
-        <option value="final">Best Final Check</option>
-        <option value="strength">Highest Leg Strength</option>
-        <option value="score">Best Model Score</option>
-        <option value="lean">Highest Model Lean</option>
-        <option value="hit">Highest Hit Rate</option>
-        <option value="matchup">Best Matchup</option>
-        <option value="edge">Strongest Edge</option>
-      </select>
-    </div>
-  </div>
+<section class="panel"><div class="panelTitle">Parlay Builder</div><div class="panelSub">Single Game uses a broader pool. Duplicate parlays are removed even if the same legs appear in a different order.</div><div class="parlayControls">
+<div class="row2"><div class="field"><label>Scope</label><select id="parlayScope"><option value="all">All Games</option><option value="single">Single Game</option></select></div>
+<div class="field"><label>Legs</label><select id="parlayLegs"><option>3</option><option selected>4</option><option>5</option><option>6</option><option>7</option></select></div></div>
+<div class="field" id="singleGameWrap" style="display:none"><label>Single Game</label><select id="parlayGame"></select></div>
+<button class="actionBtn" id="generateParlays">Generate Top Parlays</button></div><div id="parlayResults"></div></section>
 
-  <div class="modes">
-    <button class="modeBtn active" data-mode="all">All Props</button>
-    <button class="modeBtn" data-mode="best">Best Bets</button>
-    <button class="modeBtn" data-mode="stars">⭐ Stars</button>
-  </div>
-</section>
-
-<section class="panel">
-  <div class="panelTitle">Parlay Builder</div>
-  <div class="panelSub">Final Check and injury risk are included when ranking legs.</div>
-
-  <div class="parlayControls">
-    <div class="row2">
-      <div class="field">
-        <label>Scope</label>
-        <select id="parlayScope">
-          <option value="all">All Games</option>
-          <option value="single">Single Game</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>Legs</label>
-        <select id="parlayLegs">
-          <option value="3">3 Legs</option>
-          <option value="4" selected>4 Legs</option>
-          <option value="5">5 Legs</option>
-          <option value="6">6 Legs</option>
-          <option value="7">7 Legs</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="field" id="singleGameWrap" style="display:none">
-      <label>Single Game</label>
-      <select id="parlayGame"></select>
-    </div>
-
-    <button class="actionBtn" id="generateParlays">Generate Top Parlays</button>
-  </div>
-
-  <div id="parlayResults"></div>
-</section>
-
-<section class="panel">
-  <div class="panelTitle">My Lineup</div>
-  <div class="panelSub">Props you manually add or copy from the parlay builder.</div>
-  <div class="lineup" id="lineup"></div>
-</section>
-
-<div class="propsHeader">
-  <h2>Props</h2>
-  <div class="count" id="propCount">0 props</div>
-</div>
-
-<div id="props"></div>
-
-<div class="footnote">
-  Prop Edge is a statistical screening tool, not a guarantee. Model Lean,
-  Leg Strength, Matchup, Final Check and parlay grades are ranking estimates,
-  not guaranteed win probabilities. Always verify the live PrizePicks line before submitting.
-</div>
-
+<section class="panel"><div class="panelTitle">My Lineup</div><div class="lineup" id="lineup"></div></section>
+<div class="propsHeader"><h2>Props</h2><div class="muted" id="propCount">0 props</div></div><div id="props"></div>
 </div>
 
 <script>
 "use strict";
-
 const PP_URL="https://raw.githubusercontent.com/ENKDAY/prizepicks-scraper/main/data/prizepicks-nfl.json";
-const NFL_STATS="./data/prop_edge_stats.csv";
-const MATCHUP_STATS="./data/prop_edge_matchups.csv";
-const INJURY_STATS="./data/prop_edge_injuries.csv";
-const PROMO_STATS="./data/prop_edge_promos.json";
-const OVERRIDE_STORAGE="prop-edge-discount-overrides-v1";
-const LINEUP_STORAGE="prop-edge-lineup-v2";
+const NFL_STATS="./data/prop_edge_stats.csv",INJURY_STATS="./data/prop_edge_injuries.csv";
+let props=[],stats=[],injuries=[],models=new Map(),mode="all",lineup=[],renderedParlays=[];
+const $=x=>document.getElementById(x),num=(x,d=0)=>Number.isFinite(Number(x))?Number(x):d,clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const norm=x=>String(x||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]/g,"");
+const team=x=>({LAR:"LA",LA:"LA",JAC:"JAX",JAX:"JAX",WSH:"WAS",WAS:"WAS",SFO:"SF",SF:"SF",NEP:"NE",NE:"NE",TBB:"TB",TB:"TB",NOS:"NO",NO:"NO",LVR:"LV",LV:"LV"}[String(x||"").toUpperCase()]||String(x||"").toUpperCase());
+const pk=p=>[p.gameId||"",norm(p.player),String(p.stat||"").toLowerCase(),p.line].join("|"),mean=a=>a.length?a.reduce((s,x)=>s+x,0)/a.length:0;
 
-let props=[],playerRows=[],matchupRows=[],injuryRows=[];
-let models=new Map(),promoMap=new Map(),currentMode="all";
-let manualOverrides=JSON.parse(localStorage.getItem(OVERRIDE_STORAGE)||"{}");
-let lineup=JSON.parse(localStorage.getItem(LINEUP_STORAGE)||"[]");
-
-const playerIndex=new Map();
-const injuryIndex=new Map();
-const matchupSeasonIndex=new Map();
-const matchupLeagueCache=new Map();
-const matchupBlendCache=new Map();
-const matchupRankCache=new Map();
-
-function $(id){return document.getElementById(id)}
-function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
-function num(v,f=0){const n=Number(v);return Number.isFinite(n)?n:f}
-function pct(v){return Math.round(v*100)+"%"}
-function fmt(v,d=1){return Number.isFinite(v)?Number(v).toFixed(d):"—"}
-function mean(a){return a.length?a.reduce((x,y)=>x+y,0)/a.length:0}
-function median(a){if(!a.length)return 0;const x=[...a].sort((m,n)=>m-n),i=Math.floor(x.length/2);return x.length%2?x[i]:(x[i-1]+x[i])/2}
-function sd(a){if(a.length<2)return 0;const m=mean(a);return Math.sqrt(a.reduce((s,v)=>s+(v-m)**2,0)/(a.length-1))}
-function weightedMean(v,w){let s=0,t=0;for(let i=0;i<v.length;i++){const q=w[i]??1;s+=v[i]*q;t+=q}return t?s/t:0}
-function escapeHtml(v){return String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;")}
-function normName(v){return String(v||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]/g,"")}
-function teamCode(v){
-  const x=String(v||"").toUpperCase().trim();
-  const m={LAR:"LA",LA:"LA",JAC:"JAX",JAX:"JAX",WSH:"WAS",WAS:"WAS",GBP:"GB",GB:"GB",KCC:"KC",KC:"KC",SFO:"SF",SF:"SF",NEP:"NE",NE:"NE",TBB:"TB",TB:"TB",NOS:"NO",NO:"NO",LVR:"LV",LV:"LV"};
-  return m[x]||x
-}
-function gameKey(p){return String(p.gameId||`${teamCode(p.Team)}-${teamCode(p.Opponent)}-${p.startDateCST||""}`)}
-function propKey(p){return [gameKey(p),normName(p.player),String(p.stat||"").toLowerCase(),p.line].join("|")}
-function discountKey(p){return [gameKey(p),normName(p.player),String(p.stat||"").toLowerCase().trim()].join("|")}
-function saveOverrides(){localStorage.setItem(OVERRIDE_STORAGE,JSON.stringify(manualOverrides))}
-function saveLineup(){localStorage.setItem(LINEUP_STORAGE,JSON.stringify(lineup))}
-
-function parseCSV(text){
-  const rows=[];let row=[],cell="",quote=false;
-  for(let i=0;i<text.length;i++){
-    const ch=text[i];
-    if(quote){
-      if(ch==='"'){
-        if(text[i+1]==='"'){cell+='"';i++}else quote=false
-      }else cell+=ch;
-      continue
-    }
-    if(ch==='"')quote=true;
-    else if(ch===","){row.push(cell);cell=""}
-    else if(ch==="\n"){row.push(cell);rows.push(row);row=[];cell=""}
-    else if(ch!=="\r")cell+=ch
+function csv(t){
+  let a=[],r=[],c="",q=false;
+  for(let i=0;i<t.length;i++){
+    let x=t[i];
+    if(q){
+      if(x=='"'&&t[i+1]=='"'){c+='"';i++}
+      else if(x=='"')q=false;
+      else c+=x;
+    }else if(x=='"')q=true;
+    else if(x==","){r.push(c);c=""}
+    else if(x=="\n"){r.push(c);a.push(r);r=[];c=""}
+    else if(x!="\r")c+=x;
   }
-  if(cell.length||row.length){row.push(cell);rows.push(row)}
-  if(!rows.length)return[];
-  const headers=rows.shift().map(x=>x.trim());
-  return rows.filter(r=>r.some(v=>String(v).trim()!=="")).map(r=>{
-    const o={};headers.forEach((h,i)=>o[h]=r[i]??"");return o
-  })
+  if(c||r.length){r.push(c);a.push(r)}
+  let h=a.shift()||[];
+  return a.filter(r=>r.some(Boolean)).map(r=>Object.fromEntries(h.map((x,i)=>[x.trim(),r[i]||""])));
 }
-
-async function fetchText(url){
-  const j=url.includes("?")?"&":"?";
-  const r=await fetch(`${url}${j}v=${Date.now()}`,{cache:"no-store"});
-  if(!r.ok)throw new Error(`${r.status} ${url}`);
-  return r.text()
+async function txt(u){
+  let r=await fetch(u+(u.includes("?")?"&":"?")+"v="+Date.now(),{cache:"no-store"});
+  if(!r.ok)throw Error(u);
+  return r.text();
 }
-
-function activeLineInfo(p){
-  const key=discountKey(p),manual=manualOverrides[key];
-  if(manual&&Number.isFinite(Number(manual.line)))return{line:Number(manual.line),standard:Number(p.line),source:"manual"};
-  const promo=promoMap.get(key);
-  if(promo&&Number.isFinite(Number(promo.line)))return{line:Number(promo.line),standard:Number(p.line),source:"auto"};
-  return{line:Number(p.line),standard:Number(p.line),source:"standard"}
+function val(r,s){
+  s=String(s).toLowerCase();
+  if(s.includes("pass yards"))return num(r.passing_yards,NaN);
+  if(s.includes("pass attempts"))return num(r.attempts,NaN);
+  if(s=="completions")return num(r.completions,NaN);
+  if(s.includes("pass td"))return num(r.passing_tds,NaN);
+  if(s=="interceptions")return num(r.interceptions,NaN);
+  if(s.includes("rush yards"))return num(r.rushing_yards,NaN);
+  if(s.includes("rush attempts"))return num(r.carries,NaN);
+  if(s.includes("receiving yards")||s=="rec yards")return num(r.receiving_yards,NaN);
+  if(s=="receptions")return num(r.receptions,NaN);
+  if(s=="targets")return num(r.targets,NaN);
+  if(s.includes("rush+rec yards"))return num(r.rushing_yards,0)+num(r.receiving_yards,0);
+  return NaN;
 }
-
-function statValue(r,stat){
-  const s=String(stat||"").toLowerCase().trim();
-  if(s==="pass yards"||s==="passing yards")return num(r.passing_yards,NaN);
-  if(s==="pass attempts"||s==="passing attempts")return num(r.attempts,NaN);
-  if(s==="completions"||s==="pass completions"||s==="passing completions")return num(r.completions,NaN);
-  if(s==="pass tds"||s==="passing tds"||s==="passing touchdowns")return num(r.passing_tds,NaN);
-  if(s==="interceptions"||s==="interceptions thrown")return num(r.interceptions,NaN);
-  if(s==="rush yards"||s==="rushing yards")return num(r.rushing_yards,NaN);
-  if(s==="rush attempts"||s==="rushing attempts")return num(r.carries,NaN);
-  if(s==="receiving yards"||s==="rec yards")return num(r.receiving_yards,NaN);
-  if(s==="receptions")return num(r.receptions,NaN);
-  if(s==="targets")return num(r.targets,NaN);
-  if(s==="rush+rec yards"||s==="rush + rec yards")return num(r.rushing_yards,0)+num(r.receiving_yards,0);
-  if(s==="rush+rec tds"||s==="rush + rec tds")return num(r.rushing_tds,0)+num(r.receiving_tds,0);
-  return null
+function injury(p){
+  let a=injuries.filter(x=>norm(x.player_name)==norm(p.player)&&team(x.team)==team(p.Team));
+  if(!a.length)return{pen:0,label:""};
+  a.sort((x,y)=>num(y.week)-num(x.week));
+  let i=a[0],rs=String(i.report_status).toLowerCase(),ps=String(i.practice_status).toLowerCase();
+  if(rs.includes("out"))return{pen:100,label:"Out"};
+  if(rs.includes("doubtful"))return{pen:22,label:"Doubtful"};
+  if(rs.includes("questionable"))return{pen:10,label:"Questionable"};
+  if(ps.includes("did not"))return{pen:8,label:"DNP"};
+  if(ps.includes("limited"))return{pen:4,label:"Limited Practice"};
+  return{pen:0,label:ps.includes("full")?"Full Practice":""};
 }
-
-function matchupMetric(r,stat){
-  const s=String(stat||"").toLowerCase().trim();
-  if(s==="pass yards"||s==="passing yards")return num(r.passing_yards_allowed,NaN);
-  if(s==="pass attempts"||s==="passing attempts")return num(r.pass_attempts_allowed,NaN);
-  if(s==="completions"||s==="pass completions"||s==="passing completions")return num(r.completions_allowed,NaN);
-  if(s==="pass tds"||s==="passing tds")return num(r.passing_tds_allowed,NaN);
-  if(s.includes("interception"))return num(r.interceptions_forced,NaN);
-  if(s==="rush yards"||s==="rushing yards")return num(r.rushing_yards_allowed,NaN);
-  if(s==="rush attempts"||s==="rushing attempts")return num(r.rush_attempts_allowed,NaN);
-  if(s==="receiving yards"||s==="rec yards")return num(r.receiving_yards_allowed,NaN);
-  if(s==="receptions")return num(r.receptions_allowed,NaN);
-  if(s==="targets")return num(r.targets_allowed,NaN);
-  if(s.includes("rush+rec yards"))return num(r.rushing_yards_allowed,0)+num(r.receiving_yards_allowed,0);
-  if(s.includes("rush+rec tds"))return num(r.rushing_tds_allowed,0)+num(r.receiving_tds_allowed,0);
-  return null
+function model(p){
+  let rows=stats.filter(r=>norm(r.player_display_name||r.player_name)==norm(p.player));
+  let v=rows.map(r=>val(r,p.stat)).filter(Number.isFinite).slice(0,10),line=num(p.line);
+  if(v.length<3)return{score:50,lean:.5,hit:.5,side:"More",strength:45,final:"Avoid",sample:v.length,inj:injury(p)};
+  let avg=mean(v),side=avg>=line?"More":"Less",hit=v.filter(x=>side=="More"?x>line:x<line).length/v.length,gap=Math.abs(avg-line),spread=Math.max(mean(v.map(x=>Math.abs(x-avg))),Math.max(line*.07,.75)),z=gap/spread;
+  let lean=clamp(.5+(hit-.5)*.55+Math.min(z,.8)*.08,.35,.67);
+  let score=clamp(Math.round(55+(lean-.5)*80+(hit-.5)*20+Math.min(z,1)*8),50,90),ir=injury(p);
+  let strength=clamp(55+(lean-.5)*100+(hit-.5)*25+Math.min(z,1)*10-Math.min(ir.pen,20),0,100);
+  if(ir.pen>=100)strength=0;
+  let final=ir.pen>=20||strength<60?"Avoid":ir.pen>=8||strength<72?"Caution":strength>=86?"Strong Keep":"Keep";
+  return{score,lean,hit,side,strength,final,sample:v.length,inj:ir};
 }
-
-function buildPlayerIndex(){
-  playerIndex.clear();
-  for(const r of playerRows){
-    const k=normName(r.player_display_name||r.player_name);
-    if(!k)continue;
-    if(!playerIndex.has(k))playerIndex.set(k,[]);
-    playerIndex.get(k).push(r)
-  }
-  for(const a of playerIndex.values()){
-    a.sort((x,y)=>num(y.season)-num(x.season)||num(y.week)-num(x.week))
-  }
-}
-
-function buildInjuryIndex(){
-  injuryIndex.clear();
-  for(const r of injuryRows){
-    const k=normName(r.player_name);
-    if(!k)continue;
-    if(!injuryIndex.has(k))injuryIndex.set(k,[]);
-    injuryIndex.get(k).push(r)
-  }
-  for(const a of injuryIndex.values()){
-    a.sort((x,y)=>num(y.season)-num(x.season)||num(y.week)-num(x.week))
-  }
-}
-
-function findInjury(p){
-  const rows=injuryIndex.get(normName(p.player))||[];
-  if(!rows.length)return null;
-  const t=teamCode(p.Team||p.teamCode);
-  return rows.find(r=>teamCode(r.team)===t)||rows[0]||null
-}
-
-function injuryRisk(p){
-  const i=findInjury(p);
-  if(!i)return{penalty:0,level:"none",reason:"No current injury-report flag found",injury:null};
-
-  const report=String(i.report_status||"").toLowerCase();
-  const practice=String(i.practice_status||"").toLowerCase();
-  const body=i.report_primary_injury||i.report_secondary_injury||"";
-  let penalty=0,level="none",reason="";
-
-  if(report.includes("out")){
-    penalty=100;level="out";reason="Official game status: Out"
-  }else if(report.includes("doubtful")){
-    penalty=22;level="high";reason="Official game status: Doubtful"
-  }else if(report.includes("questionable")){
-    penalty=10;level="medium";reason="Official game status: Questionable"
-  }else if(practice.includes("did not participate")){
-    penalty=8;level="medium";reason="Did not participate in practice"
-  }else if(practice.includes("limited participation")){
-    penalty=4;level="low";reason="Limited participation in practice"
-  }else if(practice.includes("full participation")){
-    penalty=0;level="none";reason="Full participation in practice"
-  }else{
-    penalty=1;level="low";reason=report||practice||"Listed on injury report"
-  }
-
-  if(body)reason+=` • ${body}`;
-  return{penalty,level,reason,injury:i}
-}
-
-function buildMatchupIndexes(){
-  matchupSeasonIndex.clear();
-  matchupLeagueCache.clear();
-  matchupBlendCache.clear();
-  matchupRankCache.clear();
-
-  for(const r of matchupRows){
-    const key=`${r.season}|${teamCode(r.defense)}|${String(r.position_group||"ALL").toUpperCase()}`;
-    if(!matchupSeasonIndex.has(key))matchupSeasonIndex.set(key,[]);
-    matchupSeasonIndex.get(key).push(r)
-  }
-
-  for(const a of matchupSeasonIndex.values())a.sort((x,y)=>num(y.week)-num(x.week))
-}
-
-function seasonDefenseAverage(defense,position,stat,season){
-  const rows=matchupSeasonIndex.get(`${season}|${teamCode(defense)}|${position}`)||[];
-  if(!rows.length)return null;
-  let s=0,w=0;
-  rows.forEach((r,i)=>{
-    const v=matchupMetric(r,stat);
-    if(!Number.isFinite(v))return;
-    const wt=Math.pow(.93,i);
-    s+=v*wt;w+=wt
+function build(){models.clear();props.forEach(p=>models.set(pk(p),model(p)))}
+function filters(){
+  let g=$("gameFilter").value,s=$("statFilter").value,q=norm($("searchInput").value),ms=num($("scoreFilter").value),ml=num($("leanFilter").value),mh=num($("hitFilter").value),mn=num($("sampleFilter").value);
+  let a=props.filter(p=>{
+    let m=models.get(pk(p));
+    return(!g||team(p.Team)+" vs "+team(p.Opponent)==g)&&(!s||p.stat==s)&&(!q||norm(p.player).includes(q))&&m.score>=ms&&m.lean>=ml&&m.hit>=mh&&m.sample>=mn&&(mode!="best"||["Strong Keep","Keep"].includes(m.final));
   });
-  return w?{value:s/w,games:rows.length}:null
+  let sort=$("sortFilter").value;
+  if(sort=="final"||sort=="strength")a.sort((x,y)=>models.get(pk(y)).strength-models.get(pk(x)).strength);
+  else if(sort=="score")a.sort((x,y)=>models.get(pk(y)).score-models.get(pk(x)).score);
+  return a;
 }
-
-function seasonLeagueAverage(position,stat,season){
-  const key=`${season}|${position}|${stat}`;
-  if(matchupLeagueCache.has(key))return matchupLeagueCache.get(key);
-  const vals=[];
-  for(const [k,rows] of matchupSeasonIndex){
-    const parts=k.split("|");
-    if(parts[0]!==String(season)||parts[2]!==position)continue;
-    let s=0,w=0;
-    rows.forEach((r,i)=>{
-      const v=matchupMetric(r,stat);
-      if(!Number.isFinite(v))return;
-      const wt=Math.pow(.93,i);s+=v*wt;w+=wt
-    });
-    if(w)vals.push(s/w)
-  }
-  const v=vals.length?mean(vals):null;
-  matchupLeagueCache.set(key,v);
-  return v
-}
-
-function blendedDefenseValue(defense,position,stat){
-  const key=`${teamCode(defense)}|${position}|${stat}`;
-  if(matchupBlendCache.has(key))return matchupBlendCache.get(key);
-  const c=seasonDefenseAverage(defense,position,stat,2026);
-  const p=seasonDefenseAverage(defense,position,stat,2025);
-  let r=null;
-  if(c&&p){
-    const cw=clamp(c.games/6,.20,.75);
-    r={value:c.value*cw+p.value*(1-cw),currentGames:c.games}
-  }else if(c)r={value:c.value,currentGames:c.games};
-  else if(p)r={value:p.value,currentGames:0};
-  matchupBlendCache.set(key,r);
-  return r
-}
-
-function buildRankCache(position,stat){
-  const key=`${position}|${stat}`;
-  if(matchupRankCache.has(key))return matchupRankCache.get(key);
-
-  const defenses=new Set(matchupRows.map(r=>teamCode(r.defense)).filter(Boolean));
-  const vals=[];
-
-  for(const d of defenses){
-    const x=blendedDefenseValue(d,position,stat);
-    if(x&&Number.isFinite(x.value))vals.push({defense:d,value:x.value})
-  }
-
-  vals.sort((a,b)=>b.value-a.value);
-  const map=new Map();
-  vals.forEach((x,i)=>map.set(x.defense,{rawAllowedRank:i+1,total:vals.length}));
-  matchupRankCache.set(key,map);
-  return map
-}
-
-function buildMatchupContext(p,position,side){
-  const opp=teamCode(p.Opponent||p.opponentCode);
-  if(!opp||!position)return{pickMatchupScore:50,projectionAdjustment:0,sideRank:null,defenseCount:null,label:"Neutral"};
-
-  const d=blendedDefenseValue(opp,position,p.stat);
-  if(!d)return{pickMatchupScore:50,projectionAdjustment:0,sideRank:null,defenseCount:null,label:"Neutral"};
-
-  const c=seasonLeagueAverage(position,p.stat,2026);
-  const pr=seasonLeagueAverage(position,p.stat,2025);
-  let league;
-
-  if(Number.isFinite(c)&&Number.isFinite(pr)){
-    const cw=clamp(d.currentGames/6,.20,.75);
-    league=c*cw+pr*(1-cw)
-  }else league=Number.isFinite(c)?c:pr;
-
-  if(!Number.isFinite(league)||league<=0)league=d.value;
-
-  const ratio=clamp(d.value/league,.65,1.35);
-  const env=clamp(50+(ratio-1)*125,25,75);
-  const pick=side==="More"?env:100-env;
-  const adjust=clamp((ratio-1)*.20,-.07,.07);
-
-  const rank=buildRankCache(position,p.stat).get(opp);
-  const raw=rank?rank.rawAllowedRank:null;
-  const total=rank?rank.total:null;
-  const sideRank=raw&&total?(side==="More"?raw:total-raw+1):null;
-
-  let label="Neutral";
-  if(pick>=63)label="Favorable";
-  else if(pick>=55)label="Slightly Favorable";
-  else if(pick<=37)label="Tough";
-  else if(pick<=45)label="Slightly Tough";
-
-  return{pickMatchupScore:pick,projectionAdjustment:adjust,sideRank,defenseCount:total,label}
-}
-
-function roleValue(r,stat){
-  const s=String(stat||"").toLowerCase();
-  if(s.includes("pass")||s.includes("completion")||s.includes("interception"))return num(r.attempts,NaN);
-  if(s.includes("receiv")||s==="receptions"||s==="targets")return num(r.targets,NaN);
-  if(s.includes("rush+rec"))return num(r.carries,0)+num(r.targets,0);
-  if(s.includes("rush"))return num(r.carries,NaN);
-  return NaN
-}
-
-function buildRoleContext(rows,stat,side){
-  const vals=rows.map(r=>roleValue(r,stat)).filter(Number.isFinite);
-  if(vals.length<3)return{pickScore:50,label:"Stable"};
-
-  const recent=mean(vals.slice(0,3));
-  const base=mean(vals);
-  const ratio=base?recent/base:1;
-  const variability=base?sd(vals)/Math.max(base,1):0;
-  const raw=clamp(50+clamp((ratio-1)*80,-20,20)+clamp((.45-variability)*25,-10,10),25,75);
-  const pick=side==="More"?raw:100-raw;
-
-  let label="Stable";
-  if(pick>=63)label="Supportive";
-  else if(pick>=55)label="Slightly Supportive";
-  else if(pick<=37)label="Strong Conflict";
-  else if(pick<=45)label="Some Conflict";
-
-  return{pickScore:pick,label}
-}
-
-function normalCDF(x){
-  const t=1/(1+.2316419*Math.abs(x));
-  const d=.3989423*Math.exp(-x*x/2);
-  let p=d*t*(.3193815+t*(-.3565638+t*(1.781478+t*(-1.821256+t*1.330274))));
-  if(x>0)p=1-p;
-  return p
-}
-
-function statSettings(stat){
-  const s=String(stat||"").toLowerCase();
-  if(s.includes("pass yards"))return{minGap:15,minZ:.40};
-  if(s.includes("receiving yards"))return{minGap:7,minZ:.42};
-  if(s.includes("rush yards"))return{minGap:6,minZ:.42};
-  if(s.includes("rush+rec yards"))return{minGap:8,minZ:.42};
-  if(s.includes("attempt"))return{minGap:2,minZ:.40};
-  if(s.includes("completion"))return{minGap:1.5,minZ:.40};
-  if(s==="receptions")return{minGap:1,minZ:.42};
-  if(s==="targets")return{minGap:1.2,minZ:.42};
-  if(s.includes("td")||s.includes("touchdown")||s.includes("interception"))return{minGap:.45,minZ:.55};
-  return{minGap:1,minZ:.45}
-}
-
-function buildModel(p){
-  const active=activeLineInfo(p),line=active.line;
-  const all=playerIndex.get(normName(p.player))||[];
-  const valid=[];
-
-  for(const r of all){
-    const v=statValue(r,p.stat);
-    if(v!==null&&Number.isFinite(v))valid.push({row:r,value:v})
-  }
-
-  if(valid.length<3){
-    const risk=injuryRisk(p);
-    const m={
-      activeLine:active,sample:valid.length,score:50,probability:.50,
-      historicalHit:.50,projection:line,median:line,edgeZ:0,gap:0,
-      side:"More",recommendation:"Pass",strongPick:false,legStrength:40,
-      pickMatchupScore:50,matchupLabel:"Neutral",sideRank:null,
-      defenseCount:null,pickRoleScore:50,roleLabel:"Stable",
-      injuryRisk:risk,currentGames:0
-    };
-    m.final=finalCheck(m);
-    return m
-  }
-
-  const current=valid.filter(x=>num(x.row.season)===2026);
-  const prior=valid.filter(x=>num(x.row.season)===2025);
-  const currentWeights=[1.45,1.32,1.20,1.10,1,.92,.85,.78];
-  const priorWeights=[1,.95,.90,.85,.80,.75,.70,.65,.60,.55];
-  let selected=[];
-
-  if(current.length){
-    selected.push(...current.slice(0,8));
-    selected.push(...prior.slice(0,clamp(10-current.length,2,8)))
-  }else selected=prior.slice(0,10);
-
-  let values=selected.map(x=>x.value);
-
-  if(values.length>=5){
-    const sorted=[...values].sort((a,b)=>a-b);
-    const lo=sorted[Math.floor((sorted.length-1)*.10)];
-    const hi=sorted[Math.floor((sorted.length-1)*.90)];
-    values=values.map(v=>clamp(v,lo,hi))
-  }
-
-  const weights=[];
-  let ci=0,pi=0;
-
-  for(const x of selected){
-    if(num(x.row.season)===2026){
-      weights.push(currentWeights[ci]??.75);ci++
-    }else{
-      let w=priorWeights[pi]??.5;
-      if(current.length>=3)w*=.70;
-      if(current.length>=5)w*=.60;
-      weights.push(w);pi++
-    }
-  }
-
-  const wm=weightedMean(values,weights);
-  const med=median(values);
-  const last5=mean(values.slice(0,5));
-  const last3=mean(values.slice(0,3));
-
-  let projection=wm*.52+med*.22+last5*.16+last3*.10;
-
-  if(current.length===0)projection=projection*.80+line*.20;
-  else if(current.length===1)projection=projection*.85+line*.15;
-  else if(current.length===2)projection=projection*.90+line*.10;
-
-  const first=selected[0].row;
-  const position=String(first.position_group||first.position||"OTHER").toUpperCase();
-
-  let side=projection>=line?"More":"Less";
-  let matchup=buildMatchupContext(p,position,side);
-  projection*=1+matchup.projectionAdjustment;
-
-  const newSide=projection>=line?"More":"Less";
-  if(newSide!==side){
-    side=newSide;
-    matchup=buildMatchupContext(p,position,side)
-  }
-
-  const gap=projection-line;
-  const playerSd=Math.max(sd(values),Math.max(Math.abs(line)*.07,.75));
-  const z=gap/playerSd;
-  const rawOver=1-normalCDF((line-projection)/playerSd);
-
-  const historicalOver=values.reduce((s,v)=>{
-    if(v>line)return s+1;
-    if(v===line)return s+.5;
-    return s
-  },0)/values.length;
-
-  let overProb=rawOver*.55+historicalOver*.45;
-  let shrink=.88;
-
-  if(current.length===0)shrink=.55;
-  else if(current.length===1)shrink=.65;
-  else if(current.length===2)shrink=.75;
-
-  if(values.length<8)shrink*=.90;
-
-  overProb=.50+(overProb-.50)*shrink;
-  overProb=clamp(overProb,.35,.67);
-
-  const probability=side==="More"?overProb:1-overProb;
-  const historicalHit=side==="More"?historicalOver:1-historicalOver;
-
-  const agreement=[projection,med,last5].reduce((s,v)=>{
-    return s+((side==="More"?v>line:v<line)?1:0)
-  },0);
-
-  const volatility=playerSd/Math.max(Math.abs(wm),1);
-  const role=buildRoleContext(selected.map(x=>x.row),p.stat,side);
-  const settings=statSettings(p.stat);
-  const absZ=Math.abs(z),absGap=Math.abs(gap);
-
-  let score=50;
-  score+=clamp((probability-.50)*100,0,17);
-  score+=clamp(absZ*10,0,12);
-  score+=clamp((historicalHit-.50)*35,0,10);
-  score+=clamp((values.length-4)*1.2,0,7);
-  score+=agreement*2.2;
-  score-=clamp(volatility*5,0,6);
-  score+=clamp((matchup.pickMatchupScore-50)*.08,-2,2);
-  score+=clamp((role.pickScore-50)*.06,-1.5,1.5);
-
-  if(current.length===0)score=Math.min(score,84);
-  else if(current.length===1)score=Math.min(score,85);
-
-  score=clamp(Math.round(score),50,90);
-
-  const strongPick=
-    values.length>=8 &&
-    probability>=.60 &&
-    historicalHit>=.60 &&
-    absZ>=settings.minZ &&
-    absGap>=settings.minGap &&
-    agreement>=2 &&
-    volatility<=.85 &&
-    score>=80;
-
-  const strongConflict=matchup.pickMatchupScore<40&&role.pickScore<40;
-
-  let legStrength=
-    27+
-    clamp((probability-.50)/.17,0,1)*15+
-    clamp((historicalHit-.50)/.35,0,1)*12+
-    clamp(absZ/1.5,0,1)*16+
-    (agreement/3)*8+
-    clamp(values.length/12,0,1)*6+
-    (1-clamp(volatility/.85,0,1))*6+
-    clamp(current.length/5,0,1)*4+
-    clamp(absGap/Math.max(settings.minGap*2,.5),0,1)*5+
-    clamp(matchup.pickMatchupScore/100,0,1)*7+
-    clamp(role.pickScore/100,0,1)*4;
-
-  if(matchup.pickMatchupScore<35)legStrength-=5;
-  else if(matchup.pickMatchupScore<42)legStrength-=2.5;
-
-  if(role.pickScore<35)legStrength-=5;
-  else if(role.pickScore<42)legStrength-=2.5;
-
-  if(strongConflict)legStrength-=3;
-
-  const risk=injuryRisk(p);
-  legStrength-=Math.min(risk.penalty,18);
-  if(risk.level==="out")legStrength=0;
-  legStrength=clamp(legStrength,0,100);
-
-  const m={
-    activeLine:active,
-    sample:values.length,
-    score,
-    probability,
-    historicalHit,
-    projection,
-    median:med,
-    gap,
-    edgeZ:z,
-    side,
-    recommendation:strongPick?side:"Pass",
-    strongPick,
-    agreement,
-    volatility,
-    position,
-    currentGames:current.length,
-    pickMatchupScore:matchup.pickMatchupScore,
-    matchupLabel:matchup.label,
-    sideRank:matchup.sideRank,
-    defenseCount:matchup.defenseCount,
-    pickRoleScore:role.pickScore,
-    roleLabel:role.label,
-    strongConflict,
-    injuryRisk:risk,
-    legStrength
-  };
-
-  m.final=finalCheck(m);
-  return m
-}
-
-function finalCheck(m){
-  const risk=m.injuryRisk;
-  let score=m.legStrength;
-
-  if(m.pickMatchupScore<40)score-=3;
-  if(m.pickRoleScore<40)score-=3;
-  if(m.probability<.58)score-=5;
-  score=clamp(score,0,100);
-
-  if(risk.level==="out")return{score:0,label:"Avoid",cls:"final-avoid",reason:risk.reason};
-
-  if(risk.level==="high"||score<65){
-    return{
-      score,
-      label:"Avoid",
-      cls:"final-avoid",
-      reason:risk.level==="high"?risk.reason:"Model edge is not strong enough after risk adjustments"
-    }
-  }
-
-  if(risk.level==="medium"||score<78){
-    return{
-      score,
-      label:"Caution",
-      cls:"final-caution",
-      reason:risk.level==="medium"?risk.reason:"Playable, but the adjusted edge is not among the strongest"
-    }
-  }
-
-  if(score>=90){
-    return{
-      score,
-      label:"Strong Keep",
-      cls:"final-strong",
-      reason:risk.reason==="No current injury-report flag found"?"Strong model edge with no current injury-report penalty":risk.reason
-    }
-  }
-
-  return{
-    score,
-    label:"Keep",
-    cls:"final-keep",
-    reason:risk.reason==="No current injury-report flag found"?"Model edge remains solid after Final Check":risk.reason
-  }
-}
-
-async function loadPromoData(){
-  try{
-    const data=JSON.parse(await fetchText(PROMO_STATS));
-    const list=Array.isArray(data)?data:(data.promos||data.props||[]);
-    for(const x of list){
-      const player=x.player||x.player_name;
-      const stat=x.stat||x.stat_type;
-      const line=x.discountLine??x.discount_line??x.promoLine??x.promo_line??x.line;
-      if(!player||!stat||!Number.isFinite(Number(line)))continue;
-      const key=[x.gameId||x.game_id||"",normName(player),String(stat).toLowerCase().trim()].join("|");
-      promoMap.set(key,{line:Number(line)})
-    }
-  }catch(e){}
-}
-
-function buildModels(){
-  models.clear();
-  for(const p of props)models.set(propKey(p),buildModel(p))
-}
-
-let dynamicStars=new Set();
-
-function buildStars(){
-  const scores=new Map();
-  for(const p of props){
-    const k=normName(p.player),rank=num(p.rank,9999);
-    if(!scores.has(k))scores.set(k,{player:k,count:0,bestRank:rank});
-    const x=scores.get(k);x.count++;x.bestRank=Math.min(x.bestRank,rank)
-  }
-  dynamicStars=new Set(
-    [...scores.values()]
-      .sort((a,b)=>a.bestRank-b.bestRank||b.count-a.count)
-      .slice(0,35)
-      .map(x=>x.player)
-  )
-}
-
-function isStar(p){return dynamicStars.has(normName(p.player))}
-
-function populateFilters(){
-  const games=[...new Set(props.map(p=>`${teamCode(p.Team)} vs ${teamCode(p.Opponent)}`))].sort();
-  $("gameFilter").innerHTML='<option value="">All NFL Games</option>'+games.map(g=>`<option>${escapeHtml(g)}</option>`).join("");
-  $("parlayGame").innerHTML=games.map(g=>`<option>${escapeHtml(g)}</option>`).join("");
-
-  const stats=[...new Set(props.map(p=>p.stat))].filter(Boolean).sort();
-  $("statFilter").innerHTML='<option value="">All Prop Types</option>'+stats.map(s=>`<option>${escapeHtml(s)}</option>`).join("")
-}
-
-function filteredProps(){
-  const game=$("gameFilter").value;
-  const stat=$("statFilter").value;
-  const search=normName($("searchInput").value);
-  const minScore=num($("scoreFilter").value);
-  const minLean=num($("leanFilter").value);
-  const minHit=num($("hitFilter").value);
-  const minSample=num($("sampleFilter").value);
-
-  let list=props.filter(p=>{
-    const m=models.get(propKey(p));
-    if(!m)return false;
-    if(game&&`${teamCode(p.Team)} vs ${teamCode(p.Opponent)}`!==game)return false;
-    if(stat&&p.stat!==stat)return false;
-    if(search&&!normName(p.player).includes(search))return false;
-    if(m.score<minScore||m.probability<minLean||m.historicalHit<minHit||m.sample<minSample)return false;
-    if(currentMode==="best"&&!m.strongPick)return false;
-    if(currentMode==="stars"&&!isStar(p))return false;
-    return true
-  });
-
-  const sort=$("sortFilter").value;
-
-  list.sort((a,b)=>{
-    const A=models.get(propKey(a)),B=models.get(propKey(b));
-    if(sort==="final")return B.final.score-A.final.score;
-    if(sort==="strength")return B.legStrength-A.legStrength;
-    if(sort==="score")return B.score-A.score;
-    if(sort==="lean")return B.probability-A.probability;
-    if(sort==="hit")return B.historicalHit-A.historicalHit;
-    if(sort==="matchup")return B.pickMatchupScore-A.pickMatchupScore;
-    if(sort==="edge")return Math.abs(B.edgeZ)-Math.abs(A.edgeZ);
-    return num(a.rank,9999)-num(b.rank,9999)
-  });
-
-  return list
-}
-
-function setCurrentLine(p){
-  const current=activeLineInfo(p);
-  const answer=prompt(
-    `Enter the line currently shown in PrizePicks for ${p.player} ${p.stat}.\n\nFeed line: ${p.line}`,
-    current.line
-  );
-
-  if(answer===null)return;
-
-  const line=Number(answer);
-  if(!Number.isFinite(line)||line<0){
-    alert("Enter a valid line.");
-    return
-  }
-
-  manualOverrides[discountKey(p)]={line,updatedAt:new Date().toISOString()};
-  saveOverrides();
-  buildModels();
-  renderAll()
-}
-
-function clearCurrentLine(p){
-  delete manualOverrides[discountKey(p)];
-  saveOverrides();
-  buildModels();
-  renderAll()
-}
-
-function addToLineup(p){
-  const m=models.get(propKey(p));
-  if(!m)return;
-  const key=`${discountKey(p)}|${m.side}`;
-  if(lineup.some(x=>x.key===key))return;
-
-  lineup.push({
-    key,
-    player:p.player,
-    team:teamCode(p.Team),
-    opponent:teamCode(p.Opponent),
-    stat:p.stat,
-    side:m.side,
-    line:m.activeLine.line,
-    strength:m.legStrength,
-    final:m.final.label
-  });
-
-  saveLineup();
-  renderLineup()
-}
-
-function removeLineup(i){
-  lineup.splice(i,1);
-  saveLineup();
-  renderLineup()
-}
-
-function renderLineup(){
-  if(!lineup.length){
-    $("lineup").innerHTML='<div class="empty">No props added yet.</div>';
-    return
-  }
-
-  $("lineup").innerHTML=lineup.map((x,i)=>`
-    <div class="lineupItem">
-      <div class="lineupInfo">
-        <strong>${escapeHtml(x.player)} — ${escapeHtml(x.side)} ${escapeHtml(x.line)}</strong>
-        <span>${escapeHtml(x.stat)} • ${escapeHtml(x.team)} vs ${escapeHtml(x.opponent)} • ${escapeHtml(x.final||"")}</span>
+function render(){
+  let a=filters();$("propCount").textContent=a.length+" props";
+  $("props").innerHTML=a.slice(0,250).map(p=>{
+    let m=models.get(pk(p));
+    return`<div class="propCard">
+      <div class="propTop"><div><div class="propPlayer">${p.player}</div><div class="propMatch">${team(p.Team)} vs ${team(p.Opponent)}</div></div><div class="scoreBadge">${m.score}</div></div>
+      <div class="propLine"><span class="recSide">${m.side}</span> ${p.line} • ${p.stat}</div>
+      <div class="detailsGrid">
+        <div class="detail"><div class="dLabel">Lean</div><div class="dValue">${Math.round(m.lean*100)}%</div></div>
+        <div class="detail"><div class="dLabel">Hit</div><div class="dValue">${Math.round(m.hit*100)}%</div></div>
+        <div class="detail"><div class="dLabel">Sample</div><div class="dValue">${m.sample}</div></div>
+        <div class="detail"><div class="dLabel">Strength</div><div class="dValue">${m.strength.toFixed(1)}</div></div>
       </div>
-      <button class="remove" onclick="removeLineup(${i})">Remove</button>
-    </div>
-  `).join("")
+      <div class="finalCheckBox"><div class="finalTop"><b>Final Check</b><b>${Math.round(m.strength)}/100</b></div>
+      <span class="finalTag final-${m.final=="Strong Keep"?"strong":m.final.toLowerCase()}">${m.final}</span>${m.inj.label?`<div class="injuryNote">⚠️ ${m.inj.label}</div>`:""}</div>
+      <div class="buttons"><button class="smallBtn" onclick='add("${pk(p)}")'>+ My Lineup</button></div>
+    </div>`;
+  }).join("");
 }
-
-function renderProps(){
-  const list=filteredProps();
-  $("propCount").textContent=`${list.length} props`;
-
-  if(!list.length){
-    $("props").innerHTML='<div class="panel empty">No props match these filters.</div>';
-    return
-  }
-
-  $("props").innerHTML=list.map(p=>{
-    const m=models.get(propKey(p)),a=m.activeLine;
-    let lineNote="";
-
-    if(a.source==="manual"){
-      lineNote=`<div class="discountText">✏️ Current Line ${escapeHtml(a.line)} • Feed Line ${escapeHtml(a.standard)}</div>`
-    }else if(a.source==="auto"){
-      lineNote=`<div class="discountText">🔥 Promo Line ${escapeHtml(a.line)} • Standard ${escapeHtml(a.standard)}</div>`
-    }
-
-    const rankText=m.sideRank&&m.defenseCount?`#${m.sideRank} of ${m.defenseCount} for ${m.side}`:"No rank";
-
-    const injuryHtml=
-      m.injuryRisk.reason!=="No current injury-report flag found"
-      ?`<div class="injuryNote">⚠️ ${escapeHtml(m.injuryRisk.reason)}</div>`
-      :"";
-
-    return`
-      <article class="propCard">
-        <div class="propTop">
-          <div>
-            <div class="propPlayer">${escapeHtml(p.player)}</div>
-            <div class="propMatch">${escapeHtml(teamCode(p.Team))} vs ${escapeHtml(teamCode(p.Opponent))}</div>
-          </div>
-          <div class="scoreBadge">${m.score}</div>
-        </div>
-
-        <div class="propLine">
-          <span class="recSide">${escapeHtml(m.side)}</span>
-          ${escapeHtml(a.line)} • ${escapeHtml(p.stat)}
-        </div>
-
-        ${lineNote}
-
-        <div class="detailsGrid">
-          <div class="detail"><div class="dLabel">Lean</div><div class="dValue">${pct(m.probability)}</div></div>
-          <div class="detail"><div class="dLabel">Hit</div><div class="dValue">${pct(m.historicalHit)}</div></div>
-          <div class="detail"><div class="dLabel">Edge</div><div class="dValue">${fmt(Math.abs(m.edgeZ),2)} SD</div></div>
-          <div class="detail"><div class="dLabel">Strength</div><div class="dValue">${fmt(m.legStrength)}</div></div>
-        </div>
-
-        <div class="contextRow">
-          <div class="contextBox">
-            <div class="cTitle">Projection</div>
-            <div class="cValue">${fmt(m.projection)} • Gap ${m.gap>=0?"+":""}${fmt(m.gap)}</div>
-          </div>
-
-          <div class="contextBox">
-            <div class="cTitle">Historical Sample</div>
-            <div class="cValue">${m.sample} games • Median ${fmt(m.median)}</div>
-          </div>
-
-          <div class="contextBox">
-            <div class="cTitle">Matchup</div>
-            <div class="cValue">${Math.round(m.pickMatchupScore)}/100 • ${escapeHtml(m.matchupLabel)}<br><span style="color:var(--muted)">${escapeHtml(rankText)}</span></div>
-          </div>
-
-          <div class="contextBox">
-            <div class="cTitle">Player Role</div>
-            <div class="cValue">${Math.round(m.pickRoleScore)}/100 • ${escapeHtml(m.roleLabel)}</div>
-          </div>
-        </div>
-
-        <div class="finalCheckBox">
-          <div class="finalCheckTop">
-            <div>
-              <div class="finalCheckTitle">Final Check</div>
-              <span class="finalTag ${m.final.cls}">${escapeHtml(m.final.label)}</span>
-            </div>
-            <div class="finalScore">${Math.round(m.final.score)}/100</div>
-          </div>
-
-          <div class="reason">${escapeHtml(m.final.reason)}</div>
-          ${injuryHtml}
-        </div>
-
-        <div class="buttons">
-          <button class="smallBtn green" onclick='addToLineupByKey(${JSON.stringify(propKey(p))})'>+ My Lineup</button>
-          <button class="smallBtn yellow" onclick='setCurrentLineByKey(${JSON.stringify(propKey(p))})'>${a.source==="manual"?"Edit Current Line":"Set Current Line"}</button>
-          ${a.source==="manual"?`<button class="smallBtn red" onclick='clearCurrentLineByKey(${JSON.stringify(propKey(p))})'>Clear Override</button>`:""}
-        </div>
-      </article>
-    `
-  }).join("")
+function populate(){
+  let games=[...new Set(props.map(p=>team(p.Team)+" vs "+team(p.Opponent)))].sort(),ss=[...new Set(props.map(p=>p.stat))].sort();
+  $("gameFilter").innerHTML='<option value="">All NFL Games</option>'+games.map(x=>`<option>${x}</option>`).join("");
+  $("parlayGame").innerHTML=games.map(x=>`<option>${x}</option>`).join("");
+  $("statFilter").innerHTML='<option value="">All Prop Types</option>'+ss.map(x=>`<option>${x}</option>`).join("");
 }
-
-function findPropByKey(k){return props.find(p=>propKey(p)===k)}
-
-window.addToLineupByKey=k=>{const p=findPropByKey(k);if(p)addToLineup(p)};
-window.setCurrentLineByKey=k=>{const p=findPropByKey(k);if(p)setCurrentLine(p)};
-window.clearCurrentLineByKey=k=>{const p=findPropByKey(k);if(p)clearCurrentLine(p)};
-window.removeLineup=removeLineup;
-
-function sameGame(a,b){return gameKey(a)===gameKey(b)}
-
-function correlationPenalty(legs){
-  let p=0;
-  for(let i=0;i<legs.length;i++){
-    for(let j=i+1;j<legs.length;j++){
-      const A=legs[i].prop,B=legs[j].prop;
-      if(!sameGame(A,B))continue;
-      p+=1.8;
-      if(teamCode(A.Team)===teamCode(B.Team))p+=1.4;
-
-      const a=String(A.stat).toLowerCase(),b=String(B.stat).toLowerCase();
-      if((a.includes("pass")&&b.includes("receiv"))||(b.includes("pass")&&a.includes("receiv")))p+=1.8
-    }
-  }
-  return p
-}
-
-function correlationLabel(legs,p){
-  const games=new Set(legs.map(x=>gameKey(x.prop))).size;
-  if(games===1&&legs.length>=4)return"Moderate";
-  if(p>=10)return"High";
-  if(p>=4)return"Moderate";
-  return"Low"
-}
-
-function candidateScore(x){
-  const m=x.model;
-  let s=m.legStrength*.42+m.final.score*.30+m.probability*100*.10+m.historicalHit*100*.08+m.pickMatchupScore*.06+m.pickRoleScore*.04;
-  if(m.final.label==="Avoid")s-=30;
-  else if(m.final.label==="Caution")s-=8;
-  if(m.strongConflict)s-=4;
-  return s
-}
-
-function makeParlayCandidates(){
-  return props.map(p=>({prop:p,model:models.get(propKey(p))}))
-    .filter(x=>x.model&&x.model.strongPick&&x.model.recommendation!=="Pass"&&x.model.injuryRisk.level!=="out"&&x.model.final.label!=="Avoid")
-    .sort((a,b)=>candidateScore(b)-candidateScore(a))
-}
-
-function buildGreedyParlay(candidates,count,scope,selectedGame,seedIndex){
-  const chosen=[],seed=candidates[seedIndex];
-  if(!seed)return null;
-
-  if(scope==="single"&&`${teamCode(seed.prop.Team)} vs ${teamCode(seed.prop.Opponent)}`!==selectedGame)return null;
-
-  chosen.push(seed);
-
-  while(chosen.length<count){
-    let best=null,bestScore=-Infinity;
-
-    for(const c of candidates){
-      if(chosen.includes(c))continue;
-      if(chosen.some(x=>normName(x.prop.player)===normName(c.prop.player)))continue;
-
-      if(scope==="single"){
-        const g=`${teamCode(c.prop.Team)} vs ${teamCode(c.prop.Opponent)}`;
-        if(g!==selectedGame)continue
-      }
-
-      const test=[...chosen,c];
-      let s=candidateScore(c);
-      s-=correlationPenalty(test)-correlationPenalty(chosen);
-
-      if(scope==="all"&&chosen.some(x=>sameGame(x.prop,c.prop)))s-=3;
-
-      if(s>bestScore){bestScore=s;best=c}
-    }
-
-    if(!best)return null;
-    chosen.push(best)
-  }
-
-  return chosen
-}
-
-function parlayMetrics(legs){
-  const penalty=correlationPenalty(legs);
-  const avgStrength=mean(legs.map(x=>x.model.legStrength));
-  const avgFinal=mean(legs.map(x=>x.model.final.score));
-  const avgLean=mean(legs.map(x=>x.model.probability));
-  const avgHit=mean(legs.map(x=>x.model.historicalHit));
-  const avgMatchup=mean(legs.map(x=>x.model.pickMatchupScore));
-  const cautions=legs.filter(x=>x.model.final.label==="Caution").length;
-
-  const rating=avgStrength*.46+avgFinal*.30+avgLean*100*.10+avgHit*100*.08+avgMatchup*.06-penalty-cautions*3;
-
-  let grade="C";
-  if(rating>=91)grade="A+";
-  else if(rating>=87)grade="A";
-  else if(rating>=83)grade="B+";
-  else if(rating>=78)grade="B";
-  else if(rating>=72)grade="C+";
-
-  return{
-    avgStrength,avgFinal,avgLean,avgHit,avgMatchup,
-    rating,grade,correlation:correlationLabel(legs,penalty)
-  }
-}
-
-function generateParlays(){
-  const count=num($("parlayLegs").value,4);
-  const scope=$("parlayScope").value;
-  const selectedGame=$("parlayGame").value;
-  let candidates=makeParlayCandidates();
-
-  if(scope==="single"){
-    candidates=candidates.filter(x=>`${teamCode(x.prop.Team)} vs ${teamCode(x.prop.Opponent)}`===selectedGame)
-  }
-
-  if(candidates.length<count){
-    $("parlayResults").innerHTML='<div class="empty">Not enough qualifying Final Check legs for this parlay.</div>';
-    return
-  }
-
-  const built=[],signatures=new Set();
-  const seedLimit=Math.min(candidates.length,24);
-
-  for(let seed=0;seed<seedLimit;seed++){
-    const legs=buildGreedyParlay(candidates,count,scope,selectedGame,seed);
-    if(!legs)continue;
-
-    const sig=legs.map(x=>normName(x.prop.player)+"|"+x.prop.stat).sort().join("~");
-    if(signatures.has(sig))continue;
-    signatures.add(sig);
-
-    built.push({legs,metrics:parlayMetrics(legs)})
-  }
-
-  built.sort((a,b)=>b.metrics.rating-a.metrics.rating);
-  renderParlays(built.slice(0,5))
-}
-
-function renderParlays(parlays){
-  if(!parlays.length){
-    $("parlayResults").innerHTML='<div class="empty">No qualifying parlays found.</div>';
-    return
-  }
-
-  window.renderedParlays=parlays;
-
-  $("parlayResults").innerHTML=parlays.map((p,index)=>{
-    const title=index===0?"Top Parlay":`Parlay Option ${index+1}`;
-
-    const legs=p.legs.map(x=>{
-      const prop=x.prop,m=x.model,a=m.activeLine;
-      let note="";
-
-      if(a.source==="manual")note=`<div class="discountText">✏️ Current Line ${escapeHtml(a.line)} • Feed ${escapeHtml(a.standard)}</div>`;
-      else if(a.source==="auto")note=`<div class="discountText">🔥 Promo Line ${escapeHtml(a.line)} • Standard ${escapeHtml(a.standard)}</div>`;
-
-      return`
-        <div class="parlayLeg">
-          <div class="legTop">
-            <div>
-              <div class="player">${escapeHtml(prop.player)}</div>
-              <div class="match">${escapeHtml(teamCode(prop.Team))} vs ${escapeHtml(teamCode(prop.Opponent))}</div>
-            </div>
-            <div class="side">${escapeHtml(m.side)}</div>
-          </div>
-
-          <div class="legLine">${escapeHtml(m.side)} ${escapeHtml(a.line)} • ${escapeHtml(prop.stat)}</div>
-          ${note}
-
-          <div class="smallStats">
-            Score ${m.score} • Lean ${pct(m.probability)} • Hit ${pct(m.historicalHit)} • Strength ${fmt(m.legStrength)}
-          </div>
-
-          <span class="finalTag ${m.final.cls}">
-            ${escapeHtml(m.final.label)} • ${Math.round(m.final.score)}
-          </span>
-
-          ${m.injuryRisk.reason!=="No current injury-report flag found"
-            ?`<div class="injuryNote">⚠️ ${escapeHtml(m.injuryRisk.reason)}</div>`
-            :""
-          }
-        </div>
-      `
-    }).join("");
-
-    return`
-      <div class="parlayCard">
-        <div class="parlayHead">
-          <div>
-            <div class="parlayTitle">${title}</div>
-            <div class="parlaySub">${p.legs.length} legs • Strength ${fmt(p.metrics.avgStrength)}</div>
-          </div>
-          <div class="grade">${p.metrics.grade}</div>
-        </div>
-
-        <div class="parlayMetrics">
-          <div class="metricBox">
-            <div class="mLabel">Avg Strength</div>
-            <div class="mValue">${fmt(p.metrics.avgStrength)}</div>
-          </div>
-          <div class="metricBox">
-            <div class="mLabel">Avg Final Check</div>
-            <div class="mValue">${Math.round(p.metrics.avgFinal)}</div>
-          </div>
-          <div class="metricBox">
-            <div class="mLabel">Avg Matchup</div>
-            <div class="mValue">${Math.round(p.metrics.avgMatchup)}</div>
-          </div>
-        </div>
-
-        ${legs}
-
-        <div class="correlation">Correlation: <strong>${p.metrics.correlation}</strong></div>
-
-        <div class="parlayFooter">
-          <button class="actionBtn" onclick="addRenderedParlay(${index})">
-            Add This Parlay to My Lineup
-          </button>
-        </div>
-      </div>
-    `
-  }).join("")
-}
-
-window.addRenderedParlay=index=>{
-  const p=window.renderedParlays&&window.renderedParlays[index];
-  if(!p)return;
-  p.legs.forEach(x=>addToLineup(x.prop))
-};
-
-function setFeedAge(scrapedAt){
-  const el=$("feedAge");
-
-  if(!scrapedAt){
-    el.textContent="Unknown";
-    el.className="value warn";
-    return
-  }
-
-  const mins=Math.max(0,Math.round((Date.now()-new Date(scrapedAt).getTime())/60000));
-
-  if(mins<60){
-    el.textContent=`${mins} min • Fresh`;
-    el.className="value ok"
-  }else if(mins<180){
-    el.textContent=`${Math.floor(mins/60)}h ${mins%60}m • Check lines`;
-    el.className="value warn"
-  }else{
-    el.textContent=`${Math.floor(mins/60)}h ${mins%60}m • May be stale`;
-    el.className="value bad"
-  }
-}
-
-function renderAll(){
+window.add=k=>{
+  let p=props.find(x=>pk(x)==k),m=p&&models.get(k);
+  if(!p||!m)return;
+  if(lineup.some(x=>x.key==k+"|"+m.side))return;
+  lineup.push({key:k+"|"+m.side,player:p.player,side:m.side,line:p.line,stat:p.stat});
   renderLineup();
-  renderProps()
 }
+function renderLineup(){
+  $("lineup").innerHTML=lineup.length?lineup.map((x,i)=>`<div class="lineupItem"><div><b>${x.player} — ${x.side} ${x.line}</b><div class="muted">${x.stat}</div></div><button class="remove" onclick="removeLine(${i})">Remove</button></div>`).join(""):'<div class="empty">No props added yet.</div>';
+}
+window.removeLine=i=>{lineup.splice(i,1);renderLineup()}
 
-async function loadData(){
-  try{
-    $("loadingText").textContent="Loading PrizePicks board…";
-
-    const ppData=JSON.parse(await fetchText(PP_URL));
-    const raw=Array.isArray(ppData)?ppData:(ppData.data||ppData.props||[]);
-    const dedupe=new Map();
-
-    for(const p of raw){
-      const key=[gameKey(p),normName(p.player),p.stat,p.line].join("|");
-      if(!dedupe.has(key))dedupe.set(key,p)
-    }
-
-    props=[...dedupe.values()];
-
-    $("ppStatus").textContent=`${props.length} NFL props`;
-    $("ppStatus").className="value ok";
-    setFeedAge(ppData.scrapedAt||ppData.updatedAt||null);
-
-    $("loadingText").textContent="Loading stats, matchups and injuries…";
-
-    const results=await Promise.allSettled([
-      fetchText(NFL_STATS),
-      fetchText(MATCHUP_STATS),
-      fetchText(INJURY_STATS),
-      loadPromoData()
-    ]);
-
-    if(results[0].status!=="fulfilled")throw new Error("Player stats failed to load.");
-
-    playerRows=parseCSV(results[0].value);
-
-    if(results[1].status==="fulfilled")matchupRows=parseCSV(results[1].value);
-    else matchupRows=[];
-
-    if(results[2].status==="fulfilled"){
-      injuryRows=parseCSV(results[2].value);
-      $("injuryStatus").textContent=`${injuryRows.length} reports`;
-      $("injuryStatus").className="value ok"
-    }else{
-      injuryRows=[];
-      $("injuryStatus").textContent="Unavailable";
-      $("injuryStatus").className="value warn"
-    }
-
-    $("loadingText").textContent="Building model…";
-
-    buildPlayerIndex();
-    buildInjuryIndex();
-    buildMatchupIndexes();
-    buildStars();
-    buildModels();
-    populateFilters();
-    renderAll();
-
-    $("modelStatus").textContent=`${models.size} analyzed`;
-    $("modelStatus").className="value ok"
-
-  }catch(err){
-    console.error(err);
-    $("modelStatus").textContent="Load error";
-    $("modelStatus").className="value bad";
-    alert("Prop Edge could not finish loading.\n\n"+err.message)
-  }finally{
-    $("loading").classList.add("hidden")
+function candidatePool(){
+  let single=$("parlayScope").value=="single",g=$("parlayGame").value;
+  let a=props.map(p=>({p,m:models.get(pk(p))})).filter(x=>{
+    if(single&&team(x.p.Team)+" vs "+team(x.p.Opponent)!=g)return false;
+    if(x.m.final=="Avoid"||x.m.inj.label=="Out")return false;
+    return single
+      ? x.m.sample>=3&&x.m.lean>=.52&&x.m.strength>=60
+      : x.m.sample>=5&&x.m.lean>=.54&&x.m.strength>=67;
+  });
+  let pri=x=>x.m.final=="Strong Keep"?3:x.m.final=="Keep"?2:1;
+  a.sort((a,b)=>pri(b)-pri(a)||b.m.strength-a.m.strength||b.m.score-a.m.score);
+  return a;
+}
+function comboSig(legs){
+  return legs.map(x=>[
+    norm(x.p.player),
+    String(x.p.stat||"").toLowerCase(),
+    x.m.side,
+    String(x.p.line)
+  ].join("|")).sort().join("~");
+}
+function parlayRating(legs){
+  let avg=mean(legs.map(x=>x.m.strength)),cautions=legs.filter(x=>x.m.final=="Caution").length;
+  return clamp(avg-cautions*1.5,0,100);
+}
+function grade(r){return r>=90?"A+":r>=84?"A":r>=80?"B+":r>=75?"B":r>=69?"C+":"C"}
+function generate(){
+  let n=num($("parlayLegs").value),pool=candidatePool();
+  let uniquePlayers=new Set(pool.map(x=>norm(x.p.player)));
+  if(uniquePlayers.size<n){
+    $("parlayResults").innerHTML=`<div class="empty">Only ${uniquePlayers.size} qualifying unique players found. Try fewer legs.</div>`;
+    return;
   }
+
+  let out=[],seen=new Set(),seedLimit=Math.min(pool.length,40);
+
+  for(let seed=0;seed<seedLimit&&out.length<5;seed++){
+    let legs=[pool[seed]];
+    for(let i=0;i<pool.length&&legs.length<n;i++){
+      let c=pool[i];
+      if(legs.includes(c))continue;
+      if(legs.some(x=>norm(x.p.player)==norm(c.p.player)))continue;
+      legs.push(c);
+    }
+    if(legs.length<n)continue;
+    let sig=comboSig(legs);
+    if(seen.has(sig))continue;
+    seen.add(sig);
+    out.push({legs,rating:parlayRating(legs)});
+  }
+
+  // If seed-based generation did not create enough unique combos, build alternatives by skipping top candidates.
+  for(let skip=1;skip<pool.length&&out.length<5;skip++){
+    let legs=[];
+    for(let i=0;i<pool.length&&legs.length<n;i++){
+      if(i==skip)continue;
+      let c=pool[i];
+      if(legs.some(x=>norm(x.p.player)==norm(c.p.player)))continue;
+      legs.push(c);
+    }
+    if(legs.length<n)continue;
+    let sig=comboSig(legs);
+    if(seen.has(sig))continue;
+    seen.add(sig);
+    out.push({legs,rating:parlayRating(legs)});
+  }
+
+  out.sort((a,b)=>b.rating-a.rating);
+  renderedParlays=out;
+  renderParlays(out);
+}
+function renderParlays(parlays){
+  if(!parlays.length){$("parlayResults").innerHTML='<div class="empty">No qualifying parlays found.</div>';return}
+  $("parlayResults").innerHTML=parlays.map((q,idx)=>`
+    <div class="parlayCard">
+      <div class="parlayHead"><div><b style="font-size:22px">${idx==0?"Top Parlay":"Parlay Option "+(idx+1)}</b><div class="muted">Rating ${q.rating.toFixed(1)}</div></div><div class="grade">${grade(q.rating)}</div></div>
+      ${q.legs.map(x=>`<div class="parlayLeg">
+        <div class="legTop"><div><div class="player">${x.p.player}</div><div class="match">${team(x.p.Team)} vs ${team(x.p.Opponent)}</div></div><div class="side">${x.m.side}</div></div>
+        <b>${x.m.side} ${x.p.line} • ${x.p.stat}</b>
+        <div class="smallStats">Score ${x.m.score} • Lean ${Math.round(x.m.lean*100)}% • Hit ${Math.round(x.m.hit*100)}% • Strength ${x.m.strength.toFixed(1)}</div>
+        <span class="finalTag final-${x.m.final=="Strong Keep"?"strong":x.m.final.toLowerCase()}">${x.m.final}</span>
+      </div>`).join("")}
+      <div class="correlation">Duplicate combinations are automatically removed. Same legs in a different order will not be shown twice.</div>
+      <div class="parlayFooter"><button class="actionBtn" onclick="addParlay(${idx})">Add This Parlay to My Lineup</button></div>
+    </div>`).join("");
+}
+window.addParlay=i=>{
+  let q=renderedParlays[i];
+  if(!q)return;
+  q.legs.forEach(x=>add(pk(x.p)));
 }
 
-[
-  "gameFilter",
-  "statFilter",
-  "scoreFilter",
-  "leanFilter",
-  "hitFilter",
-  "sampleFilter",
-  "sortFilter"
-].forEach(id=>$(id).addEventListener("change",renderProps));
+async function load(){
+  try{
+    let pp=JSON.parse(await txt(PP_URL)),raw=Array.isArray(pp)?pp:(pp.data||pp.props||[]),d=new Map();
+    raw.forEach(p=>d.set(pk(p),p));props=[...d.values()];
+    $("ppStatus").textContent=props.length+" NFL props";$("ppStatus").className="value ok";
+    let age=pp.scrapedAt?Math.round((Date.now()-new Date(pp.scrapedAt))/60000):null;
+    $("feedAge").textContent=age==null?"Unknown":age<60?age+"m • Fresh":Math.floor(age/60)+"h "+age%60+"m • "+(age>180?"May be stale":"Check lines");
+    $("feedAge").className="value "+(age>180?"bad":age>=60?"warn":"ok");
 
-$("searchInput").addEventListener("input",renderProps);
+    let [s,i]=await Promise.all([txt(NFL_STATS),txt(INJURY_STATS)]);
+    stats=csv(s);injuries=csv(i);
+    $("injuryStatus").textContent=injuries.length+" reports";$("injuryStatus").className="value ok";
 
-document.querySelectorAll(".modeBtn").forEach(btn=>{
-  btn.addEventListener("click",()=>{
-    document.querySelectorAll(".modeBtn").forEach(b=>b.classList.remove("active"));
-    btn.classList.add("active");
-    currentMode=btn.dataset.mode;
-    renderProps()
-  })
-});
-
-$("parlayScope").addEventListener("change",()=>{
-  $("singleGameWrap").style.display=$("parlayScope").value==="single"?"block":"none"
-});
-
-$("generateParlays").addEventListener("click",generateParlays);
-
-if("serviceWorker" in navigator){
-  navigator.serviceWorker.register("./sw.js").catch(()=>{})
+    build();populate();render();renderLineup();
+    $("modelStatus").textContent=models.size+" analyzed";$("modelStatus").className="value ok";
+  }catch(e){
+    console.error(e);$("modelStatus").textContent="Load error";$("modelStatus").className="value bad";
+  }finally{$("loading").classList.add("hidden")}
 }
 
-loadData();
+["gameFilter","statFilter","scoreFilter","leanFilter","hitFilter","sampleFilter","sortFilter"].forEach(x=>$(x).addEventListener("change",render));
+$("searchInput").addEventListener("input",render);
+document.querySelectorAll(".modeBtn").forEach(b=>b.onclick=()=>{document.querySelectorAll(".modeBtn").forEach(x=>x.classList.remove("active"));b.classList.add("active");mode=b.dataset.mode;render()});
+$("parlayScope").onchange=()=>$("singleGameWrap").style.display=$("parlayScope").value=="single"?"block":"none";
+$("generateParlays").onclick=generate;
+load();
 </script>
-
 </body>
 </html>
