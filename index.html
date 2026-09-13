@@ -182,11 +182,14 @@ function scoreSide(p,rows,proj,line,side,oppCtx,injCtx,vals,dev,pos){
   if(opportunityScore<35)score-=8;
   if(risk.penalty>=20)score-=6;
 
+  // Preserve score separation: weak/missing market data lowers confidence
+  // with graduated penalties instead of flattening every strong play to a cap.
   if(market.available){
-    if(market.books<2)score=Math.min(score,86);
-    if(market.quality<.72)score=Math.min(score,82);
+    if(market.books<2)score-=3;
+    if(market.quality<.72)score-=4;
+    else if(market.quality<.82)score-=2;
   }else{
-    score=Math.min(score,87);
+    score-=4;
   }
   if(ppQuality<.8)score-=3;else if(ppQuality<.9)score-=1.5
   score=clamp(score,35,95);
