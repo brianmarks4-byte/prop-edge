@@ -164,7 +164,7 @@ function scoreSide(p,rows,proj,line,side,oppCtx,injCtx,vals,dev,pos){
        The model must have unusually strong non-market evidence. */
     score=Math.min(score,87);
   }
-  if(ppQuality<.8)score=Math.min(score,79);
+  if(ppQuality<.8){score-=4;score=Math.min(score,83)}else if(ppQuality<.9){score=Math.min(score,87)}
   score=clamp(score,35,95);
 
   const projectionProb=normalProb(proj,line,dev,side);
