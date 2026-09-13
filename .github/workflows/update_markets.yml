@@ -1,0 +1,251 @@
+name: Update sportsbook markets
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 */6 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-sportsbook-markets
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Fetch NFL player props and build Prop Edge market feed
+        env:
+          PARLAY_API_KEY: ${{ secrets.PARLAY_API_KEY }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import sys
+          import urllib.request
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          key = os.environ.get("PARLAY_API_KEY", "").strip()
+          if not key:
+              print("PARLAY_API_KEY repository secret is missing.", file=sys.stderr)
+              sys.exit(1)
+
+          url = (
+              "https://parlay-api.com/v1/sports/americanfootball_nfl/props"
+              "?limit=10000&maxAgeSec=3600"
+          )
+
+          req = urllib.request.Request(
+              url,
+              headers={
+                  "X-API-Key": key,
+                  "Accept": "application/json",
+                  "User-Agent": "prop-edge-github-action/1.0",
+              },
+          )
+
+          try:
+              with urllib.request.urlopen(req, timeout=45) as response:
+                  payload = json.load(response)
+          except Exception as exc:
+              print(f"ParlayAPI request failed: {exc}", file=sys.stderr)
+              sys.exit(1)
+
+          # /props is documented as a flat array. Keep a defensive fallback in
+          # case the provider wraps it in a top-level object later.
+          if isinstance(payload, list):
+              rows = payload
+          elif isinstance(payload, dict):
+              rows = (
+                  payload.get("data")
+                  or payload.get("props")
+                  or payload.get("markets")
+                  or payload.get("results")
+                  or []
+              )
+          else:
+              rows = []
+
+          if not isinstance(rows, list):
+              print("Unexpected ParlayAPI response shape.", file=sys.stderr)
+              sys.exit(1)
+
+          # Prop Edge's PrizePicks stat labels -> ParlayAPI market keys.
+          market_to_stat = {
+              "player_pass_yds": "Pass Yards",
+              "player_passing_yards": "Pass Yards",
+              "player_pass_attempts": "Pass Attempts",
+              "player_passing_attempts": "Pass Attempts",
+              "player_pass_completions": "Completions",
+              "player_completions": "Completions",
+              "player_pass_tds": "Pass TDs",
+              "player_passing_tds": "Pass TDs",
+              "player_interceptions": "Interceptions",
+              "player_pass_interceptions": "Interceptions",
+              "player_rush_yds": "Rush Yards",
+              "player_rushing_yards": "Rush Yards",
+              "player_rush_attempts": "Rush Attempts",
+              "player_rushing_attempts": "Rush Attempts",
+              "player_rec_yds": "Receiving Yards",
+              "player_receiving_yards": "Receiving Yards",
+              "player_receptions": "Receptions",
+              "player_longest_rec": "Longest Reception",
+              "player_longest_reception": "Longest Reception",
+              "player_receiving_tds": "Receiving TDs",
+              "player_rush_rec_yds": "Rush + Rec Yards",
+              "player_rushing_receiving_yards": "Rush + Rec Yards",
+          }
+
+          # Only real sportsbook rows should influence sportsbook consensus.
+          # DFS apps such as PrizePicks/Underdog/Sleeper are intentionally
+          # excluded from this file.
+          dfs_books = {
+              "prizepicks", "underdog", "sleeper", "betr", "pick6",
+              "draftkings_pick6"
+          }
+
+          out = []
+          seen = set()
+
+          for r in rows:
+              if not isinstance(r, dict):
+                  continue
+
+              market_key = str(
+                  r.get("market_key")
+                  or r.get("market")
+                  or r.get("key")
+                  or ""
+              ).strip().lower()
+
+              stat = market_to_stat.get(market_key)
+              if not stat:
+                  continue
+
+              player = str(
+                  r.get("player_name")
+                  or r.get("player")
+                  or r.get("name")
+                  or ""
+              ).strip()
+
+              bookmaker = str(
+                  r.get("bookmaker")
+                  or r.get("book")
+                  or r.get("sportsbook")
+                  or ""
+              ).strip()
+
+              if not player or not bookmaker:
+                  continue
+              if bookmaker.lower() in dfs_books:
+                  continue
+
+              try:
+                  line = float(r.get("line"))
+              except (TypeError, ValueError):
+                  continue
+
+              over_price = r.get("over_price")
+              under_price = r.get("under_price")
+
+              # Keep rows even if a particular book has no price; Prop Edge can
+              # still use the book's line in the consensus line calculation.
+              updated = (
+                  r.get("last_update")
+                  or r.get("updated_at")
+                  or r.get("timestamp")
+                  or datetime.now(timezone.utc).isoformat()
+              )
+
+              event_id = (
+                  r.get("canonical_event_id")
+                  or r.get("event_id")
+                  or ""
+              )
+
+              unique = (
+                  player.lower(),
+                  stat.lower(),
+                  bookmaker.lower(),
+                  line,
+                  str(event_id),
+              )
+              if unique in seen:
+                  continue
+              seen.add(unique)
+
+              out.append({
+                  "player": player,
+                  "stat": stat,
+                  "line": line,
+                  "book": bookmaker,
+                  "bookmaker": bookmaker,
+                  "over_price": over_price,
+                  "under_price": under_price,
+                  "updated_at": updated,
+                  "last_update": updated,
+                  "market_key": market_key,
+                  "event_id": event_id,
+                  "home_team": r.get("home_team"),
+                  "away_team": r.get("away_team"),
+                  "commence_time": r.get("commence_time"),
+              })
+
+          out.sort(
+              key=lambda x: (
+                  x["player"].lower(),
+                  x["stat"].lower(),
+                  x["book"].lower(),
+                  x["line"],
+              )
+          )
+
+          if not out:
+              print(
+                  "ParlayAPI returned no supported fresh NFL sportsbook prop rows. "
+                  "Leaving the existing market file untouched.",
+                  file=sys.stderr,
+              )
+              sys.exit(1)
+
+          target = Path("data/prop_edge_markets.json")
+          target.parent.mkdir(parents=True, exist_ok=True)
+
+          # Use a top-level object so we can retain useful metadata. Prop Edge's
+          # marketArray() already accepts a top-level `markets` array.
+          result = {
+              "generated_at": datetime.now(timezone.utc).isoformat(),
+              "source": "ParlayAPI",
+              "sport": "americanfootball_nfl",
+              "count": len(out),
+              "markets": out,
+          }
+
+          target.write_text(
+              json.dumps(result, indent=2, ensure_ascii=False) + "\n",
+              encoding="utf-8",
+          )
+          print(f"Wrote {len(out)} sportsbook rows to {target}")
+          PY
+
+      - name: Commit updated market data
+        run: |
+          git add data/prop_edge_markets.json
+
+          if git diff --cached --quiet; then
+            echo "No market-data changes to commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Update sportsbook market data"
+          git push
