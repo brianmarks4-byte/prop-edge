@@ -20764,3 +20764,72 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0041569,G.Jacas,Gabe Jacas,LB,LB,2026,2,REG,NE,PIT,0,0,0,0,,0,0,0,0,0,0,0
 00-0041581,B.Thorson,Brett Thorson,P,SPEC,2026,2,REG,MIN,CHI,0,0,0,0,,0,0,0,0,0,0,0
 ,,,,,2026,2,REG,BUF,DET,0,0,0,0,,0,0,0,0,0,0,0
+00-0025565,N.Folk,Nick Folk,K,SPEC,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,0,0,0,0
+00-0031576,Z.Smith,Za'Darius Smith,DE,DL,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,0,0,0,0
+00-0032392,A.Hooper,Austin Hooper,TE,TE,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,2,2,11,1
+00-0033109,J.Hargrave,Javon Hargrave,NT,DL,2026,3,REG,GB,ATL,0,0,0,0,,0,0,0,0,0,0,0
+00-0033858,J.Smith,Jonnu Smith,TE,TE,2026,3,REG,GB,ATL,0,0,0,0,,0,0,0,3,2,16,0
+00-0034431,Z.Franklin,Zaire Franklin,OLB,LB,2026,3,REG,GB,ATL,0,0,0,0,,0,0,0,0,0,0,0
+00-0034675,J.Bates,Jessie Bates,FS,DB,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,0,0,0,0
+00-0034801,J.Woods,Josh Woods,LB,LB,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,0,0,0,0
+00-0034843,M.Hughes,Mike Hughes,CB,DB,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,0,0,0,0
+00-0035133,K.Nixon,Keisean Nixon,DB,DB,2026,3,REG,GB,ATL,0,0,0,0,,0,0,0,0,0,0,0
+00-0035208,O.Zaccheaus,Olamide Zaccheaus,WR,WR,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,2,2,9,0
+00-0035237,J.Taylor,Jawaan Taylor,OT,OL,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,0,0,0,0
+00-0035280,J.Bailey,Jake Bailey,P,SPEC,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,0,0,0,0
+00-0036204,L.London,LaCale London,DE,DL,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,0,0,0,0
+00-0036264,J.Love,Jordan Love,QB,QB,2026,3,REG,GB,ATL,28,53,312,2,,1,0,0,0,0,0,0
+00-0036281,C.Henderson,C.J. Henderson,CB,DB,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,0,0,0,0
+00-0036388,X.McKinney,Xavier McKinney,SAF,DB,2026,3,REG,GB,ATL,0,0,0,0,,0,0,0,0,0,0,0
+00-0036463,C.Blair,Chris Blair,WR,WR,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,0,0,0,0
+00-0036648,N.Niemann,Nick Niemann,LB,LB,2026,3,REG,GB,ATL,0,0,0,0,,0,0,0,0,0,0,0
+00-0036658,I.McDuffie,Isaiah McDuffie,LB,LB,2026,3,REG,GB,ATL,0,0,0,0,,0,0,0,0,0,0,0
+00-0036833,R.Neuzil,Ryan Neuzil,G,OL,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,0,0,0,0
+00-0036970,K.Pitts,Kyle Pitts,TE,TE,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,2,1,5,0
+00-0036990,D.Deablo,Divine Deablo,LB,LB,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,0,0,0,0
+00-0037075,D.Wyatt,Devonte Wyatt,DT,DL,2026,3,REG,GB,ATL,0,0,0,0,,0,0,0,0,0,0,0
+00-0037091,B.Melton,Bo Melton,WR,WR,2026,3,REG,GB,ATL,0,0,0,0,,0,0,0,1,0,0,0
+00-0037094,J.Ford,Jonathan Ford,DT,DL,2026,3,REG,GB,ATL,0,0,0,0,,0,0,0,0,0,0,0
+00-0037238,D.London,Drake London,WR,WR,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,10,9,194,0
+00-0037317,N.Muse,Nick Muse,TE,TE,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,0,0,0,0
+00-0037547,D.Whelan,Daniel Whelan,P,SPEC,2026,3,REG,GB,ATL,0,0,0,0,,0,0,0,0,0,0,0
+00-0037741,J.Dotson,Jahan Dotson,WR,WR,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,3,1,11,0
+00-0037746,Br.Robinson,Brian Robinson,RB,RB,2026,3,REG,ATL,GB,0,0,0,0,,10,50,1,0,0,0,0
+00-0037815,C.Thomas,Cameron Thomas,DE,DL,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,0,0,0,0
+00-0037823,C.Harris,Christian Harris,LB,LB,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,0,0,0,0
+00-0038090,S.Moore,Skyy Moore,WR,WR,2026,3,REG,GB,ATL,0,0,0,0,,0,0,0,7,3,31,0
+00-0038124,C.Watson,Christian Watson,WR,WR,2026,3,REG,GB,ATL,0,0,0,0,,0,0,0,10,7,96,1
+00-0038398,K.Brooks,Karl Brooks,DT,DL,2026,3,REG,GB,ATL,0,0,0,0,,0,0,0,0,0,0,0
+00-0038463,B.Cox,Brenton Cox Jr.,DE,DL,2026,3,REG,GB,ATL,0,0,0,0,,0,0,0,0,0,0,0
+00-0038542,Bi.Robinson,Bijan Robinson,RB,RB,2026,3,REG,ATL,GB,0,0,0,0,,29,194,2,2,2,19,0
+00-0038685,C.Brooks,Chris Brooks,RB,RB,2026,3,REG,GB,ATL,0,0,0,0,,0,0,0,1,1,4,0
+00-0038980,Z.Harrison,Zach Harrison,DE,DL,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,0,0,0,0
+00-0038996,T.Kraft,Tucker Kraft,TE,TE,2026,3,REG,GB,ATL,0,0,0,0,,0,0,0,8,4,26,0
+00-0039002,S.Brown,Sydney Brown,SAF,DB,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,0,0,0,0
+00-0039070,G.Dexter,Gervon Dexter Sr.,DT,DL,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,0,0,0,0
+00-0039112,L.Van Ness,Lukas Van Ness,LB,LB,2026,3,REG,GB,ATL,0,0,0,0,,0,0,0,0,0,0,0
+00-0039811,M.Lloyd,MarShawn Lloyd,RB,RB,2026,3,REG,GB,ATL,0,0,0,0,,4,11,0,3,2,7,0
+00-0039812,T.Hopper,Ty'Ron Hopper,LB,LB,2026,3,REG,GB,ATL,0,0,0,0,,0,0,0,0,0,0,0
+00-0039813,E.Williams,Evan Williams,SAF,DB,2026,3,REG,GB,ATL,0,0,0,0,,0,0,0,0,0,0,0
+00-0039837,B.Trice,Bralen Trice,LB,LB,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,0,0,0,0
+00-0039850,E.Cooper,Edgerrin Cooper,LB,LB,2026,3,REG,GB,ATL,0,0,0,0,,0,0,0,0,0,0,0
+00-0039859,B.Dorlus,Brandon Dorlus,DE,DL,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,0,0,0,0
+00-0039867,J.Bullard,Javon Bullard,SAF,DB,2026,3,REG,GB,ATL,0,0,0,0,,0,0,0,0,0,0,0
+00-0039889,M.Smith,Maason Smith,DT,DL,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,0,0,0,0
+00-0039917,M.Penix,Michael Penix Jr.,QB,QB,2026,3,REG,ATL,GB,18,25,256,1,,2,-2,0,0,0,0,0
+00-0040010,B.Sorrell,Barryn Sorrell,DE,DL,2026,3,REG,GB,ATL,0,0,0,0,,0,0,0,0,0,0,0
+00-0040142,K.Johnson,Kaleb Johnson,RB,RB,2026,3,REG,GB,ATL,0,0,0,0,,4,6,0,3,1,10,0
+00-0040148,X.Watts,Xavier Watts,SAF,DB,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,0,0,0,0
+00-0040156,B.Bowman,Billy Bowman Jr.,CB,DB,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,0,0,0,0
+00-0040667,M.Golden,Matthew Golden,WR,WR,2026,3,REG,GB,ATL,0,0,0,0,,0,0,0,12,5,100,1
+00-0040869,C.McClellan,Chris McClellan,DT,DL,2026,3,REG,GB,ATL,0,0,0,0,,0,0,0,0,0,0,0
+00-0040877,D.Dennis-Sutton,Dani Dennis-Sutton,LB,LB,2026,3,REG,GB,ATL,0,0,0,0,,0,0,0,0,0,0,0
+00-0040884,J.Burton,Jager Burton,C,OL,2026,3,REG,GB,ATL,0,0,0,0,,0,0,0,0,0,0,0
+00-0040899,T.Smack,Trey Smack,K,SPEC,2026,3,REG,GB,ATL,0,0,0,0,,0,0,0,0,0,0,0
+00-0040948,J.Sturdivant,J. Michael Sturdivant,WR,WR,2026,3,REG,GB,ATL,0,0,0,0,,0,0,0,3,3,22,0
+00-0041044,Z.Branch,Zachariah Branch,WR,WR,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,2,1,7,0
+00-0041066,K.Daniels,Kendal Daniels,LB,LB,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,0,0,0,0
+00-0041112,H.Perkins,Harold Perkins Jr.,LB,LB,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,0,0,0,0
+00-0041469,Av.Terrell,Avieon Terrell,CB,DB,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,0,0,0,0
+00-0041470,B.Cisse,Brandon Cisse,CB,DB,2026,3,REG,GB,ATL,0,0,0,0,,0,0,0,0,0,0,0
+,,,,,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,0,0,0,0
