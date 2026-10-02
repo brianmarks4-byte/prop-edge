@@ -21878,3 +21878,71 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0041558,S.Roush,Sam Roush,TE,TE,2026,3,REG,CHI,PHI,0,0,0,0,,0,0,0,1,1,16,0
 00-0041569,G.Jacas,Gabe Jacas,LB,LB,2026,3,REG,NE,JAX,0,0,0,0,,0,0,0,0,0,0,0
 ,,,,,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,0,0,0,0
+00-0023459,A.Rodgers,Aaron Rodgers,QB,QB,2026,4,REG,PIT,CLE,22,40,299,3,,0,0,0,0,0,0,0
+00-0027969,C.Heyward,Cameron Heyward,DE,DL,2026,4,REG,PIT,CLE,0,0,0,0,,0,0,0,0,0,0,0
+00-0031136,C.Boswell,Chris Boswell,K,SPEC,2026,4,REG,PIT,CLE,0,0,0,0,,0,0,0,0,0,0,0
+00-0033055,J.Ramsey,Jalen Ramsey,CB,DB,2026,4,REG,PIT,CLE,0,0,0,0,,0,0,0,0,0,0,0
+00-0033131,M.Collins,Maliek Collins,DT,DL,2026,4,REG,CLE,PIT,0,0,0,0,,0,0,0,0,0,0,0
+00-0033537,D.Watson,Deshaun Watson,QB,QB,2026,4,REG,CLE,PIT,24,33,268,1,,7,22,0,0,0,0,0
+00-0033729,C.Johnston,Cameron Johnston,P,SPEC,2026,4,REG,PIT,CLE,0,0,0,0,,0,0,0,0,0,0,0
+00-0033876,D.Barnett,Derek Barnett,DE,DL,2026,4,REG,CLE,PIT,0,0,0,0,,0,0,0,0,0,0,0
+00-0033886,T.Watt,T.J. Watt,OLB,LB,2026,4,REG,PIT,CLE,0,0,0,0,,0,0,0,0,0,0,0
+00-0034721,C.Bojorquez,Corey Bojorquez,P,SPEC,2026,4,REG,CLE,PIT,0,0,0,0,,0,0,0,0,0,0,0
+00-0034810,S.Joseph,Sebastian Joseph-Day,DT,DL,2026,4,REG,PIT,CLE,0,0,0,0,,0,0,0,0,0,0,0
+00-0034856,D.Ward,Denzel Ward,CB,DB,2026,4,REG,CLE,PIT,0,0,0,0,,0,0,0,0,0,0,0
+00-0035286,C.Holcomb,Cole Holcomb,LB,LB,2026,4,REG,PIT,CLE,0,0,0,0,,0,0,0,0,0,0,0
+00-0035594,T.Homer,Travis Homer,RB,RB,2026,4,REG,PIT,CLE,0,0,0,0,,2,-1,0,0,0,0,0
+00-0035640,D.Metcalf,DK Metcalf,WR,WR,2026,4,REG,PIT,CLE,0,0,0,0,,0,0,0,9,5,115,0
+00-0035680,Q.Williams,Quincy Williams,LB,LB,2026,4,REG,CLE,PIT,0,0,0,0,,0,0,0,0,0,0,0
+00-0035699,J.Dean,Jamel Dean,CB,DB,2026,4,REG,PIT,CLE,0,0,0,0,,0,0,0,0,0,0,0
+00-0036252,M.Pittman,Michael Pittman,WR,WR,2026,4,REG,PIT,CLE,0,0,0,0,,0,0,0,4,2,15,0
+00-0036282,G.Delpit,Grant Delpit,SAF,DB,2026,4,REG,CLE,PIT,0,0,0,0,,0,0,0,0,0,0,0
+00-0036306,D.Thomas,Daniel Thomas,SAF,DB,2026,4,REG,CLE,PIT,0,0,0,0,,0,0,0,0,0,0,0
+00-0036323,P.Queen,Patrick Queen,LB,LB,2026,4,REG,PIT,CLE,0,0,0,0,,0,0,0,0,0,0,0
+00-0036333,A.Highsmith,Alex Highsmith,LB,LB,2026,4,REG,PIT,CLE,0,0,0,0,,0,0,0,0,0,0,0
+00-0036407,J.Jeudy,Jerry Jeudy,WR,WR,2026,4,REG,CLE,PIT,0,0,0,0,,0,0,0,3,3,36,0
+00-0036617,A.Samuel,Asante Samuel Jr.,CB,DB,2026,4,REG,PIT,CLE,0,0,0,0,,0,0,0,0,0,0,0
+00-0036862,B.Skowronek,Ben Skowronek,WR,WR,2026,4,REG,PIT,CLE,0,0,0,0,,0,0,0,2,1,7,0
+00-0036894,P.Freiermuth,Pat Freiermuth,TE,TE,2026,4,REG,PIT,CLE,0,0,0,0,,0,0,0,5,3,17,1
+00-0036974,T.Campbell,Tyson Campbell,CB,DB,2026,4,REG,CLE,PIT,0,0,0,0,,0,0,0,0,0,0,0
+00-0037228,J.Warren,Jaylen Warren,RB,RB,2026,4,REG,PIT,CLE,0,0,0,0,,17,93,0,6,3,33,0
+00-0037665,S.Williams,Sam Williams,DE,DL,2026,4,REG,CLE,PIT,0,0,0,0,,0,0,0,0,0,0,0
+00-0037818,Z.Johnson,Zion Johnson,G,OL,2026,4,REG,CLE,PIT,0,0,0,0,,0,0,0,0,0,0,0
+00-0038135,J.Brisker,Jaquan Brisker,SAF,DB,2026,4,REG,PIT,CLE,0,0,0,0,,0,0,0,0,0,0,0
+00-0038409,L.Nichols,Lew Nichols III,RB,RB,2026,4,REG,PIT,CLE,0,0,0,0,,0,0,0,0,0,0,0
+00-0038428,A.Szmyt,Andre Szmyt,K,SPEC,2026,4,REG,CLE,PIT,0,0,0,0,,0,0,0,0,0,0,0
+00-0038558,D.Washington,Darnell Washington,TE,TE,2026,4,REG,PIT,CLE,0,0,0,0,,0,0,0,5,3,27,1
+00-0038565,M.Blackmon,Mekhi Blackmon,DB,DB,2026,4,REG,CLE,PIT,0,0,0,0,,0,0,0,0,0,0,0
+00-0038574,I.McGuire,Isaiah McGuire,DE,DL,2026,4,REG,CLE,PIT,0,0,0,0,,0,0,0,0,0,0,0
+00-0038577,N.Herbig,Nick Herbig,LB,LB,2026,4,REG,PIT,CLE,0,0,0,0,,0,0,0,0,0,0,0
+00-0038609,L.Wypler,Luke Wypler,C,OL,2026,4,REG,CLE,PIT,0,0,0,0,,0,0,0,0,0,0,0
+00-0038710,B.Whiteheart,Blake Whiteheart,TE,TE,2026,4,REG,CLE,PIT,0,0,0,0,,0,0,0,0,0,0,0
+00-0038715,R.Hickman,Ronnie Hickman Jr.,SAF,DB,2026,4,REG,CLE,PIT,0,0,0,0,,0,0,0,0,0,0,0
+00-0038794,J.McLaughlin,Jaleel McLaughlin,RB,RB,2026,4,REG,CLE,PIT,0,0,0,0,,1,28,1,0,0,0,0
+00-0039110,K.Benton,Keeanu Benton,DT,DL,2026,4,REG,PIT,CLE,0,0,0,0,,0,0,0,0,0,0,0
+00-0039417,M.Harden,Myles Harden,CB,DB,2026,4,REG,CLE,PIT,0,0,0,0,,0,0,0,0,0,0,0
+00-0039515,W.Reid,Winston Reid,LB,LB,2026,4,REG,CLE,PIT,0,0,0,0,,0,0,0,0,0,0,0
+00-0039739,R.Wilson,Roman Wilson,WR,WR,2026,4,REG,PIT,CLE,0,0,0,0,,0,0,0,6,3,74,1
+00-0039741,P.Wilson,Payton Wilson,LB,LB,2026,4,REG,PIT,CLE,0,0,0,0,,0,0,0,0,0,0,0
+00-0039852,J.Verse,Jared Verse,DE,DL,2026,4,REG,CLE,PIT,0,0,0,0,,0,0,0,0,0,0,0
+00-0039895,M.Hall,Mike Hall Jr.,DT,DL,2026,4,REG,CLE,PIT,0,0,0,0,,0,0,0,0,0,0,0
+00-0039920,M.Corley,Malachi Corley,WR,WR,2026,4,REG,CLE,PIT,0,0,0,0,,0,0,0,0,0,0,0
+00-0040160,J.Sawyer,Jack Sawyer,LB,LB,2026,4,REG,PIT,CLE,0,0,0,0,,0,0,0,0,0,0,0
+00-0040188,Y.Black,Yahya Black,DE,DL,2026,4,REG,PIT,CLE,0,0,0,0,,0,0,0,0,0,0,0
+00-0040255,A.Huntington,Adin Huntington,DE,DL,2026,4,REG,CLE,PIT,0,0,0,0,,0,0,0,0,0,0,0
+00-0040261,E.Mascarenas-Arnold,Easton Mascarenas-Arnold,LB,LB,2026,4,REG,CLE,PIT,0,0,0,0,,0,0,0,0,0,0,0
+00-0040263,D.McMillon,Donovan McMillon,SAF,DB,2026,4,REG,CLE,PIT,0,0,0,0,,0,0,0,0,0,0,0
+00-0040466,R.Sanders,Raheim Sanders,RB,RB,2026,4,REG,CLE,PIT,0,0,0,0,,2,9,0,2,2,7,0
+00-0040579,C.Schwesinger,Carson Schwesinger,LB,LB,2026,4,REG,CLE,PIT,0,0,0,0,,0,0,0,0,0,0,0
+00-0040663,H.Fannin,Harold Fannin Jr.,TE,TE,2026,4,REG,CLE,PIT,0,0,0,0,,0,0,0,5,3,27,1
+00-0040782,I.Bond,Isaiah Bond,WR,WR,2026,4,REG,CLE,PIT,0,0,0,0,,0,0,0,1,1,2,0
+00-0040784,Q.Judkins,Quinshon Judkins,RB,RB,2026,4,REG,CLE,PIT,0,0,0,0,,17,53,1,7,6,43,0
+00-0041037,D.Boston,Denzel Boston,WR,WR,2026,4,REG,CLE,PIT,0,0,0,0,,0,0,0,7,4,89,0
+00-0041393,D.Everette,Daylen Everette,CB,DB,2026,4,REG,PIT,CLE,0,0,0,0,,0,0,0,0,0,0,0
+00-0041397,K.Wetjen,Kaden Wetjen,WR,WR,2026,4,REG,PIT,CLE,0,0,0,0,,0,0,0,0,0,0,0
+00-0041401,R.Spears-Jennings,Robert Spears-Jennings,SAF,DB,2026,4,REG,PIT,CLE,0,0,0,0,,0,0,0,0,0,0,0
+00-0041471,E.McNeil-Warren,Emmanuel McNeil-Warren,SAF,DB,2026,4,REG,CLE,PIT,0,0,0,0,,0,0,0,0,0,0,0
+00-0041482,M.Iheanachor,Max Iheanachor,OT,OL,2026,4,REG,PIT,CLE,0,0,0,0,,0,0,0,0,0,0,0
+00-0041489,G.Bernard,Germie Bernard,WR,WR,2026,4,REG,PIT,CLE,0,0,0,0,,0,0,0,2,2,11,0
+00-0041547,K.Concepcion,KC Concepcion,WR,WR,2026,4,REG,CLE,PIT,0,0,0,0,,0,0,0,8,5,64,0
+,,,,,2026,4,REG,CLE,PIT,0,0,0,0,,0,0,0,0,0,0,0
