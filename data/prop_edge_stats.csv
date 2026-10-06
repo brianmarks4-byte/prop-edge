@@ -21154,7 +21154,7 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0036813,C.Elliss,Christian Elliss,LB,LB,2026,3,REG,NE,JAX,0,0,0,0,,0,0,0,0,0,0,0
 00-0036816,R.Patterson,Riley Patterson,K,SPEC,2026,3,REG,MIA,KC,0,0,0,0,,0,0,0,0,0,0,0
 00-0036825,F.Franks,Feleipe Franks,TE,TE,2026,3,REG,CAR,CLE,0,0,0,0,,0,0,0,0,0,0,0
-00-0036833,R.Neuzil,Ryan Neuzil,G,OL,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,0,0,0,0
+00-0036833,R.Neuzil,Ryan Neuzil,C,OL,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,0,0,0,0
 00-0036844,G.Wallow,Garret Wallow,LB,LB,2026,3,REG,SF,ARI,0,0,0,0,,0,0,0,0,0,0,0
 00-0036854,E.McPherson,Evan McPherson,K,SPEC,2026,3,REG,CIN,PIT,0,0,0,0,,0,0,0,0,0,0,0
 00-0036862,B.Skowronek,Ben Skowronek,WR,WR,2026,3,REG,PIT,CIN,0,0,0,0,,0,0,0,1,1,23,1
@@ -22775,7 +22775,7 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0040238,L.Allen,LeQuint Allen Jr.,RB,RB,2026,4,REG,JAX,CIN,0,0,0,0,,0,0,0,0,0,0,0
 00-0040242,J.Croskey-Merritt,Jacory Croskey-Merritt,RB,RB,2026,4,REG,WAS,IND,0,0,0,0,,9,15,0,4,2,35,0
 00-0040248,Z.Biggers,Zeek Biggers,DT,DL,2026,4,REG,MIA,MIN,0,0,0,0,,0,0,0,0,0,0,0
-00-0040249,F.Diggs,Fadil Diggs,DE,DL,2026,4,REG,NO,ATL,0,0,0,0,,0,0,0,0,0,0,0
+00-0040249,F.Diggs,Fadil Diggs,LB,LB,2026,4,REG,NO,ATL,0,0,0,0,,0,0,0,0,0,0,0
 00-0040255,A.Huntington,Adin Huntington,DE,DL,2026,4,REG,CLE,PIT,0,0,0,0,,0,0,0,0,0,0,0
 00-0040261,E.Mascarenas-Arnold,Easton Mascarenas-Arnold,LB,LB,2026,4,REG,CLE,PIT,0,0,0,0,,0,0,0,0,0,0,0
 00-0040263,D.McMillon,Donovan McMillon,SAF,DB,2026,4,REG,CLE,PIT,0,0,0,0,,0,0,0,0,0,0,0
