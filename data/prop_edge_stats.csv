@@ -21267,7 +21267,7 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0037313,M.Brown,Montaric Brown,CB,DB,2026,3,REG,JAX,NE,0,0,0,0,,0,0,0,0,0,0,0
 00-0037317,N.Muse,Nick Muse,TE,TE,2026,3,REG,ATL,GB,0,0,0,0,,0,0,0,0,0,0,0
 00-0037323,R.Thomas,Rodney Thomas,SAF,DB,2026,3,REG,SEA,WAS,0,0,0,0,,0,0,0,0,0,0,0
-00-0037336,B.Hoffman,Brock Hoffman,C,OL,2026,3,REG,PIT,CIN,0,0,0,0,,0,0,0,0,0,0,0
+00-0037336,B.Hoffman,Brock Hoffman,G,OL,2026,3,REG,PIT,CIN,0,0,0,0,,0,0,0,0,0,0,0
 00-0037428,A.Anderson,Alec Anderson,OT,OL,2026,3,REG,BUF,LAC,0,0,0,0,,0,0,0,0,0,0,0
 00-0037457,J.Hansen,Jake Hansen,LB,LB,2026,3,REG,HOU,IND,0,0,0,0,,0,0,0,0,0,0,0
 00-0037493,M.Brown,Mike Brown,SAF,DB,2026,3,REG,NE,JAX,0,0,0,0,,0,0,0,0,0,0,0
@@ -23430,7 +23430,7 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0037313,M.Brown,Montaric Brown,CB,DB,2026,5,REG,JAX,PHI,0,0,0,0,,0,0,0,0,0,0,0
 00-0037317,N.Muse,Nick Muse,TE,TE,2026,5,REG,ATL,BAL,0,0,0,0,,0,0,0,0,0,0,0
 00-0037320,D.Leonard,Deane Leonard,CB,DB,2026,5,REG,LAC,DEN,0,0,0,0,,0,0,0,0,0,0,0
-00-0037336,B.Hoffman,Brock Hoffman,C,OL,2026,5,REG,PIT,IND,0,0,0,0,,0,0,0,0,0,0,0
+00-0037336,B.Hoffman,Brock Hoffman,G,OL,2026,5,REG,PIT,IND,0,0,0,0,,0,0,0,0,0,0,0
 00-0037384,J.McMillian,Ja'Quan McMillian,CB,DB,2026,5,REG,DEN,LAC,0,0,0,0,,0,0,0,0,0,0,0
 00-0037404,R.Van Demark,Ryan Van Demark,OT,OL,2026,5,REG,MIN,NO,0,0,0,0,,0,0,0,0,0,0,0
 00-0037412,C.Adomitis,Cal Adomitis,LS,SPEC,2026,5,REG,NO,MIN,0,0,0,0,,0,0,0,0,0,0,0
