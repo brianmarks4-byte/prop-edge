@@ -28997,6 +28997,7 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0029892,K.Juszczyk,Kyle Juszczyk,FB,RB,2026,11,REG,SF,MIN,0,0,0,0,,0,0,0,2,2,13,0
 00-0030070,J.Jenkins,John Jenkins,DT,DL,2026,11,REG,BAL,CAR,0,0,0,0,,0,0,0,0,0,0,0
 00-0030092,S.Martin,Sam Martin,P,SPEC,2026,11,REG,CAR,BAL,0,0,0,0,,0,0,0,0,0,0,0
+00-0030140,T.Way,Tress Way,P,SPEC,2026,11,REG,WAS,CIN,0,0,0,0,,0,0,0,0,0,0,0
 00-0030279,K.Allen,Keenan Allen,WR,WR,2026,11,REG,SF,MIN,0,0,0,0,,0,0,0,4,3,38,0
 00-0030294,T.Jefferson,Tony Jefferson,S,DB,2026,11,REG,LAC,NYJ,0,0,0,0,,0,0,0,0,0,0,0
 00-0030506,T.Kelce,Travis Kelce,TE,TE,2026,11,REG,KC,ARI,0,0,0,0,,0,0,0,7,6,74,2
@@ -29012,6 +29013,7 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0031503,J.Winston,Jameis Winston,QB,QB,2026,11,REG,NYG,JAX,0,1,0,0,,3,5,1,0,0,0,0
 00-0031550,S.Thompson,Shaq Thompson,OLB,LB,2026,11,REG,BUF,MIA,0,0,0,0,,0,0,0,0,0,0,0
 00-0031583,G.Jarrett,Grady Jarrett,DT,DL,2026,11,REG,CHI,NO,0,0,0,0,,0,0,0,0,0,0,0
+00-0031588,S.Diggs,Stefon Diggs,WR,WR,2026,11,REG,WAS,CIN,0,0,0,0,,0,0,0,6,4,45,0
 00-0031610,D.Waller,Darren Waller,TE,TE,2026,11,REG,CAR,BAL,0,0,0,0,,0,0,0,3,3,42,0
 00-0031763,D.Carter,DeAndre Carter,WR,WR,2026,11,REG,DET,TB,0,0,0,0,,0,0,0,0,0,0,0
 00-0031898,A.Singleton,Alex Singleton,LB,LB,2026,11,REG,DEN,LV,0,0,0,0,,0,0,0,0,0,0,0
@@ -29049,8 +29051,12 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0033336,E.Wilson,Eric Wilson,LB,LB,2026,11,REG,MIN,SF,0,0,0,0,,0,0,0,0,0,0,0
 00-0033375,T.Patrick,Tim Patrick,WR,WR,2026,11,REG,NYJ,LAC,0,0,0,0,,0,0,0,1,1,5,0
 00-0033393,K.Moore,Kenny Moore II,CB,DB,2026,11,REG,PHI,PIT,0,0,0,0,,0,0,0,0,0,0,0
+00-0033523,J.Allen,Jonathan Allen,DT,DL,2026,11,REG,CIN,WAS,0,0,0,0,,0,0,0,0,0,0,0
+00-0033526,S.Perine,Samaje Perine,RB,RB,2026,11,REG,CIN,WAS,0,0,0,0,,6,26,0,4,4,71,0
 00-0033546,D.Tomlinson,Dalvin Tomlinson,DE,DL,2026,11,REG,LAC,NYJ,0,0,0,0,,0,0,0,0,0,0,0
 00-0033548,C.Awuzie,Chidobe Awuzie,CB,DB,2026,11,REG,BAL,CAR,0,0,0,0,,0,0,0,0,0,0,0
+00-0033551,R.Douglas,Rasul Douglas,CB,DB,2026,11,REG,WAS,CIN,0,0,0,0,,0,0,0,0,0,0,0
+00-0033699,A.Ekeler,Austin Ekeler,RB,RB,2026,11,REG,WAS,CIN,0,0,0,0,,7,41,0,3,2,3,0
 00-0033729,C.Johnston,Cameron Johnston,P,SPEC,2026,11,REG,PIT,PHI,0,0,0,0,,0,0,0,0,0,0,0
 00-0033787,J.Elliott,Jake Elliott,K,SPEC,2026,11,REG,PHI,PIT,0,0,0,0,,0,0,0,0,0,0,0
 00-0033860,D.Godchaux,Davon Godchaux,DT,DL,2026,11,REG,JAX,NYG,0,0,0,0,,0,0,0,0,0,0,0
@@ -29079,18 +29085,22 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0034270,T.Conklin,Tyler Conklin,TE,TE,2026,11,REG,DET,TB,0,0,0,0,,0,0,0,1,1,18,0
 00-0034275,F.Fatukasi,Foley Fatukasi,DT,DL,2026,11,REG,LV,DEN,0,0,0,0,,0,0,0,0,0,0,0
 00-0034278,T.Smith,Tremon Smith,CB,DB,2026,11,REG,HOU,IND,0,0,0,0,,0,0,0,0,0,0,0
+00-0034302,F.Luvu,Frankie Luvu,LB,LB,2026,11,REG,WAS,CIN,0,0,0,0,,0,0,0,0,0,0,0
 00-0034348,C.Sutton,Courtland Sutton,WR,WR,2026,11,REG,DEN,LV,0,0,0,0,,0,0,0,2,0,0,0
 00-0034351,D.Goedert,Dallas Goedert,TE,TE,2026,11,REG,PHI,PIT,0,0,0,0,,0,0,0,1,1,38,0
 00-0034356,D.Jackson,Donte Jackson,CB,DB,2026,11,REG,LAC,NYJ,0,0,0,0,,0,0,0,0,0,0,0
 00-0034357,I.Oliver,Isaiah Oliver,FS,DB,2026,11,REG,TEN,DAL,0,0,0,0,,0,0,0,0,0,0,0
 00-0034365,I.Thomas,Ian Thomas,TE,TE,2026,11,REG,LV,DEN,0,0,0,0,,0,0,0,1,1,19,1
+00-0034373,D.Armstrong,Dorance Armstrong,DE,DL,2026,11,REG,WAS,CIN,0,0,0,0,,0,0,0,0,0,0,0
 00-0034376,T.Johnson,Taron Johnson,CB,DB,2026,11,REG,LV,DEN,0,0,0,0,,0,0,0,0,0,0,0
 00-0034381,J.Sweat,Josh Sweat,LB,LB,2026,11,REG,ARI,KC,0,0,0,0,,0,0,0,0,0,0,0
 00-0034383,D.Schultz,Dalton Schultz,TE,TE,2026,11,REG,HOU,IND,0,0,0,0,,0,0,0,1,1,11,0
 00-0034391,S.Neal,Siran Neal,DB,DB,2026,11,REG,SF,MIN,0,0,0,0,,0,0,0,0,0,0,0
+00-0034397,T.Settle,Tim Settle,DT,DL,2026,11,REG,WAS,CIN,0,0,0,0,,0,0,0,0,0,0,0
 00-0034413,F.Oluokun,Foyesade Oluokun,LB,LB,2026,11,REG,JAX,NYG,0,0,0,0,,0,0,0,0,0,0,0
 00-0034429,J.Mailata,Jordan Mailata,OT,OL,2026,11,REG,PHI,PIT,0,0,0,0,,0,0,0,0,0,0,0
 00-0034437,L.Cooke,Logan Cooke,P,SPEC,2026,11,REG,JAX,NYG,0,0,0,0,,0,0,0,0,0,0,0
+00-0034465,J.Reaves,Jeremy Reaves,DB,DB,2026,11,REG,WAS,CIN,0,0,0,0,,0,0,0,0,0,0,0
 00-0034473,D.Gardeck,Dennis Gardeck,LB,LB,2026,11,REG,JAX,NYG,0,0,0,0,,0,0,0,0,0,0,0
 00-0034488,T.Thomas,Tavierre Thomas,SAF,DB,2026,11,REG,NYG,JAX,0,0,0,0,,0,0,0,0,0,0,0
 00-0034577,K.Allen,Kyle Allen,QB,QB,2026,11,REG,BUF,MIA,0,0,0,0,,1,-1,0,0,0,0,0
@@ -29102,10 +29112,12 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0034782,H.Phillips,Harrison Phillips,DT,DL,2026,11,REG,NYJ,LAC,0,0,0,0,,0,0,0,0,0,0,0
 00-0034789,M.Fitzpatrick,Minkah Fitzpatrick,FS,DB,2026,11,REG,NYJ,LAC,0,0,0,0,,0,0,0,0,0,0,0
 00-0034794,J.Sanders,Jason Sanders,K,SPEC,2026,11,REG,NYJ,LAC,0,0,0,0,,0,0,0,0,0,0,0
+00-0034800,B.Hill,B.J. Hill,DT,DL,2026,11,REG,CIN,WAS,0,0,0,0,,0,0,0,0,0,0,0
 00-0034805,J.Franklin-Myers,John Franklin-Myers,DE,DL,2026,11,REG,TEN,DAL,0,0,0,0,,0,0,0,0,0,0,0
 00-0034815,F.Warner,Fred Warner,MLB,LB,2026,11,REG,SF,MIN,0,0,0,0,,0,0,0,0,0,0,0
 00-0034825,A.Key,Arden Key,DE,DL,2026,11,REG,IND,HOU,0,0,0,0,,0,0,0,0,0,0,0
 00-0034827,D.Moore,DJ Moore,WR,WR,2026,11,REG,BUF,MIA,0,0,0,0,,0,0,0,10,8,91,1
+00-0034829,M.Gesicki,Mike Gesicki,TE,TE,2026,11,REG,CIN,WAS,0,0,0,0,,0,0,0,6,5,77,0
 00-0034832,B.Chubb,Bradley Chubb,OLB,LB,2026,11,REG,BUF,MIA,0,0,0,0,,0,0,0,0,0,0,0
 00-0034837,C.Ridley,Calvin Ridley,WR,WR,2026,11,REG,TEN,DAL,0,0,0,0,,0,0,0,6,5,68,1
 00-0034844,S.Barkley,Saquon Barkley,RB,RB,2026,11,REG,PHI,PIT,0,0,0,0,,17,75,1,0,0,0,0
@@ -29138,16 +29150,20 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0035272,A.Van Ginkel,Andrew Van Ginkel,OLB,LB,2026,11,REG,MIN,SF,0,0,0,0,,0,0,0,0,0,0,0
 00-0035276,B.Cashman,Blake Cashman,LB,LB,2026,11,REG,MIN,SF,0,0,0,0,,0,0,0,0,0,0,0
 00-0035277,M.Jackson,Mike Jackson,CB,DB,2026,11,REG,CAR,BAL,0,0,0,0,,0,0,0,0,0,0,0
+00-0035279,C.Omenihu,Charles Omenihu,DE,DL,2026,11,REG,WAS,CIN,0,0,0,0,,0,0,0,0,0,0,0
 00-0035286,C.Holcomb,Cole Holcomb,LB,LB,2026,11,REG,PIT,PHI,0,0,0,0,,0,0,0,0,0,0,0
 00-0035316,K.Elliss,Kaden Elliss,LB,LB,2026,11,REG,NO,CHI,0,0,0,0,,0,0,0,0,0,0,0
 00-0035352,T.Dodson,Tyrel Dodson,LB,LB,2026,11,REG,CAR,BAL,0,0,0,0,,0,0,0,0,0,0,0
 00-0035357,C.Lewis,Cam Lewis,CB,DB,2026,11,REG,CHI,NO,0,0,0,0,,0,0,0,0,0,0,0
 00-0035358,C.McLaughlin,Chase McLaughlin,K,SPEC,2026,11,REG,TB,DET,0,0,0,0,,0,0,0,0,0,0,0
+00-0035363,J.Giles-Harris,Joe Giles-Harris,LB,LB,2026,11,REG,CIN,WAS,0,0,0,0,,0,0,0,0,0,0,0
 00-0035386,T.Edwards,T.J. Edwards,LB,LB,2026,11,REG,CHI,NO,0,0,0,0,,0,0,0,0,0,0,0
 00-0035402,C.Granderson,Carl Granderson,DE,DL,2026,11,REG,NO,CHI,0,0,0,0,,0,0,0,0,0,0,0
+00-0035409,S.Tuttle,Shy Tuttle,DT,DL,2026,11,REG,WAS,CIN,0,0,0,0,,0,0,0,0,0,0,0
 00-0035500,G.Dortch,Greg Dortch,WR,WR,2026,11,REG,BUF,MIA,0,0,0,0,,0,0,0,0,0,0,0
 00-0035525,D.Bush,Devin Bush,LB,LB,2026,11,REG,CHI,NO,0,0,0,0,,0,0,0,0,0,0,0
 00-0035537,T.Johnson,Ty Johnson,RB,RB,2026,11,REG,BUF,MIA,0,0,0,0,,1,2,0,8,7,55,0
+00-0035631,D.Sample,Drew Sample,TE,TE,2026,11,REG,CIN,WAS,0,0,0,0,,0,0,0,1,1,9,0
 00-0035632,A.Hooker,Amani Hooker,SAF,DB,2026,11,REG,BUF,MIA,0,0,0,0,,0,0,0,0,0,0,0
 00-0035636,L.Collier,L.J. Collier,DE,DL,2026,11,REG,ARI,KC,0,0,0,0,,0,0,0,0,0,0,0
 00-0035637,R.Ya-Sin,Rock Ya-Sin,CB,DB,2026,11,REG,DET,TB,0,0,0,0,,0,0,0,0,0,0,0
@@ -29158,6 +29174,7 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0035647,M.Sweat,Montez Sweat,DE,DL,2026,11,REG,CHI,NO,0,0,0,0,,0,0,0,0,0,0,0
 00-0035663,T.Rapp,Taylor Rapp,SAF,DB,2026,11,REG,DEN,LV,0,0,0,0,,0,0,0,0,0,0,0
 00-0035667,G.Gaines,Greg Gaines,DT,DL,2026,11,REG,BUF,MIA,0,0,0,0,,0,0,0,0,0,0,0
+00-0035683,D.Lawrence,Dexter Lawrence,DT,DL,2026,11,REG,CIN,WAS,0,0,0,0,,0,0,0,0,0,0,0
 00-0035685,D.Montgomery,David Montgomery,RB,RB,2026,11,REG,HOU,IND,0,0,0,0,,26,107,0,4,3,17,0
 00-0035689,D.Knox,Dawson Knox,TE,TE,2026,11,REG,BUF,MIA,0,0,0,0,,0,0,0,3,2,31,0
 00-0035699,J.Dean,Jamel Dean,CB,DB,2026,11,REG,PIT,PHI,0,0,0,0,,0,0,0,0,0,0,0
@@ -29193,6 +29210,7 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0036271,Q.Watkins,Quez Watkins,WR,WR,2026,11,REG,IND,HOU,0,0,0,0,,0,0,0,3,1,26,0
 00-0036275,D.Swift,D'Andre Swift,RB,RB,2026,11,REG,CHI,NO,0,0,0,0,,13,51,0,2,2,8,1
 00-0036280,M.Harrison,Malik Harrison,LB,LB,2026,11,REG,NYG,JAX,0,0,0,0,,0,0,0,0,0,0,0
+00-0036286,K.Chaisson,K'Lavon Chaisson,LB,LB,2026,11,REG,WAS,CIN,0,0,0,0,,0,0,0,0,0,0,0
 00-0036292,J.Johnson,Jaylon Johnson,CB,DB,2026,11,REG,CHI,NO,0,0,0,0,,0,0,0,0,0,0,0
 00-0036293,J.Chinn,Jeremy Chinn,SAF,DB,2026,11,REG,LV,DEN,0,0,0,0,,0,0,0,0,0,0,0
 00-0036305,T.Gipson,Trevis Gipson,LB,LB,2026,11,REG,CAR,BAL,0,0,0,0,,0,0,0,0,0,0,0
@@ -29215,11 +29233,14 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0036380,A.Gilman,Alohi Gilman,SAF,DB,2026,11,REG,KC,ARI,0,0,0,0,,0,0,0,0,0,0,0
 00-0036395,K.Wallace,K'Von Wallace,SAF,DB,2026,11,REG,BAL,CAR,0,0,0,0,,0,0,0,0,0,0,0
 00-0036409,J.Brooks,Jordyn Brooks,LB,LB,2026,11,REG,MIA,BUF,0,0,0,0,,0,0,0,0,0,0,0
+00-0036410,T.Higgins,Tee Higgins,WR,WR,2026,11,REG,CIN,WAS,0,0,0,0,,0,0,0,3,2,43,1
+00-0036415,V.Jefferson,Van Jefferson,WR,WR,2026,11,REG,WAS,CIN,0,0,0,0,,0,0,0,1,0,0,0
 00-0036416,K.Fulton,Kristian Fulton,CB,DB,2026,11,REG,KC,ARI,0,0,0,0,,0,0,0,0,0,0,0
 00-0036421,T.Burgess,Terrell Burgess,SAF,DB,2026,11,REG,TEN,DAL,0,0,0,0,,0,0,0,0,0,0,0
 00-0036422,A.Trautman,Adam Trautman,TE,TE,2026,11,REG,DEN,LV,0,0,0,0,,0,0,0,1,1,1,1
 00-0036425,D.Dallas,DeeJay Dallas,RB,RB,2026,11,REG,MIN,SF,0,0,0,0,,0,0,0,1,1,10,0
 00-0036428,J.Strnad,Justin Strnad,LB,LB,2026,11,REG,DEN,LV,0,0,0,0,,0,0,0,0,0,0,0
+00-0036442,J.Burrow,Joe Burrow,QB,QB,2026,11,REG,CIN,WAS,28,40,300,2,,2,-1,0,0,0,0,0
 00-0036479,K.Paye,Kwity Paye,DE,DL,2026,11,REG,LV,DEN,0,0,0,0,,0,0,0,0,0,0,0
 00-0036500,J.Sherwood,Jamien Sherwood,LB,LB,2026,11,REG,NYJ,LAC,0,0,0,0,,0,0,0,0,0,0,0
 00-0036501,M.Carter,Michael Carter II,CB,DB,2026,11,REG,PHI,PIT,0,0,0,0,,0,0,0,0,0,0,0
@@ -29235,8 +29256,10 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0036616,C.Darrisaw,Christian Darrisaw,OT,OL,2026,11,REG,MIN,SF,0,0,0,0,,0,0,0,0,0,0,0
 00-0036621,N.Bolton,Nick Bolton,LB,LB,2026,11,REG,KC,ARI,0,0,0,0,,0,0,0,0,0,0,0
 00-0036624,A.McNeill,Alim McNeill,DT,DL,2026,11,REG,DET,TB,0,0,0,0,,0,0,0,0,0,0,0
+00-0036628,J.Bates,John Bates,TE,TE,2026,11,REG,WAS,CIN,0,0,0,0,,0,0,0,0,0,0,0
 00-0036629,C.Bynum,Camryn Bynum,SAF,DB,2026,11,REG,IND,HOU,0,0,0,0,,0,0,0,0,0,0,0
 00-0036637,N.Gray,Noah Gray,TE,TE,2026,11,REG,KC,ARI,0,0,0,0,,0,0,0,5,3,21,0
+00-0036642,T.Slaton,Tedarrell Slaton,DT,DL,2026,11,REG,CIN,WAS,0,0,0,0,,0,0,0,0,0,0,0
 00-0036643,K.Britt,K.J. Britt,LB,LB,2026,11,REG,DET,TB,0,0,0,0,,0,0,0,0,0,0,0
 00-0036646,S.Fehoko,Simi Fehoko,WR,WR,2026,11,REG,ARI,KC,0,0,0,0,,3,7,0,5,1,2,1
 00-0036655,C.Van Lanen,Cole Van Lanen,G,OL,2026,11,REG,JAX,NYG,0,0,0,0,,0,0,0,0,0,0,0
@@ -29251,6 +29274,7 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0036825,F.Franks,Feleipe Franks,TE,TE,2026,11,REG,CAR,BAL,0,0,0,0,,0,0,0,0,0,0,0
 00-0036842,K.Nwangwu,Kene Nwangwu,RB,RB,2026,11,REG,NYJ,LAC,0,0,0,0,,0,0,0,0,0,0,0
 00-0036844,G.Wallow,Garret Wallow,LB,LB,2026,11,REG,SF,MIN,0,0,0,0,,0,0,0,0,0,0,0
+00-0036854,E.McPherson,Evan McPherson,K,SPEC,2026,11,REG,CIN,WAS,0,0,0,0,,0,0,0,0,0,0,0
 00-0036862,B.Skowronek,Ben Skowronek,WR,WR,2026,11,REG,PIT,PHI,0,0,0,0,,0,0,0,0,0,0,0
 00-0036866,J.Hudson,James Hudson,OT,OL,2026,11,REG,TEN,DAL,0,0,0,0,,0,0,0,0,0,0,0
 00-0036867,C.Rumph,Chris Rumph II,LB,LB,2026,11,REG,NO,CHI,0,0,0,0,,0,0,0,0,0,0,0
@@ -29259,6 +29283,7 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0036887,L.Farrell,Luke Farrell,TE,TE,2026,11,REG,SF,MIN,0,0,0,0,,0,0,0,1,1,7,0
 00-0036888,D.Hamlin,Damar Hamlin,SAF,DB,2026,11,REG,BUF,MIA,0,0,0,0,,0,0,0,0,0,0,0
 00-0036894,P.Freiermuth,Pat Freiermuth,TE,TE,2026,11,REG,PIT,PHI,0,0,0,0,,1,1,0,5,5,39,0
+00-0036900,J.Chase,Ja'Marr Chase,WR,WR,2026,11,REG,CIN,WAS,0,0,0,0,,0,0,0,9,5,31,0
 00-0036901,E.Stokes,Eric Stokes,CB,DB,2026,11,REG,LV,DEN,0,0,0,0,,0,0,0,0,0,0,0
 00-0036902,J.Ossai,Joseph Ossai,DE,DL,2026,11,REG,NYJ,LAC,0,0,0,0,,0,0,0,0,0,0,0
 00-0036909,K.Tonga,Khyiris Tonga,DT,DL,2026,11,REG,KC,ARI,0,0,0,0,,0,0,0,0,0,0,0
@@ -29299,12 +29324,14 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0037079,T.Woolen,Riq Woolen,CB,DB,2026,11,REG,PHI,PIT,0,0,0,0,,0,0,0,0,0,0,0
 00-0037082,D.Robinson,Dominique Robinson,DE,DL,2026,11,REG,HOU,IND,0,0,0,0,,0,0,0,0,0,0,0
 00-0037083,K.Enagbare,Kingsley Enagbare,LB,LB,2026,11,REG,NYJ,LAC,0,0,0,0,,0,0,0,0,0,0,0
+00-0037092,C.Paul,Chris Paul,G,OL,2026,11,REG,WAS,CIN,0,0,0,0,,0,0,0,0,0,0,0
 00-0037096,E.Hicks,Elijah Hicks,SAF,DB,2026,11,REG,CHI,NO,0,0,0,0,,0,0,0,0,0,0,0
 00-0037106,Jay.Jones,Jaylon Jones,DB,DB,2026,11,REG,JAX,NYG,0,0,0,0,,0,0,0,0,0,0,0
 00-0037130,R.Blankenship,Reed Blankenship,SAF,DB,2026,11,REG,HOU,IND,0,0,0,0,,0,0,0,0,0,0,0
 00-0037132,B.Covey,Britain Covey,WR,WR,2026,11,REG,PHI,PIT,0,0,0,0,,0,0,0,0,0,0,0
 00-0037157,Z.Knight,Bam Knight,RB,RB,2026,11,REG,ARI,KC,0,0,0,0,,7,35,0,1,1,10,0
 00-0037192,G.Karlaftis,George Karlaftis,DE,DL,2026,11,REG,KC,ARI,0,0,0,0,,0,0,0,0,0,0,0
+00-0037193,B.Cook,Bryan Cook,SAF,DB,2026,11,REG,CIN,WAS,0,0,0,0,,0,0,0,0,0,0,0
 00-0037208,J.Cochrane,Jack Cochrane,LB,LB,2026,11,REG,KC,ARI,0,0,0,0,,0,0,0,0,0,0,0
 00-0037224,C.Dicker,Cameron Dicker,K,SPEC,2026,11,REG,LAC,NYJ,0,0,0,0,,0,0,0,0,0,0,0
 00-0037228,J.Warren,Jaylen Warren,RB,RB,2026,11,REG,PIT,PHI,0,0,0,0,,9,28,0,3,2,1,0
@@ -29319,6 +29346,7 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0037249,N.Bonitto,Nik Bonitto,LB,LB,2026,11,REG,DEN,LV,0,0,0,0,,0,0,0,0,0,0,0
 00-0037252,G.Dulcich,Greg Dulcich,TE,TE,2026,11,REG,MIA,BUF,0,0,0,0,,0,0,0,7,2,12,0
 00-0037254,T.Bernard,Terrel Bernard,LB,LB,2026,11,REG,BUF,MIA,0,0,0,0,,0,0,0,0,0,0,0
+00-0037256,R.White,Rachaad White,RB,RB,2026,11,REG,WAS,CIN,0,0,0,0,,0,0,0,0,0,0,0
 00-0037259,M.McFadden,Micah McFadden,LB,LB,2026,11,REG,NYG,JAX,0,0,0,0,,0,0,0,0,0,0,0
 00-0037261,K.Shakir,Khalil Shakir,WR,WR,2026,11,REG,BUF,MIA,0,0,0,0,,2,2,0,9,5,101,0
 00-0037263,T.Allgeier,Tyler Allgeier,RB,RB,2026,11,REG,ARI,KC,0,0,0,0,,7,23,0,0,0,0,0
@@ -29354,6 +29382,7 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0037611,K.Thibodeaux,Kayvon Thibodeaux,LB,LB,2026,11,REG,NYG,JAX,0,0,0,0,,0,0,0,0,0,0,0
 00-0037614,J.Metchie,John Metchie III,WR,WR,2026,11,REG,CAR,BAL,0,0,0,0,,0,0,0,3,1,19,0
 00-0037615,N.Dean,Nakobe Dean,LB,LB,2026,11,REG,LV,DEN,0,0,0,0,,0,0,0,0,0,0,0
+00-0037616,N.Cross,Nick Cross,SAF,DB,2026,11,REG,WAS,CIN,0,0,0,0,,0,0,0,0,0,0,0
 00-0037661,J.Ingram,Ja'Marcus Ingram,CB,DB,2026,11,REG,HOU,IND,0,0,0,0,,0,0,0,0,0,0,0
 00-0037663,J.Johnson,Jermaine Johnson II,DE,DL,2026,11,REG,TEN,DAL,0,0,0,0,,0,0,0,0,0,0,0
 00-0037666,J.Tolbert,Jalen Tolbert,WR,WR,2026,11,REG,MIA,BUF,0,0,0,0,,0,0,0,1,1,17,0
@@ -29361,11 +29390,14 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0037686,T.Addington,Tucker Addington,LS,SPEC,2026,11,REG,MIA,BUF,0,0,0,0,,0,0,0,0,0,0,0
 00-0037692,B.Aubrey,Brandon Aubrey,K,SPEC,2026,11,REG,DAL,TEN,0,0,0,0,,0,0,0,0,0,0,0
 00-0037740,G.Wilson,Garrett Wilson,WR,WR,2026,11,REG,NYJ,LAC,0,0,0,0,,0,0,0,5,3,39,0
+00-0037742,T.Burks,Treylon Burks,WR,WR,2026,11,REG,WAS,CIN,0,0,0,0,,0,0,0,3,2,30,0
+00-0037743,D.Hill,Daxton Hill,DB,DB,2026,11,REG,CIN,WAS,0,0,0,0,,0,0,0,0,0,0,0
 00-0037744,T.McBride,Trey McBride,TE,TE,2026,11,REG,ARI,KC,0,0,0,0,,1,4,0,14,9,54,0
 00-0037756,T.Jones,Travis Jones,DT,DL,2026,11,REG,BAL,CAR,0,0,0,0,,0,0,0,0,0,0,0
 00-0037758,C.Flott,Cordale Flott,CB,DB,2026,11,REG,TEN,DAL,0,0,0,0,,0,0,0,0,0,0,0
 00-0037799,D.Tillman,Dondrea Tillman,LB,LB,2026,11,REG,DEN,LV,0,0,0,0,,0,0,0,0,0,0,0
 00-0037801,K.Turpin,KaVontae Turpin,WR,WR,2026,11,REG,DAL,TEN,0,0,0,0,,2,41,1,1,0,0,0
+00-0037809,C.Okonkwo,Chig Okonkwo,TE,TE,2026,11,REG,WAS,CIN,0,0,0,0,,0,0,0,5,4,66,0
 00-0037811,C.Muma,Chad Muma,LB,LB,2026,11,REG,HOU,IND,0,0,0,0,,0,0,0,0,0,0,0
 00-0037834,B.Purdy,Brock Purdy,QB,QB,2026,11,REG,SF,MIN,21,26,255,3,,0,0,0,0,0,0,0
 00-0037835,L.Goedeke,Luke Goedeke,OT,OL,2026,11,REG,TB,DET,0,0,0,0,,0,0,0,0,0,0,0
@@ -29373,6 +29405,7 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0037839,C.Durant,Cobie Durant,CB,DB,2026,11,REG,DAL,TEN,0,0,0,0,,0,0,0,0,0,0,0
 00-0037842,D.Kendrick,Derion Kendrick,CB,DB,2026,11,REG,DAL,TEN,0,0,0,0,,0,0,0,0,0,0,0
 00-0037843,D.Hardy,Daniel Hardy,DE,DL,2026,11,REG,CHI,NO,0,0,0,0,,0,0,0,0,0,0,0
+00-0037844,R.Yeast,Russ Yeast,SAF,DB,2026,11,REG,CIN,WAS,0,0,0,0,,0,0,0,0,0,0,0
 00-0038038,K.Hamilton,Kyle Hamilton,SAF,DB,2026,11,REG,BAL,CAR,0,0,0,0,,0,0,0,0,0,0,0
 00-0038043,Jo.Williams,Joshua Williams,CB,DB,2026,11,REG,TEN,DAL,0,0,0,0,,0,0,0,0,0,0,0
 00-0038046,C.Kolar,Charlie Kolar,TE,TE,2026,11,REG,LAC,NYJ,0,0,0,0,,0,0,0,1,1,8,0
@@ -29387,6 +29420,7 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0038125,R.McCreary,Roger McCreary,CB,DB,2026,11,REG,DET,TB,0,0,0,0,,0,0,0,0,0,0,0
 00-0038127,L.Hall,Logan Hall,DE,DL,2026,11,REG,HOU,IND,0,0,0,0,,0,0,0,0,0,0,0
 00-0038129,C.Otton,Cade Otton,TE,TE,2026,11,REG,TB,DET,0,0,0,0,,0,0,0,3,1,8,0
+00-0038133,B.Mafe,Boye Mafe,DE,DL,2026,11,REG,CIN,WAS,0,0,0,0,,0,0,0,0,0,0,0
 00-0038135,J.Brisker,Jaquan Brisker,SAF,DB,2026,11,REG,PIT,PHI,0,0,0,0,,0,0,0,0,0,0,0
 00-0038386,J.Carter,Jalen Carter,DT,DL,2026,11,REG,PHI,PIT,0,0,0,0,,0,0,0,0,0,0,0
 00-0038387,C.Wooden,Colby Wooden,DE,DL,2026,11,REG,NO,CHI,0,0,0,0,,0,0,0,0,0,0,0
@@ -29402,12 +29436,15 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0038536,C.Zavala,Chandler Zavala,G,OL,2026,11,REG,TEN,DAL,0,0,0,0,,0,0,0,0,0,0,0
 00-0038541,T.Wilson,Tyree Wilson,DE,DL,2026,11,REG,NO,CHI,0,0,0,0,,0,0,0,0,0,0,0
 00-0038544,Q.Johnston,Quentin Johnston,WR,WR,2026,11,REG,LAC,NYJ,0,0,0,0,,1,1,0,2,1,9,0
+00-0038546,M.Murphy,Myles Murphy,DE,DL,2026,11,REG,CIN,WAS,0,0,0,0,,0,0,0,0,0,0,0
 00-0038547,L.Schoonmaker,Luke Schoonmaker,TE,TE,2026,11,REG,DAL,TEN,0,0,0,0,,0,0,0,1,1,6,0
 00-0038548,O.Torrence,O'Cyrus Torrence,G,OL,2026,11,REG,BUF,MIA,0,0,0,0,,0,0,0,0,0,0,0
+00-0038549,D.Turner,DJ Turner II,CB,DB,2026,11,REG,CIN,WAS,0,0,0,0,,0,0,0,0,0,0,0
 00-0038552,R.Moss,Riley Moss,CB,DB,2026,11,REG,DEN,LV,0,0,0,0,,0,0,0,0,0,0,0
 00-0038554,J.Brown,Ji'Ayir Brown,SAF,DB,2026,11,REG,SF,MIN,0,0,0,0,,0,0,0,0,0,0,0
 00-0038556,D.Overshown,DeMarvion Overshown,LB,LB,2026,11,REG,DAL,TEN,0,0,0,0,,0,0,0,0,0,0,0
 00-0038558,D.Washington,Darnell Washington,TE,TE,2026,11,REG,PIT,PHI,0,0,0,0,,0,0,0,3,3,22,0
+00-0038560,J.Battle,Jordan Battle,SAF,DB,2026,11,REG,CIN,WAS,0,0,0,0,,0,0,0,0,0,0,0
 00-0038563,T.Tucker,Tre Tucker,WR,WR,2026,11,REG,LV,DEN,0,0,0,0,,0,0,0,10,2,50,0
 00-0038567,C.Ryland,Chad Ryland,K,SPEC,2026,11,REG,ARI,KC,0,0,0,0,,0,0,0,0,0,0,0
 00-0038568,C.Phillips,Clark Phillips III,CB,DB,2026,11,REG,CHI,NO,0,0,0,0,,0,0,0,0,0,0,0
@@ -29416,6 +29453,7 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0038581,K.Henry,KJ Henry,DE,DL,2026,11,REG,PIT,PHI,0,0,0,0,,0,0,0,0,0,0,0
 00-0038588,J.Howden,Jordan Howden,SAF,DB,2026,11,REG,NO,CHI,0,0,0,0,,0,0,0,0,0,0,0
 00-0038596,A.Johnson,Antonio Johnson,SAF,DB,2026,11,REG,JAX,NYG,0,0,0,0,,0,0,0,0,0,0,0
+00-0038597,C.Brown,Chase Brown,RB,RB,2026,11,REG,CIN,WAS,0,0,0,0,,6,6,0,8,5,30,0
 00-0038599,H.To'oTo'o,Henry To'oTo'o,LB,LB,2026,11,REG,HOU,IND,0,0,0,0,,0,0,0,0,0,0,0
 00-0038606,P.Washington,Parker Washington,WR,WR,2026,11,REG,JAX,NYG,0,0,0,0,,0,0,0,17,8,103,0
 00-0038608,K.Boutte,Kayshon Boutte,WR,WR,2026,11,REG,HOU,IND,0,0,0,0,,0,0,0,2,2,40,1
@@ -29472,6 +29510,7 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0039140,K.Ringo,Kelee Ringo,CB,DB,2026,11,REG,PHI,PIT,0,0,0,0,,0,0,0,0,0,0,0
 00-0039141,B.Branch,Brian Branch,CB,DB,2026,11,REG,DET,TB,0,0,0,0,,0,0,0,0,0,0,0
 00-0039148,K.White,Keion White,DE,DL,2026,11,REG,SF,MIN,0,0,0,0,,0,0,0,0,0,0,0
+00-0039149,Q.Martin,Quan Martin,SAF,DB,2026,11,REG,WAS,CIN,0,0,0,0,,0,0,0,0,0,0,0
 00-0039150,B.Young,Bryce Young,QB,QB,2026,11,REG,CAR,BAL,22,30,254,2,,2,-2,0,0,0,0,0
 00-0039156,J.Brents,Julius Brents,CB,DB,2026,11,REG,MIA,BUF,0,0,0,0,,0,0,0,0,0,0,0
 00-0039163,C.Stroud,C.J. Stroud,QB,QB,2026,11,REG,HOU,IND,21,27,194,3,,6,27,0,0,0,0,0
@@ -29485,18 +29524,23 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0039234,T.Tampa,T.J. Tampa,CB,DB,2026,11,REG,BAL,CAR,0,0,0,0,,0,0,0,0,0,0,0
 00-0039239,K.King,Kalen King,CB,DB,2026,11,REG,ARI,KC,0,0,0,0,,0,0,0,0,0,0,0
 00-0039265,G.Hall,Gabe Hall,DT,DL,2026,11,REG,PHI,PIT,0,0,0,0,,0,0,0,0,0,0,0
+00-0039313,S.Bozeman,Swayze Bozeman,LB,LB,2026,11,REG,CIN,WAS,0,0,0,0,,0,0,0,0,0,0,0
+00-0039323,R.Rehkow,Ryan Rehkow,P,SPEC,2026,11,REG,CIN,WAS,0,0,0,0,,0,0,0,0,0,0,0
 00-0039324,C.Roland-Wallace,Christian Roland-Wallace,CB,DB,2026,11,REG,KC,ARI,0,0,0,0,,0,0,0,0,0,0,0
 00-0039337,M.Nabers,Malik Nabers,WR,WR,2026,11,REG,NYG,JAX,0,0,0,0,,0,0,0,12,7,55,1
 00-0039343,K.Lassiter,Kamari Lassiter,CB,DB,2026,11,REG,HOU,IND,0,0,0,0,,0,0,0,0,0,0,0
 00-0039345,R.Green,Renardo Green,CB,DB,2026,11,REG,SF,MIN,0,0,0,0,,0,0,0,0,0,0,0
 00-0039348,C.Beebe,Cooper Beebe,C,OL,2026,11,REG,DAL,TEN,0,0,0,0,,0,0,0,0,0,0,0
 00-0039349,D.Glaze,DJ Glaze,OT,OL,2026,11,REG,LV,DEN,0,0,0,0,,0,0,0,0,0,0,0
+00-0039355,L.McCaffrey,Luke McCaffrey,WR,WR,2026,11,REG,WAS,CIN,0,0,0,0,,0,0,0,0,0,0,0
 00-0039360,M.Mustapha,Malik Mustapha,SAF,DB,2026,11,REG,SF,MIN,0,0,0,0,,0,0,0,0,0,0,0
 00-0039361,B.Irving,Bucky Irving,RB,RB,2026,11,REG,TB,DET,0,0,0,0,,18,68,1,4,3,32,0
 00-0039364,S.Vaki,Sione Vaki,RB,RB,2026,11,REG,DET,TB,0,0,0,0,,1,-1,0,1,1,7,0
 00-0039365,J.Cowing,Jacob Cowing,WR,WR,2026,11,REG,SF,MIN,0,0,0,0,,0,0,0,0,0,0,0
+00-0039368,J.Magee,Jordan Magee,LB,LB,2026,11,REG,WAS,CIN,0,0,0,0,,0,0,0,0,0,0,0
 00-0039369,C.Hart,Cam Hart,CB,DB,2026,11,REG,LAC,NYJ,0,0,0,0,,0,0,0,0,0,0,0
 00-0039371,K.Abrams-Draine,Kris Abrams-Draine,CB,DB,2026,11,REG,DEN,LV,0,0,0,0,,0,0,0,0,0,0,0
+00-0039375,J.Newton,Josh Newton,CB,DB,2026,11,REG,CIN,WAS,0,0,0,0,,0,0,0,0,0,0,0
 00-0039380,C.Smith-Wade,Chau Smith-Wade,CB,DB,2026,11,REG,CAR,BAL,0,0,0,0,,0,0,0,0,0,0,0
 00-0039391,K.Vidal,Kimani Vidal,RB,RB,2026,11,REG,LAC,NYJ,0,0,0,0,,7,36,0,2,2,18,0
 00-0039398,J.Milton,Joe Milton III,QB,QB,2026,11,REG,PHI,PIT,11,21,141,0,,5,7,0,0,0,0,0
@@ -29518,6 +29562,9 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0039532,J.Wood,Julius Wood,DB,DB,2026,11,REG,MIA,BUF,0,0,0,0,,0,0,0,0,0,0,0
 00-0039576,S.Shrader,Spencer Shrader,K,SPEC,2026,11,REG,IND,HOU,0,0,0,0,,0,0,0,0,0,0,0
 00-0039589,K.Johnson,Kameron Johnson,WR,WR,2026,11,REG,TB,DET,0,0,0,0,,0,0,0,0,0,0,0
+00-0039632,P.Jules,PJ Jules,SAF,DB,2026,11,REG,CIN,WAS,0,0,0,0,,0,0,0,0,0,0,0
+00-0039681,T.Owens,Tyler Owens,DB,DB,2026,11,REG,WAS,CIN,0,0,0,0,,0,0,0,0,0,0,0
+00-0039686,C.Yankoff,Colson Yankoff,TE,TE,2026,11,REG,WAS,CIN,0,0,0,0,,0,0,0,0,0,0,0
 00-0039703,C.Schrader,Cody Schrader,RB,RB,2026,11,REG,DEN,LV,0,0,0,0,,1,3,0,0,0,0,0
 00-0039710,J.Jones,Jeshaun Jones,WR,WR,2026,11,REG,MIN,SF,0,0,0,0,,0,0,0,1,1,8,0
 00-0039732,B.Nix,Bo Nix,QB,QB,2026,11,REG,DEN,LV,19,35,225,1,,6,5,0,0,0,0,0
@@ -29528,6 +29575,7 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0039743,J.Jefferson,Jordan Jefferson,DT,DL,2026,11,REG,MIA,BUF,0,0,0,0,,0,0,0,0,0,0,0
 00-0039745,T.Taylor,Tory Taylor,P,SPEC,2026,11,REG,CHI,NO,0,0,0,0,,0,0,0,0,0,0,0
 00-0039746,W.Shipley,Will Shipley,RB,RB,2026,11,REG,PHI,PIT,0,0,0,0,,4,9,0,0,0,0,0
+00-0039752,C.Johnson,Cedric Johnson,DE,DL,2026,11,REG,CIN,WAS,0,0,0,0,,0,0,0,0,0,0,0
 00-0039763,J.Andreessen,Joe Andreessen,LB,LB,2026,11,REG,BUF,MIA,0,0,0,0,,0,0,0,0,0,0,0
 00-0039792,D.Walker,Devontez Walker,WR,WR,2026,11,REG,BAL,CAR,0,0,0,0,,0,0,0,1,1,34,0
 00-0039794,B.Allen,Braelon Allen,RB,RB,2026,11,REG,NYJ,LAC,0,0,0,0,,16,75,0,1,1,9,0
@@ -29560,7 +29608,11 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0039893,Bri.Thomas,Brian Thomas Jr.,WR,WR,2026,11,REG,JAX,NYG,0,0,0,0,,0,0,0,3,1,18,1
 00-0039894,X.Worthy,Xavier Worthy,WR,WR,2026,11,REG,KC,ARI,0,0,0,0,,0,0,0,4,2,38,1
 00-0039896,Z.Frazier,Zach Frazier,C,OL,2026,11,REG,PIT,PHI,0,0,0,0,,0,0,0,0,0,0,0
+00-0039898,M.Sainristil,Mike Sainristil,CB,DB,2026,11,REG,WAS,CIN,0,0,0,0,,0,0,0,0,0,0,0
 00-0039901,K.Coleman,Keon Coleman,WR,WR,2026,11,REG,BUF,MIA,0,0,0,0,,0,0,0,4,2,17,0
+00-0039906,J.Newton,Jer'Zhan Newton,DT,DL,2026,11,REG,WAS,CIN,0,0,0,0,,0,0,0,0,0,0,0
+00-0039908,K.Jenkins,Kris Jenkins,DT,DL,2026,11,REG,CIN,WAS,0,0,0,0,,0,0,0,0,0,0,0
+00-0039910,J.Daniels,Jayden Daniels,QB,QB,2026,11,REG,WAS,CIN,23,35,289,0,,6,55,0,0,0,0,0
 00-0039911,C.Robinson,Chop Robinson,LB,LB,2026,11,REG,MIA,BUF,0,0,0,0,,0,0,0,0,0,0,0
 00-0039915,L.McConkey,Ladd McConkey,WR,WR,2026,11,REG,LAC,NYJ,0,0,0,0,,0,0,0,8,5,37,2
 00-0039918,C.Williams,Caleb Williams,QB,QB,2026,11,REG,CHI,NO,15,23,181,2,,4,11,0,0,0,0,0
@@ -29594,6 +29646,7 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0040134,P.Bryant,Pat Bryant,WR,WR,2026,11,REG,DEN,LV,0,0,0,0,,0,0,0,4,3,32,0
 00-0040136,P.Umanmielen,Princely Umanmielen,LB,LB,2026,11,REG,CAR,BAL,0,0,0,0,,0,0,0,0,0,0,0
 00-0040139,J.Walley,Justin Walley,CB,DB,2026,11,REG,IND,HOU,0,0,0,0,,0,0,0,0,0,0,0
+00-0040140,D.Fairchild,Dylan Fairchild,G,OL,2026,11,REG,CIN,WAS,0,0,0,0,,0,0,0,0,0,0,0
 00-0040141,K.Winston,Kevin Winston Jr.,SAF,DB,2026,11,REG,TEN,DAL,0,0,0,0,,0,0,0,0,0,0,0
 00-0040143,J.Parrish,Jacob Parrish,CB,DB,2026,11,REG,TB,DET,0,0,0,0,,0,0,0,0,0,0,0
 00-0040144,J.Caldwell,Jamaree Caldwell,DT,DL,2026,11,REG,LAC,NYJ,0,0,0,0,,0,0,0,0,0,0,0
@@ -29602,6 +29655,7 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0040152,U.Stout,Upton Stout,CB,DB,2026,11,REG,SF,MIN,0,0,0,0,,0,0,0,0,0,0,0
 00-0040154,T.Felton,Tai Felton,WR,WR,2026,11,REG,MIN,SF,0,0,0,0,,0,0,0,12,6,42,0
 00-0040155,D.Stutsman,Danny Stutsman,LB,LB,2026,11,REG,NO,CHI,0,0,0,0,,0,0,0,0,0,0,0
+00-0040157,B.Carter,Barrett Carter,LB,LB,2026,11,REG,CIN,WAS,0,0,0,0,,0,0,0,0,0,0,0
 00-0040158,D.Walker,David Walker,LB,LB,2026,11,REG,TB,DET,0,0,0,0,,0,0,0,0,0,0,0
 00-0040160,J.Sawyer,Jack Sawyer,LB,LB,2026,11,REG,PIT,PHI,0,0,0,0,,0,0,0,0,0,0,0
 00-0040165,M.Moore,Malachi Moore,SAF,DB,2026,11,REG,NYJ,LAC,0,0,0,0,,0,0,0,0,0,0,0
@@ -29622,8 +29676,10 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0040199,J.Pegues,JJ Pegues,DT,DL,2026,11,REG,LV,DEN,0,0,0,0,,0,0,0,0,0,0,0
 00-0040201,M.Harris,Marcus Harris,CB,DB,2026,11,REG,TEN,DAL,0,0,0,0,,0,0,0,0,0,0,0
 00-0040207,T.Smith,Tim Smith,DT,DL,2026,11,REG,IND,HOU,0,0,0,0,,0,0,0,0,0,0,0
+00-0040208,T.Brooks,Tahj Brooks,RB,RB,2026,11,REG,CIN,WAS,0,0,0,0,,0,0,0,0,0,0,0
 00-0040209,J.Mcleod,Jalen McLeod,LB,LB,2026,11,REG,JAX,NYG,0,0,0,0,,0,0,0,0,0,0,0
 00-0040215,G.Bartholomew,Gavin Bartholomew,TE,TE,2026,11,REG,MIN,SF,0,0,0,0,,0,0,0,3,1,5,0
+00-0040216,K.Medrano,Kain Medrano,LB,LB,2026,11,REG,WAS,CIN,0,0,0,0,,0,0,0,0,0,0,0
 00-0040221,R.Mickens,R.J. Mickens,SAF,DB,2026,11,REG,LAC,NYJ,0,0,0,0,,0,0,0,0,0,0,0
 00-0040223,J.Crawshaw,Jeremy Crawshaw,P,SPEC,2026,11,REG,DEN,LV,0,0,0,0,,0,0,0,0,0,0,0
 00-0040227,J.Monheim,Jonah Monheim,C,OL,2026,11,REG,JAX,NYG,0,0,0,0,,0,0,0,0,0,0,0
@@ -29633,11 +29689,13 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0040236,K.Monangai,Kyle Monangai,RB,RB,2026,11,REG,CHI,NO,0,0,0,0,,8,18,0,1,0,0,0
 00-0040237,T.Johnson,Tez Johnson,WR,WR,2026,11,REG,TB,DET,0,0,0,0,,0,0,0,3,2,17,0
 00-0040238,L.Allen,LeQuint Allen Jr.,RB,RB,2026,11,REG,JAX,NYG,0,0,0,0,,0,0,0,1,1,-1,0
+00-0040242,J.Croskey-Merritt,Jacory Croskey-Merritt,RB,RB,2026,11,REG,WAS,CIN,0,0,0,0,,13,54,1,3,2,23,0
 00-0040277,J.Walker,Jahdae Walker,WR,WR,2026,11,REG,CHI,NO,0,0,0,0,,0,0,0,0,0,0,0
 00-0040279,R.Fitzgerald,Ryan Fitzgerald,K,SPEC,2026,11,REG,CAR,BAL,0,0,0,0,,0,0,0,0,0,0,0
 00-0040283,J.Harrison-Hunte,Jared Harrison-Hunte,DT,DL,2026,11,REG,ARI,KC,0,0,0,0,,0,0,0,0,0,0,0
 00-0040289,B.Martin-Scott,Bam Martin-Scott,LB,LB,2026,11,REG,CAR,BAL,0,0,0,0,,0,0,0,0,0,0,0
 00-0040298,A.Armstrong,Andrew Armstrong,WR,WR,2026,11,REG,KC,ARI,0,0,0,0,,0,0,0,1,0,0,0
+00-0040318,A.Kaho,Ale Kaho,LB,LB,2026,11,REG,WAS,CIN,0,0,0,0,,0,0,0,0,0,0,0
 00-0040326,B.Combs,Branson Combs,LB,LB,2026,11,REG,JAX,NYG,0,0,0,0,,0,0,0,0,0,0,0
 00-0040347,J.Edwards,Johnathan Edwards,DB,DB,2026,11,REG,IND,HOU,0,0,0,0,,0,0,0,0,0,0,0
 00-0040363,K.Latu,Keleki Latu,TE,TE,2026,11,REG,BUF,MIA,0,0,0,0,,0,0,0,4,1,30,0
@@ -29674,6 +29732,7 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0040672,T.Williams,Tyleik Williams,DT,DL,2026,11,REG,DET,TB,0,0,0,0,,0,0,0,0,0,0,0
 00-0040676,C.Ward,Cam Ward,QB,QB,2026,11,REG,TEN,DAL,21,30,248,2,,2,3,1,0,0,0,0
 00-0040677,A.Carter,Abdul Carter,LB,LB,2026,11,REG,NYG,JAX,0,0,0,0,,0,0,0,0,0,0,0
+00-0040686,J.Conerly,Josh Conerly Jr.,OT,OL,2026,11,REG,WAS,CIN,0,0,0,0,,0,0,0,0,0,0,0
 00-0040688,M.Starks,Malaki Starks,SAF,DB,2026,11,REG,BAL,CAR,0,0,0,0,,0,0,0,0,0,0,0
 00-0040705,C.Dike,Chimere Dike,WR,WR,2026,11,REG,TEN,DAL,0,0,0,0,,1,4,0,7,6,69,0
 00-0040706,W.Nolen,Walter Nolen,DT,DL,2026,11,REG,ARI,KC,0,0,0,0,,0,0,0,0,0,0,0
@@ -29686,12 +29745,15 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0040719,B.Tuten,Bhayshul Tuten,RB,RB,2026,11,REG,JAX,NYG,0,0,0,0,,10,33,0,3,3,20,0
 00-0040720,J.Barron,Jahdae Barron,CB,DB,2026,11,REG,DEN,LV,0,0,0,0,,0,0,0,0,0,0,0
 00-0040722,M.Green,Mike Green,LB,LB,2026,11,REG,BAL,CAR,0,0,0,0,,0,0,0,0,0,0,0
+00-0040723,J.Kiser,Jack Kiser,LB,LB,2026,11,REG,CIN,WAS,0,0,0,0,,0,0,0,0,0,0,0
 00-0040725,D.Ezeiruaku,Donovan Ezeiruaku,LB,LB,2026,11,REG,DAL,TEN,0,0,0,0,,0,0,0,0,0,0,0
 00-0040727,T.Harris,Tre Harris,WR,WR,2026,11,REG,LAC,NYJ,0,0,0,0,,0,0,0,2,2,28,0
 00-0040728,T.Ratledge,Tate Ratledge,G,OL,2026,11,REG,DET,TB,0,0,0,0,,0,0,0,0,0,0,0
 00-0040729,J.Bech,Jack Bech,WR,WR,2026,11,REG,LV,DEN,0,0,0,0,,0,0,0,9,8,88,1
+00-0040731,T.Amos,Trey Amos,CB,DB,2026,11,REG,WAS,CIN,0,0,0,0,,0,0,0,0,0,0,0
 00-0040735,L.Burden,Luther Burden III,WR,WR,2026,11,REG,CHI,NO,0,0,0,0,,1,3,0,3,2,10,0
 00-0040736,M.Taylor,Mason Taylor,TE,TE,2026,11,REG,NYJ,LAC,0,0,0,0,,0,0,0,2,2,25,0
+00-0040738,D.Knight,Demetrius Knight Jr.,LB,LB,2026,11,REG,CIN,WAS,0,0,0,0,,0,0,0,0,0,0,0
 00-0040743,T.Shough,Tyler Shough,QB,QB,2026,11,REG,NO,CHI,25,42,222,1,,3,34,0,0,0,0,0
 00-0040744,J.Tuimoloau,Jaylahn Tuimoloau,DE,DL,2026,11,REG,IND,HOU,0,0,0,0,,0,0,0,0,0,0,0
 00-0040745,A.Ersery,Aireontae Ersery,OT,OL,2026,11,REG,HOU,IND,0,0,0,0,,0,0,0,0,0,0,0
@@ -29699,6 +29761,7 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0040749,A.Mukuba,Andrew Mukuba,SAF,DB,2026,11,REG,PHI,PIT,0,0,0,0,,0,0,0,0,0,0,0
 00-0040752,O.Oladejo,Oluwafemi Oladejo,DE,DL,2026,11,REG,TEN,DAL,0,0,0,0,,0,0,0,0,0,0,0
 00-0040761,A.Hassanein,Ahmed Hassanein,DE,DL,2026,11,REG,DET,TB,0,0,0,0,,0,0,0,0,0,0,0
+00-0040785,D.Meyers,Dohnte Meyers,WR,WR,2026,11,REG,CIN,WAS,0,0,0,0,,0,0,0,2,1,2,0
 00-0040865,C.Downs,Caleb Downs,SAF,DB,2026,11,REG,DAL,TEN,0,0,0,0,,0,0,0,0,0,0,0
 00-0040867,M.Lemon,Makai Lemon,WR,WR,2026,11,REG,PHI,PIT,0,0,0,0,,0,0,0,3,1,3,0
 00-0040868,T.Stukes,Treydan Stukes,SAF,DB,2026,11,REG,LV,DEN,0,0,0,0,,0,0,0,0,0,0,0
@@ -29713,11 +29776,13 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0040978,E.Burke,Ethan Burke,LB,LB,2026,11,REG,BAL,CAR,0,0,0,0,,0,0,0,0,0,0,0
 00-0041013,E.Johnson,Emmett Johnson,RB,RB,2026,11,REG,KC,ARI,0,0,0,0,,23,105,1,4,4,38,0
 00-0041026,D.Bailey,David Bailey,LB,LB,2026,11,REG,NYJ,LAC,0,0,0,0,,0,0,0,0,0,0,0
+00-0041028,S.Styles,Sonny Styles,LB,LB,2026,11,REG,WAS,CIN,0,0,0,0,,0,0,0,0,0,0,0
 00-0041029,J.Tyson,Jordyn Tyson,WR,WR,2026,11,REG,NO,CHI,0,1,0,0,,1,4,0,2,1,6,0
 00-0041032,K.Sadiq,Kenyon Sadiq,TE,TE,2026,11,REG,NYJ,LAC,0,0,0,0,,0,0,0,3,3,30,0
 00-0041036,T.Parker,TJ Parker,LB,LB,2026,11,REG,BUF,MIA,0,0,0,0,,0,0,0,0,0,0,0
 00-0041038,D.Ponds,D'Angelo Ponds,CB,DB,2026,11,REG,NYJ,LAC,0,0,0,0,,0,0,0,0,0,0,0
 00-0041039,C.Allen,CJ Allen,LB,LB,2026,11,REG,IND,HOU,0,0,0,0,,0,0,0,0,0,0,0
+00-0041040,A.Williams,Antonio Williams,WR,WR,2026,11,REG,WAS,CIN,0,0,0,0,,0,0,0,11,9,122,0
 00-0041041,O.Delp,Oscar Delp,TE,TE,2026,11,REG,NO,CHI,0,0,0,0,,0,0,0,1,1,6,0
 00-0041042,M.Fields,Malachi Fields,WR,WR,2026,11,REG,NYG,JAX,0,0,0,0,,0,0,0,5,2,25,0
 00-0041043,A.Haulcy,A.J. Haulcy,SAF,DB,2026,11,REG,IND,HOU,0,0,0,0,,0,0,0,0,0,0,0
@@ -29732,7 +29797,9 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0041064,G.Smith,Genesis Smith,SAF,DB,2026,11,REG,LAC,NYJ,0,0,0,0,,0,0,0,0,0,0,0
 00-0041067,B.Lance,Bryce Lance,WR,WR,2026,11,REG,NO,CHI,0,0,0,0,,0,0,0,1,0,0,0
 00-0041068,E.Prysock,Ephesians Prysock,CB,DB,2026,11,REG,SF,MIN,0,0,0,0,,0,0,0,0,0,0,0
+00-0041069,C.Young,Colbie Young,WR,WR,2026,11,REG,CIN,WAS,0,0,0,0,,0,0,0,2,1,4,1
 00-0041072,N.Barrett,Nick Barrett,DT,DL,2026,11,REG,LAC,NYJ,0,0,0,0,,0,0,0,0,0,0,0
+00-0041074,J.Josephs,Joshua Josephs,LB,LB,2026,11,REG,WAS,CIN,0,0,0,0,,0,0,0,0,0,0,0
 00-0041076,Z.Wheatley,Zakee Wheatley,SAF,DB,2026,11,REG,CAR,BAL,0,0,0,0,,0,0,0,0,0,0,0
 00-0041078,J.Dugger,Jaden Dugger,LB,LB,2026,11,REG,SF,MIN,0,0,0,0,,0,0,0,0,0,0,0
 00-0041080,G.Gumbs,George Gumbs Jr.,DE,DL,2026,11,REG,IND,HOU,0,0,0,0,,0,0,0,0,0,0,0
@@ -29747,6 +29814,7 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0041110,J.van den Berg,Jordan van den Berg,DT,DL,2026,11,REG,CHI,NO,0,0,0,0,,0,0,0,0,0,0,0
 00-0041111,C.Curry,Caden Curry,DE,DL,2026,11,REG,IND,HOU,0,0,0,0,,0,0,0,0,0,0,0
 00-0041113,J.Williams,Jayden Williams,OT,OL,2026,11,REG,ARI,KC,0,0,0,0,,0,0,0,0,0,0,0
+00-0041116,J.Endries,Jack Endries,TE,TE,2026,11,REG,CIN,WAS,0,0,0,0,,0,0,0,5,4,33,0
 00-0041119,J.Kuwatch,Jackson Kuwatch,LB,LB,2026,11,REG,CAR,BAL,0,0,0,0,,0,0,0,0,0,0,0
 00-0041120,V.Payne,VJ Payne,SAF,DB,2026,11,REG,NYJ,LAC,0,0,0,0,,0,0,0,0,0,0,0
 00-0041125,S.McGowan,Seth McGowan,RB,RB,2026,11,REG,IND,HOU,0,0,0,0,,3,7,0,1,1,1,0
@@ -29756,6 +29824,7 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0041148,A.Hall,Aaron Hall,DT,DL,2026,11,REG,CAR,BAL,0,0,0,0,,0,0,0,0,0,0,0
 00-0041159,R.McGraw,Rodney McGraw,DE,DL,2026,11,REG,MIA,BUF,0,0,0,0,,0,0,0,0,0,0,0
 00-0041173,M.Murphy,Mason Murphy,OT,OL,2026,11,REG,NO,CHI,0,0,0,0,,0,0,0,0,0,0,0
+00-0041182,D.Stevens,Drew Stevens,K,SPEC,2026,11,REG,WAS,CIN,0,0,0,0,,0,0,0,0,0,0,0
 00-0041218,Bry.Thomas,Bryan Thomas Jr.,DE,DL,2026,11,REG,JAX,NYG,0,0,0,0,,0,0,0,0,0,0,0
 00-0041261,K.Jobity,Kevin Jobity Jr.,DT,DL,2026,11,REG,PIT,PHI,0,0,0,0,,0,0,0,0,0,0,0
 00-0041320,K.Harris,Kenneth Harris,CB,DB,2026,11,REG,IND,HOU,0,0,0,0,,0,0,0,0,0,0,0
@@ -29775,6 +29844,7 @@ player_id,player_name,player_display_name,position,position_group,season,week,se
 00-0041440,K.McDonald,Kayden McDonald,DT,DL,2026,11,REG,HOU,IND,0,0,0,0,,0,0,0,0,0,0,0
 00-0041441,D.Moore,Derrick Moore,DE,DL,2026,11,REG,DET,TB,0,0,0,0,,0,0,0,0,0,0,0
 00-0041444,K.Elarms-Orr,Kaleb Elarms-Orr,LB,LB,2026,11,REG,BUF,MIA,0,0,0,0,,0,0,0,0,0,0,0
+00-0041464,T.Davis,Tacario Davis,CB,DB,2026,11,REG,CIN,WAS,0,0,0,0,,0,0,0,0,0,0,0
 00-0041465,W.Woodaz,Wade Woodaz,LB,LB,2026,11,REG,HOU,IND,0,0,0,0,,0,0,0,0,0,0,0
 00-0041472,M.Klein,Marlin Klein,TE,TE,2026,11,REG,HOU,IND,0,0,0,0,,0,0,0,4,4,24,1
 00-0041478,L.Hunter,Lee Hunter,DT,DL,2026,11,REG,CAR,BAL,0,0,0,0,,0,0,0,0,0,0,0
